@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+npm
 
-## Getting Started
+css: tailwind css
 
-First, run the development server:
+전역관리: zustand
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+변수명: 축약하지말고 시멘틱하게(btn X → button) ,카멜케이스
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+함수명 : 동사로 , 이벤트핸들러 함수는 handle로 시작
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+컴포넌트 : 화살표함수(기본) , rafce
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+주석: 주석 X, pr템플릿 꼼꼼히 작성 리뷰 꼼꼼히 하기
 
-## Learn More
+- main, dev, feature 브랜치로 관리
+- 브랜치명: feature/기능 , feature/signup, feature/article, hotfix/login 형식으로 사용
 
-To learn more about Next.js, take a look at the following resources:
+기능별로 브랜치파고 머지하고 브랜치 바로 삭제하기
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- PR 사용 필수 (2명) 코드리뷰 간단히라도 하기
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+| 작업 타입   | 작업내용                       |
+| ----------- | ------------------------------ |
+| ✨ update   | 해당 파일에 새로운 기능이 생김 |
+| 🎉 add      | 없던 파일을 생성함, 초기 세팅  |
+| 🐛 bugfix   | 버그 수정                      |
+| ♻️ refactor | 코드 리팩토링                  |
+| 🩹 fix      | 코드 수정                      |
+| 🚚 move     | 파일 옮김/정리                 |
+| 🔥 del      | 기능/파일을 삭제               |
+| 🍻 test     | 테스트 코드를 작성             |
+| 💄 style    | css                            |
+| 🙈 gitfix   | gitignore 수정                 |
+| 🔨script    | package.json 변경(npm 설치 등) |
+# color-diary
