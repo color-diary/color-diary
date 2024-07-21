@@ -3,6 +3,7 @@
 import React from 'react';
 import ColorPicker from '@/components/diary/ColorPicker';
 import EmotionTags from '@/components/diary/EmotionTags';
+import DiaryContent from '@/components/diary/DiaryContent';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -51,6 +52,7 @@ const WritePage = () => {
             <form className="flex flex-col gap-7">
               <ColorPicker />
               <EmotionTags />
+              <DiaryContent />
             </form>
           </div>
         </div>
