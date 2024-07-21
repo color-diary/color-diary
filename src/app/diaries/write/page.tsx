@@ -2,7 +2,7 @@
 
 import React from 'react';
 import ColorPicker from '@/components/diary/ColorPicker';
-import Tags from '@/components/diary/Tags';
+import EmotionTags from '@/components/diary/EmotionTags';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -14,22 +14,28 @@ const WritePage = () => {
     router.replace('/');
   };
 
+  const handleBackward = () => {
+    const confirmed = window.confirm('정말 뒤로 가시겠습니까? 변경 사항이 저장되지 않을 수 있습니다.');
+
+    if (confirmed) {
+      router.replace('/');
+    }
+  };
+
   return (
     <>
       <div className="flex items-center justify-center h-screen">
         <div className="flex flex-col items-center justify-center bg-slate-500 w-5/12 h-5/6  rounded-2xl">
           <div className="flex gap-80">
-            <Link href="/">
-              <button className="flex items-center gap-2 p-7">
-                <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M7.0926 10.9752C7.20526 11.0879 7.26855 11.2407 7.26855 11.4C7.26855 11.5594 7.20526 11.7122 7.0926 11.8248C6.97993 11.9375 6.82713 12.0008 6.6678 12.0008C6.50847 12.0008 6.35566 11.9375 6.243 11.8248L0.842997 6.42483C0.787121 6.3691 0.742789 6.30289 0.712542 6.22999C0.682294 6.1571 0.666724 6.07896 0.666724 6.00003C0.666724 5.92111 0.682294 5.84297 0.712542 5.77007C0.742789 5.69718 0.787121 5.63097 0.842997 5.57523L6.243 0.175234C6.35566 0.0625701 6.50847 -0.000723413 6.6678 -0.00072341C6.82713 -0.000723407 6.97993 0.0625701 7.0926 0.175234C7.20526 0.287898 7.26855 0.440703 7.26855 0.600034C7.26855 0.759365 7.20526 0.91217 7.0926 1.02483L2.1162 6.00003L7.0926 10.9752Z"
-                    fill="black"
-                  />
-                </svg>
-                뒤로가기
-              </button>
-            </Link>
+            <button className="flex items-center gap-2 p-7" onClick={handleBackward}>
+              <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M7.0926 10.9752C7.20526 11.0879 7.26855 11.2407 7.26855 11.4C7.26855 11.5594 7.20526 11.7122 7.0926 11.8248C6.97993 11.9375 6.82713 12.0008 6.6678 12.0008C6.50847 12.0008 6.35566 11.9375 6.243 11.8248L0.842997 6.42483C0.787121 6.3691 0.742789 6.30289 0.712542 6.22999C0.682294 6.1571 0.666724 6.07896 0.666724 6.00003C0.666724 5.92111 0.682294 5.84297 0.712542 5.77007C0.742789 5.69718 0.787121 5.63097 0.842997 5.57523L6.243 0.175234C6.35566 0.0625701 6.50847 -0.000723413 6.6678 -0.00072341C6.82713 -0.000723407 6.97993 0.0625701 7.0926 0.175234C7.20526 0.287898 7.26855 0.440703 7.26855 0.600034C7.26855 0.759365 7.20526 0.91217 7.0926 1.02483L2.1162 6.00003L7.0926 10.9752Z"
+                  fill="black"
+                />
+              </svg>
+              뒤로가기
+            </button>
 
             <button className="flex bg-red-100 m-7" onClick={handleWrite}>
               작성완료
@@ -42,8 +48,10 @@ const WritePage = () => {
             </button>
           </div>
           <div className="flex flex-col gap-7 items-center justify-center bg-slate-100 w-10/12 h-5/6 rounded-2xl mb-6">
-            <ColorPicker />
-            <Tags />
+            <form className="flex flex-col gap-7">
+              <ColorPicker />
+              <EmotionTags />
+            </form>
           </div>
         </div>
       </div>
