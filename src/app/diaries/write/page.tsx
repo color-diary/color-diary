@@ -1,7 +1,8 @@
 'use client';
 
 import React from 'react';
-import ColorPicker from '@/components/diary/colorPicker';
+import ColorPicker from '@/components/diary/ColorPicker';
+import Tags from '@/components/diary/Tags';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -40,8 +41,9 @@ const WritePage = () => {
               </svg>
             </button>
           </div>
-          <div className="flex items-center justify-center bg-slate-100 w-10/12 h-5/6 rounded-2xl mb-6">
+          <div className="flex flex-col gap-7 items-center justify-center bg-slate-100 w-10/12 h-5/6 rounded-2xl mb-6">
             <ColorPicker />
+            <Tags />
           </div>
         </div>
       </div>

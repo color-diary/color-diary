@@ -26,18 +26,17 @@ const ColorPicker = () => {
   return (
     <>
       <div className="flex flex-col gap-3">
-        <p>오늘의 색은 무엇인가요?</p>
+        <p>Q. 오늘의 색은 무엇인가요?</p>
         <div className="flex space-x-2 items-center">
           <br />
           {colors.map((color) => (
             <div
               key={color}
-              className={`w-[40px] h-[40px] rounded-full cursor-pointer bg-${color} ${
+              className={`w-[40px] h-[40px] rounded-full cursor-pointer ${
                 pickedColor === color ? 'border-4 border-black' : ''
               }`}
-              onClick={() => {
-                handleColor(color);
-              }}
+              style={{ backgroundColor: color }}
+              onClick={() => handleColor(color)}
             />
           ))}
           {showRainbow ? (
@@ -59,9 +58,10 @@ const ColorPicker = () => {
                 className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
               />
               <div
-                className={`w-[40px] h-[40px] rounded-full cursor-pointer bg-${customColor} ${
+                className={`w-[40px] h-[40px] rounded-full cursor-pointer ${
                   pickedColor === customColor ? 'border-4 border-black' : ''
                 }`}
+                style={{ backgroundColor: customColor }}
               ></div>
             </div>
           )}
