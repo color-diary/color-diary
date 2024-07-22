@@ -1,8 +1,8 @@
 import { createClient } from '@/utils/supabase/server';
 
-const supabase = createClient();
-
 export const fetchDiaryImage = async (diaryId: string): Promise<string | null> => {
+  const supabase = createClient();
+
   const { data, error } = await supabase.from('diaries').select('img').eq('diaryId', diaryId).single();
 
   if (error) {
