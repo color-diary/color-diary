@@ -8,8 +8,6 @@ const EmotionTags = () => {
   const [emotionTags, setEmotionTags] = useState('');
   const [error, setError] = useState<string | null>(null);
 
-  console.log(emotionTags);
-
   // 태그 유효성 검사 함수
   const validateTags = (tags: string) => {
     // 보류 const tagsArray = tags.match(/#[\w가-힣]+/g) || [];

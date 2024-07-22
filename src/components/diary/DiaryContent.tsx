@@ -8,14 +8,12 @@ const DiaryContent = () => {
   const [diaryContent, setDiaryContent] = useState('');
   const [charCount, setCharCount] = useState(0);
 
-  console.log(diaryContent);
-
   const handleContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const content = event.target.value;
     if (content.length <= 500) {
       setDiaryContent(content);
       setCharCount(content.length);
-      setContent(content); // Zustand 스토어에 내용 저장
+      setContent(content);
     }
   };
 

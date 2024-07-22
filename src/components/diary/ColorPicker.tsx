@@ -9,16 +9,14 @@ const ColorPicker = () => {
   const [showRainbow, setShowRainbow] = useState(true);
   const [pickedColor, setPickedColor] = useState('');
 
-  const { setColor } = useZustandStore(); // Zustand 스토어의 setColor 함수 가져오기
-
-  console.log(pickedColor);
+  const { setColor } = useZustandStore();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const color = event.target.value;
     setCustomColor(color);
     setPickedColor(color);
     setShowRainbow(false);
-    setColor(color); // Zustand 스토어에 색상 저장
+    setColor(color);
   };
 
   const handleRainbowClick = () => {
@@ -27,7 +25,7 @@ const ColorPicker = () => {
 
   const handleColor = (color: string) => {
     setPickedColor(color);
-    setColor(color); // Zustand 스토어에 색상 저장
+    setColor(color);
   };
 
   return (
