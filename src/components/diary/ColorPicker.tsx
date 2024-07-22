@@ -1,12 +1,15 @@
 'use client';
 
 import React, { useState } from 'react';
+import useZustandStore from '@/zustand/zustandStore';
 
 const ColorPicker = () => {
   const colors = ['#FF0000', '#FF7F00', '#FFFF00', '#00FF00', '#0000FF', '#4B0082', '#9400D3'];
   const [customColor, setCustomColor] = useState('');
   const [showRainbow, setShowRainbow] = useState(true);
   const [pickedColor, setPickedColor] = useState('');
+
+  const { setColor } = useZustandStore(); // Zustand 스토어의 setColor 함수 가져오기
 
   console.log(pickedColor);
 
@@ -15,6 +18,7 @@ const ColorPicker = () => {
     setCustomColor(color);
     setPickedColor(color);
     setShowRainbow(false);
+    setColor(color); // Zustand 스토어에 색상 저장
   };
 
   const handleRainbowClick = () => {
@@ -23,6 +27,7 @@ const ColorPicker = () => {
 
   const handleColor = (color: string) => {
     setPickedColor(color);
+    setColor(color); // Zustand 스토어에 색상 저장
   };
 
   return (

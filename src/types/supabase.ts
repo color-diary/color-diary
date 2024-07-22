@@ -26,7 +26,7 @@ export type Database = {
           diaryId?: string
           img?: string | null
           tags: string
-          userId?: string
+          userId: string
         }
         Update: {
           color?: string
@@ -50,7 +50,7 @@ export type Database = {
         Insert: {
           created_at?: string
           email: string
-          id?: string
+          id: string
           nickname: string
           profileImg?: string | null
         }
@@ -61,7 +61,15 @@ export type Database = {
           nickname?: string
           profileImg?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "users_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {

@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
+import useZustandStore from '@/zustand/zustandStore';
 
 const DiaryContent = () => {
+  const { setContent } = useZustandStore();
   const [diaryContent, setDiaryContent] = useState('');
   const [charCount, setCharCount] = useState(0);
 
@@ -13,6 +15,7 @@ const DiaryContent = () => {
     if (content.length <= 500) {
       setDiaryContent(content);
       setCharCount(content.length);
+      setContent(content); // Zustand 스토어에 내용 저장
     }
   };
 

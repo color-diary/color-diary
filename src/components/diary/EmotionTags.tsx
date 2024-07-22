@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
+import useZustandStore from '@/zustand/zustandStore';
 
 const EmotionTags = () => {
+  const { setTags } = useZustandStore();
   const [emotionTags, setEmotionTags] = useState('');
   const [error, setError] = useState<string | null>(null);
 
@@ -53,7 +55,9 @@ const EmotionTags = () => {
       setError(null);
     }
 
+    const tagsArray = (input.match(/#[\w가-힣]+/g) || []).map((tag) => tag.trim());
     setEmotionTags(input);
+    setTags(tagsArray);
   };
 
   return (
