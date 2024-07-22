@@ -1,3 +1,4 @@
+import { uploadImage } from '@/lib/imageStorage';
 import { Diary } from '@/types/diary.type';
 import { createClient } from '@/utils/supabase/server';
 import { NextRequest, NextResponse } from 'next/server';
@@ -17,27 +18,6 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
   if (!userId || !color || !tags || !content || !date) {
     return NextResponse.json({ error: 'All fields except img are required' }, { status: 400 });
   }
-
-  const uploadImage = async (img: File): Promise<string> => {
-    const extension = img.name.split('.').slice(-1)[0];
-    const filename = `/${crypto.randomUUID()}.${extension}`;
-
-    const { error: imageUploadError } = await supabase.storage.from('diaries').upload(filename, img);
-
-    if (imageUploadError) {
-      console.error('Image Upload Error:', imageUploadError);
-      throw new Error('Image Upload Error');
-    }
-
-    const { data } = supabase.storage.from('diaries').getPublicUrl(filename);
-
-    if (!data?.publicUrl) {
-      console.error('Error Getting Image URL');
-      throw new Error('Error Getting Image URL');
-    }
-
-    return data.publicUrl;
-  };
 
   try {
     const imgURL = img ? await uploadImage(img) : null;
