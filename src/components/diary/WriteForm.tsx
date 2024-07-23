@@ -1,6 +1,6 @@
 'use client';
 
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useParams } from 'next/navigation';
@@ -8,8 +8,8 @@ import { useParams } from 'next/navigation';
 import { useState } from 'react';
 // import { useEffect } from 'react';
 import ColorPicker from '@/components/diary/ColorPicker';
-import EmotionTags from '@/components/diary/EmotionTags';
-import DiaryContent from '@/components/diary/DiaryContent';
+import EmotionTagsInput from './EmotionTagsInput';
+import DiaryTextArea from './DiaryTextArea';
 import ImgDrop from '@/components/diary/ImgDrop';
 import useZustandStore from '@/zustand/zustandStore';
 import Link from 'next/link';
@@ -26,7 +26,6 @@ type NewDiary = {
 const WriteForm = () => {
   const router = useRouter();
   const { id: date } = useParams<{ id: string }>();
-  const queryClient = useQueryClient();
   const { color, tags, content, img } = useZustandStore((state) => ({
     color: state.color,
     tags: state.tags,
@@ -129,8 +128,8 @@ const WriteForm = () => {
         <div className="flex flex-col gap-7 items-center justify-center bg-slate-100 w-10/12 h-5/6 rounded-2xl mb-6">
           <form className="flex flex-col gap-7">
             <ColorPicker />
-            <EmotionTags />
-            <DiaryContent />
+            <EmotionTagsInput />
+            <DiaryTextArea />
             <div className="flex relative">
               <ImgDrop />
               <div className="absolute bottom-0 right-0 flex flex-col items-end p-4">

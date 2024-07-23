@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import useZustandStore from '@/zustand/zustandStore';
 
-const EmotionTags = () => {
+const EmotionTagsInput = () => {
   const { setTags } = useZustandStore();
   const [emotionTags, setEmotionTags] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -73,4 +73,4 @@ const EmotionTags = () => {
   );
 };
 
-export default EmotionTags;
+export default EmotionTagsInput;

@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import useZustandStore from '@/zustand/zustandStore';
 
-const DiaryContent = () => {
+const DiaryTextArea = () => {
   const { setContent } = useZustandStore();
   const [diaryContent, setDiaryContent] = useState('');
   const [charCount, setCharCount] = useState(0);
@@ -32,4 +32,4 @@ const DiaryContent = () => {
   );
 };
 
-export default DiaryContent;
+export default DiaryTextArea;
