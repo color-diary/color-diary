@@ -2,10 +2,9 @@
 
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
-import { useParams } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 // import { createClient } from '@/utils/supabase/client';
-import { useState } from 'react';
+// import { useState } from 'react';
 // import { useEffect } from 'react';
 import ColorPicker from '@/components/diary/ColorPicker';
 import EmotionTagsInput from './EmotionTagsInput';
@@ -25,14 +24,16 @@ type NewDiary = {
 
 const WriteForm = () => {
   const router = useRouter();
-  const { id: date } = useParams<{ id: string }>();
+  const params = useParams();
+  const date = params.id as string;
+
   const { color, tags, content, img } = useZustandStore((state) => ({
     color: state.color,
     tags: state.tags,
     content: state.content,
     img: state.img
   }));
-  const [userId, setUserId] = useState<string | null>(null);
+  // const [userId, setUserId] = useState<string | null>(null);
 
   // useEffect(() => {
   //   const fetchSession = async () => {
@@ -61,6 +62,9 @@ const WriteForm = () => {
   //   fetchSession();
   // }, [router]);
 
+  //유저아이디 테스트용 나중에 지울거임
+  const userId = '6ab45165-5743-478e-af02-5e32fd66c7d0';
+
   const mutation = useMutation({
     mutationFn: async (newDiary: NewDiary) => {
       const formData = new FormData();
@@ -71,11 +75,7 @@ const WriteForm = () => {
       if (newDiary.img) formData.append('img', newDiary.img);
       formData.append('date', newDiary.date);
 
-      await axios.post('/api/diaries', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
+      await axios.post('/api/diaries', formData);
     },
     onSuccess: () => {
       alert('작성완료');
