@@ -23,3 +23,9 @@ export type EmotionCount = {
   emotion: Emotion;
   count: number;
 };
+
+export type TestResultType = {
+  result: ResultType;
+  positive: number;
+  negative: number;
+};
