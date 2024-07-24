@@ -2,6 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+.rainbow-gradient {
+  background: linear-gradient(
+    120deg,
+    hsl(0, 100%, 50%),
+    hsl(30, 100%, 50%),
+    hsl(60, 100%, 50%),
+    hsl(90, 100%, 50%),
+    hsl(120, 100%, 50%),
+    hsl(150, 100%, 50%),
+    hsl(180, 100%, 50%),
+    hsl(210, 100%, 50%),
+    hsl(240, 100%, 50%),
+    hsl(270, 100%, 50%),
+    hsl(300, 100%, 50%),
+    hsl(330, 100%, 50%),
+    hsl(0, 100%, 50%)
+  );
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

@@ -1,7 +1,7 @@
 import React from 'react';
 
-const page = () => {
-  return <div>page</div>;
+const DiaryPage = () => {
+  return <div>글조회</div>;
 };
 
-export default page;
+export default DiaryPage;
