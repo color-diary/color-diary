@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     console.log(userData);
     console.error(error);
     if (error) {
-        console.log('로그인 에러=>', error.status)
+        console.error('로그인 에러=>', error.status)
         return NextResponse.json({ message: '로그인에 실패했습니다.' }, { status: error.status })
     } else {
         return NextResponse.json({ message: '로그인에 성공하였습니다.', userData }, { status: 200 });
