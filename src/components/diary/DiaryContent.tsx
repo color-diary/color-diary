@@ -1,34 +1,39 @@
 'use client';
 
-import React, { useState } from 'react';
-import useZustandStore from '@/zustand/zustandStore';
+import React from 'react';
+import { Diary } from '@/types/diary.type';
 
-const DiaryContent = () => {
-  const { setContent } = useZustandStore();
-  const [diaryContent, setDiaryContent] = useState('');
-  const [charCount, setCharCount] = useState(0);
+const DiaryContent = ({ diary }: { diary: Diary }) => {
+  const dateObj = new Date(diary.date);
 
-  const handleContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const content = event.target.value;
-    if (content.length <= 500) {
-      setDiaryContent(content);
-      setCharCount(content.length);
-      setContent(content);
-    }
-  };
+  const year = dateObj.getFullYear();
+  const month = dateObj.getMonth() + 1;
+  const day = dateObj.getDate();
+
+  const formattedDate = `${year}년 ${month}월 ${day}일`;
 
   return (
-    <div className="relative flex flex-col gap-3">
-      <p>Q. 오늘 나의 감정과 관련된 일을 적어주세요</p>
-      <textarea
-        className="w-[380px] h-[100px] rounded-2xl border-2 border-gray-300 p-2 resize-none"
-        placeholder="오늘 감정과 관련된 일을 적어주세요"
-        value={diaryContent}
-        onChange={handleContentChange}
-        maxLength={500}
-      />
-      <div className="absolute bottom-2 right-4 text-gray-500 text-sm">{charCount}/500</div>
-    </div>
+    <>
+      <p className="text-xl font-semibold"> {formattedDate}</p>
+      <div className="flex flex-wrap gap-2">
+        {diary.tags.map((tag, index) => (
+          <span key={index}>#{tag}</span>
+        ))}
+      </div>
+      <div>
+        {diary.img ? (
+          <div className="mb-4">
+            <img src={diary.img} alt="Diary Image" className="w-[480px] h-[280px] rounded-lg" />
+          </div>
+        ) : (
+          <div className="mb-4 w-[40px] h-[40px] rounded-full" style={{ backgroundColor: diary.color }}></div>
+        )}
+      </div>
+      <div className="mb-4">
+        <p>{diary.content}</p>
+      </div>
+      <div className="mb-4"></div>
+    </>
   );
 };
 
