@@ -1,7 +1,12 @@
 import React from 'react';
+import DiaryContainer from '@/components/diary/DiaryContainer';
 
 const DiaryPage = () => {
-  return <div>글조회</div>;
+  return (
+    <>
+      <DiaryContainer />
+    </>
+  );
 };
 
 export default DiaryPage;

@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import useZustandStore from '@/zustand/zustandStore';
 
-const EmotionTags = () => {
+const EmotionTagsInput = () => {
   const { setTags } = useZustandStore();
   const [emotionTags, setEmotionTags] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -44,7 +44,6 @@ const EmotionTags = () => {
   const handleTags = (event: React.ChangeEvent<HTMLInputElement>) => {
     const input = event.target.value;
 
-    // 유효성 검사
     const validationError = validateTags(input);
 
     if (validationError) {
@@ -73,4 +72,4 @@ const EmotionTags = () => {
   );
 };
 
-export default EmotionTags;
+export default EmotionTagsInput;
