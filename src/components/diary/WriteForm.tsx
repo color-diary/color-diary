@@ -35,6 +35,9 @@ const WriteForm = () => {
   }));
   // const [userId, setUserId] = useState<string | null>(null);
 
+  //유저아이디 테스트용 나중에 지울거임
+  const userId = '6ab45165-5743-478e-af02-5e32fd66c7d0';
+
   // useEffect(() => {
   //   const fetchSession = async () => {
   //     try {
@@ -61,9 +64,6 @@ const WriteForm = () => {
 
   //   fetchSession();
   // }, [router]);
-
-  //유저아이디 테스트용 나중에 지울거임
-  const userId = '6ab45165-5743-478e-af02-5e32fd66c7d0';
 
   const mutation = useMutation({
     mutationFn: async (newDiary: NewDiary) => {

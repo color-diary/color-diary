@@ -44,7 +44,6 @@ const EmotionTagsInput = () => {
   const handleTags = (event: React.ChangeEvent<HTMLInputElement>) => {
     const input = event.target.value;
 
-    // 유효성 검사
     const validationError = validateTags(input);
 
     if (validationError) {
