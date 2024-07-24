@@ -9,18 +9,20 @@ const ColorPicker = () => {
   const [showRainbow, setShowRainbow] = useState(true);
   const [pickedColor, setPickedColor] = useState('');
 
-  const { color, setColor } = useZustandStore();
+  const { color, setColor, isDiaryEditMode } = useZustandStore();
 
   useEffect(() => {
-    setPickedColor(color);
+    if (isDiaryEditMode) {
+      setPickedColor(color);
 
-    for (let rainbowColor of colors) {
-      if (color !== rainbowColor) {
+      if (!colors.includes(color)) {
         setShowRainbow(false);
         setCustomColor(color);
+      } else {
+        setShowRainbow(true);
       }
     }
-  }, [color]);
+  }, []);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const color = event.target.value;

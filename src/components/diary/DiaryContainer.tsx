@@ -5,8 +5,9 @@ import { useRouter, useParams } from 'next/navigation';
 import DiaryContent from './DiaryContent';
 import { useQuery } from '@tanstack/react-query';
 import { fetchDiary } from '@/apis/diary';
-import { formatFullDate } from '@/utils/dateUtils';
 import useZustandStore from '@/zustand/zustandStore';
+import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
 
 const DiaryContainer = () => {
   const router = useRouter();
@@ -22,7 +23,21 @@ const DiaryContainer = () => {
     queryFn: () => fetchDiary(diaryId)
   });
 
-  const { setColor, setTags, setContent, setImg } = useZustandStore();
+  const { setColor, setTags, setContent, setImg, setIsDiaryEditMode } = useZustandStore();
+
+  const deleteMutation = useMutation({
+    mutationFn: async () => {
+      await axios.delete(`/api/diaries/${diaryId}`);
+    },
+    onSuccess: () => {
+      alert('Diary deleted successfully');
+      router.push('/');
+    },
+    onError: (error: Error) => {
+      console.error('Error deleting diary:', error);
+      alert('Failed to delete diary. Please try again.');
+    }
+  });
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -47,11 +62,17 @@ const DiaryContainer = () => {
     setColor(diary.color);
     setTags(diary.tags);
     setContent(diary.content);
-    setImg(diary.img ? new File([], diary.img) : null);
+    setImg(diary.img ? diary.img : null);
+    setIsDiaryEditMode(true);
 
-    const formattedDate = formatFullDate(diary.date as string);
+    router.push(`/diaries/edit/${diaryId}`);
+  };
 
-    router.push(`/diaries/write/${formattedDate}`);
+  const handleDelete = () => {
+    const confirmed = window.confirm('정말 삭제하시겠습니까?');
+    if (confirmed) {
+      deleteMutation.mutate();
+    }
   };
 
   return (
@@ -85,7 +106,9 @@ const DiaryContainer = () => {
               <button className="bg-slate-300" onClick={handleEdit}>
                 수정하기
               </button>
-              <button className="bg-slate-400">삭제하기</button>
+              <button className="bg-slate-400" onClick={handleDelete}>
+                삭제하기
+              </button>
             </div>
           </div>
         </div>

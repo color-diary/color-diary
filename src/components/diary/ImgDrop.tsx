@@ -6,14 +6,16 @@ import useZustandStore from '@/zustand/zustandStore';
 import Image from 'next/image';
 
 const ImgDrop = () => {
-  const { img, setImg } = useZustandStore();
+  const { img, setImg, isDiaryEditMode } = useZustandStore();
   const [preview, setPreview] = React.useState<string | null>(null);
 
   useEffect(() => {
-    if (img) {
-      setPreview(img.name);
+    if (isDiaryEditMode) {
+      if (img) {
+        setPreview(img as string);
+      }
     }
-  }, [img]);
+  }, []);
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
