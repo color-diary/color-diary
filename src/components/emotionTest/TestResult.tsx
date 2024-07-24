@@ -17,7 +17,7 @@ const TestResult = ({ emotion, positive, negative }: TestResultProps) => {
     const { data: hasTodayDiary } = await axios.get(`/api/diaries/check?date=${formatFullDate()}`);
 
     if (hasTodayDiary) {
-      router.push('/');
+      alert('오늘 이미 일기를 작성하셨네요!');
     } else {
       router.push(`/diaries/write/${formatFullDate()}`);
     }
