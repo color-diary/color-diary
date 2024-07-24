@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { useEffect } from 'react';
+import axios from 'axios';
 
 const chartData = [
   { browser: 'chrome', visitors: 275, fill: 'var(--color-chrome)' },
@@ -39,11 +40,13 @@ const chartConfig = {
   }
 } satisfies ChartConfig;
 const EmotionChart = () => {
-  // useEffect(()=>{
-  //   const getColor = async () =>{
-  //     const {data : diaries, error} = await SupabaseClient.
-  //   }
-  // },{})
+  useEffect(() => {
+    const getDiaries = async () => {
+      const params = { };
+      const response = await axios.get('/api/diaries', { params });
+    };
+    getDiaries();
+  }, []);
 
   return (
     <Card>
