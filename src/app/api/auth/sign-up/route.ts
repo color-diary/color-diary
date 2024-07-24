@@ -26,11 +26,9 @@ export async function POST(request: NextRequest) {
   console.log(error);
   console.log(nickname);
   if (error) {
-    console.log('회원가입 에러=>', error.status)
+    console.error('회원가입 에러=>', error.status)
     return NextResponse.json({ message: '회원가입에 실패했습니다.' }, { status: error.status })
   } else {
-    // NextResponse.json({ message: '회원가입에 성공하였습니다.' })
-    // return NextResponse.json(userData);
      return NextResponse.json({ message: '회원가입에 성공하였습니다.', userData }, { status: 200 });
   }
 }

@@ -13,8 +13,4 @@ export async function DELETE() {
         await supabase.auth.signOut()
         return NextResponse.json({ message: '로그아웃 성공.' }, { status: 200})
     }
-    // else if (error) {
-    //     console.log(error);
-    //     return NextResponse.json({ message: '로그아웃 실패.' }, { status: error.status })
-    // }
 }
