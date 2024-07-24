@@ -1,7 +1,7 @@
+import QueryProvider from '@/providers/ReactQueryClientProvider';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import QueryProvider from '@/providers/ReactQueryClientProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,6 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script src="https://developers.kakao.com/sdk/js/kakao.js" async></script>
+      </head>
       <body className={inter.className}>
         <QueryProvider>{children}</QueryProvider>
       </body>
