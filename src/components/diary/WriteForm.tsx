@@ -3,9 +3,9 @@
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { useRouter, useParams } from 'next/navigation';
-// import { createClient } from '@/utils/supabase/client';
-// import { useState } from 'react';
-// import { useEffect } from 'react';
+import { createClient } from '@/utils/supabase/client';
+import { useState } from 'react';
+import { useEffect } from 'react';
 import ColorPicker from '@/components/diary/ColorPicker';
 import EmotionTagsInput from './EmotionTagsInput';
 import DiaryTextArea from './DiaryTextArea';
@@ -33,37 +33,34 @@ const WriteForm = () => {
     content: state.content,
     img: state.img
   }));
-  // const [userId, setUserId] = useState<string | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
 
-  //유저아이디 테스트용 나중에 지울거임
-  const userId = '6ab45165-5743-478e-af02-5e32fd66c7d0';
+  useEffect(() => {
+    const fetchSession = async () => {
+      try {
+        const supabase = createClient();
+        const {
+          data: { session },
+          error
+        } = await supabase.auth.getSession();
 
-  // useEffect(() => {
-  //   const fetchSession = async () => {
-  //     try {
-  //       const supabase = createClient();
-  //       const {
-  //         data: { session },
-  //         error
-  //       } = await supabase.auth.getSession();
+        if (error) {
+          throw new Error(error.message);
+        }
 
-  //       if (error) {
-  //         throw new Error(error.message);
-  //       }
+        if (!session) {
+          router.replace('/login');
+          return;
+        }
 
-  //       if (!session) {
-  //         router.replace('/login');
-  //         return;
-  //       }
+        setUserId(session.user.id);
+      } catch (error) {
+        console.error('Failed to get session:', error);
+      }
+    };
 
-  //       setUserId(session.user.id);
-  //     } catch (error) {
-  //       console.error('Failed to get session:', error);
-  //     }
-  //   };
-
-  //   fetchSession();
-  // }, [router]);
+    fetchSession();
+  }, [router]);
 
   const mutation = useMutation({
     mutationFn: async (newDiary: NewDiary) => {
@@ -88,10 +85,10 @@ const WriteForm = () => {
   });
 
   const handleWrite = () => {
-    // if (!userId) {
-    //   alert('로그인이 필요합니다.');
-    //   return;
-    // }
+    if (!userId) {
+      alert('로그인이 필요합니다.');
+      return;
+    }
 
     mutation.mutate({
       userId,
