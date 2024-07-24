@@ -3,12 +3,7 @@ import React from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import DiaryContent from './DiaryContent';
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-
-const fetchDiary = async (id: string) => {
-  const response = await axios.get(`/api/diaries/${id}`);
-  return response.data;
-};
+import { fetchDiary } from '@/apis/diary';
 
 const DiaryContainer = () => {
   const router = useRouter();
@@ -39,7 +34,7 @@ const DiaryContainer = () => {
   const handleBackward = () => {
     const confirmed = window.confirm('정말 뒤로 가시겠습니까?');
     if (confirmed) {
-      router.replace('/');
+      router.back();
     }
   };
 
