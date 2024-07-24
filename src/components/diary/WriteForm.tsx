@@ -1,15 +1,14 @@
 'use client';
 
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
-import { useParams } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 // import { createClient } from '@/utils/supabase/client';
-import { useState } from 'react';
+// import { useState } from 'react';
 // import { useEffect } from 'react';
 import ColorPicker from '@/components/diary/ColorPicker';
-import EmotionTags from '@/components/diary/EmotionTags';
-import DiaryContent from '@/components/diary/DiaryContent';
+import EmotionTagsInput from './EmotionTagsInput';
+import DiaryTextArea from './DiaryTextArea';
 import ImgDrop from '@/components/diary/ImgDrop';
 import useZustandStore from '@/zustand/zustandStore';
 import Link from 'next/link';
@@ -25,15 +24,19 @@ type NewDiary = {
 
 const WriteForm = () => {
   const router = useRouter();
-  const { id: date } = useParams<{ id: string }>();
-  const queryClient = useQueryClient();
+  const params = useParams();
+  const date = params.id as string;
+
   const { color, tags, content, img } = useZustandStore((state) => ({
     color: state.color,
     tags: state.tags,
     content: state.content,
     img: state.img
   }));
-  const [userId, setUserId] = useState<string | null>(null);
+  // const [userId, setUserId] = useState<string | null>(null);
+
+  //유저아이디 테스트용 나중에 지울거임
+  const userId = '6ab45165-5743-478e-af02-5e32fd66c7d0';
 
   // useEffect(() => {
   //   const fetchSession = async () => {
@@ -72,11 +75,7 @@ const WriteForm = () => {
       if (newDiary.img) formData.append('img', newDiary.img);
       formData.append('date', newDiary.date);
 
-      await axios.post('/api/diaries', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
+      await axios.post('/api/diaries', formData);
     },
     onSuccess: () => {
       alert('작성완료');
@@ -129,8 +128,8 @@ const WriteForm = () => {
         <div className="flex flex-col gap-7 items-center justify-center bg-slate-100 w-10/12 h-5/6 rounded-2xl mb-6">
           <form className="flex flex-col gap-7">
             <ColorPicker />
-            <EmotionTags />
-            <DiaryContent />
+            <EmotionTagsInput />
+            <DiaryTextArea />
             <div className="flex relative">
               <ImgDrop />
               <div className="absolute bottom-0 right-0 flex flex-col items-end p-4">
