@@ -30,8 +30,6 @@ export const GET = async (request: NextRequest): Promise<NextResponse> => {
       return NextResponse.json({ error: 'Database Error: Unable to fetch diaries' }, { status: 500 });
     }
 
-    console.log(data.length);
-
     if (data.length === 0) {
       return NextResponse.json(false, { status: 200 });
     } else {
