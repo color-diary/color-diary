@@ -1,12 +1,19 @@
 'use client';
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import useZustandStore from '@/zustand/zustandStore';
+import Image from 'next/image';
 
 const ImgDrop = () => {
-  const { setImg } = useZustandStore();
+  const { img, setImg } = useZustandStore();
   const [preview, setPreview] = React.useState<string | null>(null);
+
+  useEffect(() => {
+    if (img) {
+      setPreview(img.name);
+    }
+  }, [img]);
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
@@ -30,7 +37,13 @@ const ImgDrop = () => {
       >
         <input {...getInputProps()} />
         {preview ? (
-          <img src={preview} alt="Preview" className="w-full h-full object-cover rounded-2xl" />
+          <Image
+            src={preview}
+            alt="Preview"
+            width={120}
+            height={120}
+            className="w-full h-full object-cover rounded-2xl"
+          />
         ) : (
           <div>카메라 svg</div>
         )}

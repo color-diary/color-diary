@@ -1,12 +1,17 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useZustandStore from '@/zustand/zustandStore';
 
 const DiaryTextArea = () => {
-  const { setContent } = useZustandStore();
+  const { content, setContent } = useZustandStore();
   const [diaryContent, setDiaryContent] = useState('');
   const [charCount, setCharCount] = useState(0);
+
+  useEffect(() => {
+    setDiaryContent(content);
+    setCharCount(content.length);
+  }, [content]);
 
   const handleContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const content = event.target.value;

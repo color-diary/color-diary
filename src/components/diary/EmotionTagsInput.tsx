@@ -1,12 +1,16 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useZustandStore from '@/zustand/zustandStore';
 
 const EmotionTagsInput = () => {
-  const { setTags } = useZustandStore();
+  const { tags, setTags } = useZustandStore();
   const [emotionTags, setEmotionTags] = useState('');
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setEmotionTags(tags.join(' '));
+  }, [tags]);
 
   // 태그 유효성 검사 함수
   const validateTags = (tags: string) => {

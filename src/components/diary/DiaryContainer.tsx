@@ -1,9 +1,12 @@
 'use client';
+
 import React from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import DiaryContent from './DiaryContent';
 import { useQuery } from '@tanstack/react-query';
 import { fetchDiary } from '@/apis/diary';
+import { formatFullDate } from '@/utils/dateUtils';
+import useZustandStore from '@/zustand/zustandStore';
 
 const DiaryContainer = () => {
   const router = useRouter();
@@ -18,6 +21,8 @@ const DiaryContainer = () => {
     queryKey: ['diary', diaryId],
     queryFn: () => fetchDiary(diaryId)
   });
+
+  const { setColor, setTags, setContent, setImg } = useZustandStore();
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -36,6 +41,17 @@ const DiaryContainer = () => {
     if (confirmed) {
       router.back();
     }
+  };
+
+  const handleEdit = () => {
+    setColor(diary.color);
+    setTags(diary.tags);
+    setContent(diary.content);
+    setImg(diary.img ? new File([], diary.img) : null);
+
+    const formattedDate = formatFullDate(diary.date as string);
+
+    router.push(`/diaries/write/${formattedDate}`);
   };
 
   return (
@@ -65,6 +81,12 @@ const DiaryContainer = () => {
           </div>
           <div className="flex flex-col items-center justify-center bg-slate-100 w-[520px] h-[550px] rounded-2xl">
             <DiaryContent diary={diary} />
+            <div className="flex gap-5">
+              <button className="bg-slate-300" onClick={handleEdit}>
+                수정하기
+              </button>
+              <button className="bg-slate-400">삭제하기</button>
+            </div>
           </div>
         </div>
       </div>

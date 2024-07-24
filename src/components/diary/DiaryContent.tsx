@@ -16,7 +16,7 @@ const DiaryContent = ({ diary }: { diary: Diary }) => {
       <p className="text-xl font-semibold"> {formattedDate}</p>
       <div className="flex flex-wrap gap-2">
         {diary.tags.map((tag, index) => (
-          <span key={index}>#{tag}</span>
+          <span key={index}>{tag}</span>
         ))}
       </div>
       <div>

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useZustandStore from '@/zustand/zustandStore';
 
 const ColorPicker = () => {
@@ -9,7 +9,18 @@ const ColorPicker = () => {
   const [showRainbow, setShowRainbow] = useState(true);
   const [pickedColor, setPickedColor] = useState('');
 
-  const { setColor } = useZustandStore();
+  const { color, setColor } = useZustandStore();
+
+  useEffect(() => {
+    setPickedColor(color);
+
+    for (let rainbowColor of colors) {
+      if (color !== rainbowColor) {
+        setShowRainbow(false);
+        setCustomColor(color);
+      }
+    }
+  }, [color]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const color = event.target.value;

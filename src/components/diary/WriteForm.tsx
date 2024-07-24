@@ -12,6 +12,7 @@ import DiaryTextArea from './DiaryTextArea';
 import ImgDrop from '@/components/diary/ImgDrop';
 import useZustandStore from '@/zustand/zustandStore';
 import Link from 'next/link';
+import { validateDate } from '@/utils/dateUtils';
 
 type NewDiary = {
   userId: string | null;
@@ -36,6 +37,10 @@ const WriteForm = () => {
   const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!validateDate(date)) {
+      router.push('/notfound');
+    }
+
     const fetchSession = async () => {
       try {
         const supabase = createClient();
@@ -49,7 +54,7 @@ const WriteForm = () => {
         }
 
         if (!session) {
-          router.replace('/login');
+          router.replace('/log-in');
           return;
         }
 
