@@ -1,15 +1,7 @@
-'use client';
-
 import results from '@/data/results';
-import { Emotion, ResultType } from '@/types/test.type';
+import { ResultType, TestResultProps } from '@/types/test.type';
 import { formatDate } from '@/utils/dateUtils';
 import Link from 'next/link';
-
-interface TestResultProps {
-  emotion: Emotion;
-  positive: number;
-  negative: number;
-}
 
 const TestResult = ({ emotion, positive, negative }: TestResultProps) => {
   const resultDetails: ResultType = results.find((result) => result.result === emotion)!;

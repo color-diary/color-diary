@@ -32,8 +32,6 @@ const Test = () => {
     const positive = Math.ceil((positiveCount / TOTAL_QUESTION) * 100);
     const negative = Math.floor((negativeCount / TOTAL_QUESTION) * 100);
 
-    console.log(positiveCount, negativeCount);
-
     setTestResult({ result, positive, negative });
 
     router.push(`/emotion-test/result/?emotion=${todayEmotion}&positive=${positive}&negative=${negative}`);

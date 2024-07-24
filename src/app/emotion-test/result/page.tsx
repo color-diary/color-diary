@@ -1,15 +1,9 @@
 import TestResult from '@/components/emotionTest/TestResult';
-import { Emotion } from '@/types/test.type';
+import { TestResultProps } from '@/types/test.type';
 import { notFound } from 'next/navigation';
 
-type EmotionTestResultPageParams = {
-  emotion: Emotion;
-  positive: string;
-  negative: string;
-};
-
 interface EmotionTestResultPageProps {
-  searchParams: EmotionTestResultPageParams;
+  searchParams: TestResultProps;
 }
 
 const EmotionTestResultPage = ({ searchParams }: EmotionTestResultPageProps) => {

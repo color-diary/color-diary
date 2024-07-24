@@ -29,3 +29,9 @@ export type TestResultType = {
   positive: number;
   negative: number;
 };
+
+export interface TestResultProps {
+  emotion: Emotion;
+  positive: number;
+  negative: number;
+}
