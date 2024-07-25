@@ -1,7 +1,6 @@
-'use client';
-
 import React from 'react';
 import { Diary } from '@/types/diary.type';
+import Image from 'next/image';
 
 const DiaryContent = ({ diary }: { diary: Diary }) => {
   const dateObj = new Date(diary.date);
@@ -17,16 +16,24 @@ const DiaryContent = ({ diary }: { diary: Diary }) => {
       <p className="text-xl font-semibold"> {formattedDate}</p>
       <div className="flex flex-wrap gap-2">
         {diary.tags.map((tag, index) => (
-          <span key={index}>#{tag}</span>
+          <span key={index}>{tag}</span>
         ))}
       </div>
       <div>
         {diary.img ? (
           <div className="mb-4">
-            <img src={diary.img} alt="Diary Image" className="w-[480px] h-[280px] rounded-lg" />
+            <Image
+              src={diary.img}
+              alt="Diary Image"
+              width={480}
+              height={280}
+              className="rounded-lg object-cover"
+              layout="responsive"
+              priority={true}
+            />
           </div>
         ) : (
-          <div className="mb-4 w-[40px] h-[40px] rounded-full" style={{ backgroundColor: diary.color }}></div>
+          <div className="mb-4 w-[380px] h-[250px]" style={{ backgroundColor: diary.color }}></div>
         )}
       </div>
       <div className="mb-4">

@@ -1,7 +1,10 @@
+import MyPageForm from '@/components/myPage/MyPageForm';
 import React from 'react';
 
-const page = () => {
-  return <div>page</div>;
+const MyPage = () => {
+  return (
+    <MyPageForm />
+  )
 };
 
-export default page;
+export default MyPage;

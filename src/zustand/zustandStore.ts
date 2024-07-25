@@ -10,11 +10,13 @@ const zustandStore = create<tZustandStore>((set) => ({
   content: '',
   img: null,
   testResult: null,
+  isDiaryEditMode: false,
   setColor: (color: string) => set({ color }),
   setTags: (tags: string[]) => set({ tags }),
   setContent: (content: string) => set({ content }),
   setImg: (img: File | null) => set({ img }),
-  setTestResult: (testResult: TestResultType | null) => set({ testResult })
+  setTestResult: (testResult: TestResultType | null) => set({ testResult }),
+  setIsDiaryEditMode: (isDiaryEditMode: boolean) => set({ isDiaryEditMode })
 }));
 
 export default zustandStore;
