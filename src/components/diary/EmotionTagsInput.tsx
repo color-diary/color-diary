@@ -1,10 +1,10 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
 import useZustandStore from '@/zustand/zustandStore';
+import { useEffect, useState } from 'react';
 
 const EmotionTagsInput = () => {
-  const { tags, setTags, isDiaryEditMode } = useZustandStore();
+  const { tags, setTags, isDiaryEditMode, testResult, hasTestResult, setHasTestResult } = useZustandStore();
   const [emotionTags, setEmotionTags] = useState('');
   const [error, setError] = useState<string | null>(null);
 
@@ -13,6 +13,10 @@ const EmotionTagsInput = () => {
       if (tags) {
         setEmotionTags(tags.join(' '));
       }
+    } else if (hasTestResult && testResult) {
+      setEmotionTags(testResult.result.emotion);
+
+      setHasTestResult(false);
     }
   }, []);
 

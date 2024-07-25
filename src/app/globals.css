@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --default-color: #25b18c;
+  --pressed-color: #1c876b;
+  --disable-color: #b3efdf;
+
+  --tertiary-color: #3697f2;
+  --tertiary-pressed-color: #0c64b6;
+  --tertiary-disable-color: #c5e1fb;
+
+  --radius: 0.5rem;
+}
+
 .rainbow-gradient {
   background: linear-gradient(
     120deg,
