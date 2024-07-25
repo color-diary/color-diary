@@ -2,11 +2,14 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import SignUpModal from '../signUp/SignUpModal';
+import Router from 'next/router';
+import { useRouter } from 'next/navigation';
 
 const LogInForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const router = useRouter();
 
     // 이메일, 비밀번호 유효성 검사
   const validateEmail = (email: string) => {
@@ -42,6 +45,8 @@ const LogInForm = () => {
         alert(response.data.message);
         setEmail('');
         setPassword('');
+        // 테스트 라우터
+        router.replace('/my-page');
       }
     } catch (error: unknown) {
       if (axios.isAxiosError(error) && error.response)
@@ -57,6 +62,7 @@ const LogInForm = () => {
       if (response.status === 200) {
         alert(response.data.message);
         console.log('로그아웃 성공');
+        router.replace('/log-in');
       }
     } catch (error: unknown) {
       console.log('에러메세지=> ', error);
@@ -126,14 +132,14 @@ const LogInForm = () => {
             회원가입하기
           </button>
         </div>
-        <div className="mt-4 flex justify-between items-center">
+        {/* <div className="mt-4 flex justify-between items-center">
           <button
             onClick={logoutHandler}
             className="text-[#000000] bg-[#CECECE] rounded px-6 py-3 text-lg absolute top-[220px] left-[700px]"
           >
             로그아웃
           </button>
-        </div>
+        </div> */}
       </div>
       <SignUpModal isVisible={isModalVisible} onClose={() => setIsModalVisible(false)} />
     </div>
