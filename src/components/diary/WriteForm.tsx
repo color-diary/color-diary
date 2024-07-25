@@ -3,9 +3,8 @@
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { useRouter, useParams } from 'next/navigation';
-// import { createClient } from '@/utils/supabase/client';
-// import { useState } from 'react';
-// import { useEffect } from 'react';
+import { createClient } from '@/utils/supabase/client';
+import { useState, useEffect } from 'react';
 import ColorPicker from '@/components/diary/ColorPicker';
 import EmotionTagsInput from './EmotionTagsInput';
 import DiaryTextArea from './DiaryTextArea';
@@ -18,7 +17,7 @@ type NewDiary = {
   color: string;
   tags: string[];
   content: string;
-  img: File | null;
+  img: File | string | null;
   date: string;
 };
 
@@ -26,72 +25,108 @@ const WriteForm = () => {
   const router = useRouter();
   const params = useParams();
   const date = params.id as string;
+  const diaryId = params.id as string;
 
-  const { color, tags, content, img } = useZustandStore((state) => ({
+  const { color, tags, content, img, isDiaryEditMode, setIsDiaryEditMode } = useZustandStore((state) => ({
     color: state.color,
     tags: state.tags,
     content: state.content,
-    img: state.img
+    img: state.img,
+    isDiaryEditMode: state.isDiaryEditMode,
+    setIsDiaryEditMode: state.setIsDiaryEditMode
   }));
-  // const [userId, setUserId] = useState<string | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
 
-  //유저아이디 테스트용 나중에 지울거임
-  const userId = '6ab45165-5743-478e-af02-5e32fd66c7d0';
+  useEffect(() => {
+    const fetchSession = async () => {
+      try {
+        const supabase = createClient();
+        const {
+          data: { session },
+          error
+        } = await supabase.auth.getSession();
 
-  // useEffect(() => {
-  //   const fetchSession = async () => {
-  //     try {
-  //       const supabase = createClient();
-  //       const {
-  //         data: { session },
-  //         error
-  //       } = await supabase.auth.getSession();
+        if (error) {
+          throw new Error(error.message);
+        }
 
-  //       if (error) {
-  //         throw new Error(error.message);
-  //       }
+        if (!session) {
+          router.replace('/log-in');
+          return;
+        }
 
-  //       if (!session) {
-  //         router.replace('/login');
-  //         return;
-  //       }
+        setUserId(session.user.id);
+      } catch (error) {
+        console.error('Failed to get session:', error);
+      }
+    };
 
-  //       setUserId(session.user.id);
-  //     } catch (error) {
-  //       console.error('Failed to get session:', error);
-  //     }
-  //   };
-
-  //   fetchSession();
-  // }, [router]);
+    fetchSession();
+  }, [router]);
 
   const mutation = useMutation({
     mutationFn: async (newDiary: NewDiary) => {
+      const urlToFile = async (url: string): Promise<File> => {
+        const response = await fetch(url);
+        const blob = await response.blob();
+        const filename = url.split('/').slice(-1)[0];
+        const extension = filename.split('.').slice(-1)[0];
+        const metadata = { type: `image/${extension}` };
+        return new File([blob], filename, metadata);
+      };
+
       const formData = new FormData();
       if (newDiary.userId) formData.append('userId', newDiary.userId);
       formData.append('color', newDiary.color);
       formData.append('tags', JSON.stringify(newDiary.tags));
       formData.append('content', newDiary.content);
-      if (newDiary.img) formData.append('img', newDiary.img);
+      formData.append('date', newDiary.date);
+      if (newDiary.img) {
+        const file = typeof newDiary.img === 'string' ? await urlToFile(newDiary.img) : newDiary.img;
+        formData.append('img', file);
+      }
+
       formData.append('date', newDiary.date);
 
-      await axios.post('/api/diaries', formData);
+      if (isDiaryEditMode) {
+        await axios.patch(`/api/diaries/${diaryId}`, formData);
+      } else {
+        await axios.post('/api/diaries', formData);
+      }
     },
     onSuccess: () => {
-      alert('작성완료');
+      alert(isDiaryEditMode ? '수정 완료' : '작성 완료');
+      setIsDiaryEditMode(false);
       router.replace('/');
     },
     onError: (error: Error) => {
-      console.error('Error creating diary:', error);
+      console.error('Error saving diary:', error);
       alert('작성 실패. 다시 시도해 주세요.');
     }
   });
 
   const handleWrite = () => {
-    // if (!userId) {
-    //   alert('로그인이 필요합니다.');
-    //   return;
-    // }
+    if (!userId) {
+      alert('로그인이 필요합니다.');
+      return;
+    }
+    if (!isDiaryEditMode) {
+      mutation.mutate({
+        userId,
+        color,
+        tags,
+        content,
+        img,
+        date
+      });
+    }
+  };
+
+  const handleEdit = () => {
+    if (!userId) {
+      alert('로그인이 필요합니다.');
+      return;
+    }
 
     mutation.mutate({
       userId,
@@ -107,7 +142,8 @@ const WriteForm = () => {
     const confirmed = window.confirm('정말 뒤로 가시겠습니까? 변경 사항이 저장되지 않을 수 있습니다.');
 
     if (confirmed) {
-      router.replace('/');
+      router.back();
+      setIsDiaryEditMode(false);
     }
   };
 
@@ -120,8 +156,8 @@ const WriteForm = () => {
             뒤로가기
           </button>
 
-          <button className="flex bg-red-100 m-7" onClick={handleWrite}>
-            작성완료
+          <button className="flex bg-red-100 m-7" onClick={isDiaryEditMode ? handleEdit : handleWrite}>
+            {isDiaryEditMode ? '수정하기' : '작성완료'}
             <div>svg</div>
           </button>
         </div>

@@ -1,13 +1,11 @@
-import React from 'react';
-
 import WriteForm from '@/components/diary/WriteForm';
+import { isValidDate } from '@/utils/paramsValidation';
+import { notFound } from 'next/navigation';
 
-const WritePage = () => {
-  return (
-    <>
-      <WriteForm />
-    </>
-  );
-};
+export default function WritePage({ params }: { params: { id: string } }) {
+  if (!isValidDate(params.id)) {
+    notFound();
+  }
 
-export default WritePage;
+  return <WriteForm />;
+}

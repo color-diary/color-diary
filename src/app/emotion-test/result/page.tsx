@@ -11,7 +11,7 @@ const EmotionTestResultPage = ({ searchParams }: EmotionTestResultPageProps) => 
   const positive = Number(searchParams.positive);
   const negative = Number(searchParams.negative);
 
-  if (!emotion || !positive || !negative || positive + negative !== 100) notFound();
+  if (!emotion || positive == null || negative == null || positive + negative !== 100) notFound();
 
   return <TestResult emotion={emotion} positive={positive} negative={negative} />;
 };
