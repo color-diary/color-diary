@@ -1,9 +1,11 @@
 import React from 'react';
+import { DayProps } from 'react-day-picker';
 
-interface StampProps {}
+interface StampProps {
+  color: string;
+}
 
-const FlowerStamp = ({}: StampProps) => {
-  const color = '#4e4591'; // 색상 받아와서 여기 넣어주기
+const FlowerStamp = ({ color }: StampProps) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none">
       <path

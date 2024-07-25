@@ -1,4 +1,4 @@
-import MainSection from '@/components/main/MainPage';
+import MainSection from '@/components/main/MainSection';
 
 export default function MainPage() {
   return (

@@ -13,10 +13,6 @@ const Cards = ({ diaryList }: CardsProps) => {
   return (
     <>
       {diaryList.map((diary) => {
-        {
-          console.log(diaryList);
-          // console.log(typeof Date(diary.date).getDate());
-        }
         return (
           <div
             key={diary.diaryId}

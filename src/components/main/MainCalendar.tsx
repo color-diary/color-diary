@@ -9,13 +9,9 @@ interface MainCalendarProps {
 }
 
 const MainCalendar = ({ diaryList }: MainCalendarProps) => {
-  diaryList.map((diary: Diary) => {
-    return console.log(new Date(diary.date).getDate());
-  });
-
   return (
     <div>
-      <Calendar mode="single" className="rounded-md border w-[35rem] h-[35rem]" />
+      <Calendar mode="single" className="rounded-md border w-[35rem] h-[35rem]" diaryList={diaryList} />
     </div>
   );
 };

@@ -6,11 +6,14 @@ import { DayPicker } from 'react-day-picker';
 
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
-import FlowerStamp from '../main/FlowerStamp';
+import Stamp from '../Stamp';
+import { useRouter } from 'next/navigation';
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
-function Calendar({ className, classNames, showOutsideDays = true, ...props }: CalendarProps) {
+function Calendar({ className, classNames, showOutsideDays = true, diaryList, ...props }: CalendarProps) {
+  const [DD, setDD] = React.useState('');
+  const route = useRouter();
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
@@ -48,12 +51,24 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
         IconLeft: ({ ...props }) => <ChevronLeft className="h-4 w-4" />,
         IconRight: ({ ...props }) => <ChevronRight className="h-4 w-4" />,
         DayContent: ({ ...props }) => {
-          return (
-            <div className="flex flex-col items-center">
-              <FlowerStamp />
-              {props.date.getDate()}
+          const handleFindDiary = (diary) => {
+            //console.log(new Date(diary.date).getDate() === new Date(props.date).getDate());
+
+            if (new Date(diary.date).getDate() === new Date(props.date).getDate()) {
+              return diary;
+            } else {
+              return false;
+            }
+          };
+          return diaryList.find(handleFindDiary) ? (
+            <div>O</div>
+          ) : (
+            <div>
+              <Stamp color={'#64afe5ad'} />
             </div>
           );
+          //console.log(diaryList.find(handleFindDiary));
+          //console.log(new Date(props.date).getDate(), 'day', diaryList.find(handleFindDiary));
         }
       }}
       {...props}
@@ -63,3 +78,18 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
 Calendar.displayName = 'Calendar';
 
 export { Calendar };
+
+// const handleFindDiary = (arrDiary) => {
+//
+//     ? return <div className="flex flex-col items-center">
+//           <FlowerStamp color={arrDiary.color} />
+//           <p className="font-bold">{props.date.getDate()}</p>
+//         </div>
+//     : dayList.push(
+//         <div className="flex flex-col items-center">
+//           <FlowerStamp color="#FFF" />
+//           <p className="font-bold">{props.date.getDate()}</p>
+//         </div>
+//       );
+// };
+// ;
