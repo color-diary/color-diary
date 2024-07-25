@@ -1,3 +1,7 @@
+# color-diary
+
+## 협업 룰
+
 npm
 
 css: tailwind css
@@ -32,4 +36,11 @@ css: tailwind css
 | 💄 style    | css                            |
 | 🙈 gitfix   | gitignore 수정                 |
 | 🔨script    | package.json 변경(npm 설치 등) |
-# color-diary
+
+## ❗Button 컴포넌트 사용 시 svg 적용하는 법
+
+```tsx
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+  <path d="도형 경로" fill="currentColor" />
+</svg>
+```
