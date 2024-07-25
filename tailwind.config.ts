@@ -52,7 +52,8 @@ const config = {
         disable: 'var(--disable-color)',
         'tertiary-default': 'var(--tertiary-color)',
         'tertiary-pressed': 'var(--tertiary-pressed-color)',
-        'tertiary-disable': 'var(--tertiary-disable-color)'
+        'tertiary-disable': 'var(--tertiary-disable-color)',
+        toast: 'var(--toast-color)'
       },
       borderRadius: {
         lg: 'var(--radius)',

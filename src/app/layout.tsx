@@ -1,4 +1,5 @@
 import QueryProvider from '@/providers/ReactQueryClientProvider';
+import { ToastProvider } from '@/providers/toast.context';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
@@ -21,7 +22,9 @@ export default function RootLayout({
         <script src="https://developers.kakao.com/sdk/js/kakao.js" async></script>
       </head>
       <body className={inter.className}>
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          <ToastProvider>{children}</ToastProvider>
+        </QueryProvider>
       </body>
     </html>
   );
