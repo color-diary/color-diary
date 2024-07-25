@@ -7,10 +7,12 @@ export type tZustandStore = {
   img: File | string | null;
   testResult: TestResultType | null;
   isDiaryEditMode: boolean;
+  hasTestResult: boolean;
   setColor: (color: string) => void;
   setTags: (tags: string[]) => void;
   setContent: (content: string) => void;
   setImg: (img: File | null) => void;
   setTestResult: (result: TestResultType) => void;
   setIsDiaryEditMode: (isDiaryEditMode: boolean) => void;
+  setHasTestResult: (hasTestResult: boolean) => void;
 };
