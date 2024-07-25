@@ -1,6 +1,6 @@
 'use client';
 import { Bar, BarChart, XAxis, YAxis } from 'recharts';
-import { Card, CardContent} from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -50,7 +50,7 @@ const EmotionChart = () => {
   }, [year, month]);
 
   const chartData = [];
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < Math.min(sortedTags.length, 3); i++) {
     chartData.push({ browser: sortedTags[i], visitors: tagCounts[i], fill: 'blue' });
   }
 
@@ -100,7 +100,7 @@ const EmotionChart = () => {
               />
               <XAxis dataKey="visitors" type="number" hide />
               <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-              <Bar dataKey="visitors" layout="vertical" radius={[0, 15, 15, 0]} />
+              <Bar dataKey="visitors" layout="vertical" radius={[0, 15, 15, 0]}  />
             </BarChart>
           </ChartContainer>
         </CardContent>
