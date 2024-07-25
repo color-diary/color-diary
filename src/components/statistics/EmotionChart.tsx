@@ -1,79 +1,115 @@
 'use client';
-import { TrendingUp } from 'lucide-react';
 import { Bar, BarChart, XAxis, YAxis } from 'recharts';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent} from '@/components/ui/card';
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
-import { SupabaseClient } from '@supabase/supabase-js';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Diary } from '@/types/diary.type';
 
-const chartData = [
-  { browser: 'chrome', visitors: 275, fill: 'var(--color-chrome)' },
-  { browser: 'safari', visitors: 200, fill: 'var(--color-safari)' },
-  { browser: 'firefox', visitors: 187, fill: 'var(--color-firefox)' },
-  { browser: 'edge', visitors: 173, fill: 'var(--color-edge)' },
-  { browser: 'other', visitors: 90, fill: 'var(--color-other)' }
-];
-const chartConfig = {
-  visitors: {
-    label: '태그'
-  },
-  chrome: {
-    label: 'Chrome',
-    color: 'hsl(var(--chart-1))'
-  },
-  safari: {
-    label: 'Safari',
-    color: 'hsl(var(--chart-2))'
-  },
-  firefox: {
-    label: 'Firefox',
-    color: 'hsl(var(--chart-3))'
-  },
-  edge: {
-    label: 'Edge',
-    color: 'hsl(var(--chart-4))'
-  },
-  other: {
-    label: 'Other',
-    color: 'hsl(var(--chart-5))'
-  }
-} satisfies ChartConfig;
 const EmotionChart = () => {
+  const today = new Date();
+  const [year, setYear] = useState(today.getFullYear());
+  const [month, setMonth] = useState(today.getMonth() + 1);
+  const [sortedTags, setSortedTags] = useState<string[]>([]);
+  const [tagCounts, setTagCounts] = useState<number[]>([]);
+  const [length, setLength] = useState<number>(0);
+
+  const changeDate = (changeMonth: number) => {
+    if (changeMonth === 0) {
+      changeMonth = 12;
+      setYear(year - 1);
+    } else if (changeMonth === 13) {
+      changeMonth = 1;
+      setYear(year + 1);
+    }
+    setMonth(changeMonth);
+  };
+
   useEffect(() => {
     const getDiaries = async () => {
-      const params = { };
-      const response = await axios.get('/api/diaries', { params });
+      try {
+        const response = await axios.get<Diary[]>(`/api/diaries?year=${year}&month=${month}`);
+        const diaries = response.data;
+        setLength(diaries.length);
+        const allTags = diaries.flatMap((entry) => entry.tags);
+
+        const counts = allTags.reduce<Record<string, number>>((acc, tag) => {
+          acc[tag] = (acc[tag] || 0) + 1;
+          return acc;
+        }, {});
+
+        const sortedTagEntries = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+
+        setSortedTags(sortedTagEntries.map((entry) => entry[0]));
+        setTagCounts(sortedTagEntries.map((entry) => entry[1]));
+      } catch (error) {
+        console.error('Error fetching diaries:', error);
+      }
     };
     getDiaries();
-  }, []);
+  }, [year, month]);
 
+  // const chartData = [
+  //   { browser: sortedTags[0], visitors: tagCounts[0], fill: 'blue' },
+  //   { browser: sortedTags[1], visitors: tagCounts[1], fill: 'blue' },
+  //   { browser: sortedTags[2], visitors: tagCounts[2], fill: 'blue' }
+  // ];
+  const chartData = [];
+  for (let i = 0; i < 3; i++) {
+    chartData.push({ browser: sortedTags[i], visitors: tagCounts[i], fill: 'blue' });
+  }
+
+  const chartConfig = {
+    visitors: {
+      label: '태그 수'
+    },
+    [sortedTags[0]]: {
+      label: sortedTags[0],
+      color: 'hsl(var(--chart-1))'
+    },
+    [sortedTags[1]]: {
+      label: sortedTags[1],
+      color: 'hsl(var(--chart-2))'
+    },
+    [sortedTags[2]]: {
+      label: sortedTags[2],
+      color: 'hsl(var(--chart-3))'
+    }
+  } satisfies ChartConfig;
   return (
     <Card>
-      <CardContent>
-        <ChartContainer config={chartConfig}>
-          <BarChart
-            accessibilityLayer
-            data={chartData}
-            layout="vertical"
-            margin={{
-              left: 0
-            }}
-          >
-            <YAxis
-              dataKey="browser"
-              type="category"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-              tickFormatter={(value) => chartConfig[value as keyof typeof chartConfig]?.label}
-            />
-            <XAxis dataKey="visitors" type="number" hide />
-            <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-            <Bar dataKey="visitors" layout="vertical" radius={5} />
-          </BarChart>
-        </ChartContainer>
-      </CardContent>
+      <div className="flex items-center justify-center gap-3 mt-6 text-lg">
+        <button onClick={() => changeDate(month - 1)}>&lt;</button>
+        {year}.{month}
+        <button onClick={() => changeDate(month + 1)}>&gt;</button>
+      </div>
+      <div className="flex justify-center items-center">
+        <CardContent>
+          <ChartContainer config={chartConfig} className="h-[150px] w-[450px] mt-[40px]">
+            <BarChart
+              accessibilityLayer
+              data={chartData}
+              layout="vertical"
+              margin={{
+                left: 0
+              }}
+              className="font-bold text-lg"
+            >
+              <YAxis
+                dataKey="browser"
+                type="category"
+                tickLine={false}
+                tickMargin={10}
+                axisLine={false}
+                tickFormatter={(value) => chartConfig[value as keyof typeof chartConfig]?.label}
+              />
+              <XAxis dataKey="visitors" type="number" hide />
+              <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
+              <Bar dataKey="visitors" layout="vertical" radius={[0, 15, 15, 0]} />
+            </BarChart>
+          </ChartContainer>
+        </CardContent>
+      </div>
     </Card>
   );
 };
