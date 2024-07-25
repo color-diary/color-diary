@@ -1,6 +1,7 @@
 "use client"
 import { createClient } from '@/utils/supabase/client'
 import axios from 'axios';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 
@@ -43,7 +44,7 @@ const MyPageForm = () => {
         }
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 
@@ -56,7 +57,7 @@ const MyPageForm = () => {
         router.replace('/log-in');
       }
     } catch (error: unknown) {
-      console.log('에러메세지=> ', error);
+      console.error('에러메세지=> ', error);
       if (axios.isAxiosError(error) && error.response)
         alert(error?.response.data.message);
       console.error(error);
@@ -102,7 +103,7 @@ const MyPageForm = () => {
       </div>
       {/* 이미지 업로드 + 보여지는 곳 */}
       <input type="file" onChange={(e) => { if (e.target.files) { addImgFile(e.target.files[0]) } }} />
-      <img src={profileImg || '/default-profile.jpg'} alt="profile" className='w-[100px] h-[100px]' />
+      <Image src={profileImg || '/default-profile.jpg'} alt="" width={100} height={100} />
     </div>
   );
 }
