@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useZustandStore from '@/zustand/zustandStore';
 
 const ColorPicker = () => {
@@ -9,7 +9,20 @@ const ColorPicker = () => {
   const [showRainbow, setShowRainbow] = useState(true);
   const [pickedColor, setPickedColor] = useState('');
 
-  const { setColor } = useZustandStore();
+  const { color, setColor, isDiaryEditMode } = useZustandStore();
+
+  useEffect(() => {
+    if (isDiaryEditMode) {
+      setPickedColor(color);
+
+      if (!colors.includes(color)) {
+        setShowRainbow(false);
+        setCustomColor(color);
+      } else {
+        setShowRainbow(true);
+      }
+    }
+  }, []);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const color = event.target.value;
