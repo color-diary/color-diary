@@ -1,12 +1,20 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useZustandStore from '@/zustand/zustandStore';
 
-const EmotionTags = () => {
-  const { setTags } = useZustandStore();
+const EmotionTagsInput = () => {
+  const { tags, setTags, isDiaryEditMode } = useZustandStore();
   const [emotionTags, setEmotionTags] = useState('');
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (isDiaryEditMode) {
+      if (tags) {
+        setEmotionTags(tags.join(' '));
+      }
+    }
+  }, []);
 
   // 태그 유효성 검사 함수
   const validateTags = (tags: string) => {
@@ -44,7 +52,6 @@ const EmotionTags = () => {
   const handleTags = (event: React.ChangeEvent<HTMLInputElement>) => {
     const input = event.target.value;
 
-    // 유효성 검사
     const validationError = validateTags(input);
 
     if (validationError) {
@@ -73,4 +80,4 @@ const EmotionTags = () => {
   );
 };
 
-export default EmotionTags;
+export default EmotionTagsInput;
