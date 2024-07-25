@@ -4,6 +4,7 @@ import React, { useCallback, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import useZustandStore from '@/zustand/zustandStore';
 import Image from 'next/image';
+import heic2any from 'heic2any';
 
 const ImgDrop = () => {
   const { img, setImg, isDiaryEditMode } = useZustandStore();
@@ -21,13 +22,27 @@ const ImgDrop = () => {
     (acceptedFiles: File[]) => {
       const selectedFile = acceptedFiles[0];
       if (selectedFile) {
-        setImg(selectedFile);
-        setPreview(URL.createObjectURL(selectedFile));
+        if (selectedFile.type === 'image/heif' || selectedFile.type === 'image/heic') {
+          heic2any({ blob: selectedFile, toType: 'image/jpeg' })
+            .then((result) => {
+              const convertedBlob = Array.isArray(result) ? result[0] : result;
+              const file = new File([convertedBlob], selectedFile.name.replace(/\.[^/.]+$/, '.jpg'), {
+                type: 'image/jpeg'
+              });
+              setImg(file);
+              setPreview(URL.createObjectURL(file));
+            })
+            .catch((err) => {
+              console.error('Error converting HEIF image:', err);
+            });
+        } else {
+          setImg(selectedFile);
+          setPreview(URL.createObjectURL(selectedFile));
+        }
       }
     },
     [setImg]
   );
-
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   return (
