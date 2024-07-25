@@ -55,12 +55,6 @@ const ColorChart = () => {
     chartData.push({ browser: `${i}`, visitors: colorCounts[i], fill: sortedColors[i] });
   }
 
-  // const chartData = [
-  //   { browser: '0', visitors: colorCounts[0], fill: sortedColors[0] },
-  //   { browser: '1', visitors: colorCounts[1], fill: sortedColors[1] },
-  //   { browser: '2', visitors: colorCounts[2], fill: sortedColors[2] }
-  // ];
-
   const chartConfig = {
     visitors: {
       label: 'Visitors'
@@ -92,7 +86,7 @@ const ColorChart = () => {
             <Pie data={chartData} dataKey="visitors" />
             <ChartLegend
               content={<ChartLegendContent nameKey="browser" />}
-              className="-translate-y-2 flex-wrap gap-1 [&>*]:basis-1/4 [&>*]:justify-center"
+              className="-translate-y-2 flex-wrap gap-1 [&>*]:basis-1/4 [&>*]:justify-center text-lg"
             />
           </PieChart>
         </ChartContainer>

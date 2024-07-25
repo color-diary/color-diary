@@ -49,11 +49,6 @@ const EmotionChart = () => {
     getDiaries();
   }, [year, month]);
 
-  // const chartData = [
-  //   { browser: sortedTags[0], visitors: tagCounts[0], fill: 'blue' },
-  //   { browser: sortedTags[1], visitors: tagCounts[1], fill: 'blue' },
-  //   { browser: sortedTags[2], visitors: tagCounts[2], fill: 'blue' }
-  // ];
   const chartData = [];
   for (let i = 0; i < 3; i++) {
     chartData.push({ browser: sortedTags[i], visitors: tagCounts[i], fill: 'blue' });
