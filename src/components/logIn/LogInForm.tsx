@@ -132,14 +132,6 @@ const LogInForm = () => {
             회원가입하기
           </button>
         </div>
-        {/* <div className="mt-4 flex justify-between items-center">
-          <button
-            onClick={logoutHandler}
-            className="text-[#000000] bg-[#CECECE] rounded px-6 py-3 text-lg absolute top-[220px] left-[700px]"
-          >
-            로그아웃
-          </button>
-        </div> */}
       </div>
       <SignUpModal isVisible={isModalVisible} onClose={() => setIsModalVisible(false)} />
     </div>
