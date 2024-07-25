@@ -3,6 +3,7 @@
 import results from '@/data/results';
 import { ResultType, TestResultProps } from '@/types/test.type';
 import { formatFullDate } from '@/utils/dateUtils';
+import zustandStore from '@/zustand/zustandStore';
 import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -10,6 +11,7 @@ import ShareButtons from './ShareButtons';
 
 const TestResult = ({ emotion, positive, negative }: TestResultProps) => {
   const router = useRouter();
+  const { setHasTestResult } = zustandStore();
 
   const resultDetails: ResultType = results.find((result) => result.result === emotion)!;
 
@@ -19,6 +21,7 @@ const TestResult = ({ emotion, positive, negative }: TestResultProps) => {
     if (hasTodayDiary) {
       alert('오늘 이미 일기를 작성하셨네요!');
     } else {
+      setHasTestResult(true);
       router.push(`/diaries/write/${formatFullDate()}`);
     }
   };
