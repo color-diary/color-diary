@@ -11,15 +11,8 @@ import DiaryTextArea from './DiaryTextArea';
 import ImgDrop from '@/components/diary/ImgDrop';
 import useZustandStore from '@/zustand/zustandStore';
 import Link from 'next/link';
-
-type NewDiary = {
-  userId: string | null;
-  color: string;
-  tags: string[];
-  content: string;
-  img: File | string | null;
-  date: string;
-};
+import { saveToLocal } from '@/utils/diaryLocalStorage';
+import { NewDiary } from '@/types/diary.type';
 
 const WriteForm = () => {
   const router = useRouter();
@@ -49,13 +42,9 @@ const WriteForm = () => {
         if (error) {
           throw new Error(error.message);
         }
-
-        if (!session) {
-          router.replace('/log-in');
-          return;
+        if (session) {
+          setUserId(session.user.id);
         }
-
-        setUserId(session.user.id);
       } catch (error) {
         console.error('Failed to get session:', error);
       }
@@ -107,7 +96,7 @@ const WriteForm = () => {
 
   const handleWrite = () => {
     if (!userId) {
-      alert('로그인이 필요합니다.');
+      saveToLocal(color, tags, content, img, date);
       return;
     }
     if (!isDiaryEditMode) {
@@ -120,6 +109,7 @@ const WriteForm = () => {
         date
       });
     }
+    router.replace('/');
   };
 
   const handleEdit = () => {
