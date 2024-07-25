@@ -36,10 +36,10 @@ export async function updateSession(request: NextRequest) {
     data: { user }
   } = await supabase.auth.getUser();
   // console.log(request.nextUrl.pathname);
-  if (!user && !request.nextUrl.pathname.startsWith('/log-in') && !request.nextUrl.pathname.startsWith('/auth')) {
+  if (!user && (request.nextUrl.pathname.startsWith('/emotion-test') || request.nextUrl.pathname.startsWith('/statistics') || request.nextUrl.pathname.startsWith('/my-page'))) {
     //no user, potentially respond by redirecting the user to the login page
     const url = request.nextUrl.clone();
-    url.pathname = '/log-in';
+    url.pathname = '/';
     return NextResponse.redirect(url);
   }
 
