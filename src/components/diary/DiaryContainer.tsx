@@ -1,9 +1,13 @@
 'use client';
+
 import React from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import DiaryContent from './DiaryContent';
 import { useQuery } from '@tanstack/react-query';
 import { fetchDiary } from '@/apis/diary';
+import useZustandStore from '@/zustand/zustandStore';
+import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
 
 const DiaryContainer = () => {
   const router = useRouter();
@@ -17,6 +21,22 @@ const DiaryContainer = () => {
   } = useQuery({
     queryKey: ['diary', diaryId],
     queryFn: () => fetchDiary(diaryId)
+  });
+
+  const { setColor, setTags, setContent, setImg, setIsDiaryEditMode } = useZustandStore();
+
+  const deleteMutation = useMutation({
+    mutationFn: async () => {
+      await axios.delete(`/api/diaries/${diaryId}`);
+    },
+    onSuccess: () => {
+      alert('Diary deleted successfully');
+      router.push('/');
+    },
+    onError: (error: Error) => {
+      console.error('Error deleting diary:', error);
+      alert('Failed to delete diary. Please try again.');
+    }
   });
 
   if (isLoading) {
@@ -35,6 +55,23 @@ const DiaryContainer = () => {
     const confirmed = window.confirm('정말 뒤로 가시겠습니까?');
     if (confirmed) {
       router.back();
+    }
+  };
+
+  const handleEdit = () => {
+    setColor(diary.color);
+    setTags(diary.tags);
+    setContent(diary.content);
+    setImg(diary.img ? diary.img : null);
+    setIsDiaryEditMode(true);
+
+    router.push(`/diaries/edit/${diaryId}`);
+  };
+
+  const handleDelete = () => {
+    const confirmed = window.confirm('정말 삭제하시겠습니까?');
+    if (confirmed) {
+      deleteMutation.mutate();
     }
   };
 
@@ -65,6 +102,14 @@ const DiaryContainer = () => {
           </div>
           <div className="flex flex-col items-center justify-center bg-slate-100 w-[520px] h-[550px] rounded-2xl">
             <DiaryContent diary={diary} />
+            <div className="flex gap-5">
+              <button className="bg-slate-300" onClick={handleEdit}>
+                수정하기
+              </button>
+              <button className="bg-slate-400" onClick={handleDelete}>
+                삭제하기
+              </button>
+            </div>
           </div>
         </div>
       </div>
