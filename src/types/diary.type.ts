@@ -1,3 +1,5 @@
+export type DiaryList = Diary[];
+
 export type Diary = {
   diaryId: string;
   userId: string;
