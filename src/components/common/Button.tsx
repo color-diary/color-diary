@@ -14,9 +14,9 @@ const buttonVariant = cva('inline-flex justify-center items-center gap-1 text-ce
       disable: 'cursor-not-allowed'
     },
     size: {
-      sm: 'px-4 py-2 text-sm rounded-lg',
-      md: 'px-5 py-3 text-base rounded-xl',
-      lg: 'px-6 py-3 text-lg rounded-2xl'
+      sm: 'px-4 py-2 text-sm rounded-lg tracking-0.28px',
+      md: 'px-5 py-3 text-base rounded-xl tracking-0.32px',
+      lg: 'px-6 py-3 text-lg rounded-2xl tracking-0.36px'
     }
   },
   compoundVariants: [

@@ -14,7 +14,20 @@ const config = {
     },
     extend: {
       spacing: {
-        '18': '4.5rem'
+        '18': '4.5rem',
+        '140px': '8.75rem',
+        '744px': '46.5rem',
+        '760px': '47.5rem'
+      },
+      fontSize: {
+        '28px': ['1.75rem', { lineHeight: '1.35' }]
+      },
+      letterSpacing: {
+        '0.28px': '-0.0175rem',
+        '0.32px': '-0.02rem',
+        '0.36px': '-0.0225rem',
+        '0.48px': '-0.03rem',
+        '0.56px': '-0.035rem'
       },
       colors: {
         border: 'hsl(var(--border))',
@@ -56,8 +69,12 @@ const config = {
         'tertiary-default': 'var(--tertiary-color)',
         'tertiary-pressed': 'var(--tertiary-pressed-color)',
         'tertiary-disable': 'var(--tertiary-disable-color)',
+        'text-button-disable': 'var( --text-button-disable-color)',
         toast: 'var(--toast-color)',
-        'border-color': 'var(--border-color)'
+        'border-color': 'var(--border-color)',
+        'bg-color': 'var(--bg-color)',
+        layout: 'var(--layout-color)',
+        'font-color': 'var(--font-color)'
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -78,6 +95,9 @@ const config = {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out'
+      },
+      boxShadow: {
+        'custom-inset': '0.5rem 0.5rem 0rem 0rem var(--border-color) inset'
       }
     }
   },
