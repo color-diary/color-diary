@@ -1,20 +1,19 @@
 'use client';
 
+import ColorPicker from '@/components/diary/ColorPicker';
+import ImgDrop from '@/components/diary/ImgDrop';
+import { NewDiary } from '@/types/diary.type';
+import { saveToLocal, updateLocalDiary } from '@/utils/diaryLocalStorage';
+import { urlToFile } from '@/utils/imageFileUtils';
+import { createClient } from '@/utils/supabase/client';
+import useZustandStore from '@/zustand/zustandStore';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-import { useRouter, useParams, notFound } from 'next/navigation';
-import { createClient } from '@/utils/supabase/client';
-import { useState, useEffect } from 'react';
-import ColorPicker from '@/components/diary/ColorPicker';
-import EmotionTagsInput from './EmotionTagsInput';
-import DiaryTextArea from './DiaryTextArea';
-import ImgDrop from '@/components/diary/ImgDrop';
-import useZustandStore from '@/zustand/zustandStore';
 import Link from 'next/link';
-import { saveToLocal, updateLocalDiary } from '@/utils/diaryLocalStorage';
-import { NewDiary } from '@/types/diary.type';
-import { fetchDiaryDate } from '@/apis/diary';
-import { formatFullDate } from '@/utils/dateUtils';
+import { useParams, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import DiaryTextArea from './DiaryTextArea';
+import EmotionTagsInput from './EmotionTagsInput';
 
 const WriteForm = () => {
   const router = useRouter();
@@ -77,15 +76,6 @@ const WriteForm = () => {
 
   const mutation = useMutation({
     mutationFn: async (newDiary: NewDiary) => {
-      const urlToFile = async (url: string): Promise<File> => {
-        const response = await fetch(url);
-        const blob = await response.blob();
-        const filename = url.split('/').slice(-1)[0];
-        const extension = filename.split('.').slice(-1)[0];
-        const metadata = { type: `image/${extension}` };
-        return new File([blob], filename, metadata);
-      };
-
       const formData = new FormData();
       if (newDiary.userId) formData.append('userId', newDiary.userId);
       formData.append('color', newDiary.color);

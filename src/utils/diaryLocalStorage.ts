@@ -1,14 +1,6 @@
-import { v4 as uuidv4 } from 'uuid';
 import { Diary } from '@/types/diary.type';
-
-const convertFileToBase64 = (file: File): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = (error) => reject(error);
-  });
-};
+import { v4 as uuidv4 } from 'uuid';
+import { convertFileToBase64 } from './imageFileUtils';
 
 export const saveToLocal = async (
   color: string,
@@ -60,6 +52,7 @@ export const checkDiaryLimit = (): boolean => {
   }
   return false;
 };
+
 // 특정 날짜에 이미 다이어리가 있는지 체크 함수
 export const checkDiaryExistsForDate = (date: string): boolean => {
   const savedDiaries = JSON.parse(localStorage.getItem('localDiaries') || '[]');
@@ -97,4 +90,14 @@ export const updateLocalDiary = (
 export const fetchLocalDiary = (diaryId: string): Diary | undefined => {
   const savedDiaries = JSON.parse(localStorage.getItem('localDiaries') || '[]') as Diary[];
   return savedDiaries.find((diary) => diary.diaryId === diaryId);
+};
+
+export const fetchLocalDiaries = (): Diary[] => {
+  const savedDiaries = JSON.parse(localStorage.getItem('localDiaries') || '[]') as Diary[];
+
+  return savedDiaries;
+};
+
+export const clearLocalDiaries = (): void => {
+  localStorage.removeItem('localDiaries');
 };
