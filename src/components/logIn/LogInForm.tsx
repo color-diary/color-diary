@@ -4,14 +4,16 @@ import React, { useState } from 'react';
 import SignUpModal from '../signUp/SignUpModal';
 import Router from 'next/router';
 import { useRouter } from 'next/navigation';
+import { loginZustandStore } from '@/zustand/zustandStore';
 
 const LogInForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
   const router = useRouter();
+  const setIsLogin = loginZustandStore(state => state.setIsLogin);
 
-    // 이메일, 비밀번호 유효성 검사
+  // 이메일, 비밀번호 유효성 검사
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     // .test => emailRegex과 패턴이 일치하는지 검사
@@ -45,7 +47,7 @@ const LogInForm = () => {
         alert(response.data.message);
         setEmail('');
         setPassword('');
-        // 테스트 라우터
+        setIsLogin(true);
         router.replace('/');
       }
     } catch (error: unknown) {
@@ -53,23 +55,6 @@ const LogInForm = () => {
         alert(error?.response.data.message);
       console.error(error);
       console.log('로그인 실패')
-    }
-  };
-
-  const logoutHandler = async () => {
-    const response = await axios.delete("/api/auth/log-out");
-    try {
-      if (response.status === 200) {
-        alert(response.data.message);
-        console.log('로그아웃 성공');
-        router.replace('/log-in');
-      }
-    } catch (error: unknown) {
-      console.log('에러메세지=> ', error);
-      if (axios.isAxiosError(error) && error.response)
-        alert(error?.response.data.message);
-      console.error(error);
-      console.log('로그아웃 실패')
     }
   };
 

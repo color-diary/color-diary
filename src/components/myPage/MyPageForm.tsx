@@ -1,5 +1,7 @@
 "use client"
 import { createClient } from '@/utils/supabase/client'
+import { loginZustandStore } from '@/zustand/zustandStore';
+
 import axios from 'axios';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -9,7 +11,7 @@ const MyPageForm = () => {
   const [nickname, setNickname] = useState('');
   const [newNickname, setNewNickname] = useState('');
   const [profileImg, setProfileImg] = useState('');
-
+  const setIsLogin = loginZustandStore(state => state.setIsLogin);
   const router = useRouter();
   const supabase = createClient();
 
@@ -54,6 +56,7 @@ const MyPageForm = () => {
       if (response.status === 200) {
         alert(response.data.message);
         console.log('로그아웃 성공');
+        setIsLogin(false);
         router.replace('/');
       }
     } catch (error: unknown) {
