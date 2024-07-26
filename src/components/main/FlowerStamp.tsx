@@ -1,5 +1,4 @@
 import React from 'react';
-import { DayProps } from 'react-day-picker';
 
 interface StampProps {
   color: string;

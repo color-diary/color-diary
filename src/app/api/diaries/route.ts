@@ -68,7 +68,7 @@ export const GET = async (request: NextRequest): Promise<NextResponse> => {
       .from('diaries')
       .select('*')
       //.eq('userId', authData.user.id)
-      .eq('userId', '6ab45165-5743-478e-af02-5e32fd66c7d0')
+      .eq('userId', '79c7d4d1-7c18-4766-92eb-2e80cd2ab30c')
       .gte('date', startDate)
       .lt('date', endDate);
 

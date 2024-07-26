@@ -9,16 +9,27 @@ import { DiaryList } from '@/types/diary.type';
 
 const MainSection = () => {
   const router = useRouter();
-  const [form, setForm] = React.useState(true);
+  const now = new Date();
   const [diaryList, setDiaryList] = React.useState<DiaryList>([]);
+  const [form, setForm] = React.useState<boolean>(true);
+  const [year, setYear] = React.useState<number>(now.getFullYear());
+  const [month, setMonth] = React.useState<number>(now.getMonth() + 1);
+  const [date, setDate] = React.useState<Date>(now);
 
-  const year = new Date().getFullYear();
-  const month = new Date().getMonth() + 1;
-  const startDate = new Date(Number(year), Number(month) - 1, 1);
-  const endDate = new Date(Number(year), Number(month), 0);
-  //
   const handleChangeForm = () => {
     setForm((prev) => !prev);
+  };
+
+  const handleChangeDate = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const date = new Date(event.target.value);
+    // new Date 남발 금지
+    console.log(date);
+
+    if (date) {
+      setYear(date.getFullYear());
+      setMonth(date.getMonth() + 1);
+      setDate(date);
+    }
   };
 
   const getDiaryList = async () => {
@@ -34,15 +45,15 @@ const MainSection = () => {
     } catch (error) {
       console.log(error);
     }
-    //console.log(startDate.getDate(), endDate.getDate());
-    //console.log('앞부분 남은거', startDate.getDay(), '뒷부분 남은거', 6 - endDate.getDay());
   }, []); // 캐싱하기
 
   return (
     <>
-      <input type="date" />
+      <div>
+        <input type="date" name="date" onChange={(e) => handleChangeDate(e)} />
+      </div>
       <button onClick={() => handleChangeForm()}>캘린더 | 카드</button>
-      {form ? <MainCalendar diaryList={diaryList} /> : <Cards diaryList={diaryList} />}
+      {form ? <MainCalendar diaryList={diaryList} date={date} setDate={setDate} /> : <Cards diaryList={diaryList} />}
       <button
         onClick={() => {
           router.push('/emotion-test');

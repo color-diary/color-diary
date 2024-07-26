@@ -6,13 +6,14 @@ import { DayPicker } from 'react-day-picker';
 
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
-import Stamp from '../Stamp';
+import Stamp from '../main/Stamp';
 import { useRouter } from 'next/navigation';
+import { formatFullDate } from '@/utils/dateUtils';
+import { Diary, DiaryList } from '@/types/diary.type';
 
-export type CalendarProps = React.ComponentProps<typeof DayPicker>;
+export type CalendarProps = React.ComponentProps<typeof DayPicker> & { diaryList: DiaryList };
 
-function Calendar({ className, classNames, showOutsideDays = true, diaryList, ...props }: CalendarProps) {
-  const [DD, setDD] = React.useState('');
+function Calendar({ className, classNames, showOutsideDays = false, diaryList, ...props }: CalendarProps) {
   const route = useRouter();
   return (
     <DayPicker
@@ -51,24 +52,38 @@ function Calendar({ className, classNames, showOutsideDays = true, diaryList, ..
         IconLeft: ({ ...props }) => <ChevronLeft className="h-4 w-4" />,
         IconRight: ({ ...props }) => <ChevronRight className="h-4 w-4" />,
         DayContent: ({ ...props }) => {
-          const handleFindDiary = (diary) => {
-            //console.log(new Date(diary.date).getDate() === new Date(props.date).getDate());
-
-            if (new Date(diary.date).getDate() === new Date(props.date).getDate()) {
-              return diary;
+          const handleFindDiary = (diary: Diary) => {
+            if (formatFullDate(String(diary.date)) === formatFullDate(String(props.date))) {
+              return true; // diary 안넣어도 자동적으로 return 해줌
             } else {
               return false;
             }
           };
-          return diaryList.find(handleFindDiary) ? (
-            <div>O</div>
+          const [diary, setDiary] = React.useState<Diary | undefined>();
+
+          // 비회원인 경우 추가하기
+          // 반복되는 find가 너무 많음(useEffect > useState 교체하기)
+          React.useEffect(() => {
+            setDiary(diaryList.find(handleFindDiary));
+          }, []);
+
+          return diary ? (
+            <div
+              onClick={() => {
+                route.push(`/diaries/${diary.diaryId}`);
+              }}
+            >
+              <Stamp color={diary.color} month={props.date.getMonth()} />
+            </div>
           ) : (
-            <div>
-              <Stamp color={'#64afe5ad'} />
+            <div
+              onClick={() => {
+                route.push(`/diaries/write/${formatFullDate(String(props.date))}`);
+              }}
+            >
+              <Stamp color={'#c1d2deac'} month={props.date.getMonth() + 1} />
             </div>
           );
-          //console.log(diaryList.find(handleFindDiary));
-          //console.log(new Date(props.date).getDate(), 'day', diaryList.find(handleFindDiary));
         }
       }}
       {...props}
@@ -78,18 +93,3 @@ function Calendar({ className, classNames, showOutsideDays = true, diaryList, ..
 Calendar.displayName = 'Calendar';
 
 export { Calendar };
-
-// const handleFindDiary = (arrDiary) => {
-//
-//     ? return <div className="flex flex-col items-center">
-//           <FlowerStamp color={arrDiary.color} />
-//           <p className="font-bold">{props.date.getDate()}</p>
-//         </div>
-//     : dayList.push(
-//         <div className="flex flex-col items-center">
-//           <FlowerStamp color="#FFF" />
-//           <p className="font-bold">{props.date.getDate()}</p>
-//         </div>
-//       );
-// };
-// ;
