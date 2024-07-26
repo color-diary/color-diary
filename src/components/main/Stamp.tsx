@@ -21,7 +21,6 @@ const Stamp = ({ color, month }: StampProps) => {
       return; //winter
     }
   };
-  // 바벨 문법이라서 감쌌던거고
 
   return handleShowSeason();
 };

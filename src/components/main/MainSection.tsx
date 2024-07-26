@@ -22,7 +22,6 @@ const MainSection = () => {
 
   const handleChangeDate = (event: React.ChangeEvent<HTMLInputElement>) => {
     const date = new Date(event.target.value);
-    // new Date 남발 금지
     console.log(date);
 
     if (date) {
@@ -45,7 +44,7 @@ const MainSection = () => {
     } catch (error) {
       console.log(error);
     }
-  }, []); // 캐싱하기
+  }, []);
 
   return (
     <>
