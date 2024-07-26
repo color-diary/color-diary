@@ -2,7 +2,7 @@
 
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-import { useRouter, useParams } from 'next/navigation';
+import { useRouter, useParams, notFound } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
 import { useState, useEffect } from 'react';
 import ColorPicker from '@/components/diary/ColorPicker';
@@ -11,15 +11,10 @@ import DiaryTextArea from './DiaryTextArea';
 import ImgDrop from '@/components/diary/ImgDrop';
 import useZustandStore from '@/zustand/zustandStore';
 import Link from 'next/link';
-
-type NewDiary = {
-  userId: string | null;
-  color: string;
-  tags: string[];
-  content: string;
-  img: File | string | null;
-  date: string;
-};
+import { saveToLocal, updateLocalDiary } from '@/utils/diaryLocalStorage';
+import { NewDiary } from '@/types/diary.type';
+import { fetchDiaryDate } from '@/apis/diary';
+import { formatFullDate } from '@/utils/dateUtils';
 
 const WriteForm = () => {
   const router = useRouter();
@@ -49,13 +44,9 @@ const WriteForm = () => {
         if (error) {
           throw new Error(error.message);
         }
-
-        if (!session) {
-          router.replace('/log-in');
-          return;
+        if (session) {
+          setUserId(session.user.id);
         }
-
-        setUserId(session.user.id);
       } catch (error) {
         console.error('Failed to get session:', error);
       }
@@ -63,6 +54,26 @@ const WriteForm = () => {
 
     fetchSession();
   }, [router]);
+
+  // useEffect(() => {
+  //   const checkHasDiaryData = async (): Promise<void> => {
+  //     if (date) {
+  //       const { data: hasTodayDiary } = await axios.get(`/api/diaries/check?date=${date}`);
+  //       if (hasTodayDiary) {
+  //         alert('오늘 이미 일기를 작성하셨네요!');
+  //         notFound();
+  //       }
+  //     } else {
+  //       const test = await fetchDiaryDate(diaryId);
+  //       const { data: hasTodayDiary } = await axios.get(`/api/diaries/check?date=${formatFullDate(test)}`);
+  //       if (hasTodayDiary) {
+  //         alert('오늘 이미 일기를 작성하셨네요!');
+  //         notFound();
+  //       }
+  //     }
+  //   };
+  //   checkHasDiaryData();
+  // }, []);
 
   const mutation = useMutation({
     mutationFn: async (newDiary: NewDiary) => {
@@ -107,7 +118,8 @@ const WriteForm = () => {
 
   const handleWrite = () => {
     if (!userId) {
-      alert('로그인이 필요합니다.');
+      saveToLocal(color, tags, content, img, date);
+      router.replace('/');
       return;
     }
     if (!isDiaryEditMode) {
@@ -120,11 +132,14 @@ const WriteForm = () => {
         date
       });
     }
+    router.replace('/');
   };
 
   const handleEdit = () => {
     if (!userId) {
-      alert('로그인이 필요합니다.');
+      updateLocalDiary(diaryId, color, tags, content, img, date);
+      router.replace('/');
+      alert('비회원 수정완료.');
       return;
     }
 
