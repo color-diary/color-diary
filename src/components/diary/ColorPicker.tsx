@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
 import useZustandStore from '@/zustand/zustandStore';
+import { useEffect, useState } from 'react';
 
 const ColorPicker = () => {
   const colors = ['#FF0000', '#FF7F00', '#FFFF00', '#00FF00', '#0000FF', '#4B0082', '#9400D3'];
@@ -9,7 +9,7 @@ const ColorPicker = () => {
   const [showRainbow, setShowRainbow] = useState(true);
   const [pickedColor, setPickedColor] = useState('');
 
-  const { color, setColor, isDiaryEditMode } = useZustandStore();
+  const { color, setColor, isDiaryEditMode, testResult, hasTestResult, setHasTestResult } = useZustandStore();
 
   useEffect(() => {
     if (isDiaryEditMode) {
@@ -21,6 +21,13 @@ const ColorPicker = () => {
       } else {
         setShowRainbow(true);
       }
+    } else if (hasTestResult && testResult) {
+      setPickedColor(testResult.result.color);
+
+      setShowRainbow(false);
+      setCustomColor(testResult.result.color);
+
+      setHasTestResult(false);
     }
   }, []);
 
