@@ -1,19 +1,23 @@
 'use client';
 
-import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
 import { useRouter, useParams } from 'next/navigation';
-import { createClient } from '@/utils/supabase/client';
+
 import { useState, useEffect } from 'react';
 import ColorPicker from '@/components/diary/ColorPicker';
-import EmotionTagsInput from './EmotionTagsInput';
-import DiaryTextArea from './DiaryTextArea';
 import ImgDrop from '@/components/diary/ImgDrop';
+import { NewDiary } from '@/types/diary.type';
+
+import { urlToFile } from '@/utils/imageFileUtils';
+import { createClient } from '@/utils/supabase/client';
 import useZustandStore from '@/zustand/zustandStore';
+import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
 import Link from 'next/link';
 import { checkDiaryExistsForDate, isLocalDiaryOverTwo, saveToLocal, updateLocalDiary } from '@/utils/diaryLocalStorage';
-import { NewDiary } from '@/types/diary.type';
+
 import { checkHasDiaryData } from '@/apis/diary';
+import EmotionTagsInput from './EmotionTagsInput';
+import DiaryTextArea from './DiaryTextArea';
 
 const WriteForm = () => {
   const router = useRouter();
@@ -79,15 +83,6 @@ const WriteForm = () => {
 
   const mutation = useMutation({
     mutationFn: async (newDiary: NewDiary) => {
-      const urlToFile = async (url: string): Promise<File> => {
-        const response = await fetch(url);
-        const blob = await response.blob();
-        const filename = url.split('/').slice(-1)[0];
-        const extension = filename.split('.').slice(-1)[0];
-        const metadata = { type: `image/${extension}` };
-        return new File([blob], filename, metadata);
-      };
-
       const formData = new FormData();
       if (newDiary.userId) formData.append('userId', newDiary.userId);
       formData.append('color', newDiary.color);
