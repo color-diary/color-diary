@@ -28,7 +28,7 @@ export default function RootLayout({
           <ToastProvider>
             <Header />
             <SideBar />
-            <div className="ml-[120px] mt-[72px]">{children}</div>
+            <div>{children}</div>
           </ToastProvider>
         </QueryProvider>
       </body>
