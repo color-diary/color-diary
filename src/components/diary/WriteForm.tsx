@@ -2,7 +2,7 @@
 
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-import { useRouter, useParams, notFound } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
 import { useState, useEffect } from 'react';
 import ColorPicker from '@/components/diary/ColorPicker';
@@ -11,10 +11,9 @@ import DiaryTextArea from './DiaryTextArea';
 import ImgDrop from '@/components/diary/ImgDrop';
 import useZustandStore from '@/zustand/zustandStore';
 import Link from 'next/link';
-import { saveToLocal, updateLocalDiary } from '@/utils/diaryLocalStorage';
+import { checkDiaryExistsForDate, isLocalDiaryOverTwo, saveToLocal, updateLocalDiary } from '@/utils/diaryLocalStorage';
 import { NewDiary } from '@/types/diary.type';
-import { fetchDiaryDate } from '@/apis/diary';
-import { formatFullDate } from '@/utils/dateUtils';
+import { checkHasDiaryData } from '@/apis/diary';
 
 const WriteForm = () => {
   const router = useRouter();
@@ -55,25 +54,26 @@ const WriteForm = () => {
     fetchSession();
   }, [router]);
 
-  // useEffect(() => {
-  //   const checkHasDiaryData = async (): Promise<void> => {
-  //     if (date) {
-  //       const { data: hasTodayDiary } = await axios.get(`/api/diaries/check?date=${date}`);
-  //       if (hasTodayDiary) {
-  //         alert('오늘 이미 일기를 작성하셨네요!');
-  //         notFound();
-  //       }
-  //     } else {
-  //       const test = await fetchDiaryDate(diaryId);
-  //       const { data: hasTodayDiary } = await axios.get(`/api/diaries/check?date=${formatFullDate(test)}`);
-  //       if (hasTodayDiary) {
-  //         alert('오늘 이미 일기를 작성하셨네요!');
-  //         notFound();
-  //       }
-  //     }
-  //   };
-  //   checkHasDiaryData();
-  // }, []);
+  useEffect(() => {
+    const checkDiary = async () => {
+      if (userId) {
+        const hasTodayDiary = await checkHasDiaryData(date);
+        if (!hasTodayDiary) {
+          alert('오늘 이미 일기를 작성하셨네요!');
+          router.replace('/');
+        }
+      } else {
+        if (checkDiaryExistsForDate(date)) {
+          alert('오늘 이미 일기를 작성하셨네요!');
+          router.replace('/');
+        } else if (isLocalDiaryOverTwo()) {
+          alert('비회원은 최대 2개의 다이어리만 작성할 수 있습니다.');
+          router.replace('/');
+        }
+      }
+    };
+    checkDiary();
+  }, [date, userId, router]);
 
   const mutation = useMutation({
     mutationFn: async (newDiary: NewDiary) => {

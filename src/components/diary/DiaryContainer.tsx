@@ -46,7 +46,7 @@ const DiaryContainer = () => {
             setContent(foundDiary.content);
             setImg(foundDiary.img ? foundDiary.img : null);
           } else {
-            alert('해당 다이어리를 찾을 수 없습니다.');
+            alert('해당 다이어리를 찾을 수 없습니다.(비회원)');
             router.push('/');
           }
         }
@@ -100,7 +100,7 @@ const DiaryContainer = () => {
   const diaryData = userId ? diary : localDiary;
 
   if (error) {
-    return <p className="text-red-500">Error fetching diary data</p>;
+    return <p className="text-red-500">Error fetching diary data 본인이 쓴 글이 아님</p>;
   }
 
   if (!diaryData) {
