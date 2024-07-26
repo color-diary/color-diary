@@ -54,7 +54,7 @@ const MyPageForm = () => {
       if (response.status === 200) {
         alert(response.data.message);
         console.log('로그아웃 성공');
-        router.replace('/log-in');
+        router.replace('/');
       }
     } catch (error: unknown) {
       console.error('에러메세지=> ', error);
