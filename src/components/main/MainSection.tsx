@@ -6,6 +6,8 @@ import Cards from '@/components/main/Cards';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { DiaryList } from '@/types/diary.type';
+import { createClient } from '@/utils/supabase/client';
+import WinterStamp from './season-stamp/WinterStamp';
 
 const MainSection = () => {
   const router = useRouter();
@@ -20,6 +22,23 @@ const MainSection = () => {
     setForm((prev) => !prev);
   };
 
+  const getDiaryList = async () => {
+    try {
+      const supabase = createClient();
+      const {
+        data: { session },
+        error
+      } = await supabase.auth.getSession();
+
+      if (error) {
+        throw new Error(error.message);
+      }
+      session ? getUserDiaryList() : getUserLocalList();
+    } catch (error) {
+      console.error('Failed to get session:', error);
+    }
+  };
+
   const handleChangeDate = (event: React.ChangeEvent<HTMLInputElement>) => {
     const date = new Date(event.target.value);
     console.log(date);
@@ -31,19 +50,19 @@ const MainSection = () => {
     }
   };
 
-  const getDiaryList = async () => {
+  const getUserDiaryList = async () => {
     const response = await axios.get('/api/diaries', {
       params: { year, month }
     });
     setDiaryList(response.data);
   };
 
+  const getUserLocalList = async () => {
+    setDiaryList(JSON.parse(localStorage.getItem('localDiaries') || '[]'));
+  };
+
   React.useEffect(() => {
-    try {
-      getDiaryList();
-    } catch (error) {
-      console.log(error);
-    }
+    getDiaryList();
   }, []);
 
   return (

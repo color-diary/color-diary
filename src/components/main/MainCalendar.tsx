@@ -11,7 +11,6 @@ interface MainCalendarProps {
 }
 
 const MainCalendar = ({ diaryList, date, setDate }: MainCalendarProps) => {
-  console.log(date);
   return (
     <div>
       <Calendar
