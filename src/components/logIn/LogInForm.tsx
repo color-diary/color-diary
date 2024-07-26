@@ -46,7 +46,7 @@ const LogInForm = () => {
         setEmail('');
         setPassword('');
         // 테스트 라우터
-        router.replace('/my-page');
+        router.replace('/');
       }
     } catch (error: unknown) {
       if (axios.isAxiosError(error) && error.response)
