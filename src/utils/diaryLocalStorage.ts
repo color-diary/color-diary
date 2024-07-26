@@ -36,7 +36,7 @@ export const saveToLocal = async (
   };
   const savedDiaries = JSON.parse(localStorage.getItem('localDiaries') || '[]');
 
-  if (savedDiaries.length >= 2) {
+  if (savedDiaries.length > 2) {
     alert('비회원은 최대 2개의 다이어리만 작성할 수 있습니다.');
     return;
   }
@@ -53,7 +53,7 @@ export const saveToLocal = async (
 
 export const isLocalDiaryOverTwo = (): boolean => {
   const savedDiaries = JSON.parse(localStorage.getItem('localDiaries') || '[]');
-  if (savedDiaries.length >= 2) {
+  if (savedDiaries.length > 2) {
     alert('비회원은 최대 2개의 다이어리만 작성할 수 있습니다.');
     return true;
   }
@@ -74,7 +74,6 @@ export const deleteFromLocal = (diaryId: string) => {
   const savedDiaries = JSON.parse(localStorage.getItem('localDiaries') || '[]') as Diary[];
   const updatedDiaries = savedDiaries.filter((diary) => diary.diaryId !== diaryId);
   localStorage.setItem('localDiaries', JSON.stringify(updatedDiaries));
-  alert('Diary deleted successfully');
 };
 
 export const updateLocalDiary = (
@@ -90,7 +89,6 @@ export const updateLocalDiary = (
     diary.diaryId === diaryId ? { ...diary, color, tags, content, img, date } : diary
   );
   localStorage.setItem('localDiaries', JSON.stringify(updatedDiaries));
-  alert('Diary updated successfully');
 };
 
 export const fetchLocalDiary = (diaryId: string): Diary | undefined => {

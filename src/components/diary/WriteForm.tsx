@@ -63,12 +63,14 @@ const WriteForm = () => {
           router.replace('/');
         }
       } else {
-        if (checkDiaryExistsForDate(date)) {
-          alert('오늘 이미 일기를 작성하셨네요!');
-          router.replace('/');
-        } else if (isLocalDiaryOverTwo()) {
-          alert('비회원은 최대 2개의 다이어리만 작성할 수 있습니다.');
-          router.replace('/');
+        if (!isDiaryEditMode) {
+          if (checkDiaryExistsForDate(date)) {
+            alert('오늘 이미 일기를 작성하셨네요!');
+            router.replace('/');
+          } else if (isLocalDiaryOverTwo()) {
+            alert('비회원은 최대 2개의 다이어리만 작성할 수 있습니다.');
+            router.replace('/');
+          }
         }
       }
     };

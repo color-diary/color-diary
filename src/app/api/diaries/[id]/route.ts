@@ -14,7 +14,6 @@ export const GET = async (request: NextRequest, { params }: { params: { id: stri
   }
 
   try {
-    // 세션 가져오기
     const { data: authData, error: authError } = await supabase.auth.getUser();
     if (authError || !authData.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -35,7 +34,6 @@ export const GET = async (request: NextRequest, { params }: { params: { id: stri
       return NextResponse.json({ error: 'Diary not found' }, { status: 404 });
     }
 
-    // 세션 유저 아이디와 다이어리 유저 아이디 일치 여부 확인
     if (data.userId !== authData.user.id) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
