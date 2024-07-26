@@ -138,11 +138,11 @@ const Test = () => {
                       strokeLinecap="round"
                     />
                     <ellipse cx="47.9766" cy="95.9922" rx="8.62503" ry="9" fill="#080808" />
-                    <ellipse cx="47.9766" cy="95.9922" rx="8.62503" ry="9" fill="black" fill-opacity="0.2" />
-                    <ellipse cx="47.9766" cy="95.9922" rx="8.62503" ry="9" fill="black" fill-opacity="0.2" />
-                    <ellipse cx="47.9766" cy="95.9922" rx="8.62503" ry="9" fill="black" fill-opacity="0.2" />
-                    <ellipse cx="47.9766" cy="95.9922" rx="8.62503" ry="9" fill="black" fill-opacity="0.2" />
-                    <ellipse cx="47.9766" cy="95.9922" rx="8.62503" ry="9" fill="black" fill-opacity="0.2" />
+                    <ellipse cx="47.9766" cy="95.9922" rx="8.62503" ry="9" fill="black" fillOpacity="0.2" />
+                    <ellipse cx="47.9766" cy="95.9922" rx="8.62503" ry="9" fill="black" fillOpacity="0.2" />
+                    <ellipse cx="47.9766" cy="95.9922" rx="8.62503" ry="9" fill="black" fillOpacity="0.2" />
+                    <ellipse cx="47.9766" cy="95.9922" rx="8.62503" ry="9" fill="black" fillOpacity="0.2" />
+                    <ellipse cx="47.9766" cy="95.9922" rx="8.62503" ry="9" fill="black" fillOpacity="0.2" />
                     <ellipse cx="47.834" cy="93.7427" rx="2.87501" ry="2.25" fill="white" />
                     <ellipse
                       opacity="0.8"
@@ -168,7 +168,7 @@ const Test = () => {
                       ry="9"
                       transform="matrix(-1 0 0 1 109.852 86.9922)"
                       fill="black"
-                      fill-opacity="0.2"
+                      fillOpacity="0.2"
                     />
                     <ellipse
                       cx="8.62503"
@@ -177,7 +177,7 @@ const Test = () => {
                       ry="9"
                       transform="matrix(-1 0 0 1 109.852 86.9922)"
                       fill="black"
-                      fill-opacity="0.2"
+                      fillOpacity="0.2"
                     />
                     <ellipse
                       cx="8.62503"
@@ -186,7 +186,7 @@ const Test = () => {
                       ry="9"
                       transform="matrix(-1 0 0 1 109.852 86.9922)"
                       fill="black"
-                      fill-opacity="0.2"
+                      fillOpacity="0.2"
                     />
                     <ellipse
                       cx="8.62503"
@@ -195,7 +195,7 @@ const Test = () => {
                       ry="9"
                       transform="matrix(-1 0 0 1 109.852 86.9922)"
                       fill="black"
-                      fill-opacity="0.2"
+                      fillOpacity="0.2"
                     />
                     <ellipse
                       cx="8.62503"
@@ -204,7 +204,7 @@ const Test = () => {
                       ry="9"
                       transform="matrix(-1 0 0 1 109.852 86.9922)"
                       fill="black"
-                      fill-opacity="0.2"
+                      fillOpacity="0.2"
                     />
                     <ellipse
                       cx="2.87501"
