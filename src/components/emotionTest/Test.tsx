@@ -60,7 +60,7 @@ const Test = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center rounded-5xl border-4 border-border-color bg-white ">
+    <div className="flex flex-col justify-center rounded-5xl border-4 border-border-color bg-white px-18 py-16">
       <div>
         {isStarted ? (
           <div>
