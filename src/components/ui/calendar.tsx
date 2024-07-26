@@ -54,15 +54,13 @@ function Calendar({ className, classNames, showOutsideDays = false, diaryList, .
         DayContent: ({ ...props }) => {
           const handleFindDiary = (diary: Diary) => {
             if (formatFullDate(String(diary.date)) === formatFullDate(String(props.date))) {
-              return true; // diary 안넣어도 자동적으로 return 해줌
+              return true;
             } else {
               return false;
             }
           };
           const [diary, setDiary] = React.useState<Diary | undefined>();
 
-          // 비회원인 경우 추가하기
-          // 반복되는 find가 너무 많음(useEffect > useState 교체하기)
           React.useEffect(() => {
             setDiary(diaryList.find(handleFindDiary));
           }, []);

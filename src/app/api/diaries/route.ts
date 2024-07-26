@@ -43,13 +43,11 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
 export const GET = async (request: NextRequest): Promise<NextResponse> => {
   const supabase = createClient();
 
-  /*
   const { data: authData, error: authError } = await supabase.auth.getUser();
 
   if (authError || !authData.user) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
-  */
 
   const { searchParams } = new URL(request.url);
 
@@ -67,8 +65,7 @@ export const GET = async (request: NextRequest): Promise<NextResponse> => {
     const { data, error: diarySelectError } = await supabase
       .from('diaries')
       .select('*')
-      //.eq('userId', authData.user.id)
-      .eq('userId', '79c7d4d1-7c18-4766-92eb-2e80cd2ab30c')
+      .eq('userId', authData.user.id)
       .gte('date', startDate)
       .lt('date', endDate);
 
