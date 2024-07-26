@@ -1,7 +1,7 @@
-import React from 'react';
+import StatisticsForm from '@/components/statistics/StatisticsForm';
 
-const page = () => {
-  return <div>page</div>;
+const StatisticsPage = () => {
+  return <StatisticsForm />;
 };
 
-export default page;
+export default StatisticsPage;
