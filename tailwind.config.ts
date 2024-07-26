@@ -52,12 +52,15 @@ const config = {
         disable: 'var(--disable-color)',
         'tertiary-default': 'var(--tertiary-color)',
         'tertiary-pressed': 'var(--tertiary-pressed-color)',
-        'tertiary-disable': 'var(--tertiary-disable-color)'
+        'tertiary-disable': 'var(--tertiary-disable-color)',
+        toast: 'var(--toast-color)',
+        'border-color': 'var(--border-color)'
       },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)'
+        sm: 'calc(var(--radius) - 4px)',
+        '5xl': '2rem'
       },
       keyframes: {
         'accordion-down': {

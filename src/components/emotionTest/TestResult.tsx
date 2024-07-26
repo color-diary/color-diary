@@ -1,6 +1,7 @@
 'use client';
 
 import results from '@/data/results';
+import { useToast } from '@/providers/toast.context';
 import { ResultType, TestResultProps } from '@/types/test.type';
 import { formatFullDate } from '@/utils/dateUtils';
 import zustandStore from '@/zustand/zustandStore';
@@ -13,13 +14,15 @@ const TestResult = ({ emotion, positive, negative }: TestResultProps) => {
   const router = useRouter();
   const { setHasTestResult } = zustandStore();
 
+  const toast = useToast();
+
   const resultDetails: ResultType = results.find((result) => result.result === emotion)!;
 
   const checkHasDiaryData = async (): Promise<void> => {
     const { data: hasTodayDiary } = await axios.get(`/api/diaries/check?date=${formatFullDate()}`);
 
     if (hasTodayDiary) {
-      alert('오늘 이미 일기를 작성하셨네요!');
+      toast.on({ label: '오늘은 이미 기록작성이 완료되었어요.' });
     } else {
       setHasTestResult(true);
       router.push(`/diaries/write/${formatFullDate()}`);

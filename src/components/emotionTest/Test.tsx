@@ -7,6 +7,7 @@ import { initializeEmotionCount } from '@/utils/initialEmotionCount';
 import zustandStore from '@/zustand/zustandStore';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import Button from '../common/Button';
 
 const Test = () => {
   const router = useRouter();
@@ -59,7 +60,7 @@ const Test = () => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col justify-center rounded-5xl border-4 border-border-color bg-white ">
       <div>
         {isStarted ? (
           <div>
@@ -75,7 +76,8 @@ const Test = () => {
           </div>
         ) : (
           <div>
-            <button onClick={handleClickStartButton}>내 감정 확인하기</button>
+            <h1>오늘 나는 어떤 상태일까?</h1>
+            <Button onClick={handleClickStartButton}>내 감정 확인하기</Button>
           </div>
         )}
       </div>
