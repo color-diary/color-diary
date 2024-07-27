@@ -28,14 +28,12 @@ export const saveToLocal = async (
   };
   const savedDiaries = JSON.parse(localStorage.getItem('localDiaries') || '[]');
 
-  if (savedDiaries.length > 2) {
-    alert('비회원은 최대 2개의 다이어리만 작성할 수 있습니다.');
+  if (savedDiaries.length >= 2) {
     return;
   }
 
   const diaryExistsForDate = savedDiaries.some((diary: { date: string }) => diary.date === date);
   if (diaryExistsForDate) {
-    alert('오늘 일기를 이미 작성 하셨습니다.');
     return;
   }
 
@@ -45,12 +43,12 @@ export const saveToLocal = async (
 
 export const isLocalDiaryOverTwo = (): boolean => {
   const savedDiaries = JSON.parse(localStorage.getItem('localDiaries') || '[]');
-  if (savedDiaries.length > 2) {
+  if (savedDiaries.length >= 2) {
     return true;
   }
   return false;
 };
-export const checkDiaryExistsForDate = (date: string): boolean => {
+export const checkLocalDiaryExistsForDate = (date: string): boolean => {
   const savedDiaries = JSON.parse(localStorage.getItem('localDiaries') || '[]');
   const diaryExistsForDate = savedDiaries.some((diary: { date: string }) => diary.date === date);
   if (diaryExistsForDate) {

@@ -4,7 +4,7 @@ import useZustandStore from '@/zustand/zustandStore';
 import { useEffect, useState } from 'react';
 
 const ColorPicker = () => {
-  const colors = ['#FF0000', '#FF7F00', '#FFFF00', '#00FF00', '#0000FF', '#4B0082', '#9400D3'];
+  const colors = ['#F05050', '#F1883C', '#FBED12', '#55F896', '#7BDFED', '#444EE9', '#B979EC'];
   const [customColor, setCustomColor] = useState('');
   const [showRainbow, setShowRainbow] = useState(true);
   const [pickedColor, setPickedColor] = useState('');
@@ -58,7 +58,7 @@ const ColorPicker = () => {
             <div
               key={color}
               className={`w-[40px] h-[40px] rounded-full cursor-pointer ${
-                pickedColor === color ? 'border-4 border-black' : ''
+                pickedColor === color ? 'border-4 border-[#25B18C]' : ''
               }`}
               style={{ backgroundColor: color }}
               onClick={() => handleColor(color)}
@@ -84,7 +84,7 @@ const ColorPicker = () => {
               />
               <div
                 className={`w-[40px] h-[40px] rounded-full cursor-pointer ${
-                  pickedColor === customColor ? 'border-4 border-black' : ''
+                  pickedColor === customColor ? 'border-4 border-[#25B18C]' : ''
                 }`}
                 style={{ backgroundColor: customColor }}
               ></div>

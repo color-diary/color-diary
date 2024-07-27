@@ -12,7 +12,6 @@ const CheckEditMode = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     if (!isDiaryEditMode) {
       router.replace('/');
-      alert('수정 모드가 아닙니다.');
     }
   }, [isDiaryEditMode, router]);
 
