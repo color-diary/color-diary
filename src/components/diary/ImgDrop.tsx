@@ -43,6 +43,11 @@ const ImgDrop = () => {
     },
     [setImg]
   );
+
+  const onDelete = useCallback(() => {
+    setImg(null);
+    setPreview(null);
+  }, [setImg]);
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   return (
@@ -50,17 +55,26 @@ const ImgDrop = () => {
       <p>Q. 오늘 감정에 맞는 이미지가 있나요?</p>
       <div
         {...getRootProps()}
-        className="flex w-[120px] h-[120px] bg-slate-400 items-center justify-center rounded-2xl border-4 border-dashed border-black"
+        className="flex w-[120px] h-[120px] bg-[#F9F5F0] items-center justify-center rounded-2xl border-4 border-dashed border-black"
       >
         <input {...getInputProps()} />
         {preview ? (
-          <Image
-            src={preview}
-            alt="Preview"
-            width={120}
-            height={120}
-            className="w-full h-full object-cover rounded-2xl"
-          />
+          <div className="relative w-full h-full">
+            <Image
+              src={preview}
+              alt="Preview"
+              width={120}
+              height={120}
+              className="w-full h-full object-cover rounded-2xl"
+            />
+            <button
+              type="button"
+              onClick={onDelete}
+              className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1"
+            >
+              삭제
+            </button>
+          </div>
         ) : (
           <div>카메라 svg</div>
         )}

@@ -14,6 +14,11 @@ export const GET = async (request: NextRequest, { params }: { params: { id: stri
   }
 
   try {
+    const { data: authData, error: authError } = await supabase.auth.getUser();
+    if (authError || !authData.user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { data, error: diarySelectError } = await supabase
       .from('diaries')
       .select('*')
@@ -27,6 +32,10 @@ export const GET = async (request: NextRequest, { params }: { params: { id: stri
 
     if (!data) {
       return NextResponse.json({ error: 'Diary not found' }, { status: 404 });
+    }
+
+    if (data.userId !== authData.user.id) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
 
     const diary: Diary = {
