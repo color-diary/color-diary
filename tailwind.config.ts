@@ -77,6 +77,7 @@ const config = {
         layout: 'var(--layout-color)',
         'progress-total-color': 'var(--progress-total-color)',
         'progress-current-color': 'var(--progress-current-color)',
+        'progress-border-color': 'var(--progress-border-color)',
         'font-color': 'var(--font-color)'
       },
       borderRadius: {
@@ -100,7 +101,8 @@ const config = {
         'accordion-up': 'accordion-up 0.2s ease-out'
       },
       boxShadow: {
-        'custom-inset': '0.5rem 0.5rem 0rem 0rem var(--border-color) inset'
+        'custom-inset': '0.5rem 0.5rem 0rem 0rem var(--border-color) inset',
+        'progress-border': '0rem 0rem 0rem 0.1875rem var(--border-color)'
       }
     }
   },
