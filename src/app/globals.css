@@ -18,6 +18,9 @@
   --bg-color: #f7f0e9;
   --layout-color: #fefdfb;
 
+  --progress-total-color: #f9f5f0;
+  --progress-current-color: #96c9f8;
+
   --font-color: #080808;
 
   --radius: 0.5rem;

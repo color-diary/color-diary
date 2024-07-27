@@ -5,7 +5,7 @@ import results from '@/data/results';
 import { useToast } from '@/providers/toast.context';
 import { ResultType, TestResultProps } from '@/types/test.type';
 import { formatFullDate } from '@/utils/dateUtils';
-import { checkDiaryExistsForDate, checkDiaryLimit } from '@/utils/diaryLocalStorage';
+import { checkLocalDiaryExistsForDate, isLocalDiaryOverTwo } from '@/utils/diaryLocalStorage';
 import { createClient } from '@/utils/supabase/client';
 import zustandStore from '@/zustand/zustandStore';
 import Link from 'next/link';
@@ -47,12 +47,12 @@ const TestResult = ({ emotion, positive, negative }: TestResultProps) => {
 
   const handleClickWriteDiaryButton = async (): Promise<void> => {
     const date = formatFullDate();
-    const hasTodayDiary = userId ? !(await checkHasDiaryData(date)) : checkDiaryExistsForDate(date);
+    const hasTodayDiary = userId ? !(await checkHasDiaryData(date)) : checkLocalDiaryExistsForDate(date);
 
     if (hasTodayDiary) {
       toast.on({ label: '오늘은 이미 기록작성이 완료되었어요.' });
     } else {
-      const hasLimit = userId ? false : checkDiaryLimit();
+      const hasLimit = userId ? false : isLocalDiaryOverTwo();
 
       if (hasLimit) {
         toast.on({ label: '비회원은 기록을 최대 2개만 남길 수 있어요' });

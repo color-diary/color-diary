@@ -2,13 +2,14 @@
 
 import questions, { TOTAL_QUESTION } from '@/data/questions';
 import results from '@/data/results';
-import { Emotion, EmotionCount, ResultType, Sentiment } from '@/types/test.type';
+import { Emotion, EmotionCount, ResultType, Sentiment, TestHistory } from '@/types/test.type';
 import { initializeEmotionCount } from '@/utils/initialEmotionCount';
 import zustandStore from '@/zustand/zustandStore';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Button from '../common/Button';
 import TextButton from '../common/TextButton';
+import ProgressBar from './ProgressBar';
 
 const Test = () => {
   const router = useRouter();
@@ -20,6 +21,7 @@ const Test = () => {
   const [answerList, setAnswerList] = useState<EmotionCount[]>(initializeEmotionCount());
   const [positiveCount, setPositiveCount] = useState<number>(0);
   const [negativeCount, setNegativeCount] = useState<number>(0);
+  const [answerHistory, setAnswerHistory] = useState<TestHistory[]>([]);
 
   useEffect(() => {
     if (isLastQuestion) calculateResult();
@@ -53,6 +55,8 @@ const Test = () => {
       setNegativeCount(negativeCount + 1);
     }
 
+    setAnswerHistory([...answerHistory, { step, value, sentiment, points }]);
+
     if (step === TOTAL_QUESTION - 1) {
       setIsLastQuestion(true);
     } else {
@@ -60,24 +64,53 @@ const Test = () => {
     }
   };
 
-  const handleClickBackButton = () => router.back();
+  const handleClickPrevQuestion = (): void => {
+    if (step === 0) {
+      setIsStarted(false);
+    } else {
+      const prevAnswer = answerHistory[answerHistory.length - 1];
+      const revertedAnswer = answerList.map((answer) =>
+        prevAnswer.value.includes(answer.emotion)
+          ? { ...answer, count: answer.count - prevAnswer.points[answer.emotion] }
+          : answer
+      );
+      setAnswerList(revertedAnswer);
+
+      if (prevAnswer.sentiment === 'positive') {
+        setPositiveCount(positiveCount - 1);
+      } else if (prevAnswer.sentiment === 'negative') {
+        setNegativeCount(negativeCount - 1);
+      }
+
+      setAnswerHistory(answerHistory.slice(0, -1));
+
+      setStep(step - 1);
+    }
+  };
+
+  const handleClickBackButton = (): void => router.back();
 
   return (
-    <div className="w-744px h-760px rounded-5xl border-4 border-border-color bg-white px-18 ">
+    <div className="w-744px h-760px rounded-5xl border-4 border-border-color bg-white">
       {isStarted ? (
-        <div>
-          <h2>{questions[step].question}</h2>
-
-          {questions[step].options.map((option, index) => (
-            <div key={index}>
-              <button onClick={() => handleSelectAnswer(option.value, option.sentiment, option.points)}>
-                {option.label}
-              </button>
-            </div>
-          ))}
+        <div className="h-760px flex flex-col gap-18 justify-center items-center flex-shrink-0">
+          <div className="w-600px flex flex-col items-start gap-4">
+            <TextButton onClick={handleClickPrevQuestion}>뒤로가기</TextButton>
+            <ProgressBar current={step + 1} total={TOTAL_QUESTION} />
+          </div>
+          <div>
+            <h2>{questions[step].question}</h2>
+            {questions[step].options.map((option, index) => (
+              <div key={index}>
+                <button onClick={() => handleSelectAnswer(option.value, option.sentiment, option.points)}>
+                  {option.label}
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
       ) : (
-        <div className="flex flex-col gap-14 pt-14">
+        <div className="flex flex-col gap-14 px-18 pt-14 flex-shrink-0s">
           <TextButton onClick={handleClickBackButton}>뒤로가기</TextButton>
           <div className="flex flex-col px-140px items-center gap-16">
             <div className="flex flex-col items-center gap-9">
@@ -252,27 +285,27 @@ const Test = () => {
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 24">
                   <path
                     d="M9.67532 4.97644C9.78767 4.8638 9.94017 4.8004 10.0993 4.80017C10.2584 4.79995 10.411 4.86292 10.5237 4.97524L17.1045 11.5332C17.166 11.5946 17.2148 11.6674 17.2481 11.7476C17.2814 11.8278 17.2985 11.9138 17.2985 12.0006C17.2985 12.0875 17.2814 12.1735 17.2481 12.2537C17.2148 12.3339 17.166 12.4067 17.1045 12.468L10.5237 19.026C10.4104 19.1352 10.2588 19.1955 10.1014 19.1939C9.94411 19.1923 9.7937 19.129 9.68261 19.0176C9.57152 18.9062 9.50863 18.7556 9.50749 18.5983C9.50635 18.4409 9.56705 18.2894 9.67652 18.1764L15.8745 12L9.67652 5.82484C9.56388 5.71249 9.50047 5.55999 9.50024 5.40089C9.50002 5.24179 9.56299 5.08912 9.67532 4.97644Z"
-                    fill="white"
+                    fill="currentColor"
                   />
                   <path
                     d="M9.67532 4.97644C9.78767 4.8638 9.94017 4.8004 10.0993 4.80017C10.2584 4.79995 10.411 4.86292 10.5237 4.97524L17.1045 11.5332C17.166 11.5946 17.2148 11.6674 17.2481 11.7476C17.2814 11.8278 17.2985 11.9138 17.2985 12.0006C17.2985 12.0875 17.2814 12.1735 17.2481 12.2537C17.2148 12.3339 17.166 12.4067 17.1045 12.468L10.5237 19.026C10.4104 19.1352 10.2588 19.1955 10.1014 19.1939C9.94411 19.1923 9.7937 19.129 9.68261 19.0176C9.57152 18.9062 9.50863 18.7556 9.50749 18.5983C9.50635 18.4409 9.56705 18.2894 9.67652 18.1764L15.8745 12L9.67652 5.82484C9.56388 5.71249 9.50047 5.55999 9.50024 5.40089C9.50002 5.24179 9.56299 5.08912 9.67532 4.97644Z"
-                    fill="white"
+                    fill="currentColor"
                   />
                   <path
                     d="M9.67532 4.97644C9.78767 4.8638 9.94017 4.8004 10.0993 4.80017C10.2584 4.79995 10.411 4.86292 10.5237 4.97524L17.1045 11.5332C17.166 11.5946 17.2148 11.6674 17.2481 11.7476C17.2814 11.8278 17.2985 11.9138 17.2985 12.0006C17.2985 12.0875 17.2814 12.1735 17.2481 12.2537C17.2148 12.3339 17.166 12.4067 17.1045 12.468L10.5237 19.026C10.4104 19.1352 10.2588 19.1955 10.1014 19.1939C9.94411 19.1923 9.7937 19.129 9.68261 19.0176C9.57152 18.9062 9.50863 18.7556 9.50749 18.5983C9.50635 18.4409 9.56705 18.2894 9.67652 18.1764L15.8745 12L9.67652 5.82484C9.56388 5.71249 9.50047 5.55999 9.50024 5.40089C9.50002 5.24179 9.56299 5.08912 9.67532 4.97644Z"
-                    fill="white"
+                    fill="currentColor"
                   />
                   <path
                     d="M9.67532 4.97644C9.78767 4.8638 9.94017 4.8004 10.0993 4.80017C10.2584 4.79995 10.411 4.86292 10.5237 4.97524L17.1045 11.5332C17.166 11.5946 17.2148 11.6674 17.2481 11.7476C17.2814 11.8278 17.2985 11.9138 17.2985 12.0006C17.2985 12.0875 17.2814 12.1735 17.2481 12.2537C17.2148 12.3339 17.166 12.4067 17.1045 12.468L10.5237 19.026C10.4104 19.1352 10.2588 19.1955 10.1014 19.1939C9.94411 19.1923 9.7937 19.129 9.68261 19.0176C9.57152 18.9062 9.50863 18.7556 9.50749 18.5983C9.50635 18.4409 9.56705 18.2894 9.67652 18.1764L15.8745 12L9.67652 5.82484C9.56388 5.71249 9.50047 5.55999 9.50024 5.40089C9.50002 5.24179 9.56299 5.08912 9.67532 4.97644Z"
-                    fill="white"
+                    fill="currentColor"
                   />
                   <path
                     d="M9.67532 4.97644C9.78767 4.8638 9.94017 4.8004 10.0993 4.80017C10.2584 4.79995 10.411 4.86292 10.5237 4.97524L17.1045 11.5332C17.166 11.5946 17.2148 11.6674 17.2481 11.7476C17.2814 11.8278 17.2985 11.9138 17.2985 12.0006C17.2985 12.0875 17.2814 12.1735 17.2481 12.2537C17.2148 12.3339 17.166 12.4067 17.1045 12.468L10.5237 19.026C10.4104 19.1352 10.2588 19.1955 10.1014 19.1939C9.94411 19.1923 9.7937 19.129 9.68261 19.0176C9.57152 18.9062 9.50863 18.7556 9.50749 18.5983C9.50635 18.4409 9.56705 18.2894 9.67652 18.1764L15.8745 12L9.67652 5.82484C9.56388 5.71249 9.50047 5.55999 9.50024 5.40089C9.50002 5.24179 9.56299 5.08912 9.67532 4.97644Z"
-                    fill="white"
+                    fill="currentColor"
                   />
                   <path
                     d="M9.67532 4.97644C9.78767 4.8638 9.94017 4.8004 10.0993 4.80017C10.2584 4.79995 10.411 4.86292 10.5237 4.97524L17.1045 11.5332C17.166 11.5946 17.2148 11.6674 17.2481 11.7476C17.2814 11.8278 17.2985 11.9138 17.2985 12.0006C17.2985 12.0875 17.2814 12.1735 17.2481 12.2537C17.2148 12.3339 17.166 12.4067 17.1045 12.468L10.5237 19.026C10.4104 19.1352 10.2588 19.1955 10.1014 19.1939C9.94411 19.1923 9.7937 19.129 9.68261 19.0176C9.57152 18.9062 9.50863 18.7556 9.50749 18.5983C9.50635 18.4409 9.56705 18.2894 9.67652 18.1764L15.8745 12L9.67652 5.82484C9.56388 5.71249 9.50047 5.55999 9.50024 5.40089C9.50002 5.24179 9.56299 5.08912 9.67532 4.97644Z"
-                    fill="white"
+                    fill="currentColor"
                   />
                 </svg>
               }

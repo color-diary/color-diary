@@ -48,6 +48,7 @@ export const isLocalDiaryOverTwo = (): boolean => {
   }
   return false;
 };
+
 export const checkLocalDiaryExistsForDate = (date: string): boolean => {
   const savedDiaries = JSON.parse(localStorage.getItem('localDiaries') || '[]');
   const diaryExistsForDate = savedDiaries.some((diary: { date: string }) => diary.date === date);

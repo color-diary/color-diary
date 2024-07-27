@@ -16,6 +16,7 @@ const config = {
       spacing: {
         '18': '4.5rem',
         '140px': '8.75rem',
+        '600px': '37.5rem',
         '744px': '46.5rem',
         '760px': '47.5rem'
       },
@@ -74,6 +75,8 @@ const config = {
         'border-color': 'var(--border-color)',
         'bg-color': 'var(--bg-color)',
         layout: 'var(--layout-color)',
+        'progress-total-color': 'var(--progress-total-color)',
+        'progress-current-color': 'var(--progress-current-color)',
         'font-color': 'var(--font-color)'
       },
       borderRadius: {

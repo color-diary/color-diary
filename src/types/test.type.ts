@@ -24,6 +24,13 @@ export type EmotionCount = {
   count: number;
 };
 
+export type TestHistory = {
+  step: number;
+  value: Emotion[];
+  sentiment: Sentiment;
+  points: Record<Emotion, number>;
+};
+
 export type TestResultType = {
   result: ResultType;
   positive: number;
