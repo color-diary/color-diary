@@ -1,3 +1,4 @@
+import { Emotion } from '@/types/test.type';
 import { validate as uuidValidate } from 'uuid';
 
 export const isValidDate = (id: string) => {
@@ -7,4 +8,9 @@ export const isValidDate = (id: string) => {
 
 export const isValidUUID = (id: string) => {
   return uuidValidate(id);
+};
+
+export const validateEmotion = (emotion: string): boolean => {
+  const emotions: Emotion[] = ['joy', 'sadness', 'lethargy', 'calm', 'anxiety', 'anger', 'hope'];
+  return emotions.includes(emotion as Emotion);
 };

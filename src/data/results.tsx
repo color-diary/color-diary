@@ -5,8 +5,7 @@ const results: ResultType[] = [
     result: 'joy',
     emotion: '#기쁨',
     color: '#C5E1FB',
-    borderColor: '#66B0F5',
-    comment: '좋은 일이 가득했던 날인가봐요. 오늘은 행복한 날이에요!',
+    comment: '좋은 일이 가득했던 날인가봐요./오늘은 행복한 날이에요!',
     title: '#행복한_하루',
     image: (
       <svg width="201" height="200" viewBox="0 0 201 200" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -100,8 +99,7 @@ const results: ResultType[] = [
     result: 'sadness',
     emotion: '#슬픔',
     color: '#094986',
-    borderColor: '#021526',
-    comment: '오늘 하루가 힘드셨던 것 같아요. 그만큼 잔뜩 울고, 푹 쉬길 바래요!',
+    comment: '오늘 하루가 힘드셨던 것 같아요./그만큼 잔뜩 울고, 푹 쉬길 바래요!',
     title: '#오늘은_슬픔이',
     image: (
       <svg width="200" height="135" viewBox="0 0 200 135" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -253,8 +251,7 @@ const results: ResultType[] = [
     result: 'lethargy',
     emotion: '#무기력',
     color: '#D4D4D4',
-    borderColor: '#878787',
-    comment: '때론 나도 모르게 치칠때가 있죠. 조용히 나를 안아줘요.',
+    comment: '때론 나도 모르게 치칠때가 있죠./조용히 나를 안아줘요.',
     title: '#기운없는_무기력',
     image: (
       <svg width="162" height="108" viewBox="0 0 162 108" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -397,8 +394,7 @@ const results: ResultType[] = [
     result: 'calm',
     emotion: '#평온',
     color: '#F5FAFE',
-    borderColor: '#96C9F8',
-    comment: '평온한 하루를 보내신 것 같아요. 소소한 하루도 소중하죠!',
+    comment: '평온한 하루를 보내신 것 같아요./소소한 하루도 소중하죠!',
     title: '#안정적인_평온함',
     image: (
       <svg width="161" height="146" viewBox="0 0 161 146" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -410,8 +406,8 @@ const results: ResultType[] = [
           />
         </mask>
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
+          fillRule="evenodd"
+          clipRule="evenodd"
           d="M58.1438 124.536C35.345 129.71 10.2529 122.353 1.67025 90.3223C-5.64793 63.0105 13.0585 17.8893 19.9045 2.78291C21.147 0.0412185 24.4786 -0.851504 26.9255 0.901626C40.4075 10.5612 79.1683 40.2841 86.4865 67.5959C94.9857 99.3152 84.9714 116.137 63.6112 123.04C69.3611 131.594 74.7785 134.045 77.5997 135.321L77.6736 135.355C79.2937 136.088 80.9316 136.554 82.3411 136.884C82.9448 137.026 83.4901 137.139 83.9871 137.242L84.2393 137.295L84.2406 137.295C84.7354 137.398 85.3332 137.523 85.7814 137.675L85.7885 137.678C85.9538 137.734 86.4781 137.911 86.9373 138.324C87.2036 138.564 87.6456 139.059 87.7779 139.84C87.9201 140.681 87.6251 141.364 87.3344 141.777C86.8958 142.399 86.278 142.691 86.1073 142.771L86.0945 142.777C85.8166 142.909 85.5098 143.021 85.2204 143.116C84.1162 143.48 82.0988 143.984 79.0693 144.741L78.9213 144.778C72.2867 146.435 67.2818 142.225 64.0491 137.584C61.2024 133.496 59.2412 128.456 58.1438 124.536ZM76.1209 140.133C73.7708 140.151 71.5829 138.872 69.5443 136.525C72.0056 138.267 74.1159 139.233 75.6119 139.91C75.782 139.987 75.9517 140.061 76.1209 140.133Z"
           fill="#B3EFDF"
         />
@@ -584,8 +580,7 @@ const results: ResultType[] = [
     result: 'anxiety',
     emotion: '#불안',
     color: '#FADFB7',
-    borderColor: '#F1A027',
-    comment: '잘 하고 싶은 마음이 있었나봐요. 그 마음으로도 충분해요!',
+    comment: '잘 하고 싶은 마음이 있었나봐요./그 마음으로도 충분해요!',
     title: '#할수있다_불안이',
     image: (
       <svg width="150" height="125" viewBox="0 0 150 125" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -756,8 +751,7 @@ const results: ResultType[] = [
     result: 'anger',
     emotion: '#분노',
     color: '#3B3B3B',
-    borderColor: '#080808',
-    comment: '오늘 불쾌한 일이 있으셨나요? 분노를 건강하게 표출해요!',
+    comment: '오늘 불쾌한 일이 있으셨나요?/분노를 건강하게 표출해요!',
     title: '#벼락의_분노',
     image: (
       <svg width="164" height="126" viewBox="0 0 164 126" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -872,8 +866,7 @@ const results: ResultType[] = [
     result: 'hope',
     emotion: '#희망참',
     color: '#FCD4DC',
-    borderColor: '#F14667',
-    comment: '나의 하루는 말 그대로 희망이. 미래를 그려나가는 모습이 멋져요!',
+    comment: `나의 하루는 말 그대로 희망이./미래를 그려나가는 모습이 멋져요!`,
     title: '#나는야_희망이',
     image: (
       <svg width="185" height="112" viewBox="0 0 185 112" fill="none" xmlns="http://www.w3.org/2000/svg">

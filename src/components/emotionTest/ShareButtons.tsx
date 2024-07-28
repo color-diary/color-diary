@@ -52,7 +52,7 @@ const ShareButtons = ({ emotion }: ShareButtonsProps) => {
 
   return (
     <div>
-      <h3>SNS에 내 결과 공유하기</h3>
+      <h3>나의 감정 공유하기</h3>
       <div>
         <button onClick={shareOnKakao}>카카오톡</button>
         <button onClick={shareOnLink}>링크 공유</button>

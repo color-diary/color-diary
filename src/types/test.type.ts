@@ -16,7 +16,6 @@ export type ResultType = {
   result: Emotion;
   emotion: string;
   color: string;
-  borderColor: string;
   comment: string;
   title: string;
   image: JSX.Element;

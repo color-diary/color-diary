@@ -6,11 +6,14 @@ import { useToast } from '@/providers/toast.context';
 import { ResultType, TestResultProps } from '@/types/test.type';
 import { formatFullDate } from '@/utils/dateUtils';
 import { checkLocalDiaryExistsForDate, isLocalDiaryOverTwo } from '@/utils/diaryLocalStorage';
+import { splitCommentWithSlash } from '@/utils/splitCommentWithSlash';
 import { createClient } from '@/utils/supabase/client';
 import zustandStore from '@/zustand/zustandStore';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import Button from '../common/Button';
+import EmotionIcon from './EmotionIcon';
+import ProgressBar from './ProgressBar';
 import ShareButtons from './ShareButtons';
 
 const TestResult = ({ emotion, positive, negative }: TestResultProps) => {
@@ -69,22 +72,31 @@ const TestResult = ({ emotion, positive, negative }: TestResultProps) => {
         <div className="flex flex-col items-center gap-13 self-stretch">
           <div className="flex flex-col items-center gap-4 self-stretch">
             <h1 className="text-font-color text-28px font-bold -tracking-0.56px">{resultDetails.title}</h1>
-            <div
-              className="w-200px h-200px flex justify-center items-center rounded-full border-4"
-              style={{ background: `${resultDetails.color}`, borderColor: `${resultDetails.borderColor}` }}
-            >
-              {resultDetails.image}
+            <EmotionIcon emotion={emotion} />
+            <div className="text-font-color text-xl font-normal tracking-tight text-center">
+              {splitCommentWithSlash(resultDetails.comment).map((line, index) => (
+                <p key={index}>{line}</p>
+              ))}
             </div>
-            <p>{resultDetails.comment}</p>
           </div>
-          <div>
-            <p>{positive}</p>
-            <p>{negative}</p>
+          <div className="w-550px flex flex-col items-start gap-2">
+            <div className="w-full flex justify-between items-center gap-6">
+              <span className="w-32 text-font-color text-xl font-normal tracking-tight">긍정적 {positive}%</span>
+              <div className="w-430px">
+                <ProgressBar value={positive} max={100} />
+              </div>
+            </div>
+            <div className="w-full flex justify-between items-center gap-6">
+              <span className="w-32 text-font-color text-xl font-normal tracking-tight">부정적 {negative}%</span>
+              <div className="w-430px">
+                <ProgressBar value={negative} max={100} />
+              </div>
+            </div>
           </div>
         </div>
-        <div>
-          <Link href={'/emotion-test'}>다시 테스트하기</Link>
-          <button onClick={handleClickWriteDiaryButton}>일기 작성하러 가기</button>
+        <div className="flex items-center gap-4">
+          <Button href={'/emotion-test'}>다시 확인하기</Button>
+          <Button onClick={handleClickWriteDiaryButton}>일기 작성하러가기</Button>
         </div>
       </div>
       <ShareButtons emotion={resultDetails.emotion} />
