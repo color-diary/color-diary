@@ -14,7 +14,9 @@ const config = {
     },
     extend: {
       boxShadow: {
-        'inner-top-left': 'inset 3px 3px 5px rgba(0, 0, 0, 0.2)'
+        'inner-top-left': 'inset 3px 3px 5px rgba(0, 0, 0, 0.2)',
+        'custom-inset': '0.5rem 0.5rem 0rem 0rem var(--border-color) inset',
+        'progress-border': '0rem 0rem 0rem 0.1875rem var(--border-color)'
       },
       spacing: {
         '13': '3.25rem',
@@ -104,10 +106,6 @@ const config = {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out'
-      },
-      boxShadow: {
-        'custom-inset': '0.5rem 0.5rem 0rem 0rem var(--border-color) inset',
-        'progress-border': '0rem 0rem 0rem 0.1875rem var(--border-color)'
       }
     }
   },
