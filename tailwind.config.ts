@@ -13,6 +13,9 @@ const config = {
       }
     },
     extend: {
+      boxShadow: {
+        'inner-top-left': 'inset 3px 3px 5px rgba(0, 0, 0, 0.2)'
+      },
       spacing: {
         '13': '3.25rem',
         '18': '4.5rem',
