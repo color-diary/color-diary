@@ -2,17 +2,20 @@ import { cva, VariantProps } from 'class-variance-authority';
 import Link from 'next/link';
 import { ComponentProps, ReactNode } from 'react';
 
-const buttonVariant = cva('inline-flex items-center py-1 text-center text-base font-normal tracking-0.32px', {
-  variants: {
-    state: {
-      default: 'cursor-pointer text-tertiary-default active:text-tertiary-pressed',
-      disable: 'cursor-not-allowed text-text-button-disable'
+const buttonVariant = cva(
+  'inline-flex items-center py-1 text-center text-base font-normal tracking-0.32px transition',
+  {
+    variants: {
+      state: {
+        default: 'cursor-pointer text-tertiary-default active:text-tertiary-pressed',
+        disable: 'cursor-not-allowed text-text-button-disable'
+      }
+    },
+    defaultVariants: {
+      state: 'default'
     }
-  },
-  defaultVariants: {
-    state: 'default'
   }
-});
+);
 
 type ButtonVariantProps = VariantProps<typeof buttonVariant>;
 

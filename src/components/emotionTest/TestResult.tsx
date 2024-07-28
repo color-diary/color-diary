@@ -50,7 +50,7 @@ const TestResult = ({ emotion, positive, negative }: TestResultProps) => {
     const hasTodayDiary = userId ? !(await checkHasDiaryData(date)) : checkLocalDiaryExistsForDate(date);
 
     if (hasTodayDiary) {
-      toast.on({ label: '오늘은 이미 기록작성이 완료되었어요.' });
+      toast.on({ label: '오늘은 이미 기록작성이 완료돠었어요. 다른날짜를 원하시면 홈으로 이동해주세요.' });
     } else {
       const hasLimit = userId ? false : isLocalDiaryOverTwo();
 
@@ -64,18 +64,28 @@ const TestResult = ({ emotion, positive, negative }: TestResultProps) => {
   };
 
   return (
-    <div>
-      <div>
-        <h1>{resultDetails.emotion}</h1>
-        <p>{resultDetails.comment}</p>
-      </div>
-      <div>
-        <p>{positive}</p>
-        <p>{negative}</p>
-      </div>
-      <div>
-        <Link href={'/emotion-test'}>다시 테스트하기</Link>
-        <button onClick={handleClickWriteDiaryButton}>일기 작성하러 가기</button>
+    <div className="w-744px h-760px flex flex-col justify-center items-center gap-14 flex-shrink-0 rounded-5xl border-4 border-border-color bg-white">
+      <div className="flex flex-col items-center gap-10 self-stretch">
+        <div className="flex flex-col items-center gap-13 self-stretch">
+          <div className="flex flex-col items-center gap-4 self-stretch">
+            <h1 className="text-font-color text-28px font-bold -tracking-0.56px">{resultDetails.title}</h1>
+            <div
+              className="w-200px h-200px flex justify-center items-center rounded-full border-4"
+              style={{ background: `${resultDetails.color}`, borderColor: `${resultDetails.borderColor}` }}
+            >
+              {resultDetails.image}
+            </div>
+            <p>{resultDetails.comment}</p>
+          </div>
+          <div>
+            <p>{positive}</p>
+            <p>{negative}</p>
+          </div>
+        </div>
+        <div>
+          <Link href={'/emotion-test'}>다시 테스트하기</Link>
+          <button onClick={handleClickWriteDiaryButton}>일기 작성하러 가기</button>
+        </div>
       </div>
       <ShareButtons emotion={resultDetails.emotion} />
     </div>

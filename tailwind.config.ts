@@ -14,8 +14,10 @@ const config = {
     },
     extend: {
       spacing: {
+        '13': '3.25rem',
         '18': '4.5rem',
         '140px': '8.75rem',
+        '200px': '12.5rem',
         '600px': '37.5rem',
         '744px': '46.5rem',
         '760px': '47.5rem'
