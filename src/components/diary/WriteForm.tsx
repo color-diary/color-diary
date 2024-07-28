@@ -1,20 +1,25 @@
 'use client';
 
-import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
-import { useRouter, useParams, notFound } from 'next/navigation';
-import { createClient } from '@/utils/supabase/client';
+import { useRouter, useParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import ColorPicker from '@/components/diary/ColorPicker';
+import ImgDrop from '@/components/diary/ImgDrop';
+import { NewDiary } from '@/types/diary.type';
+import { urlToFile } from '@/utils/imageFileUtils';
+import { createClient } from '@/utils/supabase/client';
+import useZustandStore from '@/zustand/zustandStore';
+import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
+import Link from 'next/link';
+import {
+  checkLocalDiaryExistsForDate,
+  isLocalDiaryOverTwo,
+  saveToLocal,
+  updateLocalDiary
+} from '@/utils/diaryLocalStorage';
+import { checkHasDiaryData } from '@/apis/diary';
 import EmotionTagsInput from './EmotionTagsInput';
 import DiaryTextArea from './DiaryTextArea';
-import ImgDrop from '@/components/diary/ImgDrop';
-import useZustandStore from '@/zustand/zustandStore';
-import Link from 'next/link';
-import { saveToLocal, updateLocalDiary } from '@/utils/diaryLocalStorage';
-import { NewDiary } from '@/types/diary.type';
-import { fetchDiaryDate } from '@/apis/diary';
-import { formatFullDate } from '@/utils/dateUtils';
 
 const WriteForm = () => {
   const router = useRouter();
@@ -55,37 +60,33 @@ const WriteForm = () => {
     fetchSession();
   }, [router]);
 
-  // useEffect(() => {
-  //   const checkHasDiaryData = async (): Promise<void> => {
-  //     if (date) {
-  //       const { data: hasTodayDiary } = await axios.get(`/api/diaries/check?date=${date}`);
-  //       if (hasTodayDiary) {
-  //         alert('오늘 이미 일기를 작성하셨네요!');
-  //         notFound();
-  //       }
-  //     } else {
-  //       const test = await fetchDiaryDate(diaryId);
-  //       const { data: hasTodayDiary } = await axios.get(`/api/diaries/check?date=${formatFullDate(test)}`);
-  //       if (hasTodayDiary) {
-  //         alert('오늘 이미 일기를 작성하셨네요!');
-  //         notFound();
-  //       }
-  //     }
-  //   };
-  //   checkHasDiaryData();
-  // }, []);
+  useEffect(() => {
+    const checkDiary = async () => {
+      if (userId) {
+        if (!isDiaryEditMode) {
+          const hasTodayDiary = await checkHasDiaryData(date);
+          if (!hasTodayDiary) {
+            alert('(회원)이미 일기를 작성하셨네요!');
+            router.replace('/');
+          }
+        }
+      } else {
+        if (!isDiaryEditMode) {
+          if (checkLocalDiaryExistsForDate(date)) {
+            alert('(비회원)이미 일기를 작성하셨네요!');
+            router.replace('/');
+          } else if (isLocalDiaryOverTwo()) {
+            alert('비회원은 최대 2개의 다이어리만 작성할 수 있습니다.');
+            router.replace('/');
+          }
+        }
+      }
+    };
+    checkDiary();
+  }, [userId, isDiaryEditMode, date, router]);
 
   const mutation = useMutation({
     mutationFn: async (newDiary: NewDiary) => {
-      const urlToFile = async (url: string): Promise<File> => {
-        const response = await fetch(url);
-        const blob = await response.blob();
-        const filename = url.split('/').slice(-1)[0];
-        const extension = filename.split('.').slice(-1)[0];
-        const metadata = { type: `image/${extension}` };
-        return new File([blob], filename, metadata);
-      };
-
       const formData = new FormData();
       if (newDiary.userId) formData.append('userId', newDiary.userId);
       formData.append('color', newDiary.color);
@@ -119,6 +120,7 @@ const WriteForm = () => {
   const handleWrite = () => {
     if (!userId) {
       saveToLocal(color, tags, content, img, date);
+      alert('(비회원)작성완료!');
       router.replace('/');
       return;
     }
@@ -164,7 +166,7 @@ const WriteForm = () => {
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <div className="flex flex-col items-center justify-center bg-slate-500 w-5/12 h-5/6 rounded-2xl">
+      <div className="flex flex-col items-center justify-center bg-[#F9F5F0] w-5/12 h-5/6 rounded-2xl">
         <div className="flex gap-80">
           <button className="flex items-center gap-2 p-7" onClick={handleBackward}>
             <div>svg</div>
@@ -176,7 +178,7 @@ const WriteForm = () => {
             <div>svg</div>
           </button>
         </div>
-        <div className="flex flex-col gap-7 items-center justify-center bg-slate-100 w-10/12 h-5/6 rounded-2xl mb-6">
+        <div className="flex flex-col gap-7 items-center justify-center bg-white w-10/12 h-5/6 rounded-2xl mb-6">
           <form className="flex flex-col gap-7">
             <ColorPicker />
             <EmotionTagsInput />
@@ -186,7 +188,7 @@ const WriteForm = () => {
               <div className="absolute bottom-0 right-0 flex flex-col items-end p-4">
                 <p>오늘 나의 감정이 궁금하다면?</p>
                 <Link href="/emotion-test">
-                  <button className="bg-slate-400 rounded-2xl p-2">나의 감정 확인하기</button>
+                  <button className="bg-[#F9F5F0] rounded-2xl p-2">나의 감정 확인하기</button>
                 </Link>
               </div>
             </div>

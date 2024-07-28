@@ -13,6 +13,12 @@ const config = {
       }
     },
     extend: {
+      boxShadow: {
+        'inner-top-left': 'inset 3px 3px 5px rgba(0, 0, 0, 0.2)'
+      },
+      spacing: {
+        '18': '4.5rem'
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
