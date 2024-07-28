@@ -10,12 +10,25 @@
   --tertiary-color: #3697f2;
   --tertiary-pressed-color: #0c64b6;
   --tertiary-disable-color: #c5e1fb;
+  --text-button-disable-color: #bababa;
 
   --toast-color: #ee7802;
 
   --border-color: #e6d3bc;
+  --bg-color: #f7f0e9;
+  --layout-color: #fefdfb;
+
+  --progress-total-color: #f9f5f0;
+  --progress-current-color: #96c9f8;
+  --progress-border-color: #66b0f5;
+
+  --font-color: #080808;
 
   --radius: 0.5rem;
+}
+
+body {
+  background-color: var(--layout-color);
 }
 
 .rainbow-gradient {
