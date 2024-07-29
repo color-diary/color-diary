@@ -1,6 +1,6 @@
 "use client";
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SignUpModal from '../signUp/SignUpModal';
 import Router from 'next/router';
 import { useRouter } from 'next/navigation';
@@ -12,6 +12,7 @@ const LogInForm = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const router = useRouter();
   const setIsLogin = loginZustandStore(state => state.setIsLogin);
+  const isLogin = loginZustandStore(state=>state.isLogin);
 
   // 이메일, 비밀번호 유효성 검사
   const validateEmail = (email: string) => {
@@ -28,17 +29,14 @@ const LogInForm = () => {
   const clearPassword = () => setPassword('');
 
   const loginHandler = async () => {
-
     if (!validateEmail(email)) {
       return alert('유효한 이메일 입력바람')
     }
-
     if (!validatePassword(password)) {
       return alert('비밀번호는 6글자 이상')
     }
 
     const data = { email, password };
-
     try {
       const response = await axios.post("/api/auth/log-in", data);
       console.log('LoginForm_response=> ', response);
