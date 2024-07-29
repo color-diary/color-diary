@@ -11,7 +11,9 @@ const MyPageForm = () => {
   const [nickname, setNickname] = useState('');
   const [newNickname, setNewNickname] = useState('');
   const [profileImg, setProfileImg] = useState('');
-  const publicSetProfileImg = loginZustandStore(state => state.publicSetProfileImg)
+  const publicSetProfileImg = loginZustandStore(state => state.publicSetProfileImg);
+  const publicProfileImg = loginZustandStore(state => state.publicProfileImg)
+
   const setIsLogin = loginZustandStore(state => state.setIsLogin);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
@@ -27,8 +29,8 @@ const MyPageForm = () => {
           const userNickname = userData[0].nickname;
           setNickname(userNickname);
           setNewNickname(userNickname);
+          // publicSetProfileImg(userData[0].profileImg || '/default-profile.jpg');
           setProfileImg(userData[0].profileImg || '/default-profile.jpg');
-          publicSetProfileImg(userData[0].profileImg || '/default-profile.jpg');
         }
       }
       console.log('getUserData => ', data);
@@ -82,6 +84,7 @@ const MyPageForm = () => {
       const res = supabase.storage.from('profileImg').getPublicUrl(newFileName);
       console.log(res.data.publicUrl);
       setProfileImg(res.data.publicUrl);
+      publicSetProfileImg(res.data.publicUrl);
       const { data: userInfo } = await supabase.auth.getUser();
       const userId = userInfo.user?.id;
       if (userId) {
@@ -97,7 +100,7 @@ const MyPageForm = () => {
 
   return (
     <div className="flex flex-col items-center justify-center mt-[270px]">
-      <div className="w-[1000px] flex flex-row items-center">
+      <div className="w-[1000px] flex flex-row items-center border-b-4">
         <Image
           src={profileImg || '/default-profile.jpg'}
           alt="Profile Image"
@@ -123,19 +126,25 @@ const MyPageForm = () => {
             <span>********</span>
           </div>
 
-          <div className="flex items-center mt-4">
+          {/* 닉네임 수정 input */}
+          {/* <div className="flex items-center mt-4">
             <input
               type="text"
               onChange={(e) => setNewNickname(e.target.value)}
               value={newNickname}
               className="border rounded p-2 w-full"
             />
-          </div>
+          </div> */}
 
-          <button onClick={changeNicknameHandler} className="mt-4 bor">정보 수정</button>
+          <button onClick={changeNicknameHandler} className="mt-4 border-4">정보 수정</button>
         </div>
       </div>
-      <button onClick={logoutHandler} className="mt-4">로그아웃</button>
+      {/* 선 아래 버튼3개 */}
+      <div className="mt-4">
+      <button className=' border-4' onClick={logoutHandler} >로그아웃</button>
+      <button className=' border-4'>문의하기</button>
+      <button className=' border-4'>이용약관</button>
+      </div>
     </div>
   );
 };
