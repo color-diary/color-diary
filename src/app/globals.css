@@ -25,6 +25,9 @@
   --font-color: #080808;
 
   --radius: 0.5rem;
+
+  --responsive-height: calc(100vh * 0.7037);
+  --responsive-width: calc(100vw * 0.3875);
 }
 
 body {
@@ -160,20 +163,4 @@ body {
     --chart-4: 280 65% 60%;
     --chart-2: 340 75% 55%;
   }
-}
-
-.custom-scrollbar::-webkit-scrollbar {
-  width: 8px;
-  height: 5px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #f7f0e9;
-  border-radius: 10px;
-  border: 2px solid #e6d3bc;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: #ffffff;
-  border-radius: 16px;
 }
