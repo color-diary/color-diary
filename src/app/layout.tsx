@@ -6,6 +6,8 @@ import './globals.css';
 import SideBar from '@/components/common/Sidebar';
 import Header from '@/components/common/Header';
 
+
+
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -28,7 +30,7 @@ export default function RootLayout({
           <ToastProvider>
             <Header />
             <SideBar />
-            <div>{children}</div>
+            {children}
           </ToastProvider>
         </QueryProvider>
       </body>

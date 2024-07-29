@@ -1,4 +1,5 @@
-'use client';
+"use client"
+import { loginZustandStore } from '@/zustand/zustandStore';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
