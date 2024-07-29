@@ -29,7 +29,10 @@ const Header = () => {
     }, []);
 
     useEffect(() => {
-        setAudio(new Audio('/background-bgm.mp3'));
+        const backGroundBgm: HTMLAudioElement = new Audio('/background-bgm.mp3');
+        backGroundBgm.volume = 0.07; 
+        backGroundBgm.loop = true;
+        setAudio(backGroundBgm);
     }, []);
 
 
