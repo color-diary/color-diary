@@ -1,48 +1,27 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import useZustandStore from '@/zustand/zustandStore';
-import { useEffect, useState } from 'react';
 
 const EmotionTagsInput = () => {
   const { tags, setTags, isDiaryEditMode, testResult, hasTestResult, setHasTestResult } = useZustandStore();
-  const [emotionTags, setEmotionTags] = useState('');
+  const [inputValue, setInputValue] = useState('');
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (isDiaryEditMode) {
-      if (tags) {
-        setEmotionTags(tags.join(' '));
-      }
+    if (isDiaryEditMode && tags) {
+      setInputValue(tags.join(' '));
     } else if (hasTestResult && testResult) {
-      setEmotionTags(testResult.result.emotion);
-
+      setInputValue(testResult.result.emotion);
       setHasTestResult(false);
     }
-  }, []);
+  }, [isDiaryEditMode, tags, hasTestResult, testResult, setHasTestResult]);
 
-  // 태그 유효성 검사 함수
-  const validateTags = (tags: string) => {
-    // 보류 const tagsArray = tags.match(/#[\w가-힣]+/g) || [];
-
-    // 한글이나 영어로 시작하는 태그가 있는지 검사
-    if (!/#[\w가-힣]+/g.test(tags)) {
-      return '태그를 붙어주세요';
-    }
-
-    // 첫 번째 패턴으로 태그 추출
-    const tagsArray1 = tags.match(/#[\w가-힣]+/g) || [];
-    // 두 번째 패턴으로 태그 추출
-    const tagsArray2 = tags.match(/# [\w가-힣]+/g) || [];
-
-    // 두 배열을 합친 후 중복 태그 제거
-    const tagsArray = Array.from(new Set([...tagsArray1, ...tagsArray2]));
-
-    // 태그가 5개 이하인지 확인
+  const validateTags = (tagsArray: string[]) => {
     if (tagsArray.length > 5) {
       return '태그는 최대 5개만 입력할 수 있습니다.';
     }
 
-    // 태그가 #으로 시작하고, 알파벳과 한글만 포함하는지 확인
     const tagPattern = /^#[\w가-힣]+$/;
     for (const tag of tagsArray) {
       if (!tagPattern.test(tag)) {
@@ -53,32 +32,65 @@ const EmotionTagsInput = () => {
     return null;
   };
 
-  const handleTags = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const input = event.target.value;
-
-    const validationError = validateTags(input);
-
+  const addTag = (newTag: string) => {
+    const newTags = [...tags, newTag];
+    const validationError = validateTags(newTags);
     if (validationError) {
       setError(validationError);
     } else {
       setError(null);
+      setTags(newTags);
     }
+  };
 
-    const tagsArray = (input.match(/#[\w가-힣]+/g) || []).map((tag) => tag.trim());
-    setEmotionTags(input);
-    setTags(tagsArray);
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter' || event.key === ',') {
+      event.preventDefault();
+      const trimmedValue = inputValue.trim();
+      if (trimmedValue && !tags.includes(trimmedValue)) {
+        addTag(trimmedValue);
+        setInputValue('');
+      }
+    }
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
+  };
+
+  const handleTagClick = (tagToDelete: string) => {
+    const newTags = tags.filter((tag) => tag !== tagToDelete);
+    setTags(newTags);
   };
 
   return (
     <div className="flex flex-col gap-3">
       <p>Q. 오늘 나의 감정태그를 작성해볼까요?</p>
-      <input
-        className={`w-[380px] h-[46px] rounded-2xl border-2 ${error ? 'border-red-500' : 'border-gray-300'}`}
-        type="text"
-        placeholder="#복잡해 #행복해 #기쁨"
-        value={emotionTags}
-        onChange={handleTags}
-      />
+      <div
+        className={`w-[380px] h-[46px] flex items-center flex-wrap rounded-2xl border-2 ${
+          error ? 'border-red-500' : 'border-gray-300'
+        }`}
+      >
+        {tags.map((tag, index) => (
+          <div
+            key={index}
+            className="flex items-center bg-[#F7F0E9] rounded px-2 py-1 mr-2 mb-1 outline-none overflow-hidden"
+          >
+            <span className="mr-1">{tag}</span>
+            <button className="text-slate-950" onClick={() => handleTagClick(tag)}>
+              x
+            </button>
+          </div>
+        ))}
+        <input
+          className="flex-grow p-2 rounded outline-none overflow-hidden "
+          type="text"
+          placeholder="ex) #행복 #감사하는_마음 #만족"
+          value={inputValue}
+          onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
+        />
+      </div>
       {error && <p className="text-red-500">{error}</p>}
     </div>
   );

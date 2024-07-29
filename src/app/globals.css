@@ -161,3 +161,19 @@ body {
     --chart-2: 340 75% 55%;
   }
 }
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #f7f0e9;
+  border-radius: 10px;
+  border: 2px solid #e6d3bc;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #ffffff;
+  border-radius: 16px;
+}
