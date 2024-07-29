@@ -21,17 +21,14 @@ const DiaryContent = ({ diary }: { diary: Diary }) => {
       </div>
       <div>
         {diary.img ? (
-          <div className="mb-4">
-            <Image
-              src={diary.img}
-              alt="Diary Image"
-              width={480}
-              height={280}
-              className="rounded-lg object-cover"
-              layout="responsive"
-              priority={true}
-            />
-          </div>
+          <Image
+            src={diary.img}
+            alt="Diary Image"
+            width={120}
+            height={120}
+            className="rounded-lg object-cover w-full h-full"
+            priority={true}
+          />
         ) : (
           <div className="mb-4 w-[380px] h-[250px]" style={{ backgroundColor: diary.color }}></div>
         )}

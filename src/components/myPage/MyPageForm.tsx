@@ -51,10 +51,10 @@ const MyPageForm = () => {
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   const logoutHandler = async () => {
-    const response = await axios.delete("/api/auth/log-out");
+    const response = await axios.delete('/api/auth/log-out');
     try {
       if (response.status === 200) {
         alert(response.data.message);
@@ -64,8 +64,7 @@ const MyPageForm = () => {
       }
     } catch (error: unknown) {
       console.error('에러메세지=> ', error);
-      if (axios.isAxiosError(error) && error.response)
-        alert(error?.response.data.message);
+      if (axios.isAxiosError(error) && error.response) alert(error?.response.data.message);
       console.error(error);
       console.log('로그아웃 실패');
     }
@@ -74,7 +73,7 @@ const MyPageForm = () => {
   // 이미지 업로드
   const addImgFile = async (file: File) => {
     try {
-      const newFileName = `${Date.now()}.jpg`
+      const newFileName = `${Date.now()}.jpg`;
       const { data, error } = await supabase.storage.from('profileImg').upload(`${newFileName}`, file);
       if (error) {
         console.error(error);
@@ -86,7 +85,10 @@ const MyPageForm = () => {
       const { data: userInfo } = await supabase.auth.getUser();
       const userId = userInfo.user?.id;
       if (userId) {
-        const { data: user, error: userError } = await supabase.from('users').update({ profileImg: res.data.publicUrl }).eq('id', userId);
+        const { data: user, error: userError } = await supabase
+          .from('users')
+          .update({ profileImg: res.data.publicUrl })
+          .eq('id', userId);
       }
     } catch (error) {
       console.error(error);
@@ -136,6 +138,6 @@ const MyPageForm = () => {
       <button onClick={logoutHandler} className="mt-4">로그아웃</button>
     </div>
   );
-}
+};
 
 export default MyPageForm;

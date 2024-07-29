@@ -13,6 +13,30 @@ const config = {
       }
     },
     extend: {
+      boxShadow: {
+        'inner-top-left': 'inset 3px 3px 5px rgba(0, 0, 0, 0.2)',
+        'custom-inset': '0.5rem 0.5rem 0rem 0rem var(--border-color) inset',
+        'progress-border': '0rem 0rem 0rem 0.1875rem var(--border-color)'
+      },
+      spacing: {
+        '13': '3.25rem',
+        '18': '4.5rem',
+        '140px': '8.75rem',
+        '200px': '12.5rem',
+        '600px': '37.5rem',
+        '744px': '46.5rem',
+        '760px': '47.5rem'
+      },
+      fontSize: {
+        '28px': ['1.75rem', { lineHeight: '1.35' }]
+      },
+      letterSpacing: {
+        '0.28px': '-0.0175rem',
+        '0.32px': '-0.02rem',
+        '0.36px': '-0.0225rem',
+        '0.48px': '-0.03rem',
+        '0.56px': '-0.035rem'
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -53,8 +77,15 @@ const config = {
         'tertiary-default': 'var(--tertiary-color)',
         'tertiary-pressed': 'var(--tertiary-pressed-color)',
         'tertiary-disable': 'var(--tertiary-disable-color)',
+        'text-button-disable': 'var( --text-button-disable-color)',
         toast: 'var(--toast-color)',
-        'border-color': 'var(--border-color)'
+        'border-color': 'var(--border-color)',
+        'bg-color': 'var(--bg-color)',
+        layout: 'var(--layout-color)',
+        'progress-total-color': 'var(--progress-total-color)',
+        'progress-current-color': 'var(--progress-current-color)',
+        'progress-border-color': 'var(--progress-border-color)',
+        'font-color': 'var(--font-color)'
       },
       borderRadius: {
         lg: 'var(--radius)',
