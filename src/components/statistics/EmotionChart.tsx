@@ -72,7 +72,7 @@ const EmotionChart = () => {
       color: 'hsl(var(--chart-3))'
     }
   } satisfies ChartConfig;
-  console.log(sortedTags.length);
+
   return (
     <Card>
       <div className="flex items-center justify-center gap-3 mt-6 text-lg">
