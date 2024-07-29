@@ -47,18 +47,19 @@ const Header = () => {
     };
 
     return (
-        <div className="flex justify-between items-center p-4 h-[72px] border-b-4">
+        <div className="flex justify-between items-center p-4 h-[72px] border-b-[1px] border-[#000000]">
             <div className="flex-1"></div>
             <Link href={"/"}>
                 <Image
                     src="/logo.png"
                     alt="logo Image"
-                    width={200}
-                    height={200}
+                    width={174}
+                    height={56}
                     className="cursor-pointer"
                 />
             </Link>
             <div className="flex space-x-4 flex-1 justify-end">
+                <div className='flex space-x-4 mr-[20px] w-[76px] h-[40px]'>
                 <button onClick={toggleMusic}>
                     {isPlaying ? <GiSoundOn size={24} /> : <GiSoundOff size={24} />}
                 </button>
@@ -81,6 +82,7 @@ const Header = () => {
                         />
                     </Link> : null
                 }
+                </div>
             </div>
         </div>
     );

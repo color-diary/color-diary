@@ -105,19 +105,19 @@ const MyPageForm = () => {
 
   return (
     <div className="flex flex-col items-center justify-center mt-[270px]">
-      <div className="w-[1000px] flex flex-row items-center border-b-4">
+      <div className="w-[1128px] h-[280] flex flex-row items-center ml-[40px]">
         {isLogin ? <Image
           src={profileImg}
           alt="Profile Image"
-          width={150}
-          height={150}
+          width={195}
+          height={195}
           className="rounded-full cursor-pointer"
           onClick={() => fileInputRef.current?.click()}
         /> : <Image
           src={"/default-profile.jpg"}
           alt="defaultProfile Image"
-          width={150}
-          height={150}
+          width={195}
+          height={195}
           className="rounded-full"
         />}
 
@@ -127,10 +127,11 @@ const MyPageForm = () => {
           onChange={(e) => { if (e.target.files) { addImgFile(e.target.files[0]) } }}
           className="hidden"
         />
-        <div className="mt-4 flex flex-col items-center">
+
+        <div className="mt-4 ml-[40] flex flex-col items-center">
           {isLogin ? (
             <div>
-              <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center  w-[288px]">
                 <div className="flex items-center">
                   <span className="mr-2">닉네임:</span>
                   <span>{nickname}</span>
@@ -160,6 +161,7 @@ const MyPageForm = () => {
         </div>
       </div>
       {/* 선 아래 버튼3개 */}
+      <hr className='border-[1px] w-[1128px] mt-[64px] border-gray-900'/>
       <div className="mt-4">
         {isLogin ? <button className=' border-4' onClick={logoutHandler} >로그아웃</button> : <Link href={'log-in'}><button className=' border-4' >회원가입</button></Link>}
         <button className=' border-4'>문의하기</button>
