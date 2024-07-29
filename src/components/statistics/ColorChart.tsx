@@ -75,7 +75,7 @@ const ColorChart = () => {
   } satisfies ChartConfig;
 
   return (
-    <Card className="flex flex-col w-[422px] h-[361px] ">
+    <Card className="flex flex-col w-[422px] h-[367px] ">
       <div className="flex items-center justify-center gap-3 text-lg mt-6">
         <button onClick={() => changeDate(month - 1)}>&lt;</button>
         {year}.{month}
@@ -83,15 +83,29 @@ const ColorChart = () => {
       </div>
       <CardContent>
         {sortedColors.length > 0 ? (
-          <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[300px] h-[260px]">
-            <PieChart>
-              <Pie data={chartData} dataKey="visitors" />
-              <ChartLegend
-                content={<ChartLegendContent nameKey="browser" />}
-                className="-translate-y-2 flex-wrap gap-1 [&>*]:basis-1/4 [&>*]:justify-center text-lg"
-              />
-            </PieChart>
-          </ChartContainer>
+          sortedColors.length < 5 ? (
+            <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[300px] h-[260px]">
+              <PieChart>
+                <Pie data={chartData} dataKey="visitors" />
+                <ChartLegend
+                  content={<ChartLegendContent nameKey="browser" />}
+                  className="-translate-y-2 flex-wrap gap-1 [&>*]:basis-1/4 [&>*]:justify-center text-lg "
+                />
+              </PieChart>
+            </ChartContainer>
+          ) : (
+            <div>
+              <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[300px] h-[260px]">
+                <PieChart>
+                  <Pie data={chartData} dataKey="visitors" />
+                </PieChart>
+              </ChartContainer>
+              <div className="flex flex-col items-center mt-0">
+                <div>이 달은 다양한 감정을 느끼셨나봐요.</div>
+                <div>색상이 다채로워요!</div>
+              </div>
+            </div>
+          )
         ) : (
           <div className="flex flex-col items-center">
             <Image src="/Flowers.png" alt="공백이미지" width={176} height={176} className="mt-6 mb-6" />
