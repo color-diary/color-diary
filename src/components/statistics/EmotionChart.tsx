@@ -29,6 +29,7 @@ const EmotionChart = () => {
     const getDiaries = async () => {
       try {
         const response = await axios.get<Diary[]>(`/api/diaries?year=${year}&month=${month}`);
+        console.log(response.data);
         const diaries = response.data;
         setLength(diaries.length);
         const allTags = diaries.flatMap((entry) => entry.tags);
@@ -100,7 +101,7 @@ const EmotionChart = () => {
               />
               <XAxis dataKey="visitors" type="number" hide />
               <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-              <Bar dataKey="visitors" layout="vertical" radius={[0, 15, 15, 0]}  />
+              <Bar dataKey="visitors" layout="vertical" radius={[0, 15, 15, 0]} />
             </BarChart>
           </ChartContainer>
         </CardContent>

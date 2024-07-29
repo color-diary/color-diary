@@ -13,7 +13,11 @@ const EmotionTestResultPage = ({ searchParams }: EmotionTestResultPageProps) => 
 
   if (!emotion || positive == null || negative == null || positive + negative !== 100) notFound();
 
-  return <TestResult emotion={emotion} positive={positive} negative={negative} />;
+  return (
+    <div className="h-screen flex justify-center items-center">
+      <TestResult emotion={emotion} positive={positive} negative={negative} />
+    </div>
+  );
 };
 
 export default EmotionTestResultPage;

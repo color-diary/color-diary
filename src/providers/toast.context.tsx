@@ -19,7 +19,7 @@ export function ToastProvider({ children }: PropsWithChildren) {
     on: (message: ToastType) => {
       setToast(message);
 
-      setTimeout(() => setToast(null), 1000);
+      setTimeout(() => setToast(null), 1200);
     }
   };
 
