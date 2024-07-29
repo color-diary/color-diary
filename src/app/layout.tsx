@@ -30,8 +30,6 @@ export default function RootLayout({
           <ToastProvider>
             <Header />
             <SideBar />
-            {/* <SideBar />
-            <div>{children}</div> */}
             {children}
           </ToastProvider>
         </QueryProvider>
