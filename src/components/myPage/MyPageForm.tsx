@@ -20,6 +20,8 @@ const MyPageForm = () => {
   const router = useRouter();
   const supabase = createClient();
 
+
+
   useEffect(() => {
     const nicknameData = async () => {
       const { data, error } = await supabase.auth.getUser();
@@ -63,6 +65,8 @@ const MyPageForm = () => {
         alert(response.data.message);
         console.log('로그아웃 성공');
         setIsLogin(false);
+        // 로컬스토리지 빈 문자열로 변경
+        publicSetProfileImg('');
         router.replace('/');
       }
     } catch (error: unknown) {
