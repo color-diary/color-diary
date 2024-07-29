@@ -13,6 +13,9 @@ const config = {
       }
     },
     extend: {
+      fontFamily: {
+        pretendard: ['var(--font-pretendard)']
+      },
       boxShadow: {
         'inner-top-left': 'inset 3px 3px 5px rgba(0, 0, 0, 0.2)',
         'custom-inset': '0.5rem 0.5rem 0rem 0rem var(--border-color) inset',

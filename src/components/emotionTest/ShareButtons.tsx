@@ -23,8 +23,7 @@ const ShareButtons = ({ emotion }: ShareButtonsProps) => {
         content: {
           title: 'Color Inside 오늘 당신의 감정의 색은?',
           description: `#오늘_나는_${emotion}`,
-          imageUrl:
-            'https://ngnwhcimrvjbniipoibl.supabase.co/storage/v1/object/sign/thumbnail/kakaotalk%20thumbnail.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJ0aHVtYm5haWwva2FrYW90YWxrIHRodW1ibmFpbC5wbmciLCJpYXQiOjE3MjIyMjA2NjUsImV4cCI6MjAzNzU4MDY2NX0.uoJwMP1cQxChw5JgF6K5_sDapIyopLw7ha_Go-7n2yM',
+          imageUrl: 'https://ngnwhcimrvjbniipoibl.supabase.co/storage/v1/object/public/thumbnail/thumbnail.png',
           link: {
             mobileWebUrl: window.location.href,
             webUrl: window.location.href
