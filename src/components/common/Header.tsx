@@ -12,6 +12,7 @@ const Header = () => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [userStatus, setUserStatus] = useState(false);
     const isLogin = loginZustandStore(state => state.isLogin);
+    const setIsLogin = loginZustandStore(state => state.setIsLogin);
     const publicProfileImg = loginZustandStore(state => state.publicProfileImg)
     const supabase = createClient();
 
@@ -19,11 +20,10 @@ const Header = () => {
         const checkUser = async () => {
             const { data, error } = await supabase.auth.getUser();
             console.log('헤더 로그=>', data.user);
-            console.log(isLogin);
             if (data.user == null) {
-                setUserStatus(false);
+                setIsLogin(false); 
             } else {
-                setUserStatus(true);
+                setIsLogin(true);
             }
         }
         checkUser();
@@ -33,10 +33,7 @@ const Header = () => {
         setAudio(new Audio('/background-bgm.mp3'));
     }, []);
 
-    useEffect(() => {
-
-    }, [publicProfileImg])
-
+    
     const toggleMusic = () => {
         if (!audio) return;
         if (isPlaying) {
@@ -48,7 +45,7 @@ const Header = () => {
     };
 
     return (
-        <div className="flex justify-between items-center p-4 border-b-4">
+        <div className="flex justify-between items-center p-4 h-[72px] border-b-4">
             <div className="flex-1"></div>
             <Link href={"/"}>
                 <Image
