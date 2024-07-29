@@ -165,10 +165,10 @@ const Test = () => {
                 >
                   <g filter="url(#filter0_i_2399_11867)">
                     <rect width="240" height="240" rx="120" fill="#F7F0E9" />
-                    <rect x="2" y="2" width="236" height="236" rx="118" stroke="#FBF8F4" stroke-width="4" />
+                    <rect x="2" y="2" width="236" height="236" rx="118" stroke="#FBF8F4" strokeWidth="4" />
                     <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
+                      fillRule="evenodd"
+                      clipRule="evenodd"
                       d="M121.055 64.5757C119.364 61.4743 115.984 58.6862 111.62 57.1835C102.669 54.1016 92.2168 54.902 85.923 55.8589C83.1588 56.2791 82.051 59.3425 83.9398 61.404C88.1093 65.9548 95.5775 72.8121 105.109 76.0938C109.43 77.5817 113.766 77.4828 116.998 76.119V103.504H124.998V76.0701C128.242 77.4803 132.63 77.5993 137.002 76.0938C146.533 72.8121 154.001 65.9548 158.171 61.404C160.06 59.3425 158.952 56.2791 156.188 55.8589C149.894 54.902 139.441 54.1016 130.491 57.1835C126.126 58.6862 122.746 61.4743 121.055 64.5757Z"
                       fill="#89E6CE"
                     />
@@ -180,50 +180,50 @@ const Test = () => {
                       d="M189 145.286C189 158.674 181.406 170.983 168.749 180.024C156.096 189.062 138.513 194.715 119 194.715C99.4865 194.715 81.9039 189.062 69.2508 180.024C56.5938 170.983 49 158.674 49 145.286C49 131.898 56.5938 119.589 69.2508 110.548C81.9039 101.51 99.4865 95.8574 119 95.8574C138.513 95.8574 156.096 101.51 168.749 110.548C181.406 119.589 189 131.898 189 145.286Z"
                       fill="#FCD4DC"
                       stroke="#F5768F"
-                      stroke-width="4"
+                      strokeWidth="4"
                     />
                     <path
                       d="M74.8643 157.725L79.9285 148.953"
                       stroke="#F1A027"
-                      stroke-width="5.06424"
-                      stroke-linecap="round"
+                      strokeWidth="5.06424"
+                      strokeLinecap="round"
                     />
                     <path
                       d="M82.4607 157.725L87.5249 148.953"
                       stroke="#F1A027"
-                      stroke-width="5.06424"
-                      stroke-linecap="round"
+                      strokeWidth="5.06424"
+                      strokeLinecap="round"
                     />
                     <path
                       d="M90.0569 157.725L95.1211 148.953"
                       stroke="#F1A027"
-                      stroke-width="5.06424"
-                      stroke-linecap="round"
+                      strokeWidth="5.06424"
+                      strokeLinecap="round"
                     />
                     <path
                       d="M143.121 157.725L148.185 148.953"
                       stroke="#F1A027"
-                      stroke-width="5.06424"
-                      stroke-linecap="round"
+                      strokeWidth="5.06424"
+                      strokeLinecap="round"
                     />
                     <path
                       d="M150.718 157.725L155.782 148.953"
                       stroke="#F1A027"
-                      stroke-width="5.06424"
-                      stroke-linecap="round"
+                      strokeWidth="5.06424"
+                      strokeLinecap="round"
                     />
                     <path
                       d="M158.314 157.725L163.378 148.953"
                       stroke="#F1A027"
-                      stroke-width="5.06424"
-                      stroke-linecap="round"
+                      strokeWidth="5.06424"
+                      strokeLinecap="round"
                     />
                     <ellipse cx="94.9766" cy="138.992" rx="8.62503" ry="9" fill="#080808" />
-                    <ellipse cx="94.9766" cy="138.992" rx="8.62503" ry="9" fill="black" fill-opacity="0.2" />
-                    <ellipse cx="94.9766" cy="138.992" rx="8.62503" ry="9" fill="black" fill-opacity="0.2" />
-                    <ellipse cx="94.9766" cy="138.992" rx="8.62503" ry="9" fill="black" fill-opacity="0.2" />
-                    <ellipse cx="94.9766" cy="138.992" rx="8.62503" ry="9" fill="black" fill-opacity="0.2" />
-                    <ellipse cx="94.9766" cy="138.992" rx="8.62503" ry="9" fill="black" fill-opacity="0.2" />
+                    <ellipse cx="94.9766" cy="138.992" rx="8.62503" ry="9" fill="black" fillOpacity="0.2" />
+                    <ellipse cx="94.9766" cy="138.992" rx="8.62503" ry="9" fill="black" fillOpacity="0.2" />
+                    <ellipse cx="94.9766" cy="138.992" rx="8.62503" ry="9" fill="black" fillOpacity="0.2" />
+                    <ellipse cx="94.9766" cy="138.992" rx="8.62503" ry="9" fill="black" fillOpacity="0.2" />
+                    <ellipse cx="94.9766" cy="138.992" rx="8.62503" ry="9" fill="black" fillOpacity="0.2" />
                     <ellipse cx="94.834" cy="136.743" rx="2.87501" ry="2.25" fill="white" />
                     <ellipse
                       opacity="0.8"
@@ -249,7 +249,7 @@ const Test = () => {
                       ry="9"
                       transform="matrix(-1 0 0 1 156.852 129.992)"
                       fill="black"
-                      fill-opacity="0.2"
+                      fillOpacity="0.2"
                     />
                     <ellipse
                       cx="8.62503"
@@ -258,7 +258,7 @@ const Test = () => {
                       ry="9"
                       transform="matrix(-1 0 0 1 156.852 129.992)"
                       fill="black"
-                      fill-opacity="0.2"
+                      fillOpacity="0.2"
                     />
                     <ellipse
                       cx="8.62503"
@@ -267,7 +267,7 @@ const Test = () => {
                       ry="9"
                       transform="matrix(-1 0 0 1 156.852 129.992)"
                       fill="black"
-                      fill-opacity="0.2"
+                      fillOpacity="0.2"
                     />
                     <ellipse
                       cx="8.62503"
@@ -276,7 +276,7 @@ const Test = () => {
                       ry="9"
                       transform="matrix(-1 0 0 1 156.852 129.992)"
                       fill="black"
-                      fill-opacity="0.2"
+                      fillOpacity="0.2"
                     />
                     <ellipse
                       cx="8.62503"
@@ -285,7 +285,7 @@ const Test = () => {
                       ry="9"
                       transform="matrix(-1 0 0 1 156.852 129.992)"
                       fill="black"
-                      fill-opacity="0.2"
+                      fillOpacity="0.2"
                     />
                     <ellipse
                       cx="2.87501"
@@ -308,16 +308,16 @@ const Test = () => {
                     <path
                       d="M117 69C110.509 68.7986 97.1311 65.116 93 61"
                       stroke="#25B18C"
-                      stroke-width="4"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                     <path
                       d="M125 69.001C131.491 68.7996 144.869 65.117 149 61.001"
                       stroke="#25B18C"
-                      stroke-width="4"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                   </g>
                   <defs>
@@ -328,9 +328,9 @@ const Test = () => {
                       width="240"
                       height="240"
                       filterUnits="userSpaceOnUse"
-                      color-interpolation-filters="sRGB"
+                      colorInterpolationFilters="sRGB"
                     >
-                      <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                      <feFlood floodOpacity="0" result="BackgroundImageFix" />
                       <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
                       <feColorMatrix
                         in="SourceAlpha"
