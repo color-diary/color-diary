@@ -6,6 +6,7 @@ import { ChartConfig, ChartContainer, ChartLegend, ChartLegendContent } from '@/
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Diary } from '@/types/diary.type';
+import Image from 'next/image';
 
 const ColorChart = () => {
   const today = new Date();
@@ -81,15 +82,23 @@ const ColorChart = () => {
         <button onClick={() => changeDate(month + 1)}>&gt;</button>
       </div>
       <CardContent>
-        <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[300px] h-[260px]">
-          <PieChart>
-            <Pie data={chartData} dataKey="visitors" />
-            <ChartLegend
-              content={<ChartLegendContent nameKey="browser" />}
-              className="-translate-y-2 flex-wrap gap-1 [&>*]:basis-1/4 [&>*]:justify-center text-lg"
-            />
-          </PieChart>
-        </ChartContainer>
+        {sortedColors.length > 0 ? (
+          <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[300px] h-[260px]">
+            <PieChart>
+              <Pie data={chartData} dataKey="visitors" />
+              <ChartLegend
+                content={<ChartLegendContent nameKey="browser" />}
+                className="-translate-y-2 flex-wrap gap-1 [&>*]:basis-1/4 [&>*]:justify-center text-lg"
+              />
+            </PieChart>
+          </ChartContainer>
+        ) : (
+          <div className="flex flex-col items-center">
+            <Image src="/Flowers.png" alt="공백이미지" width={176} height={176} className="mt-6 mb-6" />
+            <div>이달은 기록된 감정이 없어요.</div>
+            <div>더 많은 감정을 기록해봐요!</div>
+          </div>
+        )}
       </CardContent>
     </Card>
   );
