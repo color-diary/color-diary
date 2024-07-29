@@ -10,7 +10,6 @@ import { GiSoundOff } from "react-icons/gi";
 const Header = () => {
     const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
     const [isPlaying, setIsPlaying] = useState(false);
-    const [userStatus, setUserStatus] = useState(false);
     const isLogin = loginZustandStore(state => state.isLogin);
     const setIsLogin = loginZustandStore(state => state.setIsLogin);
     const publicProfileImg = loginZustandStore(state => state.publicProfileImg)
@@ -21,7 +20,7 @@ const Header = () => {
             const { data, error } = await supabase.auth.getUser();
             console.log('헤더 로그=>', data.user);
             if (data.user == null) {
-                setIsLogin(false); 
+                setIsLogin(false);
             } else {
                 setIsLogin(true);
             }
@@ -33,7 +32,7 @@ const Header = () => {
         setAudio(new Audio('/background-bgm.mp3'));
     }, []);
 
-    
+
     const toggleMusic = () => {
         if (!audio) return;
         if (isPlaying) {
@@ -61,23 +60,24 @@ const Header = () => {
                     {isPlaying ? <GiSoundOn size={24} /> : <GiSoundOff size={24} />}
                 </button>
 
-                {!isLogin && (
+                {!isLogin ?
                     <Link href={"/log-in"}>
                         <button>로그인</button>
                     </Link>
-                )}
+                    : null}
+
                 {/* 프로필 이미지가 들어갈곳 */}
-                {isLogin && (
+                {isLogin ?
                     <Link href={"my-page"}>
                         <Image
-                            src={publicProfileImg}
+                            src={publicProfileImg || "/default-profile.jpg"}
                             alt="Profile Image"
                             width={40}
                             height={40}
                             className="rounded-full cursor-pointer"
                         />
-                    </Link>
-                )}
+                    </Link> : null
+                }
             </div>
         </div>
     );
