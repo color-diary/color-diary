@@ -4,6 +4,7 @@ import questions, { TOTAL_QUESTION } from '@/data/questions';
 import results from '@/data/results';
 import { Emotion, EmotionCount, ResultType, Sentiment, TestHistory } from '@/types/test.type';
 import { initializeEmotionCount } from '@/utils/initialEmotionCount';
+import { splitCommentWithSlash } from '@/utils/splitCommentWithSlash';
 import zustandStore from '@/zustand/zustandStore';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -312,9 +313,13 @@ const Test = () => {
                     />
                   </svg>
                 </div>
-                <p className="w-80 text-font-color text-center text-2xl font-normal tracking-0.48px">
-                  오늘은 어떤 하루를 보냈나요? 나의 감정을 한번 알아봐요!😀
-                </p>
+                <div className="w-80 text-font-color text-center text-2xl font-normal tracking-0.48px">
+                  {splitCommentWithSlash('오늘은 어떤 하루를 보냈나요?/나의 감정을 한번 알아봐요!😀').map(
+                    (line, index) => (
+                      <p key={index}>{line}</p>
+                    )
+                  )}
+                </div>
               </div>
             </div>
             <Button
