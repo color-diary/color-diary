@@ -34,10 +34,27 @@ const config = {
         '550px': '34.375rem',
         '600px': '37.5rem',
         '744px': '46.5rem',
-        '760px': '47.5rem'
+        '760px': '47.5rem',
+        '4px-row': 'calc(100vw * 0.00208)',
+        '16px-row': 'calc(100vw * 0.00833)',
+        '20px-row': 'calc(100vw * 0.01042)',
+        '24px-row': 'calc(100vw * 0.01250)',
+        '48px-row': 'calc(100vw * 0.025)',
+        '4px-col': 'calc(100vh * 0.00370)',
+        '8px-col': 'calc(100vh * 0.00741)',
+        '12px-col': 'calc(100vh * 0.01111)',
+        '24px-col': 'calc(100vh * 0.02222)',
+        '36px-col': 'calc(100vh * 0.03333)',
+        '44px-col': 'calc(100vh * 0.04074)',
+        '64px-col': 'calc(100vh * 0.05926)',
+        '240px-col': 'calc(100vh * 0.2222)'
       },
       fontSize: {
-        '28px': ['1.75rem', { lineHeight: '1.35' }]
+        '14px': ['calc((100vw * 0.00729 + 100vh * 0.01296) / 2)', { lineHeight: '1.35' }],
+        '16px': ['calc((100vw * 0.00833 + 100vh * 0.01481) / 2)', { lineHeight: '1.35' }],
+        '18px': ['calc((100vw * 0.00938 + 100vh * 0.01667) / 2)', { lineHeight: '1.35' }],
+        '24px': ['calc((100vw * 0.0125 + 100vh * 0.02222) / 2)', { lineHeight: '1.35' }],
+        '28px': ['calc((100vw * 0.01458 + 100vh * 0.02593) / 2)', { lineHeight: '1.35' }]
       },
       letterSpacing: {
         '0.28px': '-0.0175rem',

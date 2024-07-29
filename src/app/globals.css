@@ -25,6 +25,9 @@
   --font-color: #080808;
 
   --radius: 0.5rem;
+
+  --responsive-height: calc(100vh * 0.7037);
+  --responsive-width: calc(100vw * 0.3875);
 }
 
 body {
@@ -159,5 +162,28 @@ body {
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-2: 340 75% 55%;
+  }
+}
+
+@media (max-width: 1920px) {
+  .test-page-width {
+    width: calc(100vw * 0.3875);
+  }
+
+  .test-start-row-ratio {
+    margin-left: calc(100vw * 0.0375);
+    margin-right: calc(100vw * 0.0375);
+  }
+}
+
+@media (max-height: 1080px) {
+  .test-page-height {
+    height: calc(100vh * 0.7037);
+  }
+
+  .test-start-col-ratio {
+    margin-top: calc(100vh * 0.05185);
+    margin-bottom: calc(100vh * 0.07407);
+    gap: calc(100vh * 0.05185);
   }
 }
