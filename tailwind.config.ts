@@ -13,16 +13,25 @@ const config = {
       }
     },
     extend: {
+      fontFamily: {
+        pretendard: ['var(--font-pretendard)']
+      },
       boxShadow: {
         'inner-top-left': 'inset 3px 3px 5px rgba(0, 0, 0, 0.2)',
         'custom-inset': '0.5rem 0.5rem 0rem 0rem var(--border-color) inset',
         'progress-border': '0rem 0rem 0rem 0.1875rem var(--border-color)'
       },
       spacing: {
+        '19.5px': '1.21875rem',
+        '25.5px': '1.59375rem',
+        '9.5': '2.375rem',
         '13': '3.25rem',
+        '13.5': '3.375rem',
         '18': '4.5rem',
         '140px': '8.75rem',
         '200px': '12.5rem',
+        '430px': '26.875rem',
+        '550px': '34.375rem',
         '600px': '37.5rem',
         '744px': '46.5rem',
         '760px': '47.5rem'

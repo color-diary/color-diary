@@ -1,15 +1,22 @@
-'use client';
-import { createClient } from '@/utils/supabase/client';
+"use client"
+import { createClient } from '@/utils/supabase/client'
+import { loginZustandStore } from '@/zustand/zustandStore';
+
 import axios from 'axios';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react'
 
 const MyPageForm = () => {
   const [nickname, setNickname] = useState('');
   const [newNickname, setNewNickname] = useState('');
   const [profileImg, setProfileImg] = useState('');
-
+  const publicSetProfileImg = loginZustandStore(state => state.publicSetProfileImg);
+  const publicProfileImg = loginZustandStore(state => state.publicProfileImg)
+  const setIsLogin = loginZustandStore(state => state.setIsLogin);
+  const isLogin = loginZustandStore(state => state.isLogin);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const supabase = createClient();
 
@@ -23,6 +30,7 @@ const MyPageForm = () => {
           const userNickname = userData[0].nickname;
           setNickname(userNickname);
           setNewNickname(userNickname);
+          // publicSetProfileImg(userData[0].profileImg || '/default-profile.jpg');
           setProfileImg(userData[0].profileImg || '/default-profile.jpg');
         }
       }
@@ -54,6 +62,7 @@ const MyPageForm = () => {
       if (response.status === 200) {
         alert(response.data.message);
         console.log('로그아웃 성공');
+        setIsLogin(false);
         router.replace('/');
       }
     } catch (error: unknown) {
@@ -74,8 +83,9 @@ const MyPageForm = () => {
         return;
       }
       const res = supabase.storage.from('profileImg').getPublicUrl(newFileName);
-      console.log(res.data.publicUrl);
+      console.log('res데이터', res.data.publicUrl);
       setProfileImg(res.data.publicUrl);
+      publicSetProfileImg(res.data.publicUrl);
       const { data: userInfo } = await supabase.auth.getUser();
       const userId = userInfo.user?.id;
       if (userId) {
@@ -90,34 +100,68 @@ const MyPageForm = () => {
   };
 
   return (
-    <div>
-      <h1>마이페이지</h1>
-      <button className="border-2 border-red-500" onClick={logoutHandler}>
-        로그아웃
-      </button>
-      <h1>{`현재 로그인된 닉네임=> ${nickname}`}</h1>
-      <input
-        type="text"
-        onChange={(e) => setNewNickname(e.target.value)}
-        value={newNickname}
-        className="border-2 border-red-500"
-      />
-      <div>
-        <button className="border-2 border-red-500" onClick={changeNicknameHandler}>
-          닉네임 수정
-        </button>
+    <div className="flex flex-col items-center justify-center mt-[270px]">
+      <div className="w-[1000px] flex flex-row items-center border-b-4">
+        {isLogin ? <Image
+          src={profileImg}
+          alt="Profile Image"
+          width={150}
+          height={150}
+          className="rounded-full cursor-pointer"
+          onClick={() => fileInputRef.current?.click()}
+        /> : <Image
+          src={"/default-profile.jpg"}
+          alt="defaultProfile Image"
+          width={150}
+          height={150}
+          className="rounded-full"
+        />}
+
+        <input
+          type="file"
+          ref={fileInputRef}
+          onChange={(e) => { if (e.target.files) { addImgFile(e.target.files[0]) } }}
+          className="hidden"
+        />
+        <div className="mt-4 flex flex-col items-center">
+          {isLogin ? (
+            <div>
+              <div className="flex flex-col items-center">
+                <div className="flex items-center">
+                  <span className="mr-2">닉네임:</span>
+                  <span>{nickname}</span>
+                </div>
+                <div className="flex items-center mt-2">
+                  <span className="mr-2">비밀번호:</span>
+                  <span>********</span>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div>
+              <span className="mr-2">닉네임: 비회원</span>
+            </div>
+          )}
+
+          {/* 닉네임 수정 input */}
+          {/* <div className="flex items-center mt-4">
+            <input
+              type="text"
+              onChange={(e) => setNewNickname(e.target.value)}
+              value={newNickname}
+              className="border rounded p-2 w-full"
+            />
+          </div> */}
+          {isLogin ? <button onClick={changeNicknameHandler} className="mt-4 border-4">정보 수정</button> : null}
+        </div>
       </div>
-      {/* 이미지 업로드 + 보여지는 곳 */}
-      <input
-        type="file"
-        onChange={(e) => {
-          if (e.target.files) {
-            addImgFile(e.target.files[0]);
-          }
-        }}
-      />
-      <Image src={profileImg || '/default-profile.jpg'} alt="" width={100} height={100} />
-    </div>
+      {/* 선 아래 버튼3개 */}
+      <div className="mt-4">
+        {isLogin ? <button className=' border-4' onClick={logoutHandler} >로그아웃</button> : <Link href={'log-in'}><button className=' border-4' >회원가입</button></Link>}
+        <button className=' border-4'>문의하기</button>
+        <button className=' border-4'>이용약관</button>
+      </div>
+    </div >
   );
 };
 

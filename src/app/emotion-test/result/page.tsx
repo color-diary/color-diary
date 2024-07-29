@@ -1,5 +1,6 @@
 import TestResult from '@/components/emotionTest/TestResult';
 import { TestResultProps } from '@/types/test.type';
+import { validateEmotion } from '@/utils/paramsValidation';
 import { notFound } from 'next/navigation';
 
 interface EmotionTestResultPageProps {
@@ -11,7 +12,8 @@ const EmotionTestResultPage = ({ searchParams }: EmotionTestResultPageProps) => 
   const positive = Number(searchParams.positive);
   const negative = Number(searchParams.negative);
 
-  if (!emotion || positive == null || negative == null || positive + negative !== 100) notFound();
+  if (!emotion || !validateEmotion(emotion) || positive == null || negative == null || positive + negative !== 100)
+    notFound();
 
   return (
     <div className="h-screen flex justify-center items-center">

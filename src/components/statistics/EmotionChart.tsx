@@ -29,7 +29,6 @@ const EmotionChart = () => {
     const getDiaries = async () => {
       try {
         const response = await axios.get<Diary[]>(`/api/diaries?year=${year}&month=${month}`);
-        console.log(response.data);
         const diaries = response.data;
         setLength(diaries.length);
         const allTags = diaries.flatMap((entry) => entry.tags);
