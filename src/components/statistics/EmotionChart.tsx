@@ -5,6 +5,7 @@ import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Diary } from '@/types/diary.type';
+import Image from 'next/image';
 
 const EmotionChart = () => {
   const today = new Date();
@@ -82,32 +83,42 @@ const EmotionChart = () => {
       <div className="flex justify-center items-center">
         <CardContent>
           {sortedTags.length > 0 ? (
-            <ChartContainer config={chartConfig} className="h-[150px] w-[450px] mt-[40px]">
-              <BarChart
-                accessibilityLayer
-                data={chartData}
-                layout="vertical"
-                margin={{
-                  left: 0
-                }}
-                className="font-bold text-lg"
-              >
-                <YAxis
-                  dataKey="browser"
-                  type="category"
-                  tickLine={false}
-                  tickMargin={10}
-                  axisLine={false}
-                  tickFormatter={(value) => chartConfig[value as keyof typeof chartConfig]?.label}
-                />
-                <XAxis dataKey="visitors" type="number" hide />
-                <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-                <Bar dataKey="visitors" layout="vertical" radius={[0, 15, 15, 0]} />
-              </BarChart>
-            </ChartContainer>
+            sortedTags.length < 10 ? (
+              <ChartContainer config={chartConfig} className="h-[150px] w-[450px] mt-[40px]">
+                <BarChart
+                  accessibilityLayer
+                  data={chartData}
+                  layout="vertical"
+                  margin={{
+                    left: 0
+                  }}
+                  className="font-bold text-lg"
+                >
+                  <YAxis
+                    dataKey="browser"
+                    type="category"
+                    tickLine={false}
+                    tickMargin={10}
+                    axisLine={false}
+                    tickFormatter={(value) => chartConfig[value as keyof typeof chartConfig]?.label}
+                  />
+                  <XAxis dataKey="visitors" type="number" hide />
+                  <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
+                  <Bar dataKey="visitors" layout="vertical" radius={[0, 15, 15, 0]} />
+                </BarChart>
+              </ChartContainer>
+            ) : (
+              <div className="flex flex-col items-center mt-6">
+                <Image src="/seasons.png" alt="사계절 이미지" width={282} height={50} className="mb-4" />
+                <div>다양한 감정을 느끼신 것 같아요.</div>
+                <div>다양한 감정이 동일한 빈도로 나타내고 있어 통계를 제공할 수 없어요.</div>
+                <div>하지만 감정을 기록하는 건 좋은 습관입니다.</div>
+                <div className="text-[#25B18C] mt-6">#다양한_감정의_주인공은_바로_나</div>
+              </div>
+            )
           ) : (
-            <div className="mt-[64px] flex flex-col items-center">             
-              <div className="text-[#25B18C] ">#이달은_감정기록이_필요해</div>
+            <div className="mt-[64px] flex flex-col items-center">
+              <div className="text-[#25B18C]">#이달은_감정기록이_필요해</div>
               <div className="mt-4">아직 감정 해시태그가 기록되지 않았어요.</div>
               <div>감정 해시태그를 추가하면 자기 이해와 관리에 도움이 될 수 있답니다.</div>
               <div>오늘의 감정을 해시태그로 표현해보세요!</div>
