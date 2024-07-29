@@ -3,7 +3,10 @@ import { ToastProvider } from '@/providers/toast.context';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import SideBar from '@/components/common/Sidebar';
 import Header from '@/components/common/Header';
+import Header2 from '@/components/common/Header2';
+
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -24,7 +27,13 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <QueryProvider>
-          <ToastProvider><Header />{children}</ToastProvider>
+          <ToastProvider>
+            <Header2 />
+            <SideBar />
+            {/* <SideBar />
+            <div>{children}</div> */}
+            {children}
+          </ToastProvider>
         </QueryProvider>
       </body>
     </html>

@@ -15,10 +15,11 @@ export type tZustandStore = {
   setTestResult: (result: TestResultType) => void;
   setIsDiaryEditMode: (isDiaryEditMode: boolean) => void;
   setHasTestResult: (hasTestResult: boolean) => void;
-  
 };
 
 export type loginStatusZustandStore = {
   isLogin: boolean;
   setIsLogin: (isLogin: boolean) => void;
+  publicProfileImg: string;
+  publicSetProfileImg: (profileImg:string) => void;
 }

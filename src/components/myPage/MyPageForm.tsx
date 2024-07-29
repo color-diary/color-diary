@@ -5,13 +5,15 @@ import { loginZustandStore } from '@/zustand/zustandStore';
 import axios from 'axios';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 const MyPageForm = () => {
   const [nickname, setNickname] = useState('');
   const [newNickname, setNewNickname] = useState('');
   const [profileImg, setProfileImg] = useState('');
+  const publicSetProfileImg = loginZustandStore(state => state.publicSetProfileImg)
   const setIsLogin = loginZustandStore(state => state.setIsLogin);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const supabase = createClient();
 
@@ -26,6 +28,7 @@ const MyPageForm = () => {
           setNickname(userNickname);
           setNewNickname(userNickname);
           setProfileImg(userData[0].profileImg || '/default-profile.jpg');
+          publicSetProfileImg(userData[0].profileImg || '/default-profile.jpg');
         }
       }
       console.log('getUserData => ', data);
@@ -91,22 +94,46 @@ const MyPageForm = () => {
   };
 
   return (
-    <div>
-      <h1>마이페이지</h1>
-      <button className='border-2 border-red-500' onClick={logoutHandler}>로그아웃</button>
-      <h1>{`현재 로그인된 닉네임=> ${nickname}`}</h1>
-      <input
-        type="text"
-        onChange={(e) => setNewNickname(e.target.value)}
-        value={newNickname}
-        className='border-2 border-red-500'
-      />
-      <div>
-        <button className='border-2 border-red-500' onClick={changeNicknameHandler}>닉네임 수정</button>
+    <div className="flex flex-col items-center justify-center mt-[270px]">
+      <div className="w-[1000px] flex flex-row items-center">
+        <Image
+          src={profileImg || '/default-profile.jpg'}
+          alt="Profile Image"
+          width={150}
+          height={150}
+          className="rounded-full cursor-pointer"
+          onClick={() => fileInputRef.current?.click()}
+        />
+        <input
+          type="file"
+          ref={fileInputRef}
+          onChange={(e) => { if (e.target.files) { addImgFile(e.target.files[0]) } }}
+          className="hidden"
+        />
+        <div className="mt-4 flex flex-col items-center">
+          <div className="flex items-center">
+            <span className="mr-2">닉네임:</span>
+            <span>{nickname}</span>
+          </div>
+
+          <div className="flex items-center">
+            <span className="mr-2">비밀번호:</span>
+            <span>********</span>
+          </div>
+
+          <div className="flex items-center mt-4">
+            <input
+              type="text"
+              onChange={(e) => setNewNickname(e.target.value)}
+              value={newNickname}
+              className="border rounded p-2 w-full"
+            />
+          </div>
+
+          <button onClick={changeNicknameHandler} className="mt-4 bor">정보 수정</button>
+        </div>
       </div>
-      {/* 이미지 업로드 + 보여지는 곳 */}
-      <input type="file" onChange={(e) => { if (e.target.files) { addImgFile(e.target.files[0]) } }} />
-      <Image src={profileImg || '/default-profile.jpg'} alt="" width={100} height={100} />
+      <button onClick={logoutHandler} className="mt-4">로그아웃</button>
     </div>
   );
 }
