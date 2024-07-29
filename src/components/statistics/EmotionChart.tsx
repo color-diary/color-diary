@@ -72,6 +72,7 @@ const EmotionChart = () => {
       color: 'hsl(var(--chart-3))'
     }
   } satisfies ChartConfig;
+
   return (
     <Card>
       <div className="flex items-center justify-center gap-3 mt-6 text-lg">
@@ -81,29 +82,38 @@ const EmotionChart = () => {
       </div>
       <div className="flex justify-center items-center">
         <CardContent>
-          <ChartContainer config={chartConfig} className="h-[150px] w-[450px] mt-[40px]">
-            <BarChart
-              accessibilityLayer
-              data={chartData}
-              layout="vertical"
-              margin={{
-                left: 0
-              }}
-              className="font-bold text-lg"
-            >
-              <YAxis
-                dataKey="browser"
-                type="category"
-                tickLine={false}
-                tickMargin={10}
-                axisLine={false}
-                tickFormatter={(value) => chartConfig[value as keyof typeof chartConfig]?.label}
-              />
-              <XAxis dataKey="visitors" type="number" hide />
-              <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-              <Bar dataKey="visitors" layout="vertical" radius={[0, 15, 15, 0]} />
-            </BarChart>
-          </ChartContainer>
+          {sortedTags.length > 0 ? (
+            <ChartContainer config={chartConfig} className="h-[150px] w-[450px] mt-[40px]">
+              <BarChart
+                accessibilityLayer
+                data={chartData}
+                layout="vertical"
+                margin={{
+                  left: 0
+                }}
+                className="font-bold text-lg"
+              >
+                <YAxis
+                  dataKey="browser"
+                  type="category"
+                  tickLine={false}
+                  tickMargin={10}
+                  axisLine={false}
+                  tickFormatter={(value) => chartConfig[value as keyof typeof chartConfig]?.label}
+                />
+                <XAxis dataKey="visitors" type="number" hide />
+                <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
+                <Bar dataKey="visitors" layout="vertical" radius={[0, 15, 15, 0]} />
+              </BarChart>
+            </ChartContainer>
+          ) : (
+            <div className="mt-[64px] flex flex-col items-center">             
+              <div className="text-[#25B18C] ">#이달은_감정기록이_필요해</div>
+              <div className="mt-4">아직 감정 해시태그가 기록되지 않았어요.</div>
+              <div>감정 해시태그를 추가하면 자기 이해와 관리에 도움이 될 수 있답니다.</div>
+              <div>오늘의 감정을 해시태그로 표현해보세요!</div>
+            </div>
+          )}
         </CardContent>
       </div>
     </Card>
