@@ -9,7 +9,12 @@ const config = {
       center: true,
       padding: '2rem',
       screens: {
-        '2xl': '1400px'
+        mobile: '375px',
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
+        '2xl': '1536px'
       }
     },
     extend: {
@@ -18,7 +23,6 @@ const config = {
       },
       boxShadow: {
         'inner-top-left': 'inset 3px 3px 5px rgba(0, 0, 0, 0.2)',
-        'custom-inset': '0.5rem 0.5rem 0rem 0rem var(--border-color) inset',
         'progress-border': '0rem 0rem 0rem 0.1875rem var(--border-color)'
       },
       spacing: {
@@ -33,21 +37,27 @@ const config = {
         '430px': '26.875rem',
         '550px': '34.375rem',
         '600px': '37.5rem',
-        '744px': '46.5rem',
-        '760px': '47.5rem',
         '4px-row': 'calc(100vw * 0.00208)',
         '16px-row': 'calc(100vw * 0.00833)',
         '20px-row': 'calc(100vw * 0.01042)',
         '24px-row': 'calc(100vw * 0.01250)',
         '48px-row': 'calc(100vw * 0.025)',
+        '72px-row': 'calc(100vw * 0.0375)',
+        '600px-row': 'calc(100vw * 0.3125)',
+        '744px-row': 'calc(100vw * 0.3875)',
         '4px-col': 'calc(100vh * 0.00370)',
         '8px-col': 'calc(100vh * 0.00741)',
         '12px-col': 'calc(100vh * 0.01111)',
+        '16px-col': 'calc(100vh * 0.0148)',
         '24px-col': 'calc(100vh * 0.02222)',
         '36px-col': 'calc(100vh * 0.03333)',
         '44px-col': 'calc(100vh * 0.04074)',
+        '56px-col': 'calc(100vh * 0.05185)',
         '64px-col': 'calc(100vh * 0.05926)',
-        '240px-col': 'calc(100vh * 0.2222)'
+        '72px-col': 'calc(100vh * 0.0667)',
+        '80px-col': 'calc(100vh * 0.07407)',
+        '240px-col': 'calc(100vh * 0.2222)',
+        '760px-col': 'calc(100vh * 0.7037)'
       },
       fontSize: {
         '14px': ['calc((100vw * 0.00729 + 100vh * 0.01296) / 2)', { lineHeight: '1.35' }],
