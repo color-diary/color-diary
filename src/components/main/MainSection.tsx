@@ -3,25 +3,58 @@
 import React from 'react';
 import MainCalendar from '@/components/main/MainCalendar';
 import Cards from '@/components/main/Cards';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import axios from 'axios';
 import { DiaryList } from '@/types/diary.type';
 import { createClient } from '@/utils/supabase/client';
-import WinterStamp from './season-stamp/WinterStamp';
 
 const MainSection = () => {
   const router = useRouter();
   const now = new Date();
+  const params = useSearchParams();
+  const isCards = params.get('form') === 'cards';
+  const [form, setForm] = React.useState(isCards ? 'cards' : 'calendar');
   const [diaryList, setDiaryList] = React.useState<DiaryList>([]);
-  const [form, setForm] = React.useState<boolean>(true);
   const [year, setYear] = React.useState<number>(now.getFullYear());
   const [month, setMonth] = React.useState<number>(now.getMonth() + 1);
+  const [queryString, setQueryString] = React.useState<String>();
   const [date, setDate] = React.useState<Date>(now);
+  //
+  const handleClickButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const { name } = e.target as HTMLButtonElement;
+    if (e.target.name === form) {
+      return;
+    }
+    setForm(e.target.name);
+  };
+  // 버튼 기본 text color 흐리게 하고
+  // let current = document.getElementById(currentClick);
+  // current.style.color = 'black';
 
-  const handleChangeForm = () => {
-    setForm((prev) => !prev);
+  // for (const [key, value] of params) {
+  //   console.log(`${key}: ${value}`);
+  // }
+
+  const handleQueryString = () => {
+    if (String(month).length === 1) {
+      setQueryString(`?form=${form}&YYMM=${String(year) + String(0) + String(month)}`);
+    } else {
+      setQueryString(`?form=${form}&YYMM=${String(year) + String(month)}`);
+    }
   };
 
+  const handleInputChangeDate = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const date = new Date(event.target.value);
+
+    if (date) {
+      setYear(date.getFullYear());
+      setMonth(date.getMonth() + 1);
+      setDate(date);
+    }
+  };
+
+  // 오늘 이후의 날짜면 클릭 못함
+  //
   const getDiaryList = async () => {
     try {
       const supabase = createClient();
@@ -39,17 +72,6 @@ const MainSection = () => {
     }
   };
 
-  const handleChangeDate = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const date = new Date(event.target.value);
-    console.log(date);
-
-    if (date) {
-      setYear(date.getFullYear());
-      setMonth(date.getMonth() + 1);
-      setDate(date);
-    }
-  };
-
   const getUserDiaryList = async () => {
     const response = await axios.get('/api/diaries', {
       params: { year, month }
@@ -63,15 +85,59 @@ const MainSection = () => {
 
   React.useEffect(() => {
     getDiaryList();
-  }, []);
+  }, [year, month]);
+
+  React.useEffect(() => {
+    setYear(date.getFullYear());
+    setMonth(date.getMonth() + 1);
+    setDate(date);
+  }, [date]);
+
+  React.useEffect(() => {
+    handleQueryString();
+  }, [form, year, month]);
+
+  React.useEffect(() => {
+    if (queryString) {
+      router.replace(`${queryString}`);
+    }
+  }, [queryString]);
 
   return (
-    <>
-      <div>
-        <input type="date" name="date" onChange={(e) => handleChangeDate(e)} />
+    <div className="">
+      <div className="">
+        <div className="flex">
+          <button
+            name="calendar"
+            onClick={(e) => {
+              handleClickButton(e);
+            }}
+          >
+            캘린더
+          </button>
+          <div className="bg-black h-4 w-0.5 mt-1 mx-2"></div>
+          <button
+            name="cards"
+            onClick={(e) => {
+              handleClickButton(e);
+            }}
+          >
+            카드
+          </button>
+        </div>
       </div>
-      <button onClick={() => handleChangeForm()}>캘린더 | 카드</button>
-      {form ? <MainCalendar diaryList={diaryList} date={date} setDate={setDate} /> : <Cards diaryList={diaryList} />}
+      <div>
+        {isCards ? (
+          <Cards diaryList={diaryList} />
+        ) : (
+          <MainCalendar
+            diaryList={diaryList}
+            date={date}
+            setDate={setDate}
+            handleInputChangeDate={handleInputChangeDate}
+          />
+        )}
+      </div>
       <button
         onClick={() => {
           router.push('/emotion-test');
@@ -79,7 +145,7 @@ const MainSection = () => {
       >
         나의 감정 확인하기
       </button>
-    </>
+    </div>
   );
 };
 

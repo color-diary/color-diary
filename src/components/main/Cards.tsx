@@ -9,9 +9,9 @@ interface CardsProps {
 
 const Cards = ({ diaryList }: CardsProps) => {
   const route = useRouter();
-
+  //순서정렬 필요
   return (
-    <>
+    <div className="grid grid-cols-4 gap-6">
       {diaryList.map((diary) => {
         return (
           <div
@@ -19,7 +19,7 @@ const Cards = ({ diaryList }: CardsProps) => {
             onClick={() => {
               route.push(`/diaries/${diary.diaryId}`);
             }}
-            className="border m-3 p-3 rounded-lg w-64 "
+            className="border rounded-lg  "
           >
             <div className="flex justify-between">
               <div>{new Date(diary.date).getDate()}</div>
@@ -29,7 +29,7 @@ const Cards = ({ diaryList }: CardsProps) => {
           </div>
         );
       })}
-    </>
+    </div>
   );
 };
 
