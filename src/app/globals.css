@@ -41,16 +41,14 @@ body {
     hsl(30, 100%, 50%),
     hsl(60, 100%, 50%),
     hsl(90, 100%, 50%),
-    hsl(120, 100%, 50%),
-    hsl(150, 100%, 50%),
     hsl(180, 100%, 50%),
     hsl(210, 100%, 50%),
     hsl(240, 100%, 50%),
     hsl(270, 100%, 50%),
     hsl(300, 100%, 50%),
-    hsl(330, 100%, 50%),
     hsl(0, 100%, 50%)
   );
+  background-size: 150% 100%;
 }
 
 @layer base {
@@ -162,5 +160,44 @@ body {
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-2: 340 75% 55%;
+  }
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #f7f0e9;
+  border-radius: 22px;
+  border: 2px solid #e6d3bc;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #ffffff;
+  border-radius: 22px;
+}
+
+@media (max-width: 1920px) {
+  .test-page-width {
+    width: calc(100vw * 0.3875);
+  }
+
+  .test-start-row-ratio {
+    margin-left: calc(100vw * 0.0375);
+    margin-right: calc(100vw * 0.0375);
+  }
+}
+
+@media (max-height: 1080px) {
+  .test-page-height {
+    height: calc(100vh * 0.7037);
+  }
+
+  .test-start-col-ratio {
+    margin-top: calc(100vh * 0.05185);
+    margin-bottom: calc(100vh * 0.07407);
+    gap: calc(100vh * 0.05185);
   }
 }
