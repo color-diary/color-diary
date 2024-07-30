@@ -123,6 +123,10 @@ const WriteForm = () => {
   });
 
   const handleWrite = () => {
+    if (!color || !tags) {
+      toast.on({ label: '색상과 태그를 입력해주세요' });
+      return;
+    }
     if (!userId) {
       saveToLocal(color, tags, content, img, date);
       toast.on({ label: '(비회원)작성완료!' });
@@ -144,6 +148,10 @@ const WriteForm = () => {
   };
 
   const handleEdit = () => {
+    if (!color || !tags) {
+      toast.on({ label: '색상과 태그를 입력해주세요' });
+      return;
+    }
     if (!userId) {
       updateLocalDiary(diaryId, color, tags, content, img, date);
       router.replace('/');
@@ -173,11 +181,12 @@ const WriteForm = () => {
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <div className="flex flex-col items-center justify-center bg-[#F9F5F0] border-4 border-[#E6D3BC] w-[80vh] h-[89vh] rounded-[32px]">
+      <div className="flex flex-col items-center justify-center bg-[#F9F5F0] border-4 border-[#E6D3BC] w-[82vh] h-[90vh] rounded-[32px]">
         <div className="flex gap-80 mb-4">
           <div className="flex items-center gap-2 ">
             <TextButton onClick={handleBackward}>뒤로가기</TextButton>
           </div>
+
           <Button
             size="md"
             onClick={isDiaryEditMode ? handleEdit : handleWrite}
@@ -193,22 +202,21 @@ const WriteForm = () => {
             {isDiaryEditMode ? '수정하기' : '작성완료'}
           </Button>
         </div>
-        <div className=" relative flex flex-col gap-7 items-start justify-start p-3 pl-5 bg-white w-[37vw] h-[75vh] rounded-[32px] border border-[#E6D3BC]  mb-6">
+        <div className=" relative flex flex-col gap-5 items-start justify-start p-3 pl-5 bg-white w-[37vw] h-[75vh] rounded-[32px] border border-[#E6D3BC]  mb-6">
           <div className="flex flex-col gap-7">
             <ColorPicker />
             <EmotionTagsInput />
             <DiaryTextArea />
-            <div className="flex relative">
-              <ImgDrop />
-            </div>
+            <ImgDrop />
           </div>
-          <div className="absolute bottom-0 right-0 flex flex-col items-end p-4">
-            <p>오늘 나의 감정이 궁금하다면?</p>
+          <div className="absolute bottom-0 right-0 flex flex-col justify-center items-center p-4">
+            <p className="mb-2">오늘 나의 감정이 궁금하다면?</p>
             <Link href="/emotion-test">
               <Button
                 size="md"
+                priority="secondary"
                 icon={
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g id="icon/angle-right">
                       <path
                         id="Vector"

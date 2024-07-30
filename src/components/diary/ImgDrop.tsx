@@ -55,28 +55,28 @@ const ImgDrop = () => {
       <p>Q. 오늘 감정에 맞는 이미지가 있나요?</p>
       <div
         {...getRootProps()}
-        className="flex  bg-[#F9F5F0] items-center justify-center rounded-md border border-dashed border-[#E6D3BC]"
+        className="flex bg-[#F9F5F0] items-center justify-center rounded-[8px] border border-dashed border-[#E6D3BC]  w-[8vw] h-[8vw]"
       >
         <input {...getInputProps()} />
         {preview ? (
-          <div className="relative w-[10vw] h-[10vh]">
+          <div className="relative w-[8vw] h-[8vw] rounded-[8px]">
             <Image
               src={preview}
               alt="Preview"
               width={120}
               height={120}
-              className="w-full h-full object-cover rounded-2xl"
+              className="w-full h-full object-cover rounded-[8px]"
             />
             <button
               type="button"
               onClick={onDelete}
-              className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1"
+              className="absolute top-2 right-2 bg-red-400 text-white rounded-full p-1"
             >
               삭제
             </button>
           </div>
         ) : (
-          <div className="flex flex-col justify-center items-center w-[10vw] h-[10vh]">
+          <div className="flex flex-col justify-center items-center w-[8vw] h-[8vw]">
             <p>이미지 첨부</p>
             <svg width="36" height="37" viewBox="0 0 36 37" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g id="icon/camera">

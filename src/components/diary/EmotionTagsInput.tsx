@@ -9,13 +9,15 @@ const EmotionTagsInput = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (isDiaryEditMode && tags) {
-      setInputValue(tags.join(' '));
+    if (isDiaryEditMode) {
+      setInputValue('');
     } else if (hasTestResult && testResult) {
       setInputValue(testResult.result.emotion);
       setHasTestResult(false);
+    } else {
+      setTags([]);
     }
-  }, [isDiaryEditMode, tags, hasTestResult, testResult, setHasTestResult]);
+  }, [isDiaryEditMode, hasTestResult, testResult, setHasTestResult]);
 
   const validateTags = (tagsArray: string[]) => {
     if (tagsArray.length > 5) {
@@ -33,6 +35,11 @@ const EmotionTagsInput = () => {
   };
 
   const addTag = (newTag: string) => {
+    if (tags.includes(newTag)) {
+      setError('단어가 중복됩니다.');
+      return;
+    }
+
     const newTags = [...tags, newTag];
     const validationError = validateTags(newTags);
     if (validationError) {
@@ -47,8 +54,14 @@ const EmotionTagsInput = () => {
     if (event.key === 'Enter' || event.key === ',') {
       event.preventDefault();
       const trimmedValue = inputValue.trim();
-      if (trimmedValue && !tags.includes(trimmedValue)) {
-        addTag(trimmedValue);
+      if (trimmedValue) {
+        if (!tags.includes(trimmedValue)) {
+          addTag(trimmedValue);
+          setInputValue('');
+        } else {
+          setError('단어가 중복됩니다.');
+        }
+      } else {
         setInputValue('');
       }
     }
@@ -56,6 +69,7 @@ const EmotionTagsInput = () => {
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
+    setError(null);
   };
 
   const handleTagClick = (tagToDelete: string) => {
@@ -67,14 +81,16 @@ const EmotionTagsInput = () => {
     <div className="flex flex-col gap-3">
       <p>Q. 오늘 나의 감정태그를 작성해볼까요?</p>
       <div
-        className={`w-[380px] h-[46px] flex items-center flex-wrap rounded-2xl border-2 ${
+        className={`w-[20.79vw] h-[5vh]  flex items-center rounded-2xl border-2 custom-scrollbar ${
           error ? 'border-red-500' : 'border-gray-300'
         }`}
+        style={{ overflowX: 'auto', overflowY: 'hidden', whiteSpace: 'nowrap' }}
       >
         {tags.map((tag, index) => (
           <div
             key={index}
-            className="flex items-center bg-[#F7F0E9] rounded px-2 py-1 mr-2 mb-1 outline-none overflow-hidden"
+            className="ml-2 flex items-center bg-[#F7F0E9] rounded px-2 py-1 mr-2 outline-none overflow-hidden"
+            style={{ flexShrink: 0 }}
           >
             <span className="mr-1">{tag}</span>
             <button className="text-slate-950" onClick={() => handleTagClick(tag)}>
@@ -83,14 +99,16 @@ const EmotionTagsInput = () => {
           </div>
         ))}
         <input
-          className="flex-grow p-2 rounded outline-none overflow-hidden "
+          className="flex-grow p-2 rounded outline-none"
           type="text"
-          placeholder="ex) #행복 #감사하는_마음 #만족"
+          placeholder={tags.length === 0 ? 'ex) #행복 #감사하는_마음 #만족' : ''}
           value={inputValue}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
+          style={{ minWidth: '100px' }}
         />
       </div>
+
       {error && <p className="text-red-500">{error}</p>}
     </div>
   );

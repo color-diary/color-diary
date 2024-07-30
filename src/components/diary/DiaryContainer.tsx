@@ -149,12 +149,12 @@ const DiaryContainer = () => {
             <div className="w-[2vw] h-[2vw] bg-white rounded-full"></div>
           </div>
         </div>
-        <div className="relative flex flex-col items-center justify-center bg-white w-[50vw] h-[78vh] rounded-[32px] border border-[#E6D3BC] p-6">
-          <div className="absolute top-6 left-10 flex items-center ">
+        <div className="relative flex flex-col items-center justify-center bg-white w-[50vw] h-[78vh] rounded-[32px] border border-[#E6D3BC] p-8">
+          <div className="absolute top-6 left-7 mb-4 flex items-center ">
             <TextButton onClick={handleBackward}>뒤로가기</TextButton>
           </div>
 
-          <div className="absolute top-16 left-10 items-start justify-start p-1 ">
+          <div className="absolute top-14 left-8 w-[30vw] items-start justify-start ">
             <DiaryContent diary={diaryData} />
           </div>
 
@@ -174,6 +174,7 @@ const DiaryContainer = () => {
             </Button>
             <Button
               onClick={handleDelete}
+              priority="secondary"
               icon={
                 <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g id="icon/delet">

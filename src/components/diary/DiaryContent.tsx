@@ -21,20 +21,22 @@ const DiaryContent = ({ diary }: { diary: Diary }) => {
           </span>
         ))}
       </div>
-      <div>
+      <div className="flex items-start mb-3">
         {diary.img ? (
-          <Image
-            src={diary.img}
-            alt="Diary Image"
-            width={100}
-            height={100}
-            className="rounded-lg object-cover w-full h-full"
-            priority={true}
-          />
+          <div className="relative h-[21vh] w-[21vh] flex-shrink-0">
+            <Image
+              src={diary.img}
+              alt="Diary Image"
+              layout="fill"
+              objectFit="contain"
+              className="rounded-lg"
+              priority={true}
+            />
+          </div>
         ) : (
-          <div className="flex items-center m-0">
-            <div className="mb-4 w-[20vw] h-[21vh]" style={{ backgroundColor: diary.color }}></div>
-            <div className="text-[#BABABA] transform rotate-90 flex justify-center">{diary.color}</div>
+          <div className="flex border w-[23vw] h-[21vh]" style={{ borderColor: diary.color }}>
+            <div className="m-0 w-[18vw] h-[21vh]" style={{ backgroundColor: diary.color }}></div>
+            <div className="text-[#BABABA] transform rotate-90 flex items-center justify-center m-0">{diary.color}</div>
           </div>
         )}
       </div>
