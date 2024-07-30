@@ -1,6 +1,9 @@
-"use client";
+'use client';
+
+import { clearLocalDiaries, fetchLocalDiaries } from '@/utils/diaryLocalStorage';
+import { urlToFile } from '@/utils/imageFileUtils';
 import axios from 'axios';
-import React, { ReactNode, useState } from 'react';
+import { useState } from 'react';
 
 interface ModalProps {
   isVisible: boolean;
@@ -13,10 +16,9 @@ const SignUpModal: React.FC<ModalProps> = ({ isVisible, onClose }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [nickname, setNickname] = useState('');
 
-    // 이메일, 비밀번호 유효성 검사
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    // .test => emailRegex과 패턴이 일치하는지 검사
+
     return emailRegex.test(email);
   };
 
@@ -29,56 +31,77 @@ const SignUpModal: React.FC<ModalProps> = ({ isVisible, onClose }) => {
   };
 
   const signUpHandler = async () => {
-
     if (!validateEmail(email)) {
-      return alert('유효한 이메일 입력바람')
+      return alert('유효한 이메일 입력바람');
     }
 
     if (!validateNickname(nickname)) {
-      return alert('닉네임은 최소3글자 이상')
+      return alert('닉네임은 최소3글자 이상');
     }
 
     if (!validatePassword(password)) {
-      return alert('비밀번호는 6글자 이상')
+      return alert('비밀번호는 6글자 이상');
     }
 
     if (password !== confirmPassword) {
-      return alert('비밀번호가 일치하지않음')
+      return alert('비밀번호가 일치하지않음');
     }
 
     const data = { email, password, nickname };
     try {
-      const response = await axios.post("/api/auth/sign-up", data);
-      console.log('SignUp_Form_response=> ', response);
+      const response = await axios.post('/api/auth/sign-up', data);
+
       if (response.status === 200) {
         alert('가입 성공');
-        console.log('가입 성공')
-        console.log(data);
+
         setEmail('');
         setPassword('');
         setNickname('');
         setConfirmPassword('');
         onClose();
+
+        const savedDiaries = fetchLocalDiaries();
+
+        if (savedDiaries.length) {
+          savedDiaries.forEach(async (diary) => {
+            const formData = new FormData();
+            formData.append('userId', response.data.userData.user.id);
+            formData.append('color', diary.color);
+            formData.append('tags', JSON.stringify(diary.tags));
+            formData.append('content', diary.content);
+            formData.append('date', new Date(diary.date).toISOString());
+
+            if (diary.img) {
+              const file = await urlToFile(diary.img);
+              formData.append('img', file);
+            } else {
+              formData.append('img', '');
+            }
+
+            await axios.post('/api/diaries', formData, {
+              headers: {
+                'Content-Type': 'multipart/form-data'
+              }
+            });
+          });
+
+          clearLocalDiaries();
+        }
       }
     } catch (error: unknown) {
       if (axios.isAxiosError(error) && error.response) {
         alert(error?.response.data.message);
       }
       console.error(error);
-      console.log('가입 실패')
     }
-  }
+  };
 
-  // 모달이 보이지 않을 때 모달 컴포넌트 렌더링 방지
   if (!isVisible) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center ">
       <div className="bg-[#E6E6E6] p-8 rounded-[30px] shadow-lg w-[700px] h-[800px] relative ">
-        <button
-          className="absolute top-1 right-5 text-black text-[30px]"
-          onClick={onClose}
-        >
+        <button className="absolute top-1 right-5 text-black text-[30px]" onClick={onClose}>
           &times;
         </button>
         <h2 className="text-[20px] font-bold mb-[30px] text-center">회원가입</h2>
@@ -143,7 +166,10 @@ const SignUpModal: React.FC<ModalProps> = ({ isVisible, onClose }) => {
           <button className="h-[40px] px-3 py-1 mt-[40px] text-[#000000] bg-[#CECECE] rounded font-bold text-[15px]">
             홈으로 돌아가기
           </button>
-          <button className="h-[40px] px-3 py-1 mt-[40px] text-[#000000] bg-[#CECECE] rounded font-bold text-[15px]" onClick={signUpHandler}>
+          <button
+            className="h-[40px] px-3 py-1 mt-[40px] text-[#000000] bg-[#CECECE] rounded font-bold text-[15px]"
+            onClick={signUpHandler}
+          >
             회원가입 완료하기
           </button>
         </div>

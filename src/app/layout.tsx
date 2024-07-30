@@ -1,15 +1,25 @@
+import Header from '@/components/common/Header';
+import SideBar from '@/components/common/Sidebar';
 import QueryProvider from '@/providers/ReactQueryClientProvider';
 import { ToastProvider } from '@/providers/toast.context';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import localFont from 'next/font/local';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
-
 export const metadata: Metadata = {
-  title: 'color-inside',
-  description: 'coloring your feeling'
+  title: 'Color Inside',
+  description: 'coloring your feeling',
+  icons: {
+    icon: '/icon.svg'
+  }
 };
+
+const pretendard = localFont({
+  src: '../fonts/PretendardVariable.woff2',
+  display: 'swap',
+  weight: '45 920',
+  variable: '--font-pretendard'
+});
 
 export default function RootLayout({
   children
@@ -21,9 +31,13 @@ export default function RootLayout({
       <head>
         <script src="https://developers.kakao.com/sdk/js/kakao.js" async></script>
       </head>
-      <body className={inter.className}>
+      <body className={`${pretendard.variable} font-pretendard`}>
         <QueryProvider>
-          <ToastProvider>{children}</ToastProvider>
+          <ToastProvider>
+            <Header />
+            <SideBar />
+            {children}
+          </ToastProvider>
         </QueryProvider>
       </body>
     </html>

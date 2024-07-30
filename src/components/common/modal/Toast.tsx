@@ -9,8 +9,8 @@ const alertVariant = cva(
   {
     variants: {
       device: {
-        desktop: 'px-6 py-4 text-xl',
-        mobile: 'px-4 py-3 text-sm'
+        desktop: 'px-24px-row py-16px-col text-20px tracking-tight',
+        mobile: 'px-16px-row py-12px-col text-14px tracking-0.28px'
       },
       isOpen: {
         true: 'opacity-100',
@@ -35,7 +35,7 @@ const Toast = ({ toast, device }: ToastProps) => {
 
   useEffect(() => {
     setIsOpen(true);
-    setTimeout(() => setIsOpen(false), 1000 - 500);
+    setTimeout(() => setIsOpen(false), 1200 - 500);
   }, []);
 
   return (

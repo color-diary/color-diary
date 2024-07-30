@@ -17,11 +17,20 @@ export type ResultType = {
   emotion: string;
   color: string;
   comment: string;
+  title: string;
+  image: JSX.Element;
 };
 
 export type EmotionCount = {
   emotion: Emotion;
   count: number;
+};
+
+export type TestHistory = {
+  step: number;
+  value: Emotion[];
+  sentiment: Sentiment;
+  points: Record<Emotion, number>;
 };
 
 export type TestResultType = {

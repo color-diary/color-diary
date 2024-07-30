@@ -10,12 +10,28 @@
   --tertiary-color: #3697f2;
   --tertiary-pressed-color: #0c64b6;
   --tertiary-disable-color: #c5e1fb;
+  --text-button-disable-color: #bababa;
 
   --toast-color: #ee7802;
 
   --border-color: #e6d3bc;
+  --bg-color: #f7f0e9;
+  --layout-color: #fefdfb;
+
+  --progress-total-color: #f9f5f0;
+  --progress-current-color: #96c9f8;
+  --progress-border-color: #66b0f5;
+
+  --font-color: #080808;
 
   --radius: 0.5rem;
+
+  --responsive-height: calc(100vh * 0.7037);
+  --responsive-width: calc(100vw * 0.3875);
+}
+
+body {
+  background-color: var(--layout-color);
 }
 
 .rainbow-gradient {
@@ -25,16 +41,14 @@
     hsl(30, 100%, 50%),
     hsl(60, 100%, 50%),
     hsl(90, 100%, 50%),
-    hsl(120, 100%, 50%),
-    hsl(150, 100%, 50%),
     hsl(180, 100%, 50%),
     hsl(210, 100%, 50%),
     hsl(240, 100%, 50%),
     hsl(270, 100%, 50%),
     hsl(300, 100%, 50%),
-    hsl(330, 100%, 50%),
     hsl(0, 100%, 50%)
   );
+  background-size: 150% 100%;
 }
 
 @layer base {
@@ -147,4 +161,20 @@
     --chart-4: 280 65% 60%;
     --chart-2: 340 75% 55%;
   }
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #f7f0e9;
+  border-radius: 22px;
+  border: 2px solid #e6d3bc;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #ffffff;
+  border-radius: 22px;
 }

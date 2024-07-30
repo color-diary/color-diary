@@ -6,6 +6,7 @@ import { ChartConfig, ChartContainer, ChartLegend, ChartLegendContent } from '@/
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Diary } from '@/types/diary.type';
+import Image from 'next/image';
 
 const ColorChart = () => {
   const today = new Date();
@@ -74,22 +75,44 @@ const ColorChart = () => {
   } satisfies ChartConfig;
 
   return (
-    <Card className="flex flex-col w-[422px] h-[361px] ">
+    <Card className="flex flex-col w-[422px] h-[367px] ">
       <div className="flex items-center justify-center gap-3 text-lg mt-6">
         <button onClick={() => changeDate(month - 1)}>&lt;</button>
         {year}.{month}
         <button onClick={() => changeDate(month + 1)}>&gt;</button>
       </div>
       <CardContent>
-        <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[300px] h-[260px]">
-          <PieChart>
-            <Pie data={chartData} dataKey="visitors" />
-            <ChartLegend
-              content={<ChartLegendContent nameKey="browser" />}
-              className="-translate-y-2 flex-wrap gap-1 [&>*]:basis-1/4 [&>*]:justify-center text-lg"
-            />
-          </PieChart>
-        </ChartContainer>
+        {sortedColors.length > 0 ? (
+          sortedColors.length < 5 ? (
+            <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[300px] h-[260px]">
+              <PieChart>
+                <Pie data={chartData} dataKey="visitors" />
+                <ChartLegend
+                  content={<ChartLegendContent nameKey="browser" />}
+                  className="-translate-y-2 flex-wrap gap-1 [&>*]:basis-1/4 [&>*]:justify-center text-lg "
+                />
+              </PieChart>
+            </ChartContainer>
+          ) : (
+            <div>
+              <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[300px] h-[260px]">
+                <PieChart>
+                  <Pie data={chartData} dataKey="visitors" />
+                </PieChart>
+              </ChartContainer>
+              <div className="flex flex-col items-center mt-0">
+                <div>이 달은 다양한 감정을 느끼셨나봐요.</div>
+                <div>색상이 다채로워요!</div>
+              </div>
+            </div>
+          )
+        ) : (
+          <div className="flex flex-col items-center">
+            <Image src="/Flowers.png" alt="공백이미지" width={176} height={176} className="mt-6 mb-6" />
+            <div>이달은 기록된 감정이 없어요.</div>
+            <div>더 많은 감정을 기록해봐요!</div>
+          </div>
+        )}
       </CardContent>
     </Card>
   );

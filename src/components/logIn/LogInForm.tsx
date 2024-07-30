@@ -1,17 +1,23 @@
 "use client";
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SignUpModal from '../signUp/SignUpModal';
 import Router from 'next/router';
 import { useRouter } from 'next/navigation';
+import { loginZustandStore } from '@/zustand/zustandStore';
+import { createClient } from '@/utils/supabase/client';
 
 const LogInForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
   const router = useRouter();
+  const setIsLogin = loginZustandStore(state => state.setIsLogin);
+  const publicSetProfileImg = loginZustandStore(state => state.publicSetProfileImg);
+  const supabase = createClient();
 
-    // 이메일, 비밀번호 유효성 검사
+
+  // 이메일, 비밀번호 유효성 검사
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     // .test => emailRegex과 패턴이 일치하는지 검사
@@ -26,17 +32,14 @@ const LogInForm = () => {
   const clearPassword = () => setPassword('');
 
   const loginHandler = async () => {
-
     if (!validateEmail(email)) {
       return alert('유효한 이메일 입력바람')
     }
-
     if (!validatePassword(password)) {
       return alert('비밀번호는 6글자 이상')
     }
 
     const data = { email, password };
-
     try {
       const response = await axios.post("/api/auth/log-in", data);
       console.log('LoginForm_response=> ', response);
@@ -45,31 +48,28 @@ const LogInForm = () => {
         alert(response.data.message);
         setEmail('');
         setPassword('');
-        // 테스트 라우터
-        router.replace('/my-page');
+        setIsLogin(true);
+
+        // 로컬 스토리지 비운거 다시불러오기
+          const { data: userData } = await supabase.auth.getUser();
+          if (userData && userData.user) {
+            const UserId = userData.user?.id;
+            const { data: profileImgData } = await supabase
+              .from("users")
+              .select("profileImg")
+              .eq('id', UserId)
+              .single();
+            if (profileImgData && profileImgData?.profileImg) {
+              publicSetProfileImg(profileImgData?.profileImg)
+            }
+          }
+        router.replace('/');
       }
     } catch (error: unknown) {
       if (axios.isAxiosError(error) && error.response)
         alert(error?.response.data.message);
       console.error(error);
       console.log('로그인 실패')
-    }
-  };
-
-  const logoutHandler = async () => {
-    const response = await axios.delete("/api/auth/log-out");
-    try {
-      if (response.status === 200) {
-        alert(response.data.message);
-        console.log('로그아웃 성공');
-        router.replace('/log-in');
-      }
-    } catch (error: unknown) {
-      console.log('에러메세지=> ', error);
-      if (axios.isAxiosError(error) && error.response)
-        alert(error?.response.data.message);
-      console.error(error);
-      console.log('로그아웃 실패')
     }
   };
 
