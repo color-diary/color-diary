@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { ComponentProps, ReactNode } from 'react';
 
 const buttonVariant = cva(
-  'inline-flex items-center py-1 text-center text-base font-normal tracking-0.32px transition',
+  'inline-flex items-center py-4px-col text-center text-16px font-normal tracking-0.32px transition',
   {
     variants: {
       state: {

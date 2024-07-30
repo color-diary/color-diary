@@ -25,6 +25,9 @@
   --font-color: #080808;
 
   --radius: 0.5rem;
+
+  --responsive-height: calc(100vh * 0.7037);
+  --responsive-width: calc(100vw * 0.3875);
 }
 
 body {
