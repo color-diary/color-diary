@@ -20,12 +20,15 @@ const MainSection = () => {
   const [queryString, setQueryString] = React.useState<String>();
   const [date, setDate] = React.useState<Date>(now);
   //
+  // params get yymm ? 거기서 잘라서 넣기 : now.getFullYear()
+  // month도 해라
+
   const handleClickButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { name } = e.target as HTMLButtonElement;
-    if (e.target.name === form) {
+    if (name === form) {
       return;
     }
-    setForm(e.target.name);
+    setForm(name);
   };
   // 버튼 기본 text color 흐리게 하고
   // let current = document.getElementById(currentClick);
@@ -52,6 +55,7 @@ const MainSection = () => {
       setDate(date);
     }
   };
+  console.log(queryString);
 
   // 오늘 이후의 날짜면 클릭 못함
   //
@@ -96,6 +100,7 @@ const MainSection = () => {
   React.useEffect(() => {
     handleQueryString();
   }, [form, year, month]);
+  console.log(year, month);
 
   React.useEffect(() => {
     if (queryString) {
@@ -104,8 +109,9 @@ const MainSection = () => {
   }, [queryString]);
 
   return (
-    <div className="">
-      <div className="">
+    <div className="flex flex-col mx-auto mt-[8rem] w-[46.5rem]">
+      <div className=" flex w-full justify-between">
+        <p>나의 감정 일기</p>
         <div className="flex">
           <button
             name="calendar"
@@ -142,6 +148,7 @@ const MainSection = () => {
         onClick={() => {
           router.push('/emotion-test');
         }}
+        className="flex justify-end"
       >
         나의 감정 확인하기
       </button>

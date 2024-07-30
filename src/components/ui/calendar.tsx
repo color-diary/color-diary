@@ -22,7 +22,7 @@ function Calendar({ className, classNames, showOutsideDays = false, diaryList, .
       showOutsideDays={showOutsideDays}
       className={cn('p-3', className)}
       classNames={{
-        months: 'flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0',
+        months: 'flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0 ',
         month: 'space-y-4',
         caption: 'flex justify-center pt-1 relative items-center',
         caption_label: 'text-sm font-medium',
@@ -54,6 +54,8 @@ function Calendar({ className, classNames, showOutsideDays = false, diaryList, .
         IconLeft: ({ ...props }) => <ChevronLeft className="h-4 w-4" />,
         IconRight: ({ ...props }) => <ChevronRight className="h-4 w-4" />,
         DayContent: ({ ...props }) => {
+          // param.get보다는 form(isCards)를 props로 받아서 삼항연산자
+
           //const [isToday, setIsToday] = React.useState(false);
           // let isToday = false;
           //formatFullDate(String(today)) === formatFullDate(String(props.date))
@@ -84,6 +86,7 @@ function Calendar({ className, classNames, showOutsideDays = false, diaryList, .
               console.error('Failed to get session:', error);
             }
           };
+          console.log();
 
           const handleFindDiary = (diary: Diary) => {
             if (formatFullDate(String(diary.date)) === formatFullDate(String(props.date))) {
@@ -105,7 +108,7 @@ function Calendar({ className, classNames, showOutsideDays = false, diaryList, .
               }}
               className="flex flex-col items-center "
             >
-              <Stamp petal={diary.color} circle="#F7CA87" month={props.date.getMonth()} />
+              <Stamp petal={diary.color} circle="#F7CA87" month={props.date.getMonth() + 1} />
               <p className="text-sm">{props.date.getDate()}</p>
             </div>
           ) : (

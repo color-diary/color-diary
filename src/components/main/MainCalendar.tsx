@@ -14,11 +14,11 @@ interface MainCalendarProps {
 
 const MainCalendar = ({ diaryList, date, setDate, handleInputChangeDate }: MainCalendarProps) => {
   return (
-    <div className="calendar">
+    <div className="calendar w-[46.5rem] h-[39.5rem] bg-gray-300">
       <input type="date" name="date" onChange={(e) => handleInputChangeDate(e)} />
       <Calendar
         mode="single"
-        className="rounded-md border"
+        className="rounded-[32px] border w-full h-full flex justify-center items-center px-[4.5rem]"
         diaryList={diaryList}
         month={date}
         onMonthChange={setDate}
