@@ -52,7 +52,7 @@ const EmotionChart = () => {
 
   const chartData = [];
   for (let i = 0; i < Math.min(sortedTags.length, 3); i++) {
-    chartData.push({ browser: sortedTags[i], visitors: tagCounts[i], fill: 'blue' });
+    chartData.push({ browser: sortedTags[i], visitors: tagCounts[i], fill: '#EEE2D2' });
   }
 
   const chartConfig = {
@@ -74,7 +74,7 @@ const EmotionChart = () => {
   } satisfies ChartConfig;
 
   return (
-    <Card>
+    <Card className="w-[600px] h-[307px] border border-[#E6D3BC] rounded-5xl">
       <div className="flex items-center justify-center gap-3 mt-6 text-lg">
         <button onClick={() => changeDate(month - 1)}>&lt;</button>
         {year}.{month}
