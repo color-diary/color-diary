@@ -16,21 +16,28 @@ const DiaryContent = ({ diary }: { diary: Diary }) => {
       <p className="text-xl font-semibold"> {formattedDate}</p>
       <div className="flex flex-wrap gap-2">
         {diary.tags.map((tag, index) => (
-          <span key={index}>{tag}</span>
+          <span key={index} className="text-[#545454] mb-5">
+            {tag}
+          </span>
         ))}
       </div>
-      <div>
+      <div className="flex items-start mb-3">
         {diary.img ? (
-          <Image
-            src={diary.img}
-            alt="Diary Image"
-            width={120}
-            height={120}
-            className="rounded-lg object-cover w-full h-full"
-            priority={true}
-          />
+          <div className="relative h-[21vh] w-[21vh] flex-shrink-0">
+            <Image
+              src={diary.img}
+              alt="Diary Image"
+              layout="fill"
+              objectFit="contain"
+              className="rounded-lg"
+              priority={true}
+            />
+          </div>
         ) : (
-          <div className="mb-4 w-[380px] h-[250px]" style={{ backgroundColor: diary.color }}></div>
+          <div className="flex border w-[23vw] h-[21vh]" style={{ borderColor: diary.color }}>
+            <div className="m-0 w-[18vw] h-[21vh]" style={{ backgroundColor: diary.color }}></div>
+            <div className="text-[#BABABA] transform rotate-90 flex items-center justify-center m-0">{diary.color}</div>
+          </div>
         )}
       </div>
       <div className="mb-4">
