@@ -33,7 +33,7 @@ const TextButton = ({ state, children, icon, ...props }: ButtonProps) => {
     return (
       <button className={buttonVariant({ state })} disabled={state === 'disable'} {...props}>
         {
-          <span className="w-6 h-6">
+          <span className="w-24px-row h-24px-col flex items-center justify-center">
             {icon ? (
               icon
             ) : (
