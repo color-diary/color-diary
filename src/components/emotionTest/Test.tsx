@@ -92,16 +92,16 @@ const Test = () => {
   const handleClickBackButton = (): void => router.back();
 
   return (
-    <div className="test-page-width test-page-height rounded-5xl border-4 border-border-color bg-white">
+    <div className="w-744px-row h-760px-col rounded-5xl border-4 border-border-color bg-white">
       {isStarted ? (
-        <div className="h-760px flex flex-col gap-18 justify-center items-center flex-shrink-0">
-          <div className="w-600px flex flex-col items-start gap-4">
+        <div className="h-760px-col flex flex-col gap-72px-col justify-center items-center flex-shrink-0">
+          <div className="w-600px-row flex flex-col items-start gap-16px-col">
             <TextButton onClick={handleClickPrevQuestion}>뒤로가기</TextButton>
             <ProgressBar value={step + 1} max={TOTAL_QUESTION} />
           </div>
-          <div className="w-600px flex flex-col items-start gap-4">
+          <div className="w-600px-row flex flex-col items-start gap-4">
             <h2 className="text-font-color text-2xl font-medium tracking-0.48px">{questions[step].question}</h2>
-            <ul className="w-600px flex flex-col items-start p-6 gap-6">
+            <ul className="w-600px-row flex flex-col items-start p-6 gap-6">
               {questions[step].options.map((option, index) => (
                 <li key={index} className="w-full flex justify-between items-center px-4 py-1 gap-2">
                   <button
@@ -150,7 +150,7 @@ const Test = () => {
           </span>
         </div>
       ) : (
-        <div className="flex flex-col test-start-row-ratio test-start-col-ratio flex-shrink-0s">
+        <div className="flex flex-col mx-72px-row mt-56px-col mb-80px-col gap-56px-col flex-shrink-0s">
           <TextButton onClick={handleClickBackButton}>뒤로가기</TextButton>
           <div className="flex flex-col mx-auto items-center gap-64px-col">
             <div className="flex flex-col items-center gap-36px-col">
