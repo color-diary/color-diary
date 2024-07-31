@@ -7,6 +7,7 @@ import axios from 'axios';
 import { DiaryList } from '@/types/diary.type';
 import { createClient } from '@/utils/supabase/client';
 import CalendarLibrary from './CalendarLibrary';
+import { Button } from '../ui/button';
 
 const MainSection = () => {
   const now = new Date();
@@ -127,8 +128,8 @@ const MainSection = () => {
   }, [params]);
 
   return (
-    <div className="flex flex-col mx-auto mt-[8rem] w-[46.5rem]">
-      <div className=" flex w-full justify-between">
+    <div className="flex flex-col">
+      <div className=" flex justify-between">
         <p>나의 감정 일기</p>
         <div className="flex">
           <button
@@ -150,33 +151,32 @@ const MainSection = () => {
           </button>
         </div>
       </div>
-      <div>
-        {isCards ? (
-          <Cards
-            diaryList={diaryList}
-            isCards={isCards}
-            date={date}
-            setDate={setDate}
-            handleInputChangeDate={handleInputChangeDate}
-          />
-        ) : (
-          <CalendarLibrary
-            diaryList={diaryList}
-            date={date}
-            setDate={setDate}
-            isCards={isCards}
-            handleInputChangeDate={handleInputChangeDate}
-          />
-        )}
-      </div>
-      <button
+      {isCards ? (
+        <Cards
+          diaryList={diaryList}
+          isCards={isCards}
+          date={date}
+          setDate={setDate}
+          handleInputChangeDate={handleInputChangeDate}
+        />
+      ) : (
+        <CalendarLibrary
+          diaryList={diaryList}
+          date={date}
+          setDate={setDate}
+          isCards={isCards}
+          handleInputChangeDate={handleInputChangeDate}
+        />
+      )}
+      <Button
+        size={'lg'}
+        className="flex justify-end"
         onClick={() => {
           router.push('/emotion-test');
         }}
-        className="flex justify-end"
       >
         나의 감정 확인하기
-      </button>
+      </Button>
     </div>
   );
 };
