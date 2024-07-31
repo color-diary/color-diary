@@ -50,7 +50,7 @@ const ColorPicker = () => {
 
   return (
     <>
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 text-20px">
         <p>오늘의 색은 무엇인가요?</p>
         <div className="flex space-x-2 items-center">
           <br />

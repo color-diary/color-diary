@@ -210,7 +210,7 @@ const WriteForm = () => {
             <ImgDrop />
           </div>
           <div className="absolute bottom-0 right-0 flex flex-col justify-center items-center p-4">
-            <p className="mb-2">오늘 나의 감정이 궁금하다면?</p>
+            <p className="mb-2 text-20px">오늘 나의 감정이 궁금하다면?</p>
             <Link href="/emotion-test">
               <Button
                 size="md"

@@ -13,10 +13,10 @@ const DiaryContent = ({ diary }: { diary: Diary }) => {
 
   return (
     <>
-      <p className="text-xl font-semibold"> {formattedDate}</p>
+      <p className=" font-semibold text-24px"> {formattedDate}</p>
       <div className="flex flex-wrap gap-2">
         {diary.tags.map((tag, index) => (
-          <span key={index} className="text-[#545454] mb-5">
+          <span key={index} className="text-[#545454] mb-5 text-16px">
             {tag}
           </span>
         ))}
@@ -36,12 +36,14 @@ const DiaryContent = ({ diary }: { diary: Diary }) => {
         ) : (
           <div className="flex border w-[23vw] h-[21vh]" style={{ borderColor: diary.color }}>
             <div className="m-0 w-[18vw] h-[21vh]" style={{ backgroundColor: diary.color }}></div>
-            <div className="text-[#BABABA] transform rotate-90 flex items-center justify-center m-0">{diary.color}</div>
+            <div className="text-[#BABABA] transform rotate-90 flex items-center justify-center m-0 text-20px">
+              {diary.color}
+            </div>
           </div>
         )}
       </div>
       <div className="mb-4">
-        <p>{diary.content}</p>
+        <p className="text-20px">{diary.content}</p>
       </div>
       <div className="mb-4"></div>
     </>

@@ -79,7 +79,7 @@ const EmotionTagsInput = () => {
 
   return (
     <div className="flex flex-col gap-3">
-      <p>Q. 오늘 나의 감정태그를 작성해볼까요?</p>
+      <p className="text-20px">Q. 오늘 나의 감정태그를 작성해볼까요?</p>
       <div
         className={`w-[20.79vw] h-[5vh]  flex items-center rounded-2xl border-2 custom-scrollbar ${
           error ? 'border-red-500' : 'border-gray-300'
@@ -92,14 +92,14 @@ const EmotionTagsInput = () => {
             className="ml-2 flex items-center bg-[#F7F0E9] rounded px-2 py-1 mr-2 outline-none overflow-hidden"
             style={{ flexShrink: 0 }}
           >
-            <span className="mr-1">{tag}</span>
+            <span className="mr-1 text-20px">{tag}</span>
             <button className="text-slate-950" onClick={() => handleTagClick(tag)}>
               x
             </button>
           </div>
         ))}
         <input
-          className="flex-grow p-2 rounded outline-none"
+          className="flex-grow p-2 rounded outline-none text-20px"
           type="text"
           placeholder={tags.length === 0 ? 'ex) #행복 #감사하는_마음 #만족' : ''}
           value={inputValue}
@@ -109,7 +109,7 @@ const EmotionTagsInput = () => {
         />
       </div>
 
-      {error && <p className="text-red-500">{error}</p>}
+      {error && <p className="text-red-500 text-18px">{error}</p>}
     </div>
   );
 };
