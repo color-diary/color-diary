@@ -16,7 +16,8 @@ const buttonVariant = cva('inline-flex justify-center items-center gap-4px-row t
     size: {
       sm: 'px-16px-row py-8px-col text-14px rounded-lg tracking-0.28px',
       md: 'px-20px-row py-12px-col text-16px rounded-xl tracking-0.32px',
-      lg: 'px-24px-row py-12px-col text-18px rounded-2xl tracking-0.36px'
+      lg: 'px-24px-row py-12px-col text-18px rounded-2xl tracking-0.36px',
+      half: 'w-1/2 py-12px-col text-16px rounded-xl tracking-0.32px',
     }
   },
   compoundVariants: [
@@ -60,7 +61,8 @@ const iconVariant = cva('fill-current flex justify-center items-center', {
     size: {
       sm: 'w-16px-row h-16px-col',
       md: 'w-20px-row h-20px-col',
-      lg: 'w-24px-row h-24px-col'
+      lg: 'w-24px-row h-24px-col',
+      half: 'w-20px-row h-20px-col',
     }
   },
   defaultVariants: {
