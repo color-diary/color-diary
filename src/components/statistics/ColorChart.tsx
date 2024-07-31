@@ -75,8 +75,8 @@ const ColorChart = () => {
   } satisfies ChartConfig;
 
   return (
-    <Card className="flex flex-col w-[422px] h-[361px] border border-[#E6D3BC] rounded-5xl ">
-      <div className="flex items-center justify-center gap-3 text-xl mt-6">
+    <Card className="flex flex-col w-422px-row h-361px-col border border-[#E6D3BC] rounded-5xl ">
+      <div className="flex items-center justify-center gap-12px-row text-20px mt-24px-col">
         <button onClick={() => changeDate(month - 1)}>&lt;</button>
         {year}.{month}
         <button onClick={() => changeDate(month + 1)}>&gt;</button>
@@ -84,7 +84,7 @@ const ColorChart = () => {
       <CardContent>
         {sortedColors.length > 0 ? (
           sortedColors.length < 5 ? (
-            <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[300px] h-[260px]">
+            <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-300px-col h-260px-col">
               <PieChart>
                 <Pie data={chartData} dataKey="visitors" />
                 <ChartLegend
@@ -95,22 +95,32 @@ const ColorChart = () => {
             </ChartContainer>
           ) : (
             <div>
-              <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[300px] h-[260px]">
-                <PieChart>
+              <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-300px-col h-260px-col">
+                <PieChart className="w-192px-row h-192px-col">
                   <Pie data={chartData} dataKey="visitors" />
                 </PieChart>
               </ChartContainer>
               <div className="flex flex-col items-center">
-                <div>이 달은 다양한 감정을 느끼셨나봐요.</div>
-                <div>색상이 다채로워요!</div>
+                <div className="text-16px">이 달은 다양한 감정을 느끼셨나봐요.</div>
+                <div className="text-16px">색상이 다채로워요!</div>
               </div>
             </div>
           )
         ) : (
-          <div className="mb-6 h-full">
-            <Image src="/Flowers.png" alt="공백이미지" width={176} height={176} className="mt-6 mb-6" />
-            <div>이달은 기록된 감정이 없어요.</div>
-            <div>더 많은 감정을 기록해봐요!</div>
+          <div className="h-full">
+            <div className="flex flex-col items-center">
+              <Image
+                src="/Flowers.png"
+                alt="공백이미지"
+                width={176}
+                height={176}
+                className="w-176px-row h-176px-col mt-24px-col mb-24px-col"
+              />
+            </div>
+            <div className="mb-32px-col">
+              <div className="text-16px">이달은 기록된 감정이 없어요.</div>
+              <div className="text-16px">더 많은 감정을 기록해봐요!</div>
+            </div>
           </div>
         )}
       </CardContent>

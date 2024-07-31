@@ -19,11 +19,13 @@ const StatisticsForm = () => {
         <h2 className="text-24px font-bold">이달의 감정 색상</h2>
         <div className="flex mt-8px-col">
           <ColorChart />
-          <div className="w-160px-row h-160px-col mt-105px-col ml-12px-row p-12px">{advice.message}</div>
+          <div className="w-160px-row h-160px-col mt-105px-col ml-12px-row px-12px-row py-12px-col text-16px">
+            {advice.message}
+          </div>
         </div>
       </div>
-      <div className="w-[600px] h-[354px] mt-[56px]">
-        <h2 className="text-2xl font-bold mb-3">이달의 내 감정</h2>
+      <div className="w-600px-row h-354px-col mt-56px-col">
+        <h2 className="text-24px font-bold mb-12px-col">이달의 내 감정</h2>
         <EmotionChart />
       </div>
     </div>
