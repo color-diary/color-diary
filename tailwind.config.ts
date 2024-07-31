@@ -28,12 +28,14 @@ const config = {
       spacing: {
         '4px-row': 'calc(100vw * 0.00208)',
         '8px-row': 'calc(100vw * 0.00417)',
+        '12px-row': 'calc(100vw * 0.00625)',
         '16px-row': 'calc(100vw * 0.00833)',
         '20px-row': 'calc(100vw * 0.01042)',
         '24px-row': 'calc(100vw * 0.01250)',
         '48px-row': 'calc(100vw * 0.025)',
         '72px-row': 'calc(100vw * 0.0375)',
         '128px-row': 'calc(100vw * 0.0667)',
+        '160px-row': 'calc(100vw * 0.0833)',
         '200px-row': 'calc(100vw * 0.1042)',
         '430px-row': 'calc(100vw * 0.223958)',
         '550px-row': 'calc(100vw * 0.2865)',
@@ -52,10 +54,16 @@ const config = {
         '56px-col': 'calc(100vh * 0.05185)',
         '64px-col': 'calc(100vh * 0.05926)',
         '72px-col': 'calc(100vh * 0.0667)',
+        '76px-col': 'calc(100vh * 0.07037)',
         '80px-col': 'calc(100vh * 0.07407)',
+        '105px-col': 'calc(100vh * 0.0972)',
+        '128px-col': 'calc(100vh * 0.1185)',
+        '160px-col': 'calc(100vh * 0.1481)',
         '200px-col': 'calc(100vh * 0.1852)',
         '240px-col': 'calc(100vh * 0.2222)',
-        '760px-col': 'calc(100vh * 0.7037)'
+        '401px-col': 'calc(100vh * 0.3713)',
+        '760px-col': 'calc(100vh * 0.7037)',
+        '916px-col': 'calc(100vh * 0.8481)'
       },
       fontSize: {
         '14px': ['calc((100vw * 0.00729 + 100vh * 0.01296) / 2)', { lineHeight: '1.35' }],

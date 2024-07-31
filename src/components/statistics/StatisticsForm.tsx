@@ -14,12 +14,12 @@ const StatisticsForm = () => {
     return null;
   }
   return (
-    <div className="border-4 border-[#E6D3BC] bg-[#FBF8F4] rounded-5xl w-[744px] h-[916px] flex items-center flex-col mt-[128px] mb-[76px] m-auto ">
-      <div className="w-[600px] h-[401px] mt-[56px]">
-        <h2 className="text-2xl font-bold">이달의 감정 색상</h2>
-        <div className="flex mt-2">
+    <div className="border-4 border-[#E6D3BC] bg-[#FBF8F4] rounded-5xl w-744px-row h-916px-col flex items-center flex-col mt-128px-col mb-76px-col m-auto ">
+      <div className="w-600px-row h-401px-col mt-56px-col">
+        <h2 className="text-24px font-bold">이달의 감정 색상</h2>
+        <div className="flex mt-8px-col">
           <ColorChart />
-          <div className="w-[160px] h-[160px] mt-[105px] ml-3 p-3">{advice.message}</div>
+          <div className="w-160px-row h-160px-col mt-105px-col ml-12px-row p-12px">{advice.message}</div>
         </div>
       </div>
       <div className="w-[600px] h-[354px] mt-[56px]">
