@@ -56,7 +56,7 @@ const buttonVariant = cva('inline-flex justify-center items-center gap-1 text-ce
   defaultVariants: { priority: 'primary', state: 'default', size: 'md' }
 });
 
-const iconVariant = cva('fill-current', {
+const iconVariant = cva('fill-current flex justify-center items-center', {
   variants: {
     size: {
       sm: 'w-4 h-4',

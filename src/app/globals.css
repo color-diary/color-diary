@@ -41,16 +41,14 @@ body {
     hsl(30, 100%, 50%),
     hsl(60, 100%, 50%),
     hsl(90, 100%, 50%),
-    hsl(120, 100%, 50%),
-    hsl(150, 100%, 50%),
     hsl(180, 100%, 50%),
     hsl(210, 100%, 50%),
     hsl(240, 100%, 50%),
     hsl(270, 100%, 50%),
     hsl(300, 100%, 50%),
-    hsl(330, 100%, 50%),
     hsl(0, 100%, 50%)
   );
+  background-size: 150% 100%;
 }
 
 @layer base {
@@ -163,4 +161,20 @@ body {
     --chart-4: 280 65% 60%;
     --chart-2: 340 75% 55%;
   }
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #f7f0e9;
+  border-radius: 22px;
+  border: 2px solid #e6d3bc;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #ffffff;
+  border-radius: 22px;
 }

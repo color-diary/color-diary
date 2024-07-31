@@ -99,18 +99,18 @@ const Test = () => {
             <TextButton onClick={handleClickPrevQuestion}>뒤로가기</TextButton>
             <ProgressBar value={step + 1} max={TOTAL_QUESTION} />
           </div>
-          <div className="w-600px-row flex flex-col items-start gap-4">
-            <h2 className="text-font-color text-2xl font-medium tracking-0.48px">{questions[step].question}</h2>
-            <ul className="w-600px-row flex flex-col items-start p-6 gap-6">
+          <div className="w-600px-row flex flex-col items-start gap-16px-col">
+            <h2 className="text-font-color text-24px font-medium tracking-0.48px">{questions[step].question}</h2>
+            <ul className="w-600px-row flex flex-col items-start px-24px-row py-24px-col gap-24px-col">
               {questions[step].options.map((option, index) => (
-                <li key={index} className="w-full flex justify-between items-center px-4 py-1 gap-2">
+                <li key={index} className="w-full flex justify-between items-center px-16px-row py-4px-col gap-2">
                   <button
                     onClick={() => handleSelectAnswer(option.value, option.sentiment, option.points)}
-                    className="text-font-color text-xl font-normal tracking-tight active:text-default transition"
+                    className="text-font-color text-start text-20px font-normal tracking-tight active:text-default transition"
                   >
                     {option.label}
                   </button>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-20px-row h-20px-col" viewBox="0 0 20 20">
                     <path
                       d="M7.64589 4.64689C7.73953 4.55303 7.8666 4.50019 7.99919 4.5C8.13177 4.49981 8.259 4.55229 8.35289 4.64589L13.8369 10.1109C13.8881 10.162 13.9288 10.2227 13.9566 10.2895C13.9843 10.3564 13.9986 10.428 13.9986 10.5004C13.9986 10.5728 13.9843 10.6444 13.9566 10.7113C13.9288 10.7781 13.8881 10.8388 13.8369 10.8899L8.35289 16.3549C8.25847 16.4458 8.13209 16.4961 8.00099 16.4948C7.86989 16.4934 7.74455 16.4407 7.65197 16.3478C7.5594 16.255 7.50699 16.1295 7.50604 15.9984C7.50509 15.8673 7.55567 15.7411 7.64689 15.6469L12.8119 10.4999L7.64689 5.35389C7.55303 5.26026 7.50019 5.13318 7.5 5.0006C7.49981 4.86802 7.55229 4.74079 7.64589 4.64689Z"
                       fill="#080808"
@@ -145,14 +145,14 @@ const Test = () => {
               ))}
             </ul>
           </div>
-          <span className="w-600px flex justify-end text-font-color text-base font-normal tracking-0.32px">
+          <span className="w-600px-row flex justify-end text-font-color text-16px font-normal tracking-0.32px">
             {step + 1}/{TOTAL_QUESTION}
           </span>
         </div>
       ) : (
         <div className="flex flex-col mx-72px-row mt-56px-col mb-80px-col gap-56px-col flex-shrink-0s">
           <TextButton onClick={handleClickBackButton}>뒤로가기</TextButton>
-          <div className="flex flex-col mx-auto items-center gap-64px-col">
+          <div className="flex flex-col items-center gap-64px-col">
             <div className="flex flex-col items-center gap-36px-col">
               <h1 className="text-font-color text-28px font-bold tracking-0.56px">오늘 나는 어떤 상태일까?</h1>
               <div className="flex flex-col justify-center items-center gap-24px-col self-stretch">
@@ -348,7 +348,7 @@ const Test = () => {
                     </filter>
                   </defs>
                 </svg>
-                <div className="w-80 text-font-color text-center text-24px font-normal tracking-0.48px">
+                <div className="text-font-color text-center text-24px font-normal tracking-0.48px">
                   {splitCommentWithSlash('오늘은 어떤 하루를 보냈나요?/나의 감정을 한번 알아봐요!😀').map(
                     (line, index) => (
                       <p key={index}>{line}</p>
