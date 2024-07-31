@@ -18,12 +18,19 @@
   --bg-color: #f7f0e9;
   --layout-color: #fefdfb;
 
+  --sign-up-bg-color: #fbf8f4;
+
   --progress-total-color: #f9f5f0;
   --progress-current-color: #96c9f8;
   --progress-border-color: #66b0f5;
 
   --font-color: #080808;
   --modal-font-color: #050001;
+
+  --error-color: ##f02222;
+  --input-color: #878787;
+  --input-disable-color: #ededed;
+  --validation-color: #a1a1a1;
 
   --radius: 0.5rem;
 
