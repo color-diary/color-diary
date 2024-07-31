@@ -12,7 +12,7 @@ import Button from '../common/Button';
 const MyPageForm = () => {
   const [nickname, setNickname] = useState('');
   const [newNickname, setNewNickname] = useState('');
-  const [profileImg, setProfileImg] = useState('');
+  const [profileImg, setProfileImg] = useState('/default-profile.jpg');
   const publicSetProfileImg = loginZustandStore(state => state.publicSetProfileImg);
   const publicProfileImg = loginZustandStore(state => state.publicProfileImg)
   const setIsLogin = loginZustandStore(state => state.setIsLogin);
@@ -96,7 +96,7 @@ const MyPageForm = () => {
   return (
     <div className="flex flex-col items-center justify-center mt-[312px]">
       <div className="w-[1128px] h-[280px] flex flex-row items-center ml-[40px]">
-        {isLogin ? <Image
+        {isLogin ? <Image 
           src={profileImg}
           alt="Profile Image"
           width={195}
