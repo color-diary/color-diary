@@ -51,7 +51,8 @@ const Header = () => {
     };
 
     return (
-        <div className='relative flex justify-right lg:justify-center items-center py-[8px] w-full min-h-[72px] border-b-[1px] shadow-sm'>
+        <div className='fixed top-0 left-0 w-full z-1 flex justify-center items-center py-[8px] min-h-[72px] border-b-[1px] shadow-sm bg-white'>
+
             <Link href={"/"}>
                 <Image priority
                     src="/logo.png"
