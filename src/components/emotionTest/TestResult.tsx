@@ -78,20 +78,20 @@ const TestResult = ({ emotion, positive, negative }: TestResultProps) => {
               ))}
             </div>
           </div>
-          <div className="w-550px-row flex flex-col items-start gap-8px-col">
-            <div className="w-full flex justify-between items-center gap-24px-row">
-              <span className="w-128px-row text-font-color text-20px font-normal tracking-tight">
+          <div className="flex flex-col items-start gap-8px-col">
+            <div className="w-full flex justify-center items-center gap-8px-row">
+              <span className="text-start text-font-color text-20px font-normal tracking-tight">
                 긍정적 {positive}%
               </span>
-              <div className="w-430px-row">
+              <div className="w-420px-row">
                 <ProgressBar value={positive} max={100} />
               </div>
             </div>
-            <div className="w-full flex justify-between items-center gap-24px-row">
-              <span className="w-128px-row text-font-color text-20px font-normal tracking-tight">
+            <div className="w-full flex justify-center items-center gap-8px-row">
+              <span className="text-start text-font-color text-20px font-normal tracking-tight">
                 부정적 {negative}%
               </span>
-              <div className="w-430px-row">
+              <div className="w-420px-row">
                 <ProgressBar value={negative} max={100} />
               </div>
             </div>

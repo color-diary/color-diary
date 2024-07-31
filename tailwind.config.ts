@@ -39,6 +39,7 @@ const config = {
         '160px-row': 'calc(100vw * 0.0833)',
         '192px-row': 'calc(100vw * 0.1)',
         '200px-row': 'calc(100vw * 0.1042)',
+        '420px-row': 'calc(100vw * 0.2230)',
         '282px-row': 'calc(100vw * 0.1469)',
         '310px-row': 'calc(100vw * 0.1615)',
         '422px-row': 'calc(100vw * 0.2198)',
@@ -144,7 +145,9 @@ const config = {
         'progress-total-color': 'var(--progress-total-color)',
         'progress-current-color': 'var(--progress-current-color)',
         'progress-border-color': 'var(--progress-border-color)',
-        'font-color': 'var(--font-color)'
+        'font-color': 'var(--font-color)',
+        'modal-font-color': 'var(--modal-font-color)',
+        backdrop: 'rgba(0, 0, 0, 0.30)'
       },
       borderRadius: {
         lg: 'var(--radius)',
