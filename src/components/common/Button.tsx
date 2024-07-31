@@ -2,59 +2,62 @@ import { cva, VariantProps } from 'class-variance-authority';
 import Link from 'next/link';
 import { ComponentProps, ReactNode } from 'react';
 
-const buttonVariant = cva('inline-flex justify-center items-center gap-4px-row text-center font-medium transition', {
-  variants: {
-    priority: {
-      primary: 'text-white',
-      secondary: 'bg-white border',
-      tertiary: 'bg-white border'
+const buttonVariant = cva(
+  'inline-flex justify-center items-center gap-4px-row text-center font-medium transition border',
+  {
+    variants: {
+      priority: {
+        primary: 'text-white',
+        secondary: 'bg-white',
+        tertiary: 'bg-white'
+      },
+      state: {
+        default: 'cursor-pointer',
+        disable: 'cursor-not-allowed'
+      },
+      size: {
+        sm: 'px-16px-row py-8px-col text-14px rounded-lg tracking-0.28px',
+        md: 'px-20px-row py-12px-col text-16px rounded-xl tracking-0.32px',
+        lg: 'px-24px-row py-12px-col text-18px rounded-2xl tracking-0.36px',
+        half: 'w-1/2 py-12px-col text-16px rounded-xl tracking-0.32px'
+      }
     },
-    state: {
-      default: 'cursor-pointer',
-      disable: 'cursor-not-allowed'
-    },
-    size: {
-      sm: 'px-16px-row py-8px-col text-14px rounded-lg tracking-0.28px',
-      md: 'px-20px-row py-12px-col text-16px rounded-xl tracking-0.32px',
-      lg: 'px-24px-row py-12px-col text-18px rounded-2xl tracking-0.36px',
-      half: 'w-1/2 py-12px-col text-16px rounded-xl tracking-0.32px',
-    }
-  },
-  compoundVariants: [
-    {
-      priority: 'primary',
-      state: 'default',
-      className: 'bg-default active:bg-pressed'
-    },
-    {
-      priority: 'primary',
-      state: 'disable',
-      className: 'bg-disable'
-    },
-    {
-      priority: 'secondary',
-      state: 'default',
-      className: 'border-default text-default active:border-pressed active:text-pressed'
-    },
-    {
-      priority: 'secondary',
-      state: 'disable',
-      className: 'border-disable text-disable'
-    },
-    {
-      priority: 'tertiary',
-      state: 'default',
-      className:
-        'border-tertiary-default text-tertiary-default active:border-tertiary-pressed active:text-tertiary-pressed'
-    },
-    {
-      priority: 'tertiary',
-      state: 'disable',
-      className: 'border-tertiary-disable text-tertiary-disable'
-    }
-  ],
-  defaultVariants: { priority: 'primary', state: 'default', size: 'md' }
-});
+    compoundVariants: [
+      {
+        priority: 'primary',
+        state: 'default',
+        className: 'bg-default hover:bg-pressed border-default hover:border-pressed '
+      },
+      {
+        priority: 'primary',
+        state: 'disable',
+        className: 'bg-disable border-disable'
+      },
+      {
+        priority: 'secondary',
+        state: 'default',
+        className: 'border-default text-default hover:border-pressed hover:text-pressed'
+      },
+      {
+        priority: 'secondary',
+        state: 'disable',
+        className: 'border-disable text-disable'
+      },
+      {
+        priority: 'tertiary',
+        state: 'default',
+        className:
+          'border-tertiary-default text-tertiary-default hover:border-tertiary-pressed hover:text-tertiary-pressed'
+      },
+      {
+        priority: 'tertiary',
+        state: 'disable',
+        className: 'border-tertiary-disable text-tertiary-disable'
+      }
+    ],
+    defaultVariants: { priority: 'primary', state: 'default', size: 'md' }
+  }
+);
 
 const iconVariant = cva('fill-current flex justify-center items-center', {
   variants: {
@@ -62,7 +65,7 @@ const iconVariant = cva('fill-current flex justify-center items-center', {
       sm: 'w-16px-row h-16px-col',
       md: 'w-20px-row h-20px-col',
       lg: 'w-24px-row h-24px-col',
-      half: 'w-20px-row h-20px-col',
+      half: 'w-20px-row h-20px-col'
     }
   },
   defaultVariants: {

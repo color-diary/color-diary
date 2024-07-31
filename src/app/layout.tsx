@@ -1,5 +1,6 @@
 import Header from '@/components/common/Header';
 import SideBar from '@/components/common/Sidebar';
+import { ModalProvider } from '@/providers/modal.context';
 import QueryProvider from '@/providers/ReactQueryClientProvider';
 import { ToastProvider } from '@/providers/toast.context';
 import type { Metadata } from 'next';
@@ -34,9 +35,11 @@ export default function RootLayout({
       <body className={`${pretendard.variable} font-pretendard`}>
         <QueryProvider>
           <ToastProvider>
-            <Header />
-            <SideBar />
-            {children}
+            <ModalProvider>
+              <Header />
+              <SideBar />
+              {children}
+            </ModalProvider>
           </ToastProvider>
         </QueryProvider>
       </body>

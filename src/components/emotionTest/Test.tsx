@@ -106,7 +106,7 @@ const Test = () => {
                 <li key={index} className="w-full flex justify-between items-center px-16px-row py-4px-col gap-2">
                   <button
                     onClick={() => handleSelectAnswer(option.value, option.sentiment, option.points)}
-                    className="text-font-color text-start text-20px font-normal tracking-tight active:text-default transition"
+                    className="text-font-color text-start text-20px font-normal tracking-tight hover:text-default transition"
                   >
                     {option.label}
                   </button>
