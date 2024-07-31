@@ -12,7 +12,6 @@ import zustandStore from '@/zustand/zustandStore';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Button from '../common/Button';
-import EmotionIcon from './EmotionIcon';
 import ProgressBar from './ProgressBar';
 import ShareButtons from './ShareButtons';
 
@@ -67,34 +66,38 @@ const TestResult = ({ emotion, positive, negative }: TestResultProps) => {
   };
 
   return (
-    <div className="w-744px h-760px flex flex-col justify-center items-center gap-14 flex-shrink-0 rounded-5xl border-4 border-border-color bg-white">
-      <div className="flex flex-col items-center gap-10 self-stretch">
-        <div className="flex flex-col items-center gap-13 self-stretch">
-          <div className="flex flex-col items-center gap-4 self-stretch">
+    <div className="w-744px-row h-760px-col flex flex-col justify-center items-center gap-56px-col flex-shrink-0 rounded-5xl border-4 border-border-color bg-white">
+      <div className="flex flex-col items-center gap-40px-col self-stretch">
+        <div className="flex flex-col items-center gap-52px-col self-stretch">
+          <div className="flex flex-col items-center gap-16px-col self-stretch">
             <h1 className="text-font-color text-28px font-bold -tracking-0.56px">{resultDetails.title}</h1>
-            <EmotionIcon emotion={emotion} />
-            <div className="text-font-color text-xl font-normal tracking-tight text-center">
+            {resultDetails.image}
+            <div className="text-font-color text-20px font-normal tracking-tight text-center">
               {splitCommentWithSlash(resultDetails.comment).map((line, index) => (
                 <p key={index}>{line}</p>
               ))}
             </div>
           </div>
-          <div className="w-550px flex flex-col items-start gap-2">
-            <div className="w-full flex justify-between items-center gap-6">
-              <span className="w-32 text-font-color text-xl font-normal tracking-tight">긍정적 {positive}%</span>
-              <div className="w-430px">
+          <div className="w-550px-row flex flex-col items-start gap-8px-col">
+            <div className="w-full flex justify-between items-center gap-24px-row">
+              <span className="w-128px-row text-font-color text-20px font-normal tracking-tight">
+                긍정적 {positive}%
+              </span>
+              <div className="w-430px-row">
                 <ProgressBar value={positive} max={100} />
               </div>
             </div>
-            <div className="w-full flex justify-between items-center gap-6">
-              <span className="w-32 text-font-color text-xl font-normal tracking-tight">부정적 {negative}%</span>
-              <div className="w-430px">
+            <div className="w-full flex justify-between items-center gap-24px-row">
+              <span className="w-128px-row text-font-color text-20px font-normal tracking-tight">
+                부정적 {negative}%
+              </span>
+              <div className="w-430px-row">
                 <ProgressBar value={negative} max={100} />
               </div>
             </div>
           </div>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-16px-row">
           <Button
             href={'/emotion-test'}
             icon={

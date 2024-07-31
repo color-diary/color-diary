@@ -55,12 +55,12 @@ const buttonVariant = cva('inline-flex justify-center items-center gap-4px-row t
   defaultVariants: { priority: 'primary', state: 'default', size: 'md' }
 });
 
-const iconVariant = cva('fill-current', {
+const iconVariant = cva('fill-current flex justify-center items-center', {
   variants: {
     size: {
-      sm: 'w-4 h-4',
-      md: 'w-5 h-5',
-      lg: 'w-6 h-6'
+      sm: 'w-16px-row h-16px-col',
+      md: 'w-20px-row h-20px-col',
+      lg: 'w-24px-row h-24px-col'
     }
   },
   defaultVariants: {

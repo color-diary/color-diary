@@ -1,10 +1,16 @@
-"use client"
+'use client';
 import { loginZustandStore } from '@/zustand/zustandStore';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import useZustandStore from '@/zustand/zustandStore';
 
 const SideBar = () => {
   const pathname = usePathname();
+  const { setIsDiaryEditMode } = useZustandStore();
+
+  const handleClick = () => {
+    setIsDiaryEditMode(false);
+  };
 
   const buttonlist = [
     {
@@ -227,6 +233,7 @@ const SideBar = () => {
               <li key={e.name}>
                 <Link
                   href={e.path}
+                  onClick={handleClick}
                   className="flex flex-col items-center w-[72px] h-[72px] gap-2 pt-2 rounded-2xl shadow-inner-top-left  bg-[#F4EBE1]"
                 >
                   {e.fill}
@@ -235,7 +242,11 @@ const SideBar = () => {
               </li>
             ) : (
               <li key={e.name}>
-                <Link href={e.path} className="flex flex-col items-center w-[72px] h-[72px] gap-2 pt-2">
+                <Link
+                  href={e.path}
+                  onClick={handleClick}
+                  className="flex flex-col items-center w-[72px] h-[72px] gap-2 pt-2"
+                >
                   {e.outLine}
                   {e.name}
                 </Link>
