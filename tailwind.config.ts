@@ -28,15 +28,14 @@ const config = {
       spacing: {
         '4px-row': 'calc(100vw * 0.00208)',
         '8px-row': 'calc(100vw * 0.00417)',
+        '12px-row': 'calc(100vw * 0.00625)',
         '16px-row': 'calc(100vw * 0.00833)',
         '20px-row': 'calc(100vw * 0.01042)',
         '24px-row': 'calc(100vw * 0.01250)',
         '48px-row': 'calc(100vw * 0.025)',
         '72px-row': 'calc(100vw * 0.0375)',
-        '128px-row': 'calc(100vw * 0.0667)',
         '200px-row': 'calc(100vw * 0.1042)',
-        '430px-row': 'calc(100vw * 0.223958)',
-        '550px-row': 'calc(100vw * 0.2865)',
+        '420px-row': 'calc(100vw * 0.2230)',
         '600px-row': 'calc(100vw * 0.3125)',
         '744px-row': 'calc(100vw * 0.3875)',
         '4px-col': 'calc(100vh * 0.00370)',
@@ -45,6 +44,7 @@ const config = {
         '16px-col': 'calc(100vh * 0.0148)',
         '20px-col': 'calc(100vh * 0.0185)',
         '24px-col': 'calc(100vh * 0.02222)',
+        '32px-col': 'calc(100vh * 0.0296)',
         '36px-col': 'calc(100vh * 0.03333)',
         '40px-col': 'calc(100vh * 0.0370)',
         '44px-col': 'calc(100vh * 0.04074)',
@@ -120,7 +120,9 @@ const config = {
         'progress-total-color': 'var(--progress-total-color)',
         'progress-current-color': 'var(--progress-current-color)',
         'progress-border-color': 'var(--progress-border-color)',
-        'font-color': 'var(--font-color)'
+        'font-color': 'var(--font-color)',
+        'modal-font-color': 'var(--modal-font-color)',
+        backdrop: 'rgba(0, 0, 0, 0.30)'
       },
       borderRadius: {
         lg: 'var(--radius)',
