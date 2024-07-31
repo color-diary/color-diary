@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { loginZustandStore } from '@/zustand/zustandStore';
 import { createClient } from '@/utils/supabase/client';
+import SignUpModal from '../signUp/SignUpModal';
 import Button from '../common/Button';
 import Vector from '../common/svg/Vector';
 
@@ -71,7 +72,7 @@ const LogInForm = () => {
 
   return (
     <div className='flex items-center justify-center min-h-screen '>
-      <div className='inline-flex flex-col mt-24 rounded-[32px] border-4 border-[#e6d3bc] shadow-md px-8 py-12 lg:px-24 lg:py-[72px]'>
+      <div className='inline-flex flex-col rounded-[32px] border-4 border-[#e6d3bc] shadow-md px-8 py-12 lg:px-24 lg:py-[72px]'>
         {/* 로그인 부분 */}
         <div className='text-center mb-12'>
           <h1 className='font-bold text-2xl'>로그인</h1>
@@ -117,7 +118,7 @@ const LogInForm = () => {
         {/* 로그인, 회원가입 버튼 */}
         <div className='flex flex-row mt-12'>
           <Button size="half" onClick={loginHandler}>로그인 하기</Button>
-          <div className='px-[28px]'>
+          <div className='px-[28px] mt-3'>
             <Vector/>
           </div>
           <Button priority="secondary" size="half" onClick={()=> setIsModalVisible(true)}>회원가입 하기</Button>
@@ -146,6 +147,7 @@ const LogInForm = () => {
           </div>
         </div>
       </div>
+      <SignUpModal isVisible={isModalVisible} onClose={() => setIsModalVisible(false)} />
     </div>
   );
 };
