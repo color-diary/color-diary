@@ -35,7 +35,7 @@ export default function RootLayout({
         <QueryProvider>
           <ToastProvider>
             <Header />
-            <SideBar />
+            {/* <SideBar /> */}
             {children}
           </ToastProvider>
         </QueryProvider>
