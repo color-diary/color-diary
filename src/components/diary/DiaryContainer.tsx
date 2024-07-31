@@ -134,10 +134,10 @@ const DiaryContainer = () => {
   return (
     <div className="flex items-center justify-center h-screen">
       <div
-        className="relative flex items-center justify-center w-[80vh] h-[88vh] rounded-[32px] border-4 border-[#E6D3BC] gap-[16px] p-[6.5vh] pl-[1.5vh]"
+        className="relative flex items-center justify-center w-[80vh] h-[88vh] rounded-[32px] border-4 border-[#E6D3BC]  p-[6.5vh] pl-[1.5vh]"
         style={{ backgroundColor: diaryData.color }}
       >
-        <div className="flex flex-col gap-[20vh]">
+        <div className="flex flex-col gap-[20vh] w-[9%]">
           <div className="flex flex-col justify-center gap-[5vh]">
             <div className="w-[2vw] h-[2vw] bg-white rounded-full"></div>
             <div className="w-[2vw] h-[2vw] bg-white rounded-full"></div>
@@ -149,12 +149,12 @@ const DiaryContainer = () => {
             <div className="w-[2vw] h-[2vw] bg-white rounded-full"></div>
           </div>
         </div>
-        <div className="relative flex flex-col items-center justify-center bg-white w-[50vw] h-[78vh] rounded-[32px] border border-[#E6D3BC] p-8">
+        <div className="relative flex flex-col items-center justify-center bg-white w-[90%] h-[78vh] rounded-[32px] border border-[#E6D3BC] p-8">
           <div className="absolute top-6 left-7 mb-4 flex items-center ">
             <TextButton onClick={handleBackward}>뒤로가기</TextButton>
           </div>
 
-          <div className="absolute top-14 left-8 w-[30vw] items-start justify-start ">
+          <div className="absolute top-14 left-8 w-[90%] h-[90%] items-start justify-start ">
             <DiaryContent diary={diaryData} />
           </div>
 
