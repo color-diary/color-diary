@@ -1,22 +1,9 @@
-div.calendar {
+div.anchor {
   position: relative;
 }
 
 input[type='date'] {
-  opacity: 50%;
-  background-color: orange;
   position: absolute;
-  left: 18%;
-  top: 2.4%;
-  z-index: 99;
-  width: 12vh;
-  height: 4vh;
-}
-
-input[type='date']::-webkit-calendar-picker-indicator {
-  z-index: 100;
-  background-color: red;
-  width: 100%;
-  opacity: 0;
-  cursor: pointer;
+  top: 0;
+  left: 0;
 }
