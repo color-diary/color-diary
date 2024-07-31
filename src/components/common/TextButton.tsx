@@ -2,27 +2,29 @@ import { cva, VariantProps } from 'class-variance-authority';
 import Link from 'next/link';
 import { ComponentProps, ReactNode } from 'react';
 
-const buttonVariant = cva(
-  'inline-flex items-center py-4px-col text-center text-16px font-normal tracking-0.32px transition',
-  {
-    variants: {
-      state: {
-        default: 'cursor-pointer text-tertiary-default active:text-tertiary-pressed',
-        disable: 'cursor-not-allowed text-text-button-disable'
-      }
+const buttonVariant = cva('inline-flex items-center py-4px-col text-center transition font-normal', {
+  variants: {
+    state: {
+      default: 'cursor-pointer text-tertiary-default hover:text-tertiary-pressed',
+      disable: 'cursor-not-allowed text-text-button-disable'
     },
-    defaultVariants: {
-      state: 'default'
+    device: {
+      desktop: 'text-16px tracking-0.32px',
+      mobile: 'text-14px tracking-0.28px'
     }
+  },
+  defaultVariants: {
+    state: 'default',
+    device: 'desktop'
   }
-);
+});
 
 type ButtonVariantProps = VariantProps<typeof buttonVariant>;
 
 type ButtonProps = { children: ReactNode; icon?: ReactNode } & ButtonVariantProps &
   (({ href?: undefined } & ComponentProps<'button'>) | ({ href: string } & ComponentProps<typeof Link>));
 
-const TextButton = ({ state, children, icon, ...props }: ButtonProps) => {
+const TextButton = ({ state, device, children, icon, ...props }: ButtonProps) => {
   if (props.href) {
     return (
       <Link className={buttonVariant({ state })} aria-disabled={state === 'disable'} {...props}>
@@ -31,7 +33,7 @@ const TextButton = ({ state, children, icon, ...props }: ButtonProps) => {
     );
   } else if (typeof props.href === 'undefined')
     return (
-      <button className={buttonVariant({ state })} disabled={state === 'disable'} {...props}>
+      <button className={buttonVariant({ state, device })} disabled={state === 'disable'} {...props}>
         {
           <span className="w-24px-row h-24px-col flex items-center justify-center">
             {icon ? (
