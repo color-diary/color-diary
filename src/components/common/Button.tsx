@@ -2,7 +2,7 @@ import { cva, VariantProps } from 'class-variance-authority';
 import Link from 'next/link';
 import { ComponentProps, ReactNode } from 'react';
 
-const buttonVariant = cva('inline-flex justify-center items-center gap-1 text-center font-medium transition', {
+const buttonVariant = cva('inline-flex justify-center items-center gap-4px-row text-center font-medium transition', {
   variants: {
     priority: {
       primary: 'text-white',
@@ -14,10 +14,10 @@ const buttonVariant = cva('inline-flex justify-center items-center gap-1 text-ce
       disable: 'cursor-not-allowed'
     },
     size: {
-      sm: 'px-4 py-2 text-sm rounded-lg tracking-0.28px',
-      md: 'px-5 py-3 text-base rounded-xl tracking-0.32px',
-      lg: 'px-6 py-3 text-lg rounded-2xl tracking-0.36px',
-      half: 'w-1/2 py-3 text-base rounded-xl tracking-0.32px',
+      sm: 'px-16px-row py-8px-col text-14px rounded-lg tracking-0.28px',
+      md: 'px-20px-row py-12px-col text-16px rounded-xl tracking-0.32px',
+      lg: 'px-24px-row py-12px-col text-18px rounded-2xl tracking-0.36px',
+      half: 'w-1/2 py-12px-col text-16px rounded-xl tracking-0.32px',
     }
   },
   compoundVariants: [
@@ -59,10 +59,10 @@ const buttonVariant = cva('inline-flex justify-center items-center gap-1 text-ce
 const iconVariant = cva('fill-current flex justify-center items-center', {
   variants: {
     size: {
-      sm: 'w-4 h-4',
-      md: 'w-5 h-5',
-      lg: 'w-6 h-6',
-      half: 'w-5 h-5',
+      sm: 'w-16px-row h-16px-col',
+      md: 'w-20px-row h-20px-col',
+      lg: 'w-24px-row h-24px-col',
+      half: 'w-20px-row h-20px-col',
     }
   },
   defaultVariants: {

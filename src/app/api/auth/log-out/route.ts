@@ -3,8 +3,6 @@ import { NextResponse } from "next/server";
 
 export async function DELETE() {
     const supabase = createClient();
-    // const { error } = await supabase.auth.signOut();
-
     const {
         data: { user }
     } = await supabase.auth.getUser()

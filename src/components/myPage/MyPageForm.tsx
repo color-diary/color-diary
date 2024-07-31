@@ -26,7 +26,6 @@ const MyPageForm = () => {
       const { data, error } = await supabase.auth.getUser();
       if (data.user) {
         const { data: userData } = await supabase.from('users').select('nickname,profileImg').eq('id', data.user?.id);
-        console.log('userData => ', userData);
         if (userData) {
           const userNickname = userData[0].nickname;
           setNickname(userNickname);
@@ -34,7 +33,6 @@ const MyPageForm = () => {
           setProfileImg(userData[0].profileImg || '/default-profile.jpg');
         }
       }
-      console.log('getUserData => ', data);
     };
     nicknameData();
   }, [supabase]);
@@ -42,7 +40,6 @@ const MyPageForm = () => {
   const changeNicknameHandler = async () => {
     try {
       const { data: userInfo } = await supabase.auth.getUser();
-      console.log('로그인된 유저정보=>', userInfo);
       if (userInfo.user) {
         const userId = userInfo.user.id;
         const { data, error } = await supabase.from('users').update({ nickname: newNickname }).eq('id', userId);
@@ -61,7 +58,6 @@ const MyPageForm = () => {
     try {
       if (response.status === 200) {
         alert(response.data.message);
-        console.log('로그아웃 성공');
         setIsLogin(false);
         publicSetProfileImg('');
         router.replace('/');
@@ -70,7 +66,6 @@ const MyPageForm = () => {
       console.error('에러메세지=> ', error);
       if (axios.isAxiosError(error) && error.response) alert(error?.response.data.message);
       console.error(error);
-      console.log('로그아웃 실패');
     }
   };
 
@@ -83,7 +78,6 @@ const MyPageForm = () => {
         return;
       }
       const res = supabase.storage.from('profileImg').getPublicUrl(newFileName);
-      console.log('res데이터', res.data.publicUrl);
       setProfileImg(res.data.publicUrl);
       publicSetProfileImg(res.data.publicUrl);
       const { data: userInfo } = await supabase.auth.getUser();
