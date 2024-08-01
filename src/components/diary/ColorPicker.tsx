@@ -50,14 +50,14 @@ const ColorPicker = () => {
 
   return (
     <>
-      <div className="flex flex-col gap-3">
-        <p>오늘의 색은 무엇인가요?</p>
+      <div className="flex flex-col  h-[16%] w-[100%] gap-2">
+        <p className="text-18px">오늘의 색은 무엇인가요?</p>
         <div className="flex space-x-2 items-center">
           <br />
           {colors.map((color) => (
             <div
               key={color}
-              className={`w-[2.7vw] h-[2.7vw] rounded-full cursor-pointer ${
+              className={`w-[2.5vw] h-[2.5vw] rounded-full cursor-pointer ${
                 pickedColor === color ? 'border-4 border-[#25B18C]' : ''
               }`}
               style={{ backgroundColor: color }}
@@ -65,17 +65,17 @@ const ColorPicker = () => {
             />
           ))}
           {showRainbow ? (
-            <div className="relative w-[2.7vw] h-[2.7vw] rounded-full overflow-hidden" onClick={handleRainbowClick}>
+            <div className="relative w-[2.5vw] h-[2.5vw] rounded-full overflow-hidden" onClick={handleRainbowClick}>
               <input
                 type="color"
                 value={customColor}
                 onChange={handleChange}
                 className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
               />
-              <div className="w-[2.7vw] h-[2.7vw] rounded-full rainbow-gradient"></div>
+              <div className="w-[2.5vw] h-[2.5vw] rounded-full rainbow-gradient"></div>
             </div>
           ) : (
-            <div className="relative w-[2.7vw] h-[2.7vw] rounded-full overflow-hidden">
+            <div className="relative w-[2.5vw] h-[2.5vw] rounded-full overflow-hidden">
               <input
                 type="color"
                 value={customColor}
@@ -83,7 +83,7 @@ const ColorPicker = () => {
                 className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
               />
               <div
-                className={`w-[2.7vw] h-[2.7vw] rounded-full cursor-pointer ${
+                className={`w-[2.5vw] h-[2.5vw] rounded-full cursor-pointer ${
                   pickedColor === customColor ? 'border-4 border-[#25B18C]' : ''
                 }`}
                 style={{ backgroundColor: customColor }}
