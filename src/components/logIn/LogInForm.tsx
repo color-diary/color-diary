@@ -69,8 +69,8 @@ const LogInForm = () => {
   };
 
   return (
-    <div className='flex items-center justify-center min-h-screen '>
-      <div className='inline-flex flex-col mt-12 rounded-[32px] border-4 border-[#e6d3bc] shadow-md px-8 py-12 lg:px-24 lg:py-[72px]'>
+    <div className='flex items-center justify-center min-h-screen px-[100px]'>
+      <div className='inline-flex flex-col mt-[70px] rounded-[32px] border-4 border-[#e6d3bc] shadow-md px-8 py-12 lg:px-24 lg:py-[72px] lg:w-744px-row '>
         {/* 로그인 부분 */}
         <div className='text-center mb-12'>
           <h1 className='font-bold text-2xl'>로그인</h1>
@@ -83,7 +83,7 @@ const LogInForm = () => {
             placeholder='이메일을 입력해주세요.'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className='mt-2 px-4 py-3 lg:min-w-[560px] border-black border rounded-md'
+            className='mt-2 px-4 py-3 lg:w-full border-black border rounded-md'
           />
           {email && (
             <button
@@ -102,7 +102,7 @@ const LogInForm = () => {
             placeholder='비밀번호를 입력해주세요.'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className='mt-2 px-4 py-3 lg:min-w-[560px] border-black border rounded-md'
+            className='mt-2 px-4 py-3 lg:w-full border-black border rounded-md'
           />
           {password && (
             <button

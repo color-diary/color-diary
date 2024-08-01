@@ -121,15 +121,12 @@ const MyPageForm = () => {
         <div className="mt-4 ml-[70px] flex flex-col items-start w-[288px] h-[156px]">
           {isLogin ? (
             <div>
-              <div className="flex flex-col items-start w-[288px] text-xl">
+              <div className="flex flex-col items-start w-[288px] text-xl mb-[72px]">
                 <div className="flex items-center gap-4">
                   <span className="mr-2 w-[auto]">나의 이름</span>
                   <span>{nickname}</span>
                 </div>
-                <div className="flex items-center mt-[16px] mb-[24px] w-[auto] gap-4 text-xl">
-                  <span className="mr-2 ">비밀 번호</span>
-                  <span className='mr-2 text-[#a0a0a0] '>********</span>
-                </div>
+                
               </div>
             </div>
           ) : (
