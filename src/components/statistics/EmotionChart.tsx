@@ -72,7 +72,7 @@ const EmotionChart = () => {
       color: 'hsl(var(--chart-3))'
     }
   } satisfies ChartConfig;
-  console.log();
+
   return (
     <Card className="w-600px-row h-307px-col border border-[#E6D3BC] rounded-5xl">
       <div className="flex items-center justify-center gap-12px-row mt-24px-row text-18px">
