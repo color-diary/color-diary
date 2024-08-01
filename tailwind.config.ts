@@ -48,6 +48,7 @@ const config = {
         '32px-col': 'calc(100vh * 0.0296)',
         '36px-col': 'calc(100vh * 0.03333)',
         '40px-col': 'calc(100vh * 0.0370)',
+        '48px-col': 'calc(100vh * 0.0444)',
         '44px-col': 'calc(100vh * 0.04074)',
         '52px-col': 'calc(100vh * 0.0481)',
         '56px-col': 'calc(100vh * 0.05185)',
@@ -56,7 +57,8 @@ const config = {
         '80px-col': 'calc(100vh * 0.07407)',
         '200px-col': 'calc(100vh * 0.1852)',
         '240px-col': 'calc(100vh * 0.2222)',
-        '760px-col': 'calc(100vh * 0.7037)'
+        '760px-col': 'calc(100vh * 0.7037)',
+        '800px-col': 'calc(100vh * 0.7407)'
       },
       fontSize: {
         '14px': ['calc((100vw * 0.00729 + 100vh * 0.01296) / 2)', { lineHeight: '1.35' }],
