@@ -6,11 +6,6 @@ export async function POST(request: NextRequest) {
   const email = data.email as string;
   const password = data.password as string;
   const nickname = data.nickname as string;
-
-  console.log('이메일=> ', email);
-  console.log('비밀번호=> ', password);
-  console.log('데이터=> ', data);
-
   const supabase = createClient();
 
   const { data: userData, error } = await supabase.auth.signUp({
@@ -22,9 +17,7 @@ export async function POST(request: NextRequest) {
       },
     },
   });
-  console.log(userData);
-  console.log(error);
-  console.log(nickname);
+  
   if (error) {
     console.error('회원가입 에러=>', error.status)
     return NextResponse.json({ message: '회원가입에 실패했습니다.' }, { status: error.status })
