@@ -38,6 +38,7 @@ const config = {
         '420px-row': 'calc(100vw * 0.2230)',
         '600px-row': 'calc(100vw * 0.3125)',
         '744px-row': 'calc(100vw * 0.3875)',
+        '1128px-row': 'calc(100vw * 0.5875)',
         '4px-col': 'calc(100vh * 0.00370)',
         '8px-col': 'calc(100vh * 0.00741)',
         '12px-col': 'calc(100vh * 0.01111)',
@@ -62,6 +63,7 @@ const config = {
         '16px': ['calc((100vw * 0.00833 + 100vh * 0.01481) / 2)', { lineHeight: '1.35' }],
         '18px': ['calc((100vw * 0.00938 + 100vh * 0.01667) / 2)', { lineHeight: '1.35' }],
         '20px': ['calc((100vw * 0.0104 + 100vh * 0.0185) / 2)', { lineHeight: '1.35' }],
+        '22px': ['calc((100vw * 0.01145 + 100vh * 0.02036) / 2)', { lineHeight: '1.35' }],
         '24px': ['calc((100vw * 0.0125 + 100vh * 0.02222) / 2)', { lineHeight: '1.35' }],
         '28px': ['calc((100vw * 0.01458 + 100vh * 0.02593) / 2)', { lineHeight: '1.35' }]
       },

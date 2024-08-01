@@ -37,7 +37,7 @@ export default function RootLayout({
           <ToastProvider>
             <ModalProvider>
               <Header />
-              {/* <SideBar /> */}
+              <SideBar />
               {children}
             </ModalProvider>
           </ToastProvider>
