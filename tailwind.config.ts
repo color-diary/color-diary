@@ -1,5 +1,12 @@
 import type { Config } from 'tailwindcss';
 
+interface AddUtilities {
+  (
+    utilities: Record<string, any>,
+    options?: { variants?: string[]; respectPrefix?: boolean; respectImportant?: boolean }
+  ): void;
+}
+
 const config = {
   darkMode: ['class'],
   content: ['./pages/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './app/**/*.{ts,tsx}', './src/**/*.{ts,tsx}'],
@@ -37,6 +44,7 @@ const config = {
         '96px-row': 'calc(100vw * 0.05)',
         '200px-row': 'calc(100vw * 0.1042)',
         '420px-row': 'calc(100vw * 0.2230)',
+        '540px-row': 'calc(100vw * 0.28125)',
         '600px-row': 'calc(100vw * 0.3125)',
         '744px-row': 'calc(100vw * 0.3875)',
         '4px-col': 'calc(100vh * 0.00370)',
@@ -57,8 +65,8 @@ const config = {
         '80px-col': 'calc(100vh * 0.07407)',
         '200px-col': 'calc(100vh * 0.1852)',
         '240px-col': 'calc(100vh * 0.2222)',
-        '760px-col': 'calc(100vh * 0.7037)',
-        '800px-col': 'calc(100vh * 0.7407)'
+        '560px-col': 'calc(100vh * 0.5185)',
+        '760px-col': 'calc(100vh * 0.7037)'
       },
       fontSize: {
         '14px': ['calc((100vw * 0.00729 + 100vh * 0.01296) / 2)', { lineHeight: '1.35' }],
@@ -126,7 +134,7 @@ const config = {
         'progress-border-color': 'var(--progress-border-color)',
         'font-color': 'var(--font-color)',
         'modal-font-color': 'var(--modal-font-color)',
-        error: 'var(--error-color)',
+        'error-color': 'var(--error-color)',
         'input-color': 'var(--input-color)',
         'input-disable-color': 'var(--input-disable-color)',
         validation: 'var(--validation-color)',
@@ -154,7 +162,27 @@ const config = {
       }
     }
   },
-  plugins: [require('tailwindcss-animate')]
+  plugins: [
+    require('tailwindcss-animate'),
+    function ({ addUtilities }: { addUtilities: AddUtilities }) {
+      addUtilities({
+        '.custom-terms-scrollbar': {
+          '&::-webkit-scrollbar': {
+            width: 'calc(100vw * 0.00417) !important'
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: 'white !important',
+            borderRadius: '16px !important',
+            border: '2px solid var(--validation-color) !important',
+            cursor: 'pointer'
+          },
+          '&::-webkit-scrollbar-track': {
+            backgroundColor: 'var(--sign-up-bg-color) !important'
+          }
+        }
+      });
+    }
+  ]
 } satisfies Config;
 
 export default config;

@@ -8,11 +8,11 @@ const labelVariant = cva('self-stretch font-medium', {
     state: {
       default: 'text-font-color cursor-pointer',
       filled: 'text-default cursor-pointer',
-      error: 'text-error cursor-pointer',
+      error: 'text-error-color cursor-pointer',
       disable: 'text-text-button-disable cursor-not-allowed'
     },
     device: {
-      desktop: 'text-20px tracking-tight',
+      desktop: 'text-18px tracking-tight',
       mobile: 'text-16px tracking-0.32px'
     }
   },
@@ -22,31 +22,34 @@ const labelVariant = cva('self-stretch font-medium', {
   }
 });
 
-const inputVariant = cva('w-full flex justify-center px-16px-row self-stretch border rounded-lg font-normal', {
-  variants: {
-    state: {
-      default:
-        'bg-white border-input-color focus:border-font-color text-input-color focus:text-font-color placeholder:text-input-color',
-      filled: 'bg-white border-default text-font-color',
-      error: 'bg-white border-error text-error',
-      disable: 'bg-input-disable-color border-text-button-disable text-text-button-disable cursor-not-allowed'
+const inputVariant = cva(
+  'w-full flex justify-center pl-16px-row pr-48px-row self-stretch border rounded-lg font-normal',
+  {
+    variants: {
+      state: {
+        default:
+          'bg-white border-input-color focus:border-font-color text-input-color focus:text-font-color placeholder:text-input-color',
+        filled: 'bg-white border-default text-font-color',
+        error: 'bg-white border-error-color text-error-color',
+        disable: 'bg-input-disable-color border-text-button-disable text-text-button-disable cursor-not-allowed'
+      },
+      device: {
+        desktop: 'py-12px-col text-18px tracking-tight',
+        mobile: 'py-8px-col text-14px tracking-0.28px'
+      }
     },
-    device: {
-      desktop: 'py-12px-col text-20px tracking-tight',
-      mobile: 'py-8px-col text-14px tracking-0.28px'
+    defaultVariants: {
+      state: 'default',
+      device: 'desktop'
     }
-  },
-  defaultVariants: {
-    state: 'default',
-    device: 'desktop'
   }
-});
+);
 
 const iconVariant = cva('absolute right-16px-row cursor-pointer w-24px-row h-24px-col', {
   variants: {
     state: {
       filled: 'text-error',
-      error: 'text-font-color'
+      error: 'text-font-color-color'
     },
     device: {
       desktop: 'bottom-12px-col top-12px-col',
@@ -63,11 +66,11 @@ const textVariant = cva('font-normal', {
     state: {
       default: 'text-validation',
       filled: 'text-validation',
-      error: 'text-error',
+      error: 'text-error-color',
       disable: 'text-text-button-disable'
     },
     device: {
-      desktop: 'text-20px tracking-tight',
+      desktop: 'text-18px tracking-tight',
       mobile: 'text-14px tracking-0.28px'
     }
   },
@@ -82,8 +85,6 @@ type InputVariantProps = VariantProps<typeof inputVariant>;
 type InputProps = {
   label: string;
   validationMessage?: string;
-  isFilled?: boolean;
-  isError?: boolean;
   value: string;
   setValue: Dispatch<SetStateAction<string>>;
 } & InputVariantProps &
