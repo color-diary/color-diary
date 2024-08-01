@@ -83,17 +83,7 @@ const ColorChart = () => {
       </div>
       <CardContent>
         {sortedColors.length > 0 ? (
-          sortedColors.length < 5 ? (
-            <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-300px-col h-260px-col">
-              <PieChart>
-                <Pie data={chartData} dataKey="visitors" />
-                <ChartLegend
-                  content={<ChartLegendContent nameKey="browser" />}
-                  className="-translate-y-2 flex-wrap gap-1 [&>*]:basis-1/4 [&>*]:justify-center text-lg "
-                />
-              </PieChart>
-            </ChartContainer>
-          ) : (
+          (colorCounts[0] / length) * 100 < 5 ? (
             <div>
               <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-300px-col h-260px-col">
                 <PieChart className="w-192px-row h-192px-col">
@@ -105,6 +95,16 @@ const ColorChart = () => {
                 <div className="text-16px">색상이 다채로워요!</div>
               </div>
             </div>
+          ) : (
+            <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-300px-col h-260px-col">
+              <PieChart>
+                <Pie data={chartData} dataKey="visitors" />
+                <ChartLegend
+                  content={<ChartLegendContent nameKey="browser" />}
+                  className="-translate-y-2 flex-wrap gap-1 [&>*]:basis-1/4 [&>*]:justify-center text-lg "
+                />
+              </PieChart>
+            </ChartContainer>
           )
         ) : (
           <div className="h-full">

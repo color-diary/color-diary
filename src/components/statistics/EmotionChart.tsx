@@ -72,7 +72,7 @@ const EmotionChart = () => {
       color: 'hsl(var(--chart-3))'
     }
   } satisfies ChartConfig;
-
+  console.log();
   return (
     <Card className="w-600px-row h-307px-col border border-[#E6D3BC] rounded-5xl">
       <div className="flex items-center justify-center gap-12px-row mt-24px-row text-18px">
@@ -83,7 +83,21 @@ const EmotionChart = () => {
       <div className="flex justify-center items-center">
         <CardContent>
           {sortedTags.length > 0 ? (
-            sortedTags.length < 10 ? (
+            (tagCounts[0] / tagCounts.length) * 100 < 5 ? (
+              <div className="flex flex-col items-center mt-24px-col">
+                <Image
+                  src="/seasons.png"
+                  alt="사계절 이미지"
+                  width={282}
+                  height={50}
+                  className="w-282px-row h-50px-colx mb-16px-col"
+                />
+                <div className="text-16px">다양한 감정을 느끼신 것 같아요.</div>
+                <div className="text-16px">다양한 감정이 동일한 빈도로 나타내고 있어 통계를 제공할 수 없어요.</div>
+                <div className="text-16px">하지만 감정을 기록하는 건 좋은 습관입니다.</div>
+                <div className="text-[#25B18C] text-20px mt-24px-col">#다양한_감정의_주인공은_바로_나</div>
+              </div>
+            ) : (
               <ChartContainer config={chartConfig} className="h-150px-col w-450px-row mt-40px-col">
                 <BarChart
                   accessibilityLayer
@@ -107,20 +121,6 @@ const EmotionChart = () => {
                   <Bar dataKey="visitors" layout="vertical" radius={[0, 15, 15, 0]} />
                 </BarChart>
               </ChartContainer>
-            ) : (
-              <div className="flex flex-col items-center mt-24px-col">
-                <Image
-                  src="/seasons.png"
-                  alt="사계절 이미지"
-                  width={282}
-                  height={50}
-                  className="w-282px-row h-50px-colx mb-16px-col"
-                />
-                <div className="text-16px">다양한 감정을 느끼신 것 같아요.</div>
-                <div className="text-16px">다양한 감정이 동일한 빈도로 나타내고 있어 통계를 제공할 수 없어요.</div>
-                <div className="text-16px">하지만 감정을 기록하는 건 좋은 습관입니다.</div>
-                <div className="text-[#25B18C] text-20px mt-24px-col">#다양한_감정의_주인공은_바로_나</div>
-              </div>
             )
           ) : (
             <div className="mt-64px-col flex flex-col items-center">

@@ -14,7 +14,7 @@ const StatisticsForm = () => {
     return null;
   }
   return (
-    <div className="border-4 border-[#E6D3BC] bg-[#FBF8F4] rounded-5xl w-744px-row h-916px-col flex items-center flex-col mt-128px-col mb-76px-col m-auto ">
+    <div className="border-4 border-[#E6D3BC] bg-[#FBF8F4] rounded-5xl w-744px-row h-916px-col flex items-center flex-col mt-128px-col m-auto ">
       <div className="w-600px-row h-401px-col mt-56px-col">
         <h2 className="text-24px font-bold">이달의 감정 색상</h2>
         <div className="flex mt-8px-col">
