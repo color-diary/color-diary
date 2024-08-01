@@ -225,9 +225,9 @@ const SideBar = () => {
     }
   ];
   return (
-    <aside className="w-[120px] h-screen flex flex-col fixed items-center left-0 top-0 z-10 bg-[#FBF8F4]">
-      <nav>
-        <ul className="flex flex-col items-center gap-4 mt-32 w-18 h-62">
+    <aside className="md:w-[120px] md:h-screen flex md:flex-col md:fixed md:items-center md:left-0 md:top-0 z-10 bg-[#FBF8F4] w-full h-[80px] fixed bottom-0 left-0 flex-row items-center">
+      <nav className="w-full">
+        <ul className="flex md:flex-col md:items-center md:gap-4 md:mt-32 md:w-18 md:h-62 flex-row justify-around w-full">
           {buttonlist.map((e) => {
             return pathname === e.path ? (
               <li key={e.name}>
