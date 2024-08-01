@@ -1,12 +1,20 @@
 'use client';
 
-import { CalendarSetProps } from '@/types/calendarSet.type';
 import { useRouter } from 'next/navigation';
-import CalendarSet from './CalendarSet';
+import { Calendar } from '../ui/calendar';
+import { DiaryList } from '@/types/diary.type';
 
-const Cards = ({ diaryList, isCards, date, setDate, handleInputChangeDate }: CalendarSetProps) => {
+interface CardsProps {
+  isCalendar: boolean;
+  date: Date | undefined;
+  setDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
+  handleInputDate: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  diaryList: DiaryList;
+}
+
+const Cards = ({ diaryList, isCalendar, date, setDate, handleInputDate }: CardsProps) => {
   const route = useRouter();
-  const orderedList = diaryList?.sort((a, b) => {
+  const orderedList = diaryList.sort((a, b) => {
     if (a.date < b.date) {
       return -1;
     } else {
@@ -16,18 +24,20 @@ const Cards = ({ diaryList, isCards, date, setDate, handleInputChangeDate }: Cal
 
   return (
     <div className="flex flex-col">
-      <CalendarSet
-        isCards={isCards}
-        diaryList={diaryList}
-        date={date}
-        setDate={setDate}
-        handleInputChangeDate={handleInputChangeDate}
-      />
-      {diaryList?.length === 0 ? (
+      <div>
+        <Calendar
+          isCalendar={isCalendar}
+          diaryList={orderedList}
+          month={date}
+          onMonthChange={setDate}
+          handleInputDate={handleInputDate}
+        />
+      </div>
+      {diaryList.length === 0 ? (
         <p>일기가 아직 작성되지 않았습니다.</p>
       ) : (
         <div className="grid grid-cols-4 gap-6 h-[37.8rem]">
-          {orderedList?.map((diary) => {
+          {orderedList.map((diary) => {
             return (
               <div
                 key={diary.diaryId}
@@ -40,7 +50,7 @@ const Cards = ({ diaryList, isCards, date, setDate, handleInputChangeDate }: Cal
                   <div>{new Date(diary.date).getDate()}</div>
                   <div className="text-ellipsis whitespace-nowrap overflow-hidden">{diary.tags[0]}</div>
                 </div>
-                <div className="h-full " style={{ backgroundColor: `${diary.color}` }}></div>
+                <div className="h-full" style={{ backgroundColor: `${diary.color}` }}></div>
               </div>
             );
           })}
