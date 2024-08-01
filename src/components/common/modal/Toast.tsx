@@ -9,7 +9,7 @@ const toastVariant = cva(
   {
     variants: {
       device: {
-        desktop: 'px-24px-row py-16px-col text-20px tracking-tight',
+        desktop: 'px-24px-row py-16px-col text-18px tracking-0.36px',
         mobile: 'px-16px-row py-12px-col text-14px tracking-0.28px'
       },
       isOpen: {

@@ -47,7 +47,7 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
     return password === confirmPassword;
   };
 
-  const signUpHandler = async (): Promise<void> => {
+  const handleClickSignUp = async (): Promise<void> => {
     if (!validateEmail(email)) {
       return toast.on({ label: '이메일을 작성하지 않으셨어요. 이메일을 작성해주세요.' });
     }
@@ -114,7 +114,7 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
     }
   };
 
-  const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>): void => {
     const newEmail = e.target.value;
 
     setEmail(newEmail);
@@ -127,7 +127,7 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
     });
   };
 
-  const handleChangeNickname = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeNickname = (e: ChangeEvent<HTMLInputElement>): void => {
     const newNickname = e.target.value;
 
     setNickname(newNickname);
@@ -140,7 +140,7 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
     });
   };
 
-  const handleChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChangePassword = (e: ChangeEvent<HTMLInputElement>): void => {
     const newPassword = e.target.value;
 
     setPassword(newPassword);
@@ -153,7 +153,7 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
     });
   };
 
-  const handleChangeConfirmPassword = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeConfirmPassword = (e: ChangeEvent<HTMLInputElement>): void => {
     const newConfirmPassword = e.target.value;
 
     setConfirmPassword(newConfirmPassword);
@@ -234,7 +234,7 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
                 onChange={handleChangeEmail}
                 label="이메일"
                 validationMessage="ex)abcd@gmail.com"
-                placeholder="이메일을 입력해주세요"
+                placeholder="이메일을 입력해주세요."
               />
               <Input
                 type="text"
@@ -244,7 +244,7 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
                 onChange={handleChangeNickname}
                 label="이름"
                 validationMessage="띄어쓰기는 불가능해요"
-                placeholder="사용할 이름을 입력해주세요"
+                placeholder="사용할 이름을 입력해주세요."
               />
               <Input
                 type="password"
@@ -254,7 +254,7 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
                 onChange={handleChangePassword}
                 label="비밀번호"
                 validationMessage="영문과 숫자를 포함해주세요.(6글자 이상)"
-                placeholder="비밀번호를 입력해주세요"
+                placeholder="비밀번호를 입력해주세요."
               />
               <Input
                 type="password"
@@ -264,7 +264,7 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
                 onChange={handleChangeConfirmPassword}
                 label="비밀번호 확인하기"
                 validationMessage="상단에 입력한 비밀번호와 동일하게 입력해주세요"
-                placeholder="비밀번호를 다시 입력해주세요"
+                placeholder="비밀번호를 다시 입력해주세요."
               />
             </div>
             <div className="flex items-center justify-center gap-4px-row">
@@ -327,7 +327,7 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
               홈으로 돌아가기
             </Button>
             <Button
-              onClick={signUpHandler}
+              onClick={handleClickSignUp}
               icon={
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                   <path

@@ -114,7 +114,7 @@ const NotFound = () => {
             </filter>
           </defs>
         </svg>
-        <div className="text-font-color text-20px text-center font-normal tracking-tight">
+        <div className="text-font-color text-18px text-center font-normal tracking-0.36px">
           {splitCommentWithSlash(
             '죄송합니다. 입력한 주소가 잘못되어 페이지를 불러 올 수 없어요./홈페이지로 이동하시겠어요?'
           ).map((line, index) => (
