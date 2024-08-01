@@ -13,8 +13,8 @@ import '../main/dateInput.css';
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
   diaryList: DiaryList;
-  isCards: boolean;
-  handleInputChangeDate?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  isCalendar: boolean;
+  handleInputDate: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 function Calendar({
@@ -22,8 +22,8 @@ function Calendar({
   classNames,
   showOutsideDays = false,
   diaryList,
-  isCards,
-  handleInputChangeDate,
+  isCalendar,
+  handleInputDate,
   ...props
 }: CalendarProps) {
   const route = useRouter();
@@ -42,7 +42,7 @@ function Calendar({
         nav_button_previous: 'absolute left-1',
         nav_button_next: 'absolute right-1',
         table: 'w-full border-collapse space-y-1',
-        head_row: `${isCards ? 'hidden' : 'flex'}`,
+        head_row: `${isCalendar ? 'flex' : 'hidden'}`,
         head_cell: 'text-muted-foreground rounded-md w-9 font-normal text-[0.8rem]',
         row: 'flex w-full mt-2',
         cell: 'h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20',
@@ -63,7 +63,7 @@ function Calendar({
         IconRight: ({ ...props }) => <ChevronRight className="h-4 w-4" />,
         CaptionLabel: ({ ...props }) => {
           const dateInputRef = React.useRef<HTMLInputElement>(null);
-          const handleInputDateChange = () => {
+          const handleRef = () => {
             if (dateInputRef.current) {
               dateInputRef.current.showPicker();
             }
@@ -71,8 +71,8 @@ function Calendar({
 
           return (
             <div className="anchor">
-              <input type="date" ref={dateInputRef} style={{ visibility: 'hidden' }} onChange={handleInputChangeDate} />
-              <p onClick={() => handleInputDateChange()}>
+              <input type="date" ref={dateInputRef} style={{ visibility: 'hidden' }} onChange={handleInputDate} />
+              <p onClick={() => handleRef()}>
                 {props.displayMonth.getFullYear()}년 {props.displayMonth.getMonth() + 1}월
               </p>
             </div>
@@ -98,6 +98,8 @@ function Calendar({
               if (!session) {
                 if (2 <= diaryList.length) {
                   alert('비회원은 2개이상 작성할 수 없습니다.');
+                } else if (today < props.date) {
+                  alert('미래의 일기는 작성하실 수 없습니다.');
                 } else {
                   route.push(`/diaries/write/${formatFullDate(String(props.date))}`);
                 }
@@ -120,38 +122,40 @@ function Calendar({
               return false;
             }
           };
-          const [diary, setDiary] = React.useState<Diary | undefined>();
+          const [diaries, setDiaries] = React.useState<Diary>();
 
           React.useEffect(() => {
-            if (isCards) {
+            if (!isCalendar) {
               return;
             } else {
-              setDiary(diaryList?.find(handleFindDiary));
+              setDiaries(diaryList.find(handleFindDiary));
             }
           }, []);
 
-          return isCards ? (
-            <></>
-          ) : diary ? (
-            <div
-              onClick={() => {
-                route.push(`/diaries/${diary.diaryId}`);
-              }}
-              className="flex flex-col items-center"
-            >
-              <Stamp petal={diary.color} circle="#F7CA87" month={props.date.getMonth() + 1} />
-              <p className="text-sm">{props.date.getDate()}</p>
-            </div>
+          return isCalendar ? (
+            diaries ? (
+              <div
+                onClick={() => {
+                  route.push(`/diaries/${diaries.diaryId}`);
+                }}
+                className="flex flex-col items-center"
+              >
+                <Stamp petal={diaries.color} circle="#F7CA87" month={props.date.getMonth() + 1} />
+                <p className="text-sm">{props.date.getDate()}</p>
+              </div>
+            ) : (
+              <div
+                onClick={() => {
+                  handleGoWirtePage();
+                }}
+                className="flex flex-col items-center "
+              >
+                <Stamp petal="#FFF" circle="#D4D4D4" month={props.date.getMonth() + 1} isToday={isToday} />
+                <p className="text-sm">{props.date.getDate()}</p>
+              </div>
+            )
           ) : (
-            <div
-              onClick={() => {
-                handleGoWirtePage();
-              }}
-              className="flex flex-col items-center "
-            >
-              <Stamp petal="#FFF" circle="#D4D4D4" month={props.date.getMonth() + 1} isToday={isToday} />
-              <p className="text-sm">{props.date.getDate()}</p>
-            </div>
+            <></>
           );
         }
       }}
