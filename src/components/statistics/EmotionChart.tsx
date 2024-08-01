@@ -83,7 +83,7 @@ const EmotionChart = () => {
       <div className="flex justify-center items-center">
         <CardContent>
           {sortedTags.length > 0 ? (
-            (tagCounts[0] / tagCounts.length) * 100 < 5 ? (
+            (tagCounts[0] / tagCounts.length) * 100 < 3 ? (
               <div className="flex flex-col items-center mt-24px-col">
                 <Image
                   src="/seasons.png"

@@ -42,8 +42,10 @@ const ChartContainer = React.forwardRef<
 
   const resizeListener = () => {
     // console.log('document.body.clientWidth', document.body.clientWidth);
-    if (document.body.clientWidth < 1024) {
+    if (document.body.clientWidth < 768) {
       // console.log('init');
+      setChartSize(100);
+    } else if (document.body.clientWidth < 1024) {
       setChartSize(150);
     } else {
       setChartSize(192);
