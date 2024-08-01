@@ -105,11 +105,11 @@ const MyPageForm = () => {
   };
 
   return (
-    <div className='flex flex-col items-center justify-center min-h-screen px-[140px]'>
-      <div className='flex flex-col w-full max-w-[1128px] border-b-2 pb-10 border-black'>
-        <div className='flex flex-col md:flex-row items-center px-4 py-4'>
+    <div className='flex flex-col items-center justify-center min-h-[70vh] px-[20px] md:px-[100px] md:min-h-screen'>
+      <div className='flex flex-col w-full max-w-[1128px] border-b-2 pb-10 border-black '>
+        <div className='flex flex-col md:flex-row md:gap-[38px] items-center px-4 py-4 gap-[38px]'>
           {isLogin ? (
-            <div className='w-full max-w-[195px] flex-shrink-0'>
+            <div className='w-full max-w-[165px] md:max-w-[195px] flex-shrink-0 ' >
               <Image
                 src={profileImg}
                 alt="Profile Image"
@@ -121,7 +121,7 @@ const MyPageForm = () => {
               />
             </div>
           ) : (
-            <div className='w-full max-w-[195px] flex-shrink-0'>
+            <div className='w-full max-w-[165px] md:max-w-[195px] flex-shrink-0 '>
               <Image
                 src={"/default-profile.jpg"}
                 alt="defaultProfile Image"
@@ -140,17 +140,20 @@ const MyPageForm = () => {
             className="hidden"
           />
           {/* 정보 폼 */}
-          <div className='flex flex-col flex-grow ml-20 w-full'>
+          <div className='flex flex-col w-full md:ml-20 '>
             <div className='text-22px flex items-center'>
              
               {isLogin ? (
                 isNicknameEditing ? (
+                  <div>
+                  <span>닉네임</span>
                   <input
                     type="text"
                     value={newNickname}
                     onChange={(e) => setNewNickname(e.target.value)}
                     className=' border-2 rounded-md border-black ml-2'
                   />
+                  </div>
                 ) : (
                   <div>
                   <span>닉네임: </span>
@@ -166,7 +169,7 @@ const MyPageForm = () => {
             </div>
             {/* 정보수정 버튼 */}
             {isLogin && (
-              <div className="mt-[72px]">
+              <div className="mt-[22px] md:mt-[72px]">
                 {isNicknameEditing ? (
                   <Button onClick={changeNicknameHandler}>변경 저장</Button>
                 ) : (
