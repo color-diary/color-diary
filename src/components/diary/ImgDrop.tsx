@@ -51,15 +51,15 @@ const ImgDrop = () => {
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   return (
-    <div className="flex flex-col gap-3">
-      <p className="text-20px">Q. 오늘 감정에 맞는 이미지가 있나요?</p>
+    <div className="flex flex-col gap-2">
+      <p className="text-18px">Q. 오늘 감정에 맞는 이미지가 있나요?</p>
       <div
         {...getRootProps()}
         className="flex bg-[#F9F5F0] items-center justify-center rounded-[8px] border border-dashed border-[#E6D3BC]  w-[8vw] h-[8vw]"
       >
         <input {...getInputProps()} />
         {preview ? (
-          <div className="relative w-[8vw] h-[8vw] rounded-[8px]">
+          <div className="relative w-[4vw] h-[4vw] rounded-[8px]">
             <Image
               src={preview}
               alt="Preview"
@@ -76,8 +76,8 @@ const ImgDrop = () => {
             </button>
           </div>
         ) : (
-          <div className="flex flex-col justify-center items-center w-[8vw] h-[8vw]">
-            <p className="text-18px">이미지 첨부</p>
+          <div className="flex flex-col justify-center items-center w-[4vw] h-[4vw]">
+            <p className="text-14px">이미지 첨부</p>
             <svg width="45%" height="45%" viewBox="0 0 36 37" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g id="icon/camera">
                 <g id="Vector">

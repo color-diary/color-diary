@@ -1,5 +1,3 @@
-'use client';
-
 import { useState, useEffect } from 'react';
 import useZustandStore from '@/zustand/zustandStore';
 
@@ -7,6 +5,7 @@ const EmotionTagsInput = () => {
   const { tags, setTags, isDiaryEditMode, testResult, hasTestResult, setHasTestResult } = useZustandStore();
   const [inputValue, setInputValue] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [showGuide, setShowGuide] = useState(false);
 
   useEffect(() => {
     if (isDiaryEditMode) {
@@ -35,11 +34,6 @@ const EmotionTagsInput = () => {
   };
 
   const addTag = (newTag: string) => {
-    if (tags.includes(newTag)) {
-      setError('단어가 중복됩니다.');
-      return;
-    }
-
     const newTags = [...tags, newTag];
     const validationError = validateTags(newTags);
     if (validationError) {
@@ -51,18 +45,17 @@ const EmotionTagsInput = () => {
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter' || event.key === ',') {
+    if (event.key === 'Enter') {
       event.preventDefault();
       const trimmedValue = inputValue.trim();
       if (trimmedValue) {
         if (!tags.includes(trimmedValue)) {
           addTag(trimmedValue);
           setInputValue('');
+          setShowGuide(false);
         } else {
           setError('단어가 중복됩니다.');
         }
-      } else {
-        setInputValue('');
       }
     }
   };
@@ -70,18 +63,27 @@ const EmotionTagsInput = () => {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
     setError(null);
+    if (event.target.value !== '') {
+      setShowGuide(false);
+    }
   };
 
-  const handleTagClick = (tagToDelete: string) => {
+  const handleShowGide = () => {
+    if (!showGuide) {
+      setShowGuide(true);
+    }
+  };
+
+  const handleDeleteTag = (tagToDelete: string) => {
     const newTags = tags.filter((tag) => tag !== tagToDelete);
     setTags(newTags);
   };
 
   return (
-    <div className="flex flex-col gap-3">
-      <p className="text-20px">Q. 오늘 나의 감정태그를 작성해볼까요?</p>
+    <div className="flex flex-col w-[100%] gap-1">
+      <p className="text-18px">Q. 오늘 나의 감정태그를 작성해볼까요?</p>
       <div
-        className={`w-[20.79vw] h-[5vh]  flex items-center rounded-2xl border-2 custom-scrollbar ${
+        className={`w-[80%]  flex items-center rounded-[8px] border-2 custom-scrollbar ${
           error ? 'border-red-500' : 'border-gray-300'
         }`}
         style={{ overflowX: 'auto', overflowY: 'hidden', whiteSpace: 'nowrap' }}
@@ -93,22 +95,24 @@ const EmotionTagsInput = () => {
             style={{ flexShrink: 0 }}
           >
             <span className="mr-1 text-20px">{tag}</span>
-            <button className="text-slate-950" onClick={() => handleTagClick(tag)}>
+            <button className="text-slate-950" onClick={() => handleDeleteTag(tag)}>
               x
             </button>
           </div>
         ))}
         <input
-          className="flex-grow p-2 rounded outline-none text-20px"
+          className="flex-grow p-2 rounded outline-none text-18px w-552px-row h-40px-col"
           type="text"
           placeholder={tags.length === 0 ? 'ex) #행복 #감사하는_마음 #만족' : ''}
           value={inputValue}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
+          onClick={handleShowGide}
           style={{ minWidth: '100px' }}
         />
       </div>
 
+      {showGuide && inputValue === '' && <p className="text-[#25B18C] text-18px">엔터를 입력하여 태그를 등록하세요.</p>}
       {error && <p className="text-red-500 text-18px">{error}</p>}
     </div>
   );
