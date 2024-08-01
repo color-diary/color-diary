@@ -195,19 +195,21 @@ const DiaryContainer = () => {
         >
           <div className="flex flex-col gap-custom-8px-m h-[70%]">
             <div className="flex  gap-[20vh] justify-center">
-              <div className="flex  justify-center gap-[5vh]">
+              <div className="flex  justify-center gap-[3vh]">
                 <div className="w-[4vw] h-[4vw] bg-white rounded-full"></div>
                 <div className="w-[4vw] h-[4vw] bg-white rounded-full"></div>
                 <div className="w-[4vw] h-[4vw] bg-white rounded-full"></div>
               </div>
-              <div className="flex  justify-center gap-[5vh]">
+              <div className="flex  justify-center gap-[3vh]">
                 <div className="w-[4vw] h-[4vw] bg-white rounded-full"></div>
                 <div className="w-[4vw] h-[4vw] bg-white rounded-full"></div>
                 <div className="w-[4vw] h-[4vw] bg-white rounded-full"></div>
               </div>
             </div>
             <div className="relative flex flex-col items-center justify-center bg-white w-360px-row-m h-[100%] rounded-[32px] border border-[#E6D3BC] p-8">
-              <DiaryContent diary={diaryData} />
+              <div className="w-[99%] h-[100%]">
+                <DiaryContent diary={diaryData} />
+              </div>
 
               <div className="absolute bottom-5 right-5 flex gap-5">
                 <Button

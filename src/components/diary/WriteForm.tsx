@@ -144,7 +144,7 @@ const WriteForm = () => {
         });
       }
     } else {
-      toast.on({ label: '색상,태그,글 모두 입력해주세요' });
+      toast.on({ label: '색상, 태그, 글 모두 입력해주세요' });
     }
   };
 
@@ -167,7 +167,7 @@ const WriteForm = () => {
         date
       });
     } else {
-      toast.on({ label: '색상,태그,글 모두 입력해주세요' });
+      toast.on({ label: '색상, 태그, 글 모두 입력해주세요' });
     }
   };
 

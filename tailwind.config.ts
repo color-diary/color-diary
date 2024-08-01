@@ -70,8 +70,16 @@ const config = {
         '818px-col': 'calc(100vh * 0.75741)',
         '859px-col': 'calc(100vh * 0.79537)',
         '16px-row-m': 'calc(100vw * 0.04267)',
+        '252px-row-m': 'calc(100vw * (252 / 375))',
+        '287px-row-m': 'calc(100vw * (287 / 375))',
         '360px-row-m': 'calc(100vw * (360 / 375))',
-        '16px-col-m': 'calc(100vh * 0.04267)'
+        '480px-row-m': 'calc(100vw * (480 / 375))',
+
+        '16px-col-m': 'calc(100vh * 0.04267)',
+        '140px-col-m': 'calc(100vh * (140 / 667))',
+        '192px-col-m': 'calc(100vh * (192 / 667))',
+        '200px-col-m': 'calc(100vh * (200 / 667))',
+        '264px-col-m': 'calc(100vh * (264 / 667))'
       },
       gap: {
         'custom-3vw': 'calc(3% * 88vw / 100)',
@@ -85,7 +93,15 @@ const config = {
         '20px': ['calc((100vw * 0.0104 + 100vh * 0.0185) / 2)', { lineHeight: '1.35' }],
         '22px': ['calc((100vw * 0.01145 + 100vh * 0.02036) / 2)', { lineHeight: '1.35' }],
         '24px': ['calc((100vw * 0.0125 + 100vh * 0.02222) / 2)', { lineHeight: '1.35' }],
-        '28px': ['calc((100vw * 0.01458 + 100vh * 0.02593) / 2)', { lineHeight: '1.35' }]
+        '28px': ['calc((100vw * 0.01458 + 100vh * 0.02593) / 2)', { lineHeight: '1.35' }],
+        '12px-m': ['calc((100vw * 12 / 375) + (100vh * 12 / 742)) / 2)', { lineHeight: '1.35' }],
+        '14px-m': ['calc((100vw * 14 / 375) + (100vh * 14 / 742)) / 2)', { lineHeight: '1.35' }],
+        '16px-m': ['calc((100vw * 16 / 375) + (100vh * 16 / 742)) / 2)', { lineHeight: '1.35' }],
+        '18px-m': ['calc((100vw * 18 / 375) + (100vh * 18 / 742)) / 2)', { lineHeight: '1.35' }],
+        '20px-m': ['calc((100vw * 20 / 375) + (100vh * 20 / 742)) / 2)', { lineHeight: '1.35' }],
+        '22px-m': ['calc((100vw * 22 / 375) + (100vh * 22 / 742)) / 2)', { lineHeight: '1.35' }],
+        '24px-m': ['calc((100vw * 24 / 375) + (100vh * 24 / 742)) / 2)', { lineHeight: '1.35' }],
+        '28px-m': ['calc((100vw * 28 / 375) + (100vh * 28 / 742)) / 2)', { lineHeight: '1.35' }]
       },
       letterSpacing: {
         '0.28px': '-0.0175rem',
