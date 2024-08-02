@@ -106,7 +106,7 @@ const Test = () => {
                 <li key={index} className="w-full flex justify-between items-center px-16px-row py-4px-col gap-2">
                   <button
                     onClick={() => handleSelectAnswer(option.value, option.sentiment, option.points)}
-                    className="text-font-color text-start text-20px font-normal tracking-tight hover:text-default transition"
+                    className="text-font-color text-start text-18px font-normal tracking-tight hover:text-default transition"
                   >
                     {option.label}
                   </button>
@@ -145,7 +145,7 @@ const Test = () => {
               ))}
             </ul>
           </div>
-          <span className="w-600px-row flex justify-end text-font-color text-16px font-normal tracking-0.32px">
+          <span className="w-600px-row flex justify-end text-font-color text-14px font-normal tracking-0.32px">
             {step + 1}/{TOTAL_QUESTION}
           </span>
         </div>
@@ -348,7 +348,7 @@ const Test = () => {
                     </filter>
                   </defs>
                 </svg>
-                <div className="text-font-color text-center text-24px font-normal tracking-0.48px">
+                <div className="text-font-color text-center text-20px font-normal tracking-0.48px">
                   {splitCommentWithSlash('오늘은 어떤 하루를 보냈나요?/나의 감정을 한번 알아봐요!😀').map(
                     (line, index) => (
                       <p key={index}>{line}</p>
