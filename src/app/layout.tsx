@@ -1,5 +1,5 @@
 import Header from '@/components/common/Header';
-import SideBar from '@/components/common/Sidebar';
+import NavigationBar from '@/components/common/NavigationBar';
 import { ModalProvider } from '@/providers/modal.context';
 import QueryProvider from '@/providers/ReactQueryClientProvider';
 import { ToastProvider } from '@/providers/toast.context';
@@ -37,7 +37,7 @@ export default function RootLayout({
           <ToastProvider>
             <ModalProvider>
               <Header />
-              {/* <SideBar /> */}
+              <NavigationBar />
               {children}
             </ModalProvider>
           </ToastProvider>

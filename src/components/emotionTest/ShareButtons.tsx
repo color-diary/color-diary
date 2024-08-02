@@ -23,7 +23,7 @@ const ShareButtons = ({ emotion }: ShareButtonsProps) => {
         content: {
           title: 'Color Inside 오늘 당신의 감정의 색은?',
           description: `#오늘_나는_${emotion.slice(1, 3)} #너는_어때?`,
-          imageUrl: 'https://ngnwhcimrvjbniipoibl.supabase.co/storage/v1/object/public/thumbnail/thumbnail.png',
+          imageUrl: 'https://ngnwhcimrvjbniipoibl.supabase.co/storage/v1/object/public/thumbnail/image.png',
           link: {
             mobileWebUrl: window.location.href,
             webUrl: window.location.href
@@ -31,7 +31,7 @@ const ShareButtons = ({ emotion }: ShareButtonsProps) => {
         },
         buttons: [
           {
-            title: '감정 테스트하러 가기',
+            title: '감정 테스트 하러 가기',
             link: {
               mobileWebUrl: window.location.href,
               webUrl: window.location.href
@@ -53,7 +53,7 @@ const ShareButtons = ({ emotion }: ShareButtonsProps) => {
   return (
     <div className="flex flex-col justify-center items-center gap-24px-col">
       <div className="flex justify-center items-center gap-8px-row">
-        <h3 className="text-font-color text-20px font-medium tracking-tight">나의 감정 공유하기</h3>
+        <h3 className="text-font-color text-18px font-medium tracking-tight">나의 감정 공유하기</h3>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="calc(100vw * 0.01302)"
