@@ -29,10 +29,16 @@ const config = {
         pretendard: ['var(--font-pretendard)']
       },
       boxShadow: {
-        'inner-top-left': 'inset 3px 3px 5px rgba(0, 0, 0, 0.2)',
-        'progress-border': '0rem 0rem 0rem 0.1875rem var(--border-color)'
+        'inner-top-left': '0.25rem 0.25rem 0rem 0rem var(--border-color) inset',
+        'progress-border': '0rem 0rem 0rem 0.1875rem var(--border-color)',
+        'header-shadow': '0px 4px 4px 0px rgba(230, 211, 188, 0.25)'
       },
       spacing: {
+        '2.5': '0.625rem',
+        '18': '4.5rem',
+        '25': '6.25rem',
+        '30': '7.5rem',
+        '43.5': '10.875rem',
         '4px-row': 'calc(100vw * 0.00208)',
         '8px-row': 'calc(100vw * 0.00417)',
         '12px-row': 'calc(100vw * 0.00625)',
@@ -44,8 +50,8 @@ const config = {
         '46px-row': 'calc(100vw * 0.023958333)',
         '48px-row': 'calc(100vw * 0.025)',
         '72px-row': 'calc(100vw * 0.0375)',
-        '96px-row': 'calc(100vw * 0.05)',
         '77px-row': 'calc((77 / 1920) * 100vw)',
+        '96px-row': 'calc(100vw * 0.05)',
         '120px-row': 'calc(120 / 1920 * 100vw)',
         '128px-row': 'calc(100vw * 0.0667)',
         '176px-row': 'calc(100vw * 0.0917)',
@@ -209,6 +215,7 @@ const config = {
         'bg-color': 'var(--bg-color)',
         layout: 'var(--layout-color)',
         'sign-up': 'var(--sign-up-bg-color)',
+        pick: 'var(--pick-color)',
         'progress-total-color': 'var(--progress-total-color)',
         'progress-current-color': 'var(--progress-current-color)',
         'progress-border-color': 'var(--progress-border-color)',

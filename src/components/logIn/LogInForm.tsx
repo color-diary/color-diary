@@ -97,7 +97,7 @@ const LogInForm = () => {
   };
 
   return (
-    <div className="fixed top-0 left-0 bottom-0 right-0 flex justify-center items-center">
+    <div className="h-screen flex justify-center items-center">
       <div className="md:w-744px-row inline-flex flex-col justify-center items-center rounded-5xl border-4 border-border-color bg-white px-8 py-12 md:px-96px-row md:py-72px-col gap-48px-col">
         <h1 className="text-font-color font-bold text-24px tracking-0.48px">로그인</h1>
         <div className="w-full flex flex-col items-center gap-72px-col">
