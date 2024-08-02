@@ -84,7 +84,13 @@ const config = {
         '859px-col': 'calc(100vh * 0.79537)',
         '16px-row-m': 'calc(100vw * 0.04267)',
         '360px-row-m': 'calc(100vw * (360 / 375))',
-        '16px-col-m': 'calc(100vh * 0.04267)'
+        '16px-col-m': 'calc(100vh * 0.04267)',
+        'pt-148px-row': 'calc(148 / 1080 * 100vh)',
+    'pt-312px-row': 'calc(312 / 1080 * 100vh)',
+    'pt-20px-row': 'calc(20 / 1920 * 100vw)',
+    'px-396px-row': 'calc(396 / 1920 * 100vw)', 
+        '240px-row': 'calc(240 / 1920 * 100vw)', 
+        '22.5px-row': 'calc(22.5 / 1920 * 100vw)', 
       },
       gap: {
         'custom-3vw': 'calc(3% * 88vw / 100)',
