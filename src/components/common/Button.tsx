@@ -8,8 +8,8 @@ const buttonVariant = cva(
     variants: {
       priority: {
         primary: 'text-white',
-        secondary: 'bg-white',
-        tertiary: 'bg-white'
+        secondary: '',
+        tertiary: ''
       },
       state: {
         default: 'cursor-pointer',
@@ -19,7 +19,10 @@ const buttonVariant = cva(
         sm: 'px-16px-row py-8px-col text-14px rounded-lg tracking-0.28px',
         md: 'px-20px-row py-12px-col text-16px rounded-xl tracking-0.32px',
         lg: 'px-24px-row py-12px-col text-18px rounded-2xl tracking-0.36px',
-        half: 'w-1/2 py-12px-col text-16px rounded-xl tracking-0.32px'
+        half: 'w-1/2 py-12px-col text-16px rounded-xl tracking-0.32px',
+        smFix: 'px-4 py-2 text-sm rounded-lg tracking-0.28px',
+        mdFix: 'px-5 py-3 text-base rounded-xl tracking-0.32px',
+        lgFix: 'px-6 py-3 text-lg rounded-2xl tracking-0.36px'
       }
     },
     compoundVariants: [
@@ -65,7 +68,10 @@ const iconVariant = cva('fill-current flex justify-center items-center', {
       sm: 'w-16px-row h-16px-col',
       md: 'w-20px-row h-20px-col',
       lg: 'w-24px-row h-24px-col',
-      half: 'w-20px-row h-20px-col'
+      half: 'w-20px-row h-20px-col',
+      smFix: 'w-4 h-4',
+      mdFix: 'w-5 h-5',
+      lgFix: 'w-6 h-6'
     }
   },
   defaultVariants: {
