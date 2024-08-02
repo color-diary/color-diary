@@ -14,16 +14,18 @@ const StatisticsForm = () => {
     return null;
   }
   return (
-    <div className="border rounded-3xl w-[744px] h-[916px] flex items-center flex-col mt-[56px] mb-[76px] m-auto gap-9">
-      <div className="w-[600px] h-[354px] mt-[56px]">
-        <h2 className="text-2xl font-bold">이달의 감정 색상</h2>
-        <div className="flex mt-4">
+    <div className="border-4 border-[#E6D3BC] bg-[#FBF8F4] rounded-5xl w-744px-row h-916px-col flex items-center flex-col mt-128px-col m-auto ">
+      <div className="w-600px-row h-401px-col mt-56px-col">
+        <h2 className="text-24px font-bold">이달의 감정 색상</h2>
+        <div className="flex mt-8px-col">
           <ColorChart />
-          <div className="w-[182px] mt-[95px] ml-3 p-3">{advice.message}</div>
+          <div className="w-160px-row h-160px-col mt-105px-col ml-12px-row px-12px-row py-12px-col text-16px">
+            {advice.message}
+          </div>
         </div>
       </div>
-      <div className="w-[600px] h-[354px] mt-12">
-        <h2 className="text-2xl font-bold mb-3">이달의 내 감정</h2>
+      <div className="w-600px-row h-354px-col mt-56px-col">
+        <h2 className="text-24px font-bold mb-12px-col">이달의 내 감정</h2>
         <EmotionChart />
       </div>
     </div>
