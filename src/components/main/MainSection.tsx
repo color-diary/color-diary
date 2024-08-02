@@ -27,7 +27,7 @@ const MainSection = () => {
   const today = new Date();
   const newDate = new Date(Number(getQueryStringDate('year')), Number(getQueryStringDate('month')) - 1, 1);
   const [date, setDate] = React.useState<Date | undefined>(undefined);
-  const [form, setForm] = React.useState(params.get('form') ? params.get('form') : 'calendar');
+  const [form, setForm] = React.useState<String | undefined>(undefined);
 
   const getDiaryList = async (year: number, month: number) => {
     const supabase = createClient();
@@ -61,8 +61,8 @@ const MainSection = () => {
     }
   };
 
-  const changeForm = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const { name } = e.target as HTMLButtonElement;
+  const changeForm = (name: string) => {
+    console.log(name, form);
     if (name === form) {
       return;
     }
@@ -80,6 +80,11 @@ const MainSection = () => {
     const savedQueryString = localStorage.getItem('queryString');
     if (savedQueryString) {
       setQueryString(savedQueryString);
+      const start = savedQueryString.indexOf('=');
+      const end = savedQueryString.indexOf('&');
+      setForm(savedQueryString.slice(start + 1, end));
+    } else {
+      setForm('calendar');
     }
     setDate(savedQueryString ? newDate : today);
   }, []);
@@ -104,10 +109,15 @@ const MainSection = () => {
   return (
     <div className="h-screen flex mt-200px-col items-center flex-col">
       <div className="px-20px-row-m">
-        <div className=" flex justify-between mb-36px-col">
-          <p className="text-24px font-bold">나의 감정 기록</p>
+        <div className=" flex justify-between mb-36px-col items-center">
+          <p className="text-18px-m md:text-24px font-bold">나의 감정 기록</p>
           <div className="flex justify-end md:text-14px text-12px-m">
-            <button name="calendar" onClick={changeForm}>
+            <button
+              name="calendar"
+              onClick={(e) => {
+                changeForm(e.currentTarget.name);
+              }}
+            >
               <div className="flex px-8px-row space-x-4px-row items-center">
                 <p>캘린더</p>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -119,7 +129,12 @@ const MainSection = () => {
               </div>
             </button>
             <div className="bg-black h-4 w-0.5 mt-1 mx-2"></div>
-            <button name="cards" onClick={changeForm}>
+            <button
+              name="cards"
+              onClick={(e) => {
+                changeForm(e.currentTarget.name);
+              }}
+            >
               <div className="flex px-8px-row space-x-4px-row items-center">
                 <p>카드</p>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 20 20" fill="#080808">

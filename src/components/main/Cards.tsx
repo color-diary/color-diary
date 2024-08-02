@@ -63,7 +63,7 @@ const Cards = ({ diaryList, isCalendar, date, setDate, handleInputDate }: CardsP
       {diaryList.length === 0 ? (
         <p>일기가 아직 작성되지 않았습니다.</p>
       ) : (
-        <div className="flex grid grid-cols-4 gap-x-24px-row md:gap-y-24px-col gap-x-5 gap-y-4">
+        <div className="flex grid md:grid-cols-4 grid-cols-2 gap-[16px] md:gap-x-24px-row md:gap-y-24px-col gap-x-5 gap-y-4">
           {diaryList.map((diary) => {
             return (
               <div
@@ -71,11 +71,11 @@ const Cards = ({ diaryList, isCalendar, date, setDate, handleInputDate }: CardsP
                 onClick={() => {
                   route.push(`/diaries/${diary.diaryId}`);
                 }}
-                className="border md:border-2 border-[#E6D3BC] md:rounded-3xl rounded-lg overflow-hidden min-w-[68px] cursor-pointer"
+                className="border md:border-2 border-[#E6D3BC] md:rounded-3xl rounded-xl overflow-hidden cursor-pointer"
                 style={{ backgroundColor: `${diary.color}` }}
               >
-                <div className="flex justify-between text-sm bg-white md:px-24px-row md:py-8px-col px-2 py-1">
-                  <div className="text-12px-m md:text-16px">{new Date(diary.date).getDate()}</div>
+                <div className="flex justify-between text-sm bg-white md:px-24px-row md:py-8px-col px-4 py-2">
+                  <div className="text-12px-m md:text-16px mr-1">{new Date(diary.date).getDate()}</div>
                   <div className="text-ellipsis whitespace-nowrap overflow-hidden text-12px-m md:text-14px">
                     {diary.tags[0]}
                   </div>

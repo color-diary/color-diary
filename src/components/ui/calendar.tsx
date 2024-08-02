@@ -35,20 +35,20 @@ function Calendar({
       className={cn(className)}
       classNames={{
         months: `${isCalendar ? 'flex flex-col border-4 border-[--border-color] rounded-[32px]' : ''}`,
-        month: 'space-y-4',
+        month: '',
         caption: 'flex justify-center relative items-center py-24px-col px-320px-row',
         caption_label: 'text-sm font-medium',
         nav: 'flex items-center',
         nav_button: cn('h-7 w-7 bg-transparent opacity-50 hover:opacity-100'),
-        nav_button_previous: 'absolute left-24',
-        nav_button_next: 'absolute right-24',
+        nav_button_previous: '',
+        nav_button_next: '',
         table: `${
           isCalendar
-            ? 'w-full border-collapse flex flex-col items-center justify-center py-24px-col px-72px-row '
+            ? 'w-full border-collapse flex flex-col items-center justify-center py-24px-col px-72px-row'
             : 'hidden'
         }`,
-        head_row: `flex px-16px-row py-16px-col space-x-48px-row`,
-        head_cell: 'text-black rounded-md w-9 font-normal text-18px',
+        head_row: `flex px-16px-row py-16px-col space-x-48px-row  border-b border-[#33D4AA]`,
+        head_cell: 'text-black rounded-md w-9 font-normal md:text-18px text-14px-m',
         row: 'flex w-full space-x-48px-row px-16px-row py-16px-col',
         cell: 'h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20',
         day: 'h-9 w-9 font-normal aria-selected:opacity-100',
@@ -90,7 +90,7 @@ function Calendar({
           return (
             <div className="anchor">
               <input type="date" ref={dateInputRef} style={{ visibility: 'hidden' }} onChange={handleInputDate} />
-              <p onClick={() => handleRef()} className="text-24px">
+              <p onClick={() => handleRef()} className="md:text-24px text-16px-m">
                 {props.displayMonth.getFullYear()}년 {props.displayMonth.getMonth() + 1}월
               </p>
             </div>
