@@ -11,12 +11,11 @@ const EmotionTagsInput = () => {
     if (isDiaryEditMode) {
       setInputValue('');
     } else if (hasTestResult && testResult) {
-      setInputValue(testResult.result.emotion);
       setHasTestResult(false);
     } else {
       setTags([]);
     }
-  }, [isDiaryEditMode, hasTestResult, testResult, setHasTestResult]);
+  }, [isDiaryEditMode, hasTestResult, testResult, setHasTestResult, setTags]);
 
   const validateTags = (tagsArray: string[]) => {
     if (tagsArray.length > 5) {
@@ -90,7 +89,7 @@ const EmotionTagsInput = () => {
         }`}
         style={{ overflowX: 'auto', overflowY: 'hidden', whiteSpace: 'nowrap' }}
       >
-        {tags.map((tag, index) => (
+        {tags?.map((tag, index) => (
           <div
             key={index}
             className="justify-between  w-78px-row-m h-20px-col-m md:w-77px-row md:h-24px-col  ml-2 flex items-center bg-[#F7F0E9] rounded px-2 py-1 mr-2 outline-none overflow-hidden"
