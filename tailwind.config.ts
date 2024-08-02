@@ -45,6 +45,7 @@ const config = {
         '48px-row': 'calc(100vw * 0.025)',
         '72px-row': 'calc(100vw * 0.0375)',
         '96px-row': 'calc(100vw * 0.05)',
+        '77px-row': 'calc((77 / 1920) * 100vw)',
         '120px-row': 'calc(120 / 1920 * 100vw)',
         '200px-row': 'calc(100vw * 0.1042)',
         '360px-row': 'calc(100vw * 0.1875)',
@@ -82,14 +83,32 @@ const config = {
         '760px-col': 'calc(100vh * 0.7037)',
         '818px-col': 'calc(100vh * 0.75741)',
         '859px-col': 'calc(100vh * 0.79537)',
-        '16px-row-m': 'calc(100vw * 0.04267)',
-        '360px-row-m': 'calc(100vw * (360 / 375))',
-        '16px-col-m': 'calc(100vh * 0.04267)'
+        '16px-row-m': 'calc((16 / 375) * 100vw)',
+        '24px-row-m': 'calc((24 / 375) * 100vw)',
+        '78px-row-m': 'calc(100vw * (78 / 375))',
+        '80px-row-m': 'calc((80 / 375) * 100vw)',
+        '252px-row-m': 'calc((252 / 375) * 100vw)',
+        '287px-row-m': 'calc((287 / 375) * 100vw)',
+        '335px-row-m': 'calc((335 / 375) * 100vw)',
+        '360px-row-m': 'calc((360 / 375) * 100vw)',
+        '480px-row-m': 'calc((480 / 375) * 100vw)',
+        '16px-col-m': 'calc((16 / 375) * 100vw)',
+        '20px-col-m': 'calc(100vh * (20 / 667))',
+        '24px-col-m': 'calc((24 / 375) * 100vw)',
+        '35px-col-m': 'calc((35 / 375) * 100vw)',
+        '80px-col-m': 'calc((80 / 375) * 100vw)',
+        '135px-col-m': 'calc((135 / 375) * 100vw)',
+        '140px-col-m': 'calc((140 / 375) * 100vw)',
+        '192px-col-m': 'calc((192 / 375) * 100vw)',
+        '200px-col-m': 'calc((200 / 375) * 100vw)',
+        '264px-col-m': 'calc((264 / 375) * 100vw)',
+        '615px-col-m': 'calc((615 / 375) * 100vw)'
       },
       gap: {
         'custom-3vw': 'calc(3% * 88vw / 100)',
         'custom-16px': 'calc(100vw * (16 / 1920))',
-        'custom-8px-m': 'calc(100vw * (8 / 375))'
+        'custom-8px-m': 'calc(100vw * (8 / 375))',
+        'custom-24px-m': 'calc(100vw * (24 / 375))'
       },
       fontSize: {
         '14px': ['calc((100vw * 0.00729 + 100vh * 0.01296) / 2)', { lineHeight: '1.35' }],
@@ -98,7 +117,15 @@ const config = {
         '20px': ['calc((100vw * 0.0104 + 100vh * 0.0185) / 2)', { lineHeight: '1.35' }],
         '22px': ['calc((100vw * 0.01145 + 100vh * 0.02036) / 2)', { lineHeight: '1.35' }],
         '24px': ['calc((100vw * 0.0125 + 100vh * 0.02222) / 2)', { lineHeight: '1.35' }],
-        '28px': ['calc((100vw * 0.01458 + 100vh * 0.02593) / 2)', { lineHeight: '1.35' }]
+        '28px': ['calc((100vw * 0.01458 + 100vh * 0.02593) / 2)', { lineHeight: '1.35' }],
+        '12px-m': ['calc((100vw * 12 / 375) + (100vh * 12 / 742)) / 2)', { lineHeight: '1.35' }],
+        '14px-m': ['calc((100vw * 14 / 375) + (100vh * 14 / 742)) / 2)', { lineHeight: '1.35' }],
+        '16px-m': ['calc((100vw * 16 / 375) + (100vh * 16 / 742)) / 2)', { lineHeight: '1.35' }],
+        '18px-m': ['calc((100vw * 18 / 375) + (100vh * 18 / 742)) / 2)', { lineHeight: '1.35' }],
+        '20px-m': ['calc((100vw * 20 / 375) + (100vh * 20 / 742)) / 2)', { lineHeight: '1.35' }],
+        '22px-m': ['calc((100vw * 22 / 375) + (100vh * 22 / 742)) / 2)', { lineHeight: '1.35' }],
+        '24px-m': ['calc((100vw * 24 / 375) + (100vh * 24 / 742)) / 2)', { lineHeight: '1.35' }],
+        '28px-m': ['calc((100vw * 28 / 375) + (100vh * 28 / 742)) / 2)', { lineHeight: '1.35' }]
       },
       letterSpacing: {
         '0.28px': '-0.0175rem',

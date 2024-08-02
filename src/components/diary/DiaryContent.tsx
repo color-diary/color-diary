@@ -13,21 +13,24 @@ const DiaryContent = ({ diary }: { diary: Diary }) => {
 
   return (
     <>
-      <p className=" font-semibold text-24px"> {formattedDate}</p>
+      <p className=" font-semibold text-18px-m md:text-24px"> {formattedDate}</p>
       <div className="flex flex-wrap gap-2">
         {diary.tags.map((tag, index) => (
-          <span key={index} className="text-[#545454] mb-5 text-16px">
+          <span key={index} className="text-[#545454] mb-5 text-12px-m md:text-16px">
             {tag}
           </span>
         ))}
       </div>
-      <div className="flex justify-start mb-3  w-360px-row h-200px-col">
+      <div className="flex justify-start mb-3 w-252px-row-m h-140px-col-m  md:w-360px-row md:h-200px-col">
         {diary.img ? (
-          <div className="relative flex justify-start   w-360px-row h-200px-col">
-            <Image src={diary.img} alt="Diary Image" layout="fill" objectFit="contain" priority={true} />
+          <div className="relative flex justify-start w-252px-row-m h-140px-col-m   md:w-360px-row md:h-200px-col">
+            <Image src={diary.img} alt="Diary Image" fill className="w-full h-full object-cover" priority={true} />
           </div>
         ) : (
-          <div className="flex border w-360px-row h-200px-col" style={{ borderColor: diary.color }}>
+          <div
+            className="flex border w-252px-row-m h-140px-col-m   md:w-360px-row md:h-200px-col"
+            style={{ borderColor: diary.color }}
+          >
             <div className="m-0  w-[80%]  " style={{ backgroundColor: diary.color }}></div>
             <div className="text-[#BABABA] w-[20%]  transform rotate-90 flex items-center justify-center m-0 text-16px">
               {diary.color}
@@ -35,8 +38,8 @@ const DiaryContent = ({ diary }: { diary: Diary }) => {
           </div>
         )}
       </div>
-      <div className="mb-4 w-480px-row h-192px-col">
-        <p className="text-18px">{diary.content}</p>
+      <div className="mb-4 w-287px-row-m h-264px-col-m  md:w-480px-row md:h-192px-col">
+        <p className="text-16px-m  md:text-18px">{diary.content}</p>
       </div>
       <div className="mb-4"></div>
     </>

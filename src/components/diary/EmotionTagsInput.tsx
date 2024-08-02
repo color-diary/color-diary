@@ -39,8 +39,8 @@ const EmotionTagsInput = () => {
     if (validationError) {
       setError(validationError);
     } else {
-      setError(null);
       setTags(newTags);
+      setError(null);
     }
   };
 
@@ -56,6 +56,8 @@ const EmotionTagsInput = () => {
         } else {
           setError('단어가 중복됩니다.');
         }
+      } else {
+        return;
       }
     }
   };
@@ -81,7 +83,7 @@ const EmotionTagsInput = () => {
 
   return (
     <div className="flex flex-col w-[100%] gap-1">
-      <p className="text-18px">Q. 오늘 나의 감정태그를 작성해볼까요?</p>
+      <p className="text-16px-m md:text-18px">Q. 오늘 나의 감정태그를 작성해볼까요?</p>
       <div
         className={`w-[80%]  flex items-center rounded-[8px] border-2 custom-scrollbar ${
           error ? 'border-red-500' : 'border-gray-300'
@@ -91,17 +93,17 @@ const EmotionTagsInput = () => {
         {tags.map((tag, index) => (
           <div
             key={index}
-            className="ml-2 flex items-center bg-[#F7F0E9] rounded px-2 py-1 mr-2 outline-none overflow-hidden"
+            className="justify-between  w-78px-row-m h-20px-col-m md:w-77px-row md:h-24px-col  ml-2 flex items-center bg-[#F7F0E9] rounded px-2 py-1 mr-2 outline-none overflow-hidden"
             style={{ flexShrink: 0 }}
           >
-            <span className="mr-1 text-20px">{tag}</span>
+            <span className="mr-1 text-14px-m md:text-20px">{tag}</span>
             <button className="text-slate-950" onClick={() => handleDeleteTag(tag)}>
               x
             </button>
           </div>
         ))}
         <input
-          className="flex-grow p-2 rounded outline-none text-18px w-552px-row h-40px-col"
+          className="flex-grow p-2 rounded outline-none text-14px-m md:text-18px w-335px-row-m h-35px-col-m md:w-552px-row md:h-40px-col"
           type="text"
           placeholder={tags.length === 0 ? 'ex) #행복 #감사하는_마음 #만족' : ''}
           value={inputValue}
@@ -112,8 +114,10 @@ const EmotionTagsInput = () => {
         />
       </div>
 
-      {showGuide && inputValue === '' && <p className="text-[#25B18C] text-18px">엔터를 입력하여 태그를 등록하세요.</p>}
-      {error && <p className="text-red-500 text-18px">{error}</p>}
+      {showGuide && tags.length === 0 && (
+        <p className="text-[#25B18C] text-12px-m  md:text-18px">엔터를 입력하여 태그를 등록하세요.</p>
+      )}
+      {error && <p className="text-red-500 text-12px-m  md:text-18px">{error}</p>}
     </div>
   );
 };
