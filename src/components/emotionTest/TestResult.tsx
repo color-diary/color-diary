@@ -3,7 +3,7 @@
 import { checkHasDiaryData } from '@/apis/diary';
 import results from '@/data/results';
 import { useToast } from '@/providers/toast.context';
-import { ResultType, TestResultProps, TestResultType } from '@/types/test.type';
+import { ResultType, TestResultProps } from '@/types/test.type';
 import { formatFullDate } from '@/utils/dateUtils';
 import { checkLocalDiaryExistsForDate, isLocalDiaryOverTwo } from '@/utils/diaryLocalStorage';
 import { splitCommentWithSlash } from '@/utils/splitCommentWithSlash';
@@ -78,7 +78,7 @@ const TestResult = ({ emotion, positive, negative }: TestResultProps) => {
           <div className="flex flex-col items-center gap-16px-col self-stretch">
             <h1 className="text-font-color text-28px font-bold -tracking-0.56px">{resultDetails.title}</h1>
             {resultDetails.image}
-            <div className="text-font-color text-18px font-normal tracking-tight text-center">
+            <div className="text-font-color text-18px font-normal tracking-0.36px text-center">
               {splitCommentWithSlash(resultDetails.comment).map((line, index) => (
                 <p key={index} className="text-18px">
                   {line}
@@ -88,7 +88,7 @@ const TestResult = ({ emotion, positive, negative }: TestResultProps) => {
           </div>
           <div className="flex flex-col items-start gap-8px-col">
             <div className="w-full flex justify-center items-center gap-8px-row">
-              <span className="text-start text-font-color text-18px font-normal tracking-tight">
+              <span className="text-start text-font-color text-18px font-normal tracking-0.36px">
                 긍정적 {positive}%
               </span>
               <div className="w-420px-row">
@@ -96,7 +96,7 @@ const TestResult = ({ emotion, positive, negative }: TestResultProps) => {
               </div>
             </div>
             <div className="w-full flex justify-center items-center gap-8px-row">
-              <span className="text-start text-font-color text-18px font-normal tracking-tight">
+              <span className="text-start text-font-color text-18px font-normal tracking-0.36px">
                 부정적 {negative}%
               </span>
               <div className="w-420px-row">
