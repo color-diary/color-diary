@@ -78,15 +78,17 @@ const TestResult = ({ emotion, positive, negative }: TestResultProps) => {
           <div className="flex flex-col items-center gap-16px-col self-stretch">
             <h1 className="text-font-color text-28px font-bold -tracking-0.56px">{resultDetails.title}</h1>
             {resultDetails.image}
-            <div className="text-font-color text-20px font-normal tracking-tight text-center">
+            <div className="text-font-color text-18px font-normal tracking-tight text-center">
               {splitCommentWithSlash(resultDetails.comment).map((line, index) => (
-                <p key={index}>{line}</p>
+                <p key={index} className="text-18px">
+                  {line}
+                </p>
               ))}
             </div>
           </div>
           <div className="flex flex-col items-start gap-8px-col">
             <div className="w-full flex justify-center items-center gap-8px-row">
-              <span className="text-start text-font-color text-20px font-normal tracking-tight">
+              <span className="text-start text-font-color text-18px font-normal tracking-tight">
                 긍정적 {positive}%
               </span>
               <div className="w-420px-row">
@@ -94,7 +96,7 @@ const TestResult = ({ emotion, positive, negative }: TestResultProps) => {
               </div>
             </div>
             <div className="w-full flex justify-center items-center gap-8px-row">
-              <span className="text-start text-font-color text-20px font-normal tracking-tight">
+              <span className="text-start text-font-color text-18px font-normal tracking-tight">
                 부정적 {negative}%
               </span>
               <div className="w-420px-row">
