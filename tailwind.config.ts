@@ -88,6 +88,7 @@ const config = {
         '40px-col': 'calc(100vh * 0.0370)',
         '44px-col': 'calc(100vh * 0.04074)',
         '46px-col': 'calc(100vh * 0.04259)',
+        '48px-col': 'calc(100vh * 0.04444)',
         '52px-col': 'calc(100vh * 0.0481)',
         '56px-col': 'calc(100vh * 0.05185)',
         '64px-col': 'calc(100vh * 0.05926)',
@@ -119,6 +120,7 @@ const config = {
         '24px-row-m': 'calc((24 / 375) * 100vw)',
         '78px-row-m': 'calc(100vw * (78 / 375))',
         '80px-row-m': 'calc((80 / 375) * 100vw)',
+        '195px-row': 'calc(100vw * 0.1015625)',
         '252px-row-m': 'calc((252 / 375) * 100vw)',
         '287px-row-m': 'calc((287 / 375) * 100vw)',
         '335px-row-m': 'calc((335 / 375) * 100vw)',
@@ -134,9 +136,16 @@ const config = {
         '135px-col-m': 'calc((135 / 375) * 100vw)',
         '140px-col-m': 'calc((140 / 375) * 100vw)',
         '192px-col-m': 'calc((192 / 375) * 100vw)',
+        '195px-col': 'calc(100vh * 0.1015625)',
         '200px-col-m': 'calc((200 / 375) * 100vw)',
         '264px-col-m': 'calc((264 / 375) * 100vw)',
         '615px-col-m': 'calc((615 / 375) * 100vw)',
+        'pt-148px-row': 'calc(148 / 1080 * 100vh)',
+        'pt-312px-row': 'calc(312 / 1080 * 100vh)',
+        'pt-20px-row': 'calc(20 / 1920 * 100vw)',
+        'px-396px-row': 'calc(396 / 1920 * 100vw)',
+        '240px-row': 'calc(240 / 1920 * 100vw)',
+        '22.5px-row': 'calc(22.5 / 1920 * 100vw)',
         '916px-col': 'calc(100vh * 0.8481)'
       },
       gap: {
@@ -264,6 +273,21 @@ const config = {
         '.custom-terms-scrollbar': {
           '&::-webkit-scrollbar': {
             width: 'calc(100vw * 0.00417) !important'
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: 'white !important',
+            borderRadius: '16px !important',
+            border: '2px solid var(--validation-color) !important',
+            cursor: 'pointer'
+          },
+          '&::-webkit-scrollbar-track': {
+            backgroundColor: 'var(--sign-up-bg-color) !important'
+          }
+        },
+        '.small-custom-terms-scrollbar': {
+          '&::-webkit-scrollbar': {
+            width: 'calc(100vw * 0.00417) !important',
+            height: 'calc(100vh * 0.0176) !important'
           },
           '&::-webkit-scrollbar-thumb': {
             backgroundColor: 'white !important',

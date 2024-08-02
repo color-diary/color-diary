@@ -10,7 +10,7 @@ import Button from '../common/Button';
 const Header = () => {
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const [deviceSize, setDeviceSize] = useState<'smFix' | 'mdFix'>(window.innerWidth <= 768 ? 'smFix' : 'mdFix');
+  const [deviceSize, setDeviceSize] = useState<'smFix' | 'mdFix'>('smFix');
 
   const isLogin = loginZustandStore((state) => state.isLogin);
   const setIsLogin = loginZustandStore((state) => state.setIsLogin);
@@ -23,6 +23,8 @@ const Header = () => {
     const handleResize = () => {
       setDeviceSize(window.innerWidth <= 768 ? 'smFix' : 'mdFix');
     };
+
+    handleResize();
 
     window.addEventListener('resize', handleResize);
 
