@@ -59,21 +59,9 @@ const ColorChart = () => {
   const chartConfig = {
     visitors: {
       label: 'Visitors'
-    },
-    0: {
-      label: `${(colorCounts[0] / length) * 100}%`,
-      color: sortedColors[0]
-    },
-    1: {
-      label: `${(colorCounts[1] / length) * 100}%`,
-      color: sortedColors[1]
-    },
-    2: {
-      label: `${(colorCounts[2] / length) * 100}%`,
-      color: sortedColors[2]
     }
   } satisfies ChartConfig;
-
+  const sortedBackgroundColors = sortedColors.map((item, index) => `bg-[${item}]`);
   return (
     <Card className="flex flex-col w-422px-row h-361px-col border border-[#E6D3BC] rounded-5xl ">
       <div className="flex items-center justify-center gap-12px-row text-20px mt-24px-col">
@@ -85,7 +73,11 @@ const ColorChart = () => {
         {sortedColors.length > 0 ? (
           (colorCounts[0] / length) * 100 < 5 ? (
             <div>
-              <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-300px-col h-260px-col">
+              <ChartContainer
+                config={chartConfig}
+                className="mx-auto aspect-square max-h-300px-col h-260px-col"
+                charttype={'color'}
+              >
                 <PieChart className="w-192px-row h-192px-col">
                   <Pie data={chartData} dataKey="visitors" />
                 </PieChart>
@@ -96,15 +88,27 @@ const ColorChart = () => {
               </div>
             </div>
           ) : (
-            <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-300px-col h-260px-col">
-              <PieChart>
-                <Pie data={chartData} dataKey="visitors" />
-                <ChartLegend
-                  content={<ChartLegendContent nameKey="browser" />}
-                  className="-translate-y-2 flex-wrap gap-1 [&>*]:basis-1/4 [&>*]:justify-center text-lg "
-                />
-              </PieChart>
-            </ChartContainer>
+            <div>
+              <ChartContainer
+                config={chartConfig}
+                className="mx-auto aspect-square max-h-300px-col h-260px-col"
+                charttype={'color'}
+              >
+                <PieChart>
+                  <Pie data={chartData} dataKey="visitors" />
+                </PieChart>
+              </ChartContainer>
+              <div className='flex flex-row'>
+                {colorCounts.slice(0, Math.min(3, colorCounts.length)).map((item, index) => {
+                  return (
+                    <div key={index}>
+                      <div className="w-20px-row h-20px-col" style={{ backgroundColor: sortedColors[index] }}></div>
+                      {(item / colorCounts.length) * 100}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           )
         ) : (
           <div className="h-full">
