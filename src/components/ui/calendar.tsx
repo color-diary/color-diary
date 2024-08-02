@@ -40,8 +40,8 @@ function Calendar({
         caption_label: 'text-sm font-medium',
         nav: 'flex items-center',
         nav_button: cn('h-7 w-7 bg-transparent opacity-50 hover:opacity-100'),
-        nav_button_previous: 'absolute left-1',
-        nav_button_next: 'absolute right-1',
+        nav_button_previous: 'absolute left-24',
+        nav_button_next: 'absolute right-24',
         table: `${
           isCalendar
             ? 'w-full border-collapse flex flex-col items-center justify-center py-24px-col px-72px-row '
@@ -73,7 +73,7 @@ function Calendar({
           </svg>
         ),
         IconRight: ({ ...props }) => (
-          <svg xmlns="http://www.w3.org/2000/svg" width="11" height="18" viewBox="0 0 11 18" fill="none">
+          <svg xmlns="http://www.w3.org/2000/svg" width="11" height="20" viewBox="0 0 10 18" fill="none">
             <path
               d="M0.762716 1.53721C0.59372 1.36821 0.498779 1.139 0.498779 0.900008C0.498779 0.661012 0.59372 0.431804 0.762716 0.262808C0.931711 0.093812 1.16092 -0.00112915 1.39992 -0.00112915C1.63891 -0.00112916 1.86812 0.093812 2.03712 0.262808L10.1371 8.36281C10.2209 8.44641 10.2874 8.54573 10.3328 8.65507C10.3782 8.76441 10.4015 8.88163 10.4015 9.00001C10.4015 9.11839 10.3782 9.23561 10.3328 9.34495C10.2874 9.45429 10.2209 9.55361 10.1371 9.63721L2.03712 17.7372C1.86812 17.9062 1.63891 18.0011 1.39992 18.0011C1.16092 18.0011 0.931711 17.9062 0.762716 17.7372C0.59372 17.5682 0.498779 17.339 0.498779 17.1C0.498779 16.861 0.59372 16.6318 0.762716 16.4628L8.22731 9.00001L0.762716 1.53721Z"
               fill="#080808"
