@@ -9,7 +9,7 @@ const buttonVariant = cva('inline-flex items-center py-4px-col text-center trans
       disable: 'cursor-not-allowed text-text-button-disable'
     },
     device: {
-      desktop: 'text-16px tracking-0.32px',
+      desktop: 'text-14px tracking-0.28px',
       mobile: 'text-14px tracking-0.28px'
     }
   },

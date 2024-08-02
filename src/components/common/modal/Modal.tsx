@@ -19,7 +19,7 @@ const modalVariant = cva('inline-flex flex-col items-start bg-white rounded-2xl'
 const textVariant = cva('text-modal-font-color font-normal', {
   variants: {
     device: {
-      desktop: 'text-24px tracking-0.48px',
+      desktop: 'text-20px tracking-tight',
       mobile: 'text-16px tracking-0.32px'
     }
   },
