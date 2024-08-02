@@ -1,5 +1,12 @@
 import type { Config } from 'tailwindcss';
 
+interface AddUtilities {
+  (
+    utilities: Record<string, any>,
+    options?: { variants?: string[]; respectPrefix?: boolean; respectImportant?: boolean }
+  ): void;
+}
+
 const config = {
   darkMode: ['class'],
   content: ['./pages/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './app/**/*.{ts,tsx}', './src/**/*.{ts,tsx}'],
@@ -32,15 +39,19 @@ const config = {
         '16px-row': 'calc(100vw * 0.00833)',
         '20px-row': 'calc(100vw * 0.01042)',
         '24px-row': 'calc(100vw * 0.01250)',
+        '32px-row': 'calc(100vw * 0.01667)',
+        '44px-row': 'calc(100vw * 0.02292)',
         '46px-row': 'calc(100vw * 0.023958333)',
         '48px-row': 'calc(100vw * 0.025)',
         '72px-row': 'calc(100vw * 0.0375)',
+        '96px-row': 'calc(100vw * 0.05)',
         '77px-row': 'calc((77 / 1920) * 100vw)',
         '120px-row': 'calc(120 / 1920 * 100vw)',
         '200px-row': 'calc(100vw * 0.1042)',
         '360px-row': 'calc(100vw * 0.1875)',
         '420px-row': 'calc(100vw * 0.2230)',
         '480px-row': 'calc(100vw * 0.25)',
+        '540px-row': 'calc(100vw * 0.28125)',
         '552px-row': 'calc(552 / 1920 * 100vw)',
         '600px-row': 'calc(100vw * 0.3125)',
         '720px-row': 'calc(100vw * 0.375)',
@@ -57,6 +68,7 @@ const config = {
         '40px-col': 'calc(100vh * 0.0370)',
         '44px-col': 'calc(100vh * 0.04074)',
         '46px-col': 'calc(100vh * 0.04259)',
+        '48px-col': 'calc(100vh * 0.0444)',
         '52px-col': 'calc(100vh * 0.0481)',
         '56px-col': 'calc(100vh * 0.05185)',
         '64px-col': 'calc(100vh * 0.05926)',
@@ -66,6 +78,7 @@ const config = {
         '192px-col': 'calc(100vh * 0.17778)',
         '200px-col': 'calc(100vh * 0.1852)',
         '240px-col': 'calc(100vh * 0.2222)',
+        '560px-col': 'calc(100vh * 0.5185)',
         '644px-col': 'calc(100vh * 0.5963)',
         '760px-col': 'calc(100vh * 0.7037)',
         '818px-col': 'calc(100vh * 0.75741)',
@@ -166,11 +179,16 @@ const config = {
         'border-color': 'var(--border-color)',
         'bg-color': 'var(--bg-color)',
         layout: 'var(--layout-color)',
+        'sign-up': 'var(--sign-up-bg-color)',
         'progress-total-color': 'var(--progress-total-color)',
         'progress-current-color': 'var(--progress-current-color)',
         'progress-border-color': 'var(--progress-border-color)',
         'font-color': 'var(--font-color)',
         'modal-font-color': 'var(--modal-font-color)',
+        'error-color': 'var(--error-color)',
+        'input-color': 'var(--input-color)',
+        'input-disable-color': 'var(--input-disable-color)',
+        validation: 'var(--validation-color)',
         backdrop: 'rgba(0, 0, 0, 0.30)'
       },
       borderRadius: {
@@ -195,7 +213,27 @@ const config = {
       }
     }
   },
-  plugins: [require('tailwindcss-animate')]
+  plugins: [
+    require('tailwindcss-animate'),
+    function ({ addUtilities }: { addUtilities: AddUtilities }) {
+      addUtilities({
+        '.custom-terms-scrollbar': {
+          '&::-webkit-scrollbar': {
+            width: 'calc(100vw * 0.00417) !important'
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: 'white !important',
+            borderRadius: '16px !important',
+            border: '2px solid var(--validation-color) !important',
+            cursor: 'pointer'
+          },
+          '&::-webkit-scrollbar-track': {
+            backgroundColor: 'var(--sign-up-bg-color) !important'
+          }
+        }
+      });
+    }
+  ]
 } satisfies Config;
 
 export default config;
