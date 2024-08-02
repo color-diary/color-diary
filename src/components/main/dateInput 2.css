@@ -1,9 +1,0 @@
-div.anchor {
-  position: relative;
-}
-
-input[type='date'] {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
