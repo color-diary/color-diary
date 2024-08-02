@@ -66,10 +66,10 @@ const Header = () => {
 
   return (
     <div className="fixed top-0 left-0 w-full flex items-center py-1 md:py-2 h-12 md:h-18 shadow-header-shadow bg-layout px-5">
-      <div className="w-full flex md:justify-center items-center ">
+      <div className="w-full flex md:justify-center items-center">
         <Link
           href={'/'}
-          className="flex items-center justify-center cursor-pointer md:w-43.5 md:h-14 w-25 h-7"
+          className="flex items-center cursor-pointer justify-center md:w-43.5 md:h-14 w-25 h-7"
           onClick={handleClick}
         >
           <svg viewBox="0 0 394 112" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -139,7 +139,7 @@ const Header = () => {
           </svg>
         </Link>
       </div>
-      <div className="md:absolute md:right-0 w-full flex items-center justify-end gap-3 md:mr-8">
+      <div className="md:absolute md:right-0 md:w-1/3 w-1/2 flex items-center justify-end gap-3 md:mr-8">
         <button onClick={toggleMusic} className="w-6 h-6">
           {isPlaying ? (
             <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
