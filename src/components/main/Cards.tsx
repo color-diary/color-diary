@@ -61,7 +61,7 @@ const Cards = ({ diaryList, isCalendar, date, setDate, handleInputDate }: CardsP
               </div>
             );
           })}
-          {!isTodayWritten && (
+          {/*!isTodayWritten && (
             <div
               onClick={() => {
                 route.push(`/diaries/write/${formatFullDate(String(today))}`);
@@ -80,7 +80,7 @@ const Cards = ({ diaryList, isCalendar, date, setDate, handleInputDate }: CardsP
                 </svg>
               </div>
             </div>
-          )}
+          )*/}
         </div>
       )}
     </div>
