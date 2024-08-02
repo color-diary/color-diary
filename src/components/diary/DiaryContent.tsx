@@ -13,35 +13,30 @@ const DiaryContent = ({ diary }: { diary: Diary }) => {
 
   return (
     <>
-      <p className="text-xl font-semibold"> {formattedDate}</p>
+      <p className=" font-semibold text-24px"> {formattedDate}</p>
       <div className="flex flex-wrap gap-2">
         {diary.tags.map((tag, index) => (
-          <span key={index} className="text-[#545454] mb-5">
+          <span key={index} className="text-[#545454] mb-5 text-16px">
             {tag}
           </span>
         ))}
       </div>
-      <div className="flex items-start mb-3">
+      <div className="flex justify-start mb-3  w-360px-row h-200px-col">
         {diary.img ? (
-          <div className="relative h-[21vh] w-[21vh] flex-shrink-0">
-            <Image
-              src={diary.img}
-              alt="Diary Image"
-              layout="fill"
-              objectFit="contain"
-              className="rounded-lg"
-              priority={true}
-            />
+          <div className="relative flex justify-start   w-360px-row h-200px-col">
+            <Image src={diary.img} alt="Diary Image" layout="fill" objectFit="contain" priority={true} />
           </div>
         ) : (
-          <div className="flex border w-[23vw] h-[21vh]" style={{ borderColor: diary.color }}>
-            <div className="m-0 w-[18vw] h-[21vh]" style={{ backgroundColor: diary.color }}></div>
-            <div className="text-[#BABABA] transform rotate-90 flex items-center justify-center m-0">{diary.color}</div>
+          <div className="flex border w-360px-row h-200px-col" style={{ borderColor: diary.color }}>
+            <div className="m-0  w-[80%]  " style={{ backgroundColor: diary.color }}></div>
+            <div className="text-[#BABABA] w-[20%]  transform rotate-90 flex items-center justify-center m-0 text-16px">
+              {diary.color}
+            </div>
           </div>
         )}
       </div>
-      <div className="mb-4">
-        <p>{diary.content}</p>
+      <div className="mb-4 w-480px-row h-192px-col">
+        <p className="text-18px">{diary.content}</p>
       </div>
       <div className="mb-4"></div>
     </>
