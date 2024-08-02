@@ -98,7 +98,11 @@ const EmotionChart = () => {
                 <div className="text-[#25B18C] text-20px mt-24px-col">#다양한_감정의_주인공은_바로_나</div>
               </div>
             ) : (
-              <ChartContainer config={chartConfig} className="h-150px-col w-450px-row mt-40px-col" charttype={'emotion'}>
+              <ChartContainer
+                config={chartConfig}
+                className="h-150px-col w-450px-row mt-40px-col"
+                charttype={'emotion'}
+              >
                 <BarChart
                   accessibilityLayer
                   data={chartData}

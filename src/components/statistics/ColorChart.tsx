@@ -94,16 +94,16 @@ const ColorChart = () => {
                 className="mx-auto aspect-square max-h-300px-col h-260px-col"
                 charttype={'color'}
               >
-                <PieChart>
+                <PieChart className="w-192px-row h-192px-col">
                   <Pie data={chartData} dataKey="visitors" />
                 </PieChart>
               </ChartContainer>
-              <div className='flex flex-row'>
+              <div className="flex justify-center mt-16px-col">
                 {colorCounts.slice(0, Math.min(3, colorCounts.length)).map((item, index) => {
                   return (
-                    <div key={index}>
+                    <div key={index} className="flex items-center ml-8px-row">
                       <div className="w-20px-row h-20px-col" style={{ backgroundColor: sortedColors[index] }}></div>
-                      {(item / colorCounts.length) * 100}
+                      <div className="ml-8px-row">{Math.floor((item / colorCounts.length) * 100)}%</div>
                     </div>
                   );
                 })}
@@ -121,7 +121,7 @@ const ColorChart = () => {
                 className="w-176px-row h-176px-col mt-24px-col mb-24px-col"
               />
             </div>
-            <div className="mb-32px-col">
+            <div className="mb-32px-col flex flex-col items-center">
               <div className="text-16px">이달은 기록된 감정이 없어요.</div>
               <div className="text-16px">더 많은 감정을 기록해봐요!</div>
             </div>
