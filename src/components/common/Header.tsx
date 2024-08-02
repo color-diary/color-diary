@@ -4,13 +4,14 @@ import { createClient } from '@/utils/supabase/client';
 import useZustandStore, { loginZustandStore } from '@/zustand/zustandStore';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Button from '../common/Button';
 import TextButton from './TextButton';
 
 const Header = () => {
   const pathname = usePathname();
+  const router = useRouter();
 
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
@@ -74,7 +75,9 @@ const Header = () => {
     <div className="fixed top-0 left-0 w-full flex items-center py-1 md:py-2 h-12 md:h-18 shadow-header-shadow bg-layout px-5">
       <div className="md:w-full w-fit flex md:justify-center items-center">
         {deviceSize === 'smFix' && (pathname.startsWith('/diaries') || pathname === '/emotion-test') ? (
-          <TextButton device={'mobile'}>뒤로 가기</TextButton>
+          <TextButton device={'mobile'} onClick={() => router.back()}>
+            뒤로 가기
+          </TextButton>
         ) : (
           <Link
             href={'/'}

@@ -23,10 +23,35 @@ const Test = () => {
   const [positiveCount, setPositiveCount] = useState<number>(0);
   const [negativeCount, setNegativeCount] = useState<number>(0);
   const [answerHistory, setAnswerHistory] = useState<TestHistory[]>([]);
+  const [width, setWidth] = useState<string>('calc(100vw * 0.125)');
+  const [height, setHeight] = useState<string>('calc(100vh * 0.2222)');
+  const [buttonSize, setButtonSize] = useState<'smFix' | 'lg'>('lg');
 
   useEffect(() => {
     if (isLastQuestion) calculateResult();
   }, [isLastQuestion]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 768) {
+        setWidth('calc(100vw * 0.32)');
+        setHeight('calc(100vh * 0.18)');
+        setButtonSize('smFix');
+      } else {
+        setWidth('calc(100vw * 0.125)');
+        setHeight('calc(100vh * 0.2222)');
+        setButtonSize('lg');
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const calculateResult = (): void => {
     const todayEmotion: Emotion = answerList.reduce((max, current) =>
@@ -92,11 +117,13 @@ const Test = () => {
   const handleClickBackButton = (): void => router.back();
 
   return (
-    <div className="w-744px-row h-760px-col rounded-5xl border-4 border-border-color bg-white">
+    <div className="w-335px-row-m h-440px-col-m md:w-744px-row md:h-760px-col rounded-5xl border-4 border-border-color bg-white">
       {isStarted ? (
         <div className="h-760px-col flex flex-col gap-72px-col justify-center items-center flex-shrink-0">
           <div className="w-600px-row flex flex-col items-start gap-16px-col">
-            <TextButton onClick={handleClickPrevQuestion}>뒤로가기</TextButton>
+            <div className="md:inline hidden">
+              <TextButton onClick={handleClickPrevQuestion}>뒤로가기</TextButton>
+            </div>
             <ProgressBar value={step + 1} max={TOTAL_QUESTION} />
           </div>
           <div className="w-600px-row flex flex-col items-start gap-16px-col">
@@ -150,19 +177,17 @@ const Test = () => {
           </span>
         </div>
       ) : (
-        <div className="flex flex-col mx-72px-row mt-56px-col mb-80px-col gap-56px-col flex-shrink-0s">
-          <TextButton onClick={handleClickBackButton}>뒤로가기</TextButton>
-          <div className="flex flex-col items-center gap-64px-col">
-            <div className="flex flex-col items-center gap-36px-col">
-              <h1 className="text-font-color text-28px font-bold tracking-0.56px">오늘 나는 어떤 상태일까?</h1>
-              <div className="flex flex-col justify-center items-center gap-24px-col self-stretch">
-                <svg
-                  width="calc(100vw * 0.125)"
-                  height="calc(100vh * 0.2222)"
-                  viewBox="0 0 240 240"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
+        <div className="flex flex-col mx-32px-row-m my-40px-col-m md:mx-72px-row md:mt-56px-col md:mb-80px-col gap-56px-col flex-shrink-0s">
+          <div className="md:inline hidden">
+            <TextButton onClick={handleClickBackButton}>뒤로가기</TextButton>
+          </div>
+          <div className="flex flex-col items-center gap-64px-col-m md:gap-64px-col">
+            <div className="flex flex-col items-center gap-36px-col-m md:gap-36px-col">
+              <h1 className="text-font-color text-20px-m md:text-28px font-bold tracking-tight md:tracking-0.56px">
+                오늘 나는 어떤 상태일까?
+              </h1>
+              <div className="flex flex-col justify-center items-center gap-24px-col-m md:gap-24px-col self-stretch">
+                <svg width={width} height={height} viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g filter="url(#filter0_i_2399_11867)">
                     <rect width="240" height="240" rx="120" fill="#F7F0E9" />
                     <rect x="2" y="2" width="236" height="236" rx="118" stroke="#FBF8F4" strokeWidth="4" />
@@ -348,7 +373,7 @@ const Test = () => {
                     </filter>
                   </defs>
                 </svg>
-                <div className="text-font-color text-center text-20px font-normal tracking-tight">
+                <div className="text-font-color text-center text-16px-m md:text-20px font-normal tracking-0.32px md:tracking-tight">
                   {splitCommentWithSlash('오늘은 어떤 하루를 보냈나요?/나의 감정을 한번 알아봐요!😀').map(
                     (line, index) => (
                       <p key={index}>{line}</p>
@@ -358,7 +383,7 @@ const Test = () => {
               </div>
             </div>
             <Button
-              size={'lg'}
+              size={buttonSize}
               onClick={handleClickStartButton}
               icon={
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 24">
