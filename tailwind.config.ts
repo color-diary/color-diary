@@ -29,10 +29,12 @@ const config = {
         pretendard: ['var(--font-pretendard)']
       },
       boxShadow: {
-        'inner-top-left': 'inset 3px 3px 5px rgba(0, 0, 0, 0.2)',
+        'inner-top-left': '0.25rem 0.25rem 0rem 0rem var(--border-color) inset',
         'progress-border': '0rem 0rem 0rem 0.1875rem var(--border-color)'
       },
       spacing: {
+        '18': '4.5rem',
+        '30': '7.5rem',
         '4px-row': 'calc(100vw * 0.00208)',
         '8px-row': 'calc(100vw * 0.00417)',
         '12px-row': 'calc(100vw * 0.00625)',
@@ -153,6 +155,7 @@ const config = {
         'bg-color': 'var(--bg-color)',
         layout: 'var(--layout-color)',
         'sign-up': 'var(--sign-up-bg-color)',
+        pick: 'var(--pick-color)',
         'progress-total-color': 'var(--progress-total-color)',
         'progress-current-color': 'var(--progress-current-color)',
         'progress-border-color': 'var(--progress-border-color)',

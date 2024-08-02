@@ -52,8 +52,8 @@ const Header = () => {
   };
 
   return (
-    <div className="fixed top-0 left-0 w-full z-1 flex justify-center items-center py-[8px] min-h-[72px] border-b-[1px] shadow-sm bg-[#FEFDFB]">
-      <Link href={'/'} className="cursor-pointer">
+    <div className="fixed top-0 left-0 w-full z-10 flex justify-center items-center py-[8px] min-h-[72px] border-b-[1px] shadow-sm bg-[#FEFDFB]">
+      <Link href={'/'} className="cursor-pointer" onClick={handleClick}>
         <svg
           width="calc(100vw * 0.09063)"
           height="calc(100vh * 0.05185)"

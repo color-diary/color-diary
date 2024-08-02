@@ -31,7 +31,7 @@ const ShareButtons = ({ emotion }: ShareButtonsProps) => {
         },
         buttons: [
           {
-            title: '감정 테스트하러 가기',
+            title: '감정 테스트 하러 가기',
             link: {
               mobileWebUrl: window.location.href,
               webUrl: window.location.href

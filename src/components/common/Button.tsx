@@ -8,8 +8,8 @@ const buttonVariant = cva(
     variants: {
       priority: {
         primary: 'text-white',
-        secondary: 'bg-white',
-        tertiary: 'bg-white'
+        secondary: '',
+        tertiary: ''
       },
       state: {
         default: 'cursor-pointer',
