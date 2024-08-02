@@ -3,7 +3,7 @@
 import { checkHasDiaryData } from '@/apis/diary';
 import results from '@/data/results';
 import { useToast } from '@/providers/toast.context';
-import { ResultType, TestResultProps } from '@/types/test.type';
+import { ResultType, TestResultProps, TestResultType } from '@/types/test.type';
 import { formatFullDate } from '@/utils/dateUtils';
 import { checkLocalDiaryExistsForDate, isLocalDiaryOverTwo } from '@/utils/diaryLocalStorage';
 import { splitCommentWithSlash } from '@/utils/splitCommentWithSlash';
@@ -17,7 +17,7 @@ import ShareButtons from './ShareButtons';
 
 const TestResult = ({ emotion, positive, negative }: TestResultProps) => {
   const router = useRouter();
-  const { setHasTestResult } = zustandStore();
+  const { setHasTestResult, setIsDiaryEditMode, setTags, testResult, setColor } = zustandStore();
 
   const [userId, setUserId] = useState<string | null>(null);
 
@@ -59,7 +59,13 @@ const TestResult = ({ emotion, positive, negative }: TestResultProps) => {
       if (hasLimit) {
         toast.on({ label: '비회원은 기록을 최대 2개만 남길 수 있어요' });
       } else {
+        const color = testResult?.result.color as string;
+        const emotion = testResult?.result.emotion as string;
         setHasTestResult(true);
+        setIsDiaryEditMode(true);
+        setColor(color);
+        setTags([emotion]);
+
         router.push(`/diaries/write/${formatFullDate()}`);
       }
     }
@@ -72,15 +78,17 @@ const TestResult = ({ emotion, positive, negative }: TestResultProps) => {
           <div className="flex flex-col items-center gap-16px-col self-stretch">
             <h1 className="text-font-color text-28px font-bold -tracking-0.56px">{resultDetails.title}</h1>
             {resultDetails.image}
-            <div className="text-font-color text-20px font-normal tracking-tight text-center">
+            <div className="text-font-color text-18px font-normal tracking-tight text-center">
               {splitCommentWithSlash(resultDetails.comment).map((line, index) => (
-                <p key={index}>{line}</p>
+                <p key={index} className="text-18px">
+                  {line}
+                </p>
               ))}
             </div>
           </div>
           <div className="flex flex-col items-start gap-8px-col">
             <div className="w-full flex justify-center items-center gap-8px-row">
-              <span className="text-start text-font-color text-20px font-normal tracking-tight">
+              <span className="text-start text-font-color text-18px font-normal tracking-tight">
                 긍정적 {positive}%
               </span>
               <div className="w-420px-row">
@@ -88,7 +96,7 @@ const TestResult = ({ emotion, positive, negative }: TestResultProps) => {
               </div>
             </div>
             <div className="w-full flex justify-center items-center gap-8px-row">
-              <span className="text-start text-font-color text-20px font-normal tracking-tight">
+              <span className="text-start text-font-color text-18px font-normal tracking-tight">
                 부정적 {negative}%
               </span>
               <div className="w-420px-row">
