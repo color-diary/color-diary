@@ -2,6 +2,7 @@
 
 import { useToast } from '@/providers/toast.context';
 import { InputStateType } from '@/types/input.type';
+import { clearLocalDiaries } from '@/utils/diaryLocalStorage';
 import { createClient } from '@/utils/supabase/client';
 import { loginZustandStore } from '@/zustand/zustandStore';
 import axios from 'axios';
@@ -58,6 +59,9 @@ const LogInForm = () => {
             toast.on({ label: `${data.nickname}님 안녕하세요. 만나서 반가워요!` });
           }
         }
+
+        clearLocalDiaries();
+
         router.replace('/');
       }
     } catch (error) {

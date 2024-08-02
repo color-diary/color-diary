@@ -1,8 +1,7 @@
 'use client';
-import { loginZustandStore } from '@/zustand/zustandStore';
+import useZustandStore from '@/zustand/zustandStore';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import useZustandStore from '@/zustand/zustandStore';
 
 const SideBar = () => {
   const pathname = usePathname();
@@ -12,7 +11,7 @@ const SideBar = () => {
     setIsDiaryEditMode(false);
   };
 
-  const buttonlist = [
+  const buttonList = [
     {
       name: '홈',
       path: '/',
@@ -225,10 +224,10 @@ const SideBar = () => {
     }
   ];
   return (
-    <aside className="md:w-[120px] md:h-screen flex md:flex-col md:fixed md:items-center md:left-0 md:top-0 z-10 bg-[#FBF8F4] w-full h-[80px] fixed bottom-0 left-0 flex-row items-center">
+    <aside className="md:w-[120px] md:h-screen flex md:flex-col md:fixed md:items-center md:left-0 md:top-0 bg-[#FBF8F4] w-full h-[80px] fixed bottom-0 left-0 flex-row items-center">
       <nav className="w-full">
         <ul className="flex md:flex-col md:items-center md:gap-4 md:mt-32 md:w-18 md:h-62 flex-row justify-around w-full">
-          {buttonlist.map((e) => {
+          {buttonList.map((e) => {
             return pathname === e.path ? (
               <li key={e.name}>
                 <Link
