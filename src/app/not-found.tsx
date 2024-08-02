@@ -3,7 +3,7 @@ import { splitCommentWithSlash } from '@/utils/splitCommentWithSlash';
 
 const NotFound = () => {
   return (
-    <div className="fixed top-0 left-0 bottom-0 right-0 flex flex-col justify-center items-center">
+    <div className="h-screen flex flex-col justify-center items-center">
       <svg
         width="calc(100vw * 0.0875)"
         height="calc(100vh * 0.06852)"

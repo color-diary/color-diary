@@ -30,11 +30,15 @@ const config = {
       },
       boxShadow: {
         'inner-top-left': '0.25rem 0.25rem 0rem 0rem var(--border-color) inset',
-        'progress-border': '0rem 0rem 0rem 0.1875rem var(--border-color)'
+        'progress-border': '0rem 0rem 0rem 0.1875rem var(--border-color)',
+        'header-shadow': '0px 4px 4px 0px rgba(230, 211, 188, 0.25)'
       },
       spacing: {
+        '2.5': '0.625rem',
         '18': '4.5rem',
+        '25': '6.25rem',
         '30': '7.5rem',
+        '43.5': '10.875rem',
         '4px-row': 'calc(100vw * 0.00208)',
         '8px-row': 'calc(100vw * 0.00417)',
         '12px-row': 'calc(100vw * 0.00625)',

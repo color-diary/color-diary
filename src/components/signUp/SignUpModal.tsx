@@ -6,6 +6,7 @@ import { clearLocalDiaries, fetchLocalDiaries } from '@/utils/diaryLocalStorage'
 import { urlToFile } from '@/utils/imageFileUtils';
 import axios from 'axios';
 import { ChangeEvent, useState } from 'react';
+import BackDrop from '../common/BackDrop';
 import Button from '../common/Button';
 import Input from '../common/Input';
 import TermsModal from './TermsModal';
@@ -177,7 +178,7 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed top-0 bottom-0 left-0 right-0 z-20 flex justify-center items-center bg-backdrop">
+    <BackDrop>
       {isOpenTerms ? (
         <TermsModal isTermsChecked={isTermsChecked} onConfirm={checkTerms} onCancel={cancelTerms} />
       ) : (
@@ -342,7 +343,7 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
           </div>
         </div>
       )}
-    </div>
+    </BackDrop>
   );
 };
 
