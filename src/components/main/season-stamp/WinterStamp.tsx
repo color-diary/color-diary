@@ -3,7 +3,7 @@ import { Stamp } from '@/types/stamp.type';
 
 const WinterStamp = ({ petal, circle }: Stamp) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none">
+    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 22 22" fill="none">
       <path
         fill={petal}
         fillRule="evenodd"

@@ -17,22 +17,6 @@ interface CardsProps {
 const Cards = ({ diaryList, isCalendar, date, setDate, handleInputDate }: CardsProps) => {
   const route = useRouter();
   const today = new Date();
-  const [isTodayWritten, setIsTodayWritten] = React.useState(true);
-
-  // for문 금지, 가독성 떨어짐
-  /*
-  const checkTodayWritten = () => {
-    if (formatFullDate(String(diaryList[0].date)).slice(0, 7) === formatFullDate(String(today)).slice(0, 7)) {
-      const TodayDiary = diaryList.find(
-        (diary) => formatFullDate(String(diary.date)) !== formatFullDate(String(today))
-      );
-      if (TodayDiary) {
-        console.log(TodayDiary);
-        setIsTodayWritten(false);
-      }
-    }
-  };
-  */
 
   diaryList.sort((a, b) => {
     if (a.date < b.date) {
@@ -41,13 +25,6 @@ const Cards = ({ diaryList, isCalendar, date, setDate, handleInputDate }: CardsP
       return 1;
     }
   });
-
-  useEffect(() => {
-    // console.log(formatFullDate(String(today)).slice(0, 7));--> 2024-08
-    //console.log(diaryList[0].date)
-    //console.log(formatFullDate(String(diaryList[0].date)).slice(0, 7));
-    //checkTodayWritten();
-  }, [diaryList]);
 
   return (
     <div className="flex flex-col">
@@ -63,7 +40,7 @@ const Cards = ({ diaryList, isCalendar, date, setDate, handleInputDate }: CardsP
       {diaryList.length === 0 ? (
         <p>일기가 아직 작성되지 않았습니다.</p>
       ) : (
-        <div className="flex grid md:grid-cols-4 grid-cols-2 gap-[16px] md:gap-x-24px-row md:gap-y-24px-col gap-x-5 gap-y-4">
+        <div className="flex grid md:grid-cols-4 grid-cols-2 gap-[16px] md:gap-x-24px-row md:gap-y-24px-col gap-x-3 gap-y-4">
           {diaryList.map((diary) => {
             return (
               <div
@@ -71,7 +48,7 @@ const Cards = ({ diaryList, isCalendar, date, setDate, handleInputDate }: CardsP
                 onClick={() => {
                   route.push(`/diaries/${diary.diaryId}`);
                 }}
-                className="border md:border-2 border-[#E6D3BC] md:rounded-3xl rounded-xl overflow-hidden cursor-pointer"
+                className="border md:border-2 border-[#E6D3BC] md:rounded-3xl rounded-xl overflow-hidden cursor-pointer w-[160px]"
                 style={{ backgroundColor: `${diary.color}` }}
               >
                 <div className="flex justify-between text-sm bg-white md:px-24px-row md:py-8px-col px-4 py-2">
