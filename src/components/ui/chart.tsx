@@ -34,10 +34,33 @@ const ChartContainer = React.forwardRef<
   React.ComponentProps<'div'> & {
     config: ChartConfig;
     children: React.ComponentProps<typeof RechartsPrimitive.ResponsiveContainer>['children'];
+    charttype: 'emotion' | 'color';
   }
->(({ id, className, children, config, ...props }, ref) => {
+>(({ id, className, children, config, charttype, ...props }, ref) => {
   const uniqueId = React.useId();
   const chartId = `chart-${id || uniqueId.replace(/:/g, '')}`;
+  const [chartSize, setChartSize] = React.useState(192);
+
+  // const resizeListener = () => {
+  //   if (charttype === 'color') {
+  //     if (document.body.clientWidth < 768) {
+  //       setChartSize(100);
+  //     } else if (document.body.clientWidth < 1024) {
+  //       setChartSize(150);
+  //     } else {
+  //       setChartSize(192);
+  //     }
+  //   } else if (charttype === 'emotion') {
+  //   }
+  // };
+
+  // React.useEffect(() => {
+  //   window.addEventListener('resize', resizeListener);
+
+  //   return () => {
+  //     window.removeEventListener('resize', resizeListener);
+  //   };
+  // }, []);
 
   return (
     <ChartContext.Provider value={{ config }}>
@@ -45,13 +68,14 @@ const ChartContainer = React.forwardRef<
         data-chart={chartId}
         ref={ref}
         className={cn(
-          "flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-none [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-sector]:outline-none [&_.recharts-surface]:outline-none",
-          className
+          "flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-none [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-sector]:outline-none [&_.recharts-surface]:outline-none"
         )}
         {...props}
       >
         <ChartStyle id={chartId} config={config} />
-        <RechartsPrimitive.ResponsiveContainer>{children}</RechartsPrimitive.ResponsiveContainer>
+        <RechartsPrimitive.ResponsiveContainer >
+          {children}
+        </RechartsPrimitive.ResponsiveContainer>
       </div>
     </ChartContext.Provider>
   );
@@ -154,7 +178,7 @@ const ChartTooltipContent = React.forwardRef<
       <div
         ref={ref}
         className={cn(
-          'grid min-w-[8rem] items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl',
+          'sgrid min-w-[8rem] items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl',
           className
         )}
       >
