@@ -57,7 +57,7 @@ const ColorPicker = () => {
           {colors.map((color) => (
             <div
               key={color}
-              className={`w-24px-row-m h-24px-col-m  md:w-[2.5vw] md:h-[2.5vw] rounded-full cursor-pointer ${
+              className={`w-24px-row-m h-24px-row-m  md:w-[2.5vw] md:h-[2.5vw] rounded-full cursor-pointer ${
                 pickedColor === color ? 'border-4 border-[#25B18C]' : ''
               }`}
               style={{ backgroundColor: color }}
@@ -66,7 +66,7 @@ const ColorPicker = () => {
           ))}
           {showRainbow ? (
             <div
-              className="relative w-24px-row-m h-24px-col-m md:w-[2.5vw] md:h-[2.5vw] rounded-full overflow-hidden"
+              className="relative w-24px-row-m h-24px-row-m md:w-[2.5vw] md:h-[2.5vw] rounded-full overflow-hidden"
               onClick={handleRainbowClick}
             >
               <input
@@ -75,10 +75,10 @@ const ColorPicker = () => {
                 onChange={handleChange}
                 className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
               />
-              <div className="w-24px-row-m h-24px-col-m md:w-[2.5vw] md:h-[2.5vw] rounded-full rainbow-gradient"></div>
+              <div className="w-24px-row-m h-24px-row-m md:w-[2.5vw] md:h-[2.5vw] rounded-full rainbow-gradient"></div>
             </div>
           ) : (
-            <div className="relative w-24px-row-m h-24px-col-m md:w-[2.5vw] md:h-[2.5vw] rounded-full overflow-hidden">
+            <div className="relative w-24px-row-m h-24px-row-m md:w-[2.5vw] md:h-[2.5vw] rounded-full overflow-hidden">
               <input
                 type="color"
                 value={customColor}
@@ -86,7 +86,7 @@ const ColorPicker = () => {
                 className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
               />
               <div
-                className={`w-24px-row-m h-24px-col-m md:w-[2.5vw] md:h-[2.5vw] rounded-full cursor-pointer ${
+                className={`w-24px-row-m h-24px-row-m md:w-[2.5vw] md:h-[2.5vw] rounded-full cursor-pointer ${
                   pickedColor === customColor ? 'border-4 border-[#25B18C]' : ''
                 }`}
                 style={{ backgroundColor: customColor }}
