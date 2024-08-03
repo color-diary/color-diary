@@ -71,7 +71,7 @@ const ColorChart = () => {
       </div>
       <CardContent>
         {sortedColors.length > 0 ? (
-          (colorCounts[0] / length) * 100 < 50 ? (
+          (colorCounts[0] / length) * 100 < 5 ? (
             <div className='flex flex-col items-center gap-24px-col'>
               <ChartContainer
                 config={chartConfig}
