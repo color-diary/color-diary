@@ -48,9 +48,9 @@ const MainSection = () => {
       if (data) {
         setDiaryList(data);
         setIsNeedNew(false);
-        if (formatFullDate(String(data[0].date)).slice(0, 7) === formatFullDate(String(today)).slice(0, 7)) {
+        if (formatFullDate(String(data[0]?.date)).slice(0, 7) === formatFullDate(String(today)).slice(0, 7)) {
           const findDiary = data.find((i: Diary) => {
-            new Date(i.date).getDate() === today.getDate();
+            return new Date(i.date).getDate() === today.getDate();
           });
           if (findDiary) {
             setIsNeedNew(false);
@@ -120,7 +120,7 @@ const MainSection = () => {
   useEffect(() => {}, [diaryList]);
 
   return (
-    <div className="h-screen flex mt-200px-col items-center flex-col">
+    <div className="h-screen flex mt-200px-col items-center flex-col md:ml-[128px]">
       <div className="px-20px-row-m">
         <div className=" flex justify-between mb-36px-col w-[350px] md:w-full">
           <p className="text-18px-m md:text-24px font-bold">나의 감정 기록</p>
@@ -202,7 +202,7 @@ const MainSection = () => {
         </div>
         <div className="mt-24px-col w-full flex justify-end">
           <Button
-            size="md"
+            size="mdFix"
             priority="primary"
             icon={
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">

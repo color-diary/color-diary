@@ -36,12 +36,12 @@ function Calendar({
       classNames={{
         months: `${isCalendar ? 'flex flex-col border-4 border-[--border-color] rounded-[32px]' : ''}`,
         month: '',
-        caption: 'flex justify-center relative items-center py-24px-col px-320px-row',
+        caption: 'flex justify-center relative items-center pt-32px-col pb-24px-col px-320px-row',
         caption_label: 'text-sm font-medium',
         nav: 'flex items-center',
         nav_button: cn('h-7 w-7 bg-transparent opacity-50 hover:opacity-100'),
-        nav_button_previous: 'absolute md:left-[10rem] left-24',
-        nav_button_next: 'absolute md:right-[9rem] right-20',
+        nav_button_previous: 'absolute left-250px-row ',
+        nav_button_next: 'absolute right-230px-row',
         table: `${
           isCalendar
             ? 'w-full border-collapse flex flex-col items-center justify-center py-24px-col px-72px-row'
@@ -88,7 +88,7 @@ function Calendar({
             }
           };
           return (
-            <div className="anchor">
+            <div className="anchor cursor-pointer">
               <input type="date" ref={dateInputRef} style={{ visibility: 'hidden' }} onChange={handleInputDate} />
               <p onClick={() => handleRef()} className="md:text-24px text-16px-m">
                 {props.displayMonth.getFullYear()}년 {props.displayMonth.getMonth() + 1}월
@@ -155,7 +155,7 @@ function Calendar({
               onClick={() => {
                 route.push(`/diaries/${diaries.diaryId}`);
               }}
-              className="flex flex-col items-center"
+              className="flex flex-col items-center cursor-pointer"
             >
               <Stamp petal={diaries.color} circle="#F7CA87" month={props.date.getMonth() + 1} />
               <p className="md:text-14px text-12px-m">{props.date.getDate()}</p>
@@ -165,7 +165,7 @@ function Calendar({
               onClick={() => {
                 handleGoWirtePage();
               }}
-              className="flex flex-col items-center "
+              className="flex flex-col items-center cursor-pointer"
             >
               <Stamp petal="#FFF" circle="#D4D4D4" month={props.date.getMonth() + 1} isToday={isToday} />
               <p className="md:text-14px text-12px-m">{props.date.getDate()}</p>
