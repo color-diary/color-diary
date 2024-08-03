@@ -25,7 +25,7 @@ const EmotionTagsInput = () => {
     const tagPattern = /^#[\w가-힣]+$/;
     for (const tag of tagsArray) {
       if (!tagPattern.test(tag)) {
-        return '태그는 #으로 시작하고, 알파벳과 한글만 포함할 수 있습니다.';
+        return '태그는 반드시 #으로 시작하고, 알파벳이나 한글 단어를 #과 붙여서 입력해 주세요.';
       }
     }
 
@@ -92,7 +92,7 @@ const EmotionTagsInput = () => {
         {tags?.map((tag, index) => (
           <div
             key={index}
-            className="justify-between  w-78px-row-m h-20px-col-m md:w-77px-row md:h-24px-col  ml-2 flex items-center bg-[#F7F0E9] rounded px-2 py-1 mr-2 outline-none overflow-hidden"
+            className="justify-between  h-20px-col-m  md:h-24px-col  ml-2 flex items-center bg-[#F7F0E9] rounded px-2 py-1 mr-2 outline-none overflow-hidden"
             style={{ flexShrink: 0 }}
           >
             <span className="mr-1 text-14px-m md:text-20px">{tag}</span>
@@ -116,7 +116,7 @@ const EmotionTagsInput = () => {
       {showGuide && tags.length === 0 && (
         <p className="text-[#25B18C] text-12px-m  md:text-18px">엔터를 입력하여 태그를 등록하세요.</p>
       )}
-      {error && <p className="text-red-500 text-12px-m  md:text-18px">{error}</p>}
+      {tags.length > 0 && error && <p className="text-red-500 text-12px-m  md:text-18px">{error}</p>}
     </div>
   );
 };
