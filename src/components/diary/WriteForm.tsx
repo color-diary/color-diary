@@ -1,29 +1,29 @@
 'use client';
 
-import { useRouter, useParams } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { checkHasDiaryData } from '@/apis/diary';
 import ColorPicker from '@/components/diary/ColorPicker';
 import ImgDrop from '@/components/diary/ImgDrop';
+import { useModal } from '@/providers/modal.context';
+import { useToast } from '@/providers/toast.context';
 import { NewDiary } from '@/types/diary.type';
-import { urlToFile } from '@/utils/imageFileUtils';
-import { createClient } from '@/utils/supabase/client';
-import useZustandStore from '@/zustand/zustandStore';
-import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
-import Link from 'next/link';
 import {
   checkLocalDiaryExistsForDate,
   isLocalDiaryOverTwo,
   saveToLocal,
   updateLocalDiary
 } from '@/utils/diaryLocalStorage';
-import { checkHasDiaryData } from '@/apis/diary';
-import EmotionTagsInput from './EmotionTagsInput';
-import DiaryTextArea from './DiaryTextArea';
-import TextButton from '../common/TextButton';
+import { urlToFile } from '@/utils/imageFileUtils';
+import { createClient } from '@/utils/supabase/client';
+import useZustandStore from '@/zustand/zustandStore';
+import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
+import Link from 'next/link';
+import { useParams, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import Button from '../common/Button';
-import { useToast } from '@/providers/toast.context';
-import { useModal } from '@/providers/modal.context';
+import TextButton from '../common/TextButton';
+import DiaryTextArea from './DiaryTextArea';
+import EmotionTagsInput from './EmotionTagsInput';
 
 const WriteForm = () => {
   const router = useRouter();
@@ -210,7 +210,7 @@ const WriteForm = () => {
   return (
     <>
       <div className="block md:hidden">
-        <div className="relative flex flex-col items-center justify-center h-screen">
+        <div className="flex flex-col items-center justify-center h-screen">
           <div className="flex flex-col gap-custom-24px-m w-335px-row-m ">
             <ColorPicker />
             <EmotionTagsInput />

@@ -10,7 +10,7 @@ const buttonVariant = cva('inline-flex items-center py-4px-col text-center trans
     },
     device: {
       desktop: 'text-14px tracking-0.28px',
-      mobile: 'text-14px tracking-0.28px'
+      mobile: 'text-sm tracking-0.28px'
     }
   },
   defaultVariants: {
@@ -35,7 +35,7 @@ const TextButton = ({ state, device, children, icon, ...props }: ButtonProps) =>
     return (
       <button className={buttonVariant({ state, device })} disabled={state === 'disable'} {...props}>
         {
-          <span className="w-24px-row h-24px-col flex items-center justify-center">
+          <span className="md:w-24px-row md:h-24px-col w-6 h-6 flex items-center justify-center">
             {icon ? (
               icon
             ) : (
