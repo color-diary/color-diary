@@ -1,15 +1,15 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useToast } from '@/providers/toast.context';
 import { Diary, DiaryList } from '@/types/diary.type';
+import { formatFullDate } from '@/utils/dateUtils';
 import { createClient } from '@/utils/supabase/client';
+import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
+import Button from '../common/Button';
 import { Calendar } from '../ui/calendar';
 import Cards from './Cards';
-import { useToast } from '@/providers/toast.context';
-import Button from '../common/Button';
-import { formatFullDate } from '@/utils/dateUtils';
 
 const MainSection = () => {
   const router = useRouter();
@@ -122,7 +122,7 @@ const MainSection = () => {
   return (
     <div className="h-screen flex mt-200px-col items-center flex-col">
       <div className="px-20px-row-m">
-        <div className=" flex justify-between mb-36px-col justify-center w-[350px] md:w-full">
+        <div className=" flex justify-between mb-36px-col w-[350px] md:w-full">
           <p className="text-18px-m md:text-24px font-bold">나의 감정 기록</p>
           <div className="flex justify-end md:text-14px text-12px-m">
             <button
