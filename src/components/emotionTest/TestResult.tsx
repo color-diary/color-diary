@@ -20,6 +20,24 @@ const TestResult = ({ emotion, positive, negative }: TestResultProps) => {
   const { setHasTestResult, setIsDiaryEditMode, setTags, testResult, setColor } = zustandStore();
 
   const [userId, setUserId] = useState<string | null>(null);
+  const [buttonSize, setButtonSize] = useState<'smFix' | 'md'>('md');
+
+  useEffect(() => {
+    const handleResize = (): void => {
+      if (window.innerWidth <= 768) {
+        setButtonSize('smFix');
+      } else {
+        setButtonSize('md');
+      }
+    };
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     const fetchSession = async () => {
@@ -72,41 +90,46 @@ const TestResult = ({ emotion, positive, negative }: TestResultProps) => {
   };
 
   return (
-    <div className="w-744px-row h-760px-col flex flex-col justify-center items-center gap-56px-col flex-shrink-0 rounded-5xl border-4 border-border-color bg-white">
-      <div className="flex flex-col items-center gap-40px-col self-stretch">
-        <div className="flex flex-col items-center gap-52px-col self-stretch">
-          <div className="flex flex-col items-center gap-16px-col self-stretch">
-            <h1 className="text-font-color text-28px font-bold -tracking-0.56px">{resultDetails.title}</h1>
-            {resultDetails.image}
-            <div className="text-font-color text-18px font-normal tracking-0.36px text-center">
-              {splitCommentWithSlash(resultDetails.comment).map((line, index) => (
-                <p key={index} className="text-18px">
-                  {line}
-                </p>
-              ))}
+    <div className="w-335px-row-m md:w-744px-row flex flex-col justify-center items-center gap-32px-col-m md:gap-56px-col flex-shrink-0 rounded-5xl border-4 border-border-color bg-white py-40px-col-m md:py-40px-col">
+      <div className="flex flex-col items-center gap-32px-col-m md:gap-40px-col self-stretch">
+        <div className="flex flex-col items-center gap-24px-col-m md:gap-52px-col self-stretch">
+          <div className="flex flex-col items-center gap-16px-col-m md:gap-16px-col self-stretch">
+            <h1 className="text-font-color text-18px-m md:text-28px font-bold tracking-0.36px md:tracking-0.56px">
+              {resultDetails.title}
+            </h1>
+            <div className="flex flex-col items-center gap-8px-col-m md:gap-16px-col self-stretch">
+              <span className="flex items-center justify-center w-102px-row-m h-102px-row-m md:w-200px-row md:h-200px-row">
+                {resultDetails.image}
+              </span>
+              <div className="text-font-color text-14px-m md:text-18px font-normal tracking-0.36px text-center">
+                {splitCommentWithSlash(resultDetails.comment).map((line, index) => (
+                  <p key={index}>{line}</p>
+                ))}
+              </div>
             </div>
           </div>
-          <div className="flex flex-col items-start gap-8px-col">
-            <div className="w-full flex justify-center items-center gap-8px-row">
-              <span className="text-start text-font-color text-18px font-normal tracking-0.36px">
+          <div className="w-full flex flex-col justify-center items-start gap-8px-col">
+            <div className="w-full flex justify-center items-center gap-16px-row-m md:gap-8px-row">
+              <span className="text-start text-font-color text-14px-m md:text-18px font-normal tracking-0.28px md:tracking-0.36px">
                 긍정적 {positive}%
               </span>
-              <div className="w-420px-row">
+              <div className="w-200px-row-m md:w-420px-row">
                 <ProgressBar value={positive} max={100} />
               </div>
             </div>
-            <div className="w-full flex justify-center items-center gap-8px-row">
-              <span className="text-start text-font-color text-18px font-normal tracking-0.36px">
+            <div className="w-full flex justify-center items-center gap-16px-row-m md:gap-8px-row">
+              <span className="text-start text-font-color text-14px-m md:text-18px font-normal tracking-0.28px md:tracking-0.36px">
                 부정적 {negative}%
               </span>
-              <div className="w-420px-row">
+              <div className="w-200px-row-m md:w-420px-row">
                 <ProgressBar value={negative} max={100} />
               </div>
             </div>
           </div>
         </div>
-        <div className="flex items-center gap-16px-row">
+        <div className="flex items-center gap-16px-row-m md:gap-16px-row">
           <Button
+            size={buttonSize}
             href={'/emotion-test'}
             icon={
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21">
@@ -140,6 +163,7 @@ const TestResult = ({ emotion, positive, negative }: TestResultProps) => {
             다시 확인하기
           </Button>
           <Button
+            size={buttonSize}
             onClick={handleClickWriteDiaryButton}
             icon={
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21">
