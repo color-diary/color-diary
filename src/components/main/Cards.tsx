@@ -42,7 +42,9 @@ const Cards = ({ diaryList, isCalendar, date, setDate, handleInputDate, isNeedNe
         />
       </div>
       {diaryList.length === 0 ? (
-        <p>일기가 아직 작성되지 않았습니다.</p>
+        <div className="flex grid md:grid-cols-4 grid-cols-2 gap-[16px] md:gap-x-24px-row md:gap-y-24px-col gap-x-3 gap-y-4">
+          <p>일기가 아직 작성되지 않았습니다.</p>
+        </div>
       ) : (
         <div className="flex grid md:grid-cols-4 grid-cols-2 gap-[16px] md:gap-x-24px-row md:gap-y-24px-col gap-x-3 gap-y-4">
           {diaryList.map((diary) => {

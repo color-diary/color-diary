@@ -48,7 +48,7 @@ const MainSection = () => {
       if (data) {
         setDiaryList(data);
         setIsNeedNew(false);
-        if (formatFullDate(String(data[0].date)).slice(0, 7) === formatFullDate(String(today)).slice(0, 7)) {
+        if (formatFullDate(String(data[0]?.date)).slice(0, 7) === formatFullDate(String(today)).slice(0, 7)) {
           const findDiary = data.find((i: Diary) => {
             new Date(i.date).getDate() === today.getDate();
           });
@@ -122,7 +122,7 @@ const MainSection = () => {
   return (
     <div className="h-screen flex mt-200px-col items-center flex-col">
       <div className="px-20px-row-m">
-        <div className=" flex justify-between mb-36px-col justify-center w-[350px] md:w-full">
+        <div className=" flex justify-between mb-36px-col w-[350px] md:w-full">
           <p className="text-18px-m md:text-24px font-bold">나의 감정 기록</p>
           <div className="flex justify-end md:text-14px text-12px-m">
             <button
