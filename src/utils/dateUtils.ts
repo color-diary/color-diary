@@ -6,3 +6,12 @@ export const formatFullDate = (dateString?: string): string => {
 
   return formattedDate;
 };
+
+export const getQueryStringDate = (type: string) => {
+  if (typeof window !== 'undefined') {
+    const YYMM = localStorage.getItem('queryString')?.slice(-6);
+    if (YYMM) {
+      return type === 'year' ? YYMM.slice(0, 4) : YYMM.slice(4, 6);
+    }
+  }
+};

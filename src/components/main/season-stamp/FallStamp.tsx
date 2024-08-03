@@ -1,5 +1,4 @@
 import { Stamp } from '@/types/stamp.type';
-import React from 'react';
 
 const FallStamp = ({ petal, circle }: Stamp) => {
   return (

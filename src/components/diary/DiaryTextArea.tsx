@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
 import useZustandStore from '@/zustand/zustandStore';
+import { useEffect, useState } from 'react';
 
 const DiaryTextArea = () => {
   const { content, setContent, isDiaryEditMode } = useZustandStore();

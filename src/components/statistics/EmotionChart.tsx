@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Diary } from '@/types/diary.type';
+import axios from 'axios';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 const EmotionChart = () => {
   const today = new Date();
@@ -82,7 +82,7 @@ const EmotionChart = () => {
               alt="사계절 이미지"
               width={282}
               height={50}
-              className="w-282px-row h-50px-colx mb-16px-col"
+              className="w-282px-row h-50px-col mb-16px-col"
             />
             <div className="text-16px">다양한 감정을 느끼신 것 같아요.</div>
             <div className="text-16px">다양한 감정이 동일한 빈도로 나타내고 있어 통계를 제공할 수 없어요.</div>

@@ -1,14 +1,14 @@
 'use client';
 
-import React, { useCallback, useEffect } from 'react';
-import { useDropzone } from 'react-dropzone';
 import useZustandStore from '@/zustand/zustandStore';
-import Image from 'next/image';
 import heic2any from 'heic2any';
+import Image from 'next/image';
+import { useCallback, useEffect, useState } from 'react';
+import { useDropzone } from 'react-dropzone';
 
 const ImgDrop = () => {
   const { img, setImg, isDiaryEditMode } = useZustandStore();
-  const [preview, setPreview] = React.useState<string | null>(null);
+  const [preview, setPreview] = useState<string | null>(null);
 
   useEffect(() => {
     if (isDiaryEditMode) {

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Diary } from '@/types/diary.type';
 import Image from 'next/image';
 
