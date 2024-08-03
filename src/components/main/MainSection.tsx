@@ -47,6 +47,17 @@ const MainSection = () => {
       const data = response.data;
       if (data) {
         setDiaryList(data);
+        setIsNeedNew(false);
+        if (formatFullDate(String(data[0].date)).slice(0, 7) === formatFullDate(String(today)).slice(0, 7)) {
+          const findDiary = data.find((i: Diary) => {
+            new Date(i.date).getDate() === today.getDate();
+          });
+          if (findDiary) {
+            setIsNeedNew(false);
+          } else {
+            setIsNeedNew(true);
+          }
+        }
       }
     } else {
       setDiaryList(JSON.parse(localStorage.getItem('localDiaries') || '[]'));
@@ -185,6 +196,7 @@ const MainSection = () => {
               diaryList={diaryList}
               date={date}
               setDate={setDate}
+              isNeedNew={isNeedNew}
             />
           )}
         </div>
@@ -213,16 +225,5 @@ const MainSection = () => {
 export default MainSection;
 
 /*
- console.log('실행');
-        const testDiary = data[0];
-        console.log(formatFullDate(String(testDiary.date)).slice(0, 7));
-        if (formatFullDate(String(data[0].date)).slice(0, 7) === formatFullDate(String(today)).slice(0, 7)) {
-          const findDiary = data.find((i: Diary) => {
-            new Date(i.date).getDate() === today.getDate();
-          });
-          if (findDiary) {
-            console.log('동일한거 있음');
-            setIsNeedNew(true);
-          }
-        }
+ 
  */

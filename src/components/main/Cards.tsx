@@ -12,9 +12,10 @@ interface CardsProps {
   setDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
   handleInputDate: (e: React.ChangeEvent<HTMLInputElement>) => void;
   diaryList: DiaryList;
+  isNeedNew: boolean;
 }
 
-const Cards = ({ diaryList, isCalendar, date, setDate, handleInputDate }: CardsProps) => {
+const Cards = ({ diaryList, isCalendar, date, setDate, handleInputDate, isNeedNew }: CardsProps) => {
   const route = useRouter();
   const today = new Date();
 
@@ -25,6 +26,9 @@ const Cards = ({ diaryList, isCalendar, date, setDate, handleInputDate }: CardsP
       return 1;
     }
   });
+  useEffect(() => {
+    console.log(isNeedNew);
+  }, [isNeedNew]);
 
   return (
     <div className="flex flex-col">
@@ -61,7 +65,7 @@ const Cards = ({ diaryList, isCalendar, date, setDate, handleInputDate }: CardsP
               </div>
             );
           })}
-          {/*!isTodayWritten && (
+          {isNeedNew && (
             <div
               onClick={() => {
                 route.push(`/diaries/write/${formatFullDate(String(today))}`);
@@ -80,7 +84,7 @@ const Cards = ({ diaryList, isCalendar, date, setDate, handleInputDate }: CardsP
                 </svg>
               </div>
             </div>
-          )*/}
+          )}
         </div>
       )}
     </div>

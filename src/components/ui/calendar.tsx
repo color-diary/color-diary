@@ -155,7 +155,7 @@ function Calendar({
               onClick={() => {
                 route.push(`/diaries/${diaries.diaryId}`);
               }}
-              className="flex flex-col"
+              className="flex flex-col items-center"
             >
               <Stamp petal={diaries.color} circle="#F7CA87" month={props.date.getMonth() + 1} />
               <p className="md:text-14px text-12px-m">{props.date.getDate()}</p>
