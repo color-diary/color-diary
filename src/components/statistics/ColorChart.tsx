@@ -72,11 +72,10 @@ const ColorChart = () => {
       <CardContent>
         {sortedColors.length > 0 ? (
           (colorCounts[0] / length) * 100 < 5 ? (
-            <div>
+            <div className='flex flex-col items-center gap-24px-col'>
               <ChartContainer
                 config={chartConfig}
                 className="mx-auto aspect-square max-h-300px-col h-260px-col"
-                charttype={'color'}
               >
                 <PieChart className="w-192px-row h-192px-col">
                   <Pie data={chartData} dataKey="visitors" />
@@ -88,17 +87,16 @@ const ColorChart = () => {
               </div>
             </div>
           ) : (
-            <div>
+            <div className='flex flex-col items-center'>
               <ChartContainer
                 config={chartConfig}
                 className="mx-auto aspect-square max-h-300px-col h-260px-col"
-                charttype={'color'}
               >
                 <PieChart className="w-192px-row h-192px-col">
                   <Pie data={chartData} dataKey="visitors" />
                 </PieChart>
               </ChartContainer>
-              <div className="flex justify-center mt-16px-col">
+              <div className="flex justify-center mt-16px-col flex-wrap">
                 {colorCounts.slice(0, Math.min(3, colorCounts.length)).map((item, index) => {
                   return (
                     <div key={index} className="flex items-center ml-8px-row">
