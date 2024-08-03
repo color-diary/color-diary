@@ -36,12 +36,12 @@ function Calendar({
       classNames={{
         months: `${isCalendar ? 'flex flex-col border-4 border-[--border-color] rounded-[32px]' : ''}`,
         month: '',
-        caption: 'flex justify-center relative items-center py-24px-col px-320px-row',
+        caption: 'flex justify-center relative items-center pt-32px-col pb-24px-col px-320px-row',
         caption_label: 'text-sm font-medium',
         nav: 'flex items-center',
         nav_button: cn('h-7 w-7 bg-transparent opacity-50 hover:opacity-100'),
-        nav_button_previous: 'absolute md:left-[10rem] left-24',
-        nav_button_next: 'absolute md:right-[9rem] right-20',
+        nav_button_previous: 'absolute left-250px-row ',
+        nav_button_next: 'absolute right-230px-row',
         table: `${
           isCalendar
             ? 'w-full border-collapse flex flex-col items-center justify-center py-24px-col px-72px-row'
