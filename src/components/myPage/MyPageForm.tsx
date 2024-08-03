@@ -97,6 +97,7 @@ const MyPageForm = () => {
         publicSetProfileImg('');
         router.replace('/');
         modal.close();
+        toast.on({ label: '로그아웃 되었습니다.' });
       }
     } catch (error) {
       console.error(error);

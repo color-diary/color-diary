@@ -23,7 +23,7 @@ const labelVariant = cva('self-stretch font-medium', {
 });
 
 const textareaVariant = cva(
-  'w-full flex justify-center pl-16px-row pr-16px-row self-stretch border rounded-lg font-normal',
+  'w-full flex justify-center pl-16px-row pr-16px-row self-stretch border rounded-lg font-normal resize-none', // resize-none 추가
   {
     variants: {
       state: {

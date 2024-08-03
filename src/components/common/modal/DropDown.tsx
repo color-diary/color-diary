@@ -23,7 +23,7 @@ const labelVariant = cva('self-stretch font-medium', {
 });
 
 const inputVariant = cva(
-  'w-full flex justify-between items-center pl-16px-row pr-48px-row self-stretch border rounded-lg font-normal',
+  'flex justify-between items-center pl-16px-row pr-48px-row border rounded-lg font-normal',
   {
     variants: {
       state: {
@@ -77,7 +77,7 @@ type DropdownProps = {
 
 const Dropdown = ({ label, validationMessage, state, device, id, value, setValue, options, ...props }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [containerWidth, setContainerWidth] = useState<string | undefined>(undefined);
+  const [inputWidth, setInputWidth] = useState<string | undefined>(undefined);
   const selectId = id || crypto.randomUUID();
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -89,22 +89,28 @@ const Dropdown = ({ label, validationMessage, state, device, id, value, setValue
   const toggleDropdown = () => setIsOpen(!isOpen);
 
   useEffect(() => {
-    if (containerRef.current) {
-      setContainerWidth(`${containerRef.current.clientWidth}px`);
-    }
+    const updateInputWidth = () => {
+      if (containerRef.current) {
+        setInputWidth(`${containerRef.current.clientWidth}px`);
+      }
+    };
+
+    updateInputWidth();
+    window.addEventListener('resize', updateInputWidth);
+    return () => window.removeEventListener('resize', updateInputWidth);
   }, []);
 
   return (
-    <div className="w-full flex flex-col items-start gap-8px-col" ref={containerRef} style={{ width: containerWidth }}>
+    <div className="w-full flex flex-col items-start gap-8px-col" ref={containerRef}>
       <label htmlFor={selectId} className={labelVariant({ state: state || 'default', device: device || 'desktop' })}>
         {label}
       </label>
-      <div className="relative w-full">
+      <div className="relative w-full" style={{ width: inputWidth }}>
         <div
           id={selectId}
           className={`${inputVariant({ state: state || 'default', device: device || 'desktop' })} ${isOpen ? 'border-[#25B18C]' : ''} cursor-pointer`}
           onClick={toggleDropdown}
-          style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', borderColor: isOpen ? '#25B18C' : '' }}
+          style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', width: '100%', borderColor: isOpen ? '#25B18C' : '' }}
         >
           {value || '---------------------문의종류 선택하기---------------------'}
           <svg
@@ -127,7 +133,7 @@ const Dropdown = ({ label, validationMessage, state, device, id, value, setValue
         {isOpen && (
           <div
             className={`relative z-10 w-full bg-white border rounded-lg mt-2 transition-all duration-300 ease-in-out border-[#25B18C]`}
-            style={{ maxHeight: isOpen ? "'200px'" : '0px', overflow: 'hidden' }}
+            style={{ maxHeight: isOpen ? '200px' : '0px', overflow: 'hidden' }}
           >
             <ul>
               {options.map((option, index) => (

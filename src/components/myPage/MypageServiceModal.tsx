@@ -14,15 +14,7 @@ interface MypageServiceModalProps {
 
 const MypageServiceModal = ({ onClose }: MypageServiceModalProps) => {
     const [email, setEmail] = useState<string>('');
-    const [nickname, setNickname] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
-    const [confirmPassword, setConfirmPassword] = useState<string>('');
-    const [isOpenTerms, setIsOpenTerms] = useState<boolean>(false);
-    const [isTermsChecked, setIsTermsChecked] = useState<boolean>(false);
     const [emailState, setEmailState] = useState<InputStateType>('default');
-    const [nicknameState, setNicknameState] = useState<InputStateType>('default');
-    const [passwordState, setPasswordState] = useState<InputStateType>('default');
-    const [confirmPasswordState, setConfirmPasswordState] = useState<InputStateType>('default');
     const [dropdownValue, setDropdownValue] = useState<string>('');
     const [text, setText] = useState('');
     const [textState, setTextState] = useState<'default' | 'filled' | 'error' | 'disable'>('default');
@@ -64,7 +56,7 @@ const MypageServiceModal = ({ onClose }: MypageServiceModalProps) => {
                 placeholder="이메일을 입력해주세요."
             />
 
-            <Dropdown // 드롭다운 컴포넌트 추가
+            <Dropdown
                 label="문의 종류를 선택해주세요."
                 value={dropdownValue}
                 setValue={setDropdownValue}
