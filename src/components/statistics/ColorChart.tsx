@@ -1,15 +1,16 @@
 'use client';
 
-import { Pie, PieChart } from 'recharts';
 import { Card, CardContent } from '@/components/ui/card';
-import { ChartConfig, ChartContainer, ChartLegend, ChartLegendContent } from '@/components/ui/chart';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { ChartConfig, ChartContainer } from '@/components/ui/chart';
 import { Diary } from '@/types/diary.type';
+import axios from 'axios';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { Pie, PieChart } from 'recharts';
 
 const ColorChart = () => {
   const today = new Date();
+
   const [year, setYear] = useState(today.getFullYear());
   const [month, setMonth] = useState(today.getMonth() + 1);
   const [sortedColors, setSortedColors] = useState<string[]>([]);
@@ -61,7 +62,7 @@ const ColorChart = () => {
       label: 'Visitors'
     }
   } satisfies ChartConfig;
-  const sortedBackgroundColors = sortedColors.map((item, index) => `bg-[${item}]`);
+
   return (
     <Card className="flex flex-col w-422px-row h-361px-col border border-[#E6D3BC] rounded-5xl ">
       <div className="flex items-center justify-center gap-12px-row text-20px mt-24px-col">
@@ -72,11 +73,8 @@ const ColorChart = () => {
       <CardContent>
         {sortedColors.length > 0 ? (
           (colorCounts[0] / length) * 100 < 5 ? (
-            <div className='flex flex-col items-center gap-24px-col'>
-              <ChartContainer
-                config={chartConfig}
-                className="mx-auto aspect-square max-h-300px-col h-260px-col"
-              >
+            <div className="flex flex-col items-center gap-24px-col">
+              <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-300px-col h-260px-col">
                 <PieChart className="w-192px-row h-192px-col">
                   <Pie data={chartData} dataKey="visitors" />
                 </PieChart>
@@ -87,11 +85,8 @@ const ColorChart = () => {
               </div>
             </div>
           ) : (
-            <div className='flex flex-col items-center'>
-              <ChartContainer
-                config={chartConfig}
-                className="mx-auto aspect-square max-h-300px-col h-260px-col"
-              >
+            <div className="flex flex-col items-center">
+              <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-300px-col h-260px-col">
                 <PieChart className="w-192px-row h-192px-col">
                   <Pie data={chartData} dataKey="visitors" />
                 </PieChart>

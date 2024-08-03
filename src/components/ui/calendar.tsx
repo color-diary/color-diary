@@ -1,15 +1,15 @@
 'use client';
 
-import * as React from 'react';
-import { Caption, CaptionLabel, DayPicker, IconLeft, IconRight } from 'react-day-picker';
 import { cn } from '@/lib/utils';
-import Stamp from '../main/Stamp';
-import { useRouter } from 'next/navigation';
-import { formatFullDate } from '@/utils/dateUtils';
-import { Diary, DiaryList } from '@/types/diary.type';
-import { createClient } from '@/utils/supabase/client';
-import '../main/dateInput.css';
 import { useToast } from '@/providers/toast.context';
+import { Diary, DiaryList } from '@/types/diary.type';
+import { formatFullDate } from '@/utils/dateUtils';
+import { createClient } from '@/utils/supabase/client';
+import { useRouter } from 'next/navigation';
+import * as React from 'react';
+import { DayPicker } from 'react-day-picker';
+import '../main/dateInput.css';
+import Stamp from '../main/Stamp';
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
   diaryList: DiaryList;
@@ -102,7 +102,7 @@ function Calendar({
             isToday = true;
           }
 
-          const handleGoWirtePage = async () => {
+          const handleGoWritePage = async () => {
             try {
               const supabase = createClient();
               const {
@@ -163,7 +163,7 @@ function Calendar({
           ) : (
             <div
               onClick={() => {
-                handleGoWirtePage();
+                handleGoWritePage();
               }}
               className="flex flex-col items-center cursor-pointer"
             >

@@ -1,12 +1,12 @@
-import React from 'react';
-import SpringStamp from './season-stamp/SpringStamp';
-import SummerStamp from './season-stamp/SummerStamp';
 import FallStamp from './season-stamp/FallStamp';
-import WinterStamp from './season-stamp/WinterStamp';
-import SpringToday from './season-stamp/SpringToday';
-import SummerToday from './season-stamp/SummerToday';
 import FallToday from './season-stamp/FallToday';
+import SpringStamp from './season-stamp/SpringStamp';
+import SpringToday from './season-stamp/SpringToday';
+import SummerStamp from './season-stamp/SummerStamp';
+import SummerToday from './season-stamp/SummerToday';
+import WinterStamp from './season-stamp/WinterStamp';
 import WinterToday from './season-stamp/WinterToday';
+
 interface StampProps {
   petal: string;
   circle: string;

@@ -1,8 +1,11 @@
-import { useState, useEffect } from 'react';
+'use client';
+
 import useZustandStore from '@/zustand/zustandStore';
+import { useEffect, useState } from 'react';
 
 const EmotionTagsInput = () => {
   const { tags, setTags, isDiaryEditMode, testResult, hasTestResult, setHasTestResult } = useZustandStore();
+
   const [inputValue, setInputValue] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [showGuide, setShowGuide] = useState(false);

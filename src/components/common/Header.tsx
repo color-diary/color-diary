@@ -25,7 +25,7 @@ const Header = () => {
   const supabase = createClient();
 
   useEffect(() => {
-    const handleResize = () => {
+    const handleResize = (): void => {
       setDeviceSize(window.innerWidth <= 768 ? 'smFix' : 'mdFix');
     };
 
@@ -247,7 +247,7 @@ const Header = () => {
                 src={publicProfileImg || '/default-profile.jpg'}
                 alt="Profile Image"
                 fill
-                className="rounded-full cursor-pointer object-fit"
+                className="rounded-full cursor-pointer object-cover"
               />
             </div>
           </Link>

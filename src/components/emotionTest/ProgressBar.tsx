@@ -15,9 +15,9 @@ const ProgressBar = ({ value, max }: ProgressBarProps) => {
   }, [value, max]);
 
   return (
-    <div className="relative h-24px-col flex bg-progress-total-color self-stretch shadow-progress-border rounded-lg">
+    <div className="relative h-16px-col-m md:h-24px-col flex bg-progress-total-color self-stretch shadow-progress-border rounded-lg">
       <div
-        className="absolute top-0 left-0 h-24px-col bg-progress-current-color border-2 border-progress-border-color rounded-lg transition-all duration-300"
+        className="absolute top-0 left-0 h-16px-col-m md:h-24px-col bg-progress-current-color border-2 border-progress-border-color rounded-lg transition-all duration-300"
         style={{ width: `${progress}%` }}
       ></div>
     </div>
