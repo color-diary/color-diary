@@ -38,29 +38,7 @@ const ChartContainer = React.forwardRef<
 >(({ id, className, children, config, ...props }, ref) => {
   const uniqueId = React.useId();
   const chartId = `chart-${id || uniqueId.replace(/:/g, '')}`;
-  const [chartSize, setChartSize] = React.useState(192);
-
-  // const resizeListener = () => {
-  //   if (charttype === 'color') {
-  //     if (document.body.clientWidth < 768) {
-  //       setChartSize(100);
-  //     } else if (document.body.clientWidth < 1024) {
-  //       setChartSize(150);
-  //     } else {
-  //       setChartSize(192);
-  //     }
-  //   } else if (charttype === 'emotion') {
-  //   }
-  // };
-
-  // React.useEffect(() => {
-  //   window.addEventListener('resize', resizeListener);
-
-  //   return () => {
-  //     window.removeEventListener('resize', resizeListener);
-  //   };
-  // }, []);
-
+ 
   return (
     <ChartContext.Provider value={{ config }}>
       <div

@@ -97,6 +97,7 @@ const MyPageForm = () => {
         publicSetProfileImg('');
         router.replace('/');
         modal.close();
+        toast.on({ label: '로그아웃 되었습니다.' });
       }
     } catch (error) {
       console.error(error);
@@ -158,32 +159,30 @@ const MyPageForm = () => {
 
   return (
     <div className='flex flex-col items-center justify-center pt-pt-148px-row px-20px-row md:px-px-396px-row md:pt-pt-312px-row '>
-
       <div className='flex flex-col w-full border-b-2 pb-10 border-black '>
-        <div className='flex flex-col md:flex-row items-center md:gap-14'>
+        <div className='flex flex-col md:flex-row items-center md:gap-14 px-22.5px-row py-22.5px-row'>
           {isLogin ? (
-            <div className='w-195px-row h-195px-row px-22.5px-row py-22.5px-row relative'>
+            <div className='w-195px-row h-195px-row py-22.5px-row relative'>
               <Image
                 src={profileImg}
                 alt="Profile Image"
                 fill
-                className="rounded-full cursor-pointer w-full h-full object-cover"
+                className="rounded-full cursor-pointer w-full object-cover"
                 onClick={() => fileInputRef.current?.click()}
               />
             </div>
           ) : (
-            <div className='w-195px-row h-195px-row px-22.5px-row py-22.5px-row relative'>
+            <div className='w-195px-row h-195px-row py-22.5px-row relative'>
               <Image
                 src={"/default-profile.jpg"}
                 alt="defaultProfile Image"
                 layout="responsive"
                 width={195}
                 height={195}
-                className="rounded-full"
+                className="rounded-full cursor-pointer w-full object-cover"
               />
             </div>
           )}
-
           <input
             type="file"
             ref={fileInputRef}
@@ -298,7 +297,7 @@ const MyPageForm = () => {
         </div>
       )}
       {showServiceModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-10 bg-backdrop">
+        <div className="fixed inset-0 flex items-center justify-center z-10 bg-backdrop pt-[71px] pb-[70px]">
           <MypageServiceModal
             onClose={closeMypageServiceModal}
           />

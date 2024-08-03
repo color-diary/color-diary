@@ -50,7 +50,6 @@ const EmotionChart = () => {
   tagCounts.forEach((item) => {
     sum += item;
   });
-  console.log(sum);
 
   useEffect(() => {
     if (tagCounts.length > 0) {
@@ -61,15 +60,12 @@ const EmotionChart = () => {
       setProgresses([0, 0, 0]);
     }
   }, [tagCounts]);
-  console.log(progresses);
-  console.log(sortedTags);
-  console.log(tagCounts);
-  console.log(tagCounts[0] / tagCounts.length);
+
   const chartData = [];
   for (let i = 0; i < Math.min(sortedTags.length, 3); i++) {
     chartData.push({ tag: sortedTags[i] });
   }
-  console.log(chartData);
+
   return (
     <div className="flex flex-col items-center w-600px-row h-304px-col border rounded-5xl border-[#E6D3BC] bg-white">
       <div className="flex items-center justify-center gap-12px-row text-20px mt-24px-col">
