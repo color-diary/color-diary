@@ -88,7 +88,7 @@ function Calendar({
             }
           };
           return (
-            <div className="anchor">
+            <div className="anchor cursor-pointer">
               <input type="date" ref={dateInputRef} style={{ visibility: 'hidden' }} onChange={handleInputDate} />
               <p onClick={() => handleRef()} className="md:text-24px text-16px-m">
                 {props.displayMonth.getFullYear()}년 {props.displayMonth.getMonth() + 1}월
@@ -155,7 +155,7 @@ function Calendar({
               onClick={() => {
                 route.push(`/diaries/${diaries.diaryId}`);
               }}
-              className="flex flex-col items-center"
+              className="flex flex-col items-center cursor-pointer"
             >
               <Stamp petal={diaries.color} circle="#F7CA87" month={props.date.getMonth() + 1} />
               <p className="md:text-14px text-12px-m">{props.date.getDate()}</p>
@@ -165,7 +165,7 @@ function Calendar({
               onClick={() => {
                 handleGoWirtePage();
               }}
-              className="flex flex-col items-center "
+              className="flex flex-col items-center cursor-pointer"
             >
               <Stamp petal="#FFF" circle="#D4D4D4" month={props.date.getMonth() + 1} isToday={isToday} />
               <p className="md:text-14px text-12px-m">{props.date.getDate()}</p>
