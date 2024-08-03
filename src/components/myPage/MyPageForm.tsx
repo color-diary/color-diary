@@ -299,7 +299,7 @@ const MyPageForm = () => {
         </div>
       )}
       {showServiceModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-10 bg-backdrop">
+        <div className="fixed inset-0 flex items-center justify-center z-10 bg-backdrop ">
           <MypageServiceModal
             onClose={closeMypageServiceModal}
           />

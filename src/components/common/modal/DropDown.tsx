@@ -1,161 +1,47 @@
-'use client';
+import React, { useState } from 'react';
 
-import { cva, VariantProps } from 'class-variance-authority';
-import { ComponentProps, Dispatch, SetStateAction, useState, useRef, useEffect } from 'react';
-
-const labelVariant = cva('self-stretch font-medium', {
-  variants: {
-    state: {
-      default: 'text-font-color cursor-pointer',
-      filled: 'text-default cursor-pointer',
-      error: 'text-error-color cursor-pointer',
-      disable: 'text-text-button-disable cursor-not-allowed'
-    },
-    device: {
-      desktop: 'text-18px tracking-0.36px',
-      mobile: 'text-16px tracking-0.32px'
-    }
-  },
-  defaultVariants: {
-    state: 'default',
-    device: 'desktop'
-  }
-});
-
-const inputVariant = cva(
-  'flex justify-between items-center pl-16px-row pr-48px-row border rounded-lg font-normal',
-  {
-    variants: {
-      state: {
-        default:
-          'bg-white border-input-color text-input-color placeholder:text-input-color',
-        filled: 'bg-white border-default text-font-color',
-        error: 'bg-white border-error-color text-error-color',
-        disable: 'bg-input-disable-color border-text-button-disable text-text-button-disable cursor-not-allowed'
-      },
-      device: {
-        desktop: 'py-12px-col text-18px tracking-0.36px',
-        mobile: 'py-8px-col text-14px tracking-0.28px'
-      }
-    },
-    defaultVariants: {
-      state: 'default',
-      device: 'desktop'
-    }
-  }
-);
-
-const textVariant = cva('font-normal', {
-  variants: {
-    state: {
-      default: 'text-validation',
-      filled: 'text-validation',
-      error: 'text-error-color',
-      disable: 'text-text-button-disable'
-    },
-    device: {
-      desktop: 'text-18px tracking-0.36px',
-      mobile: 'text-14px tracking-0.28px'
-    }
-  },
-  defaultVariants: {
-    state: 'default',
-    device: 'desktop'
-  }
-});
-
-type DropdownVariantProps = VariantProps<typeof inputVariant>;
-
-type DropdownProps = {
-  label: string;
-  validationMessage?: string;
-  value: string;
-  setValue: Dispatch<SetStateAction<string>>;
-  options: string[];
-} & DropdownVariantProps &
-  ComponentProps<'div'>;
-
-const Dropdown = ({ label, validationMessage, state, device, id, value, setValue, options, ...props }: DropdownProps) => {
+function Dropdown() {
   const [isOpen, setIsOpen] = useState(false);
-  const [inputWidth, setInputWidth] = useState<string | undefined>(undefined);
-  const selectId = id || crypto.randomUUID();
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [selectedOption, setSelectedOption] = useState(null);
 
-  const handleChange = (option: string): void => {
-    setValue(option);
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleOptionClick = (option: any) => {
+    setSelectedOption(option);
     setIsOpen(false);
   };
 
-  const toggleDropdown = () => setIsOpen(!isOpen);
-
-  useEffect(() => {
-    const updateInputWidth = () => {
-      if (containerRef.current) {
-        setInputWidth(`${containerRef.current.clientWidth}px`);
-      }
-    };
-
-    updateInputWidth();
-    window.addEventListener('resize', updateInputWidth);
-    return () => window.removeEventListener('resize', updateInputWidth);
-  }, []);
+  const options = ['기능 문의', '버그 신고', '계정 관련 문의', '피드백 및 제안'];
 
   return (
-    <div className="w-full flex flex-col items-start gap-8px-col" ref={containerRef}>
-      <label htmlFor={selectId} className={labelVariant({ state: state || 'default', device: device || 'desktop' })}>
-        {label}
+    <div className="flex flex-col items-start gap-2 self-stretch ">
+      <label className=' self-stretch "text-[var(--Grey-900,#080808)] font-pretendard text-18px font-medium leading-[24.3px] tracking-[-0.36px]"'>
+        문의 종류를 선택해주세요
       </label>
-      <div className="relative w-full" style={{ width: inputWidth }}>
-        <div
-          id={selectId}
-          className={`${inputVariant({ state: state || 'default', device: device || 'desktop' })} ${isOpen ? 'border-[#25B18C]' : ''} cursor-pointer`}
-          onClick={toggleDropdown}
-          style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', width: '100%', borderColor: isOpen ? '#25B18C' : '' }}
-        >
-          {value || '---------------------문의종류 선택하기---------------------'}
-          <svg
-            className="absolute right-16px-row top-1/2 transform -translate-y-1/2"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M7 10l5 5 5-5"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </div>
-        {isOpen && (
-          <div
-            className={`relative z-10 w-full bg-white border rounded-lg mt-2 transition-all duration-300 ease-in-out border-[#25B18C]`}
-            style={{ maxHeight: isOpen ? '200px' : '0px', overflow: 'hidden' }}
-          >
-            <ul>
-              {options.map((option, index) => (
-                <li
-                  key={index}
-                  className="px-16px-row py-12px-col cursor-pointer hover:bg-[#DDF8F1]"
-                  onClick={() => handleChange(option)}
-                >
-                  {option}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </div>
-      {validationMessage && (
-        <span id={selectId} className={textVariant({ state: state || 'default', device: device || 'desktop' })}>
-          {validationMessage}
-        </span>
+      <input
+        type="text"
+        value={selectedOption || "---------------------문의종류 선택하기---------------------"}
+        onClick={toggleDropdown}
+        readOnly
+        className="w-full px-4 py-2 rounded-lg border-[1px] border-[#25B18C] outline-none cursor-pointer text-18px"
+      />
+      {isOpen && (
+        <ul className="flex py-4 px-2 gap-4 flex-col justify-center items-start self-stretch rounded-lg border-[1px] border-[#25B18C] bg-white">
+          {options.map((option) => (
+            <li
+              key={option}
+              onClick={() => handleOptionClick(option)}
+              className="w-full hover:rounded-lg hover:bg-[#DDF8F1] text-18px"
+            >
+              <div className="cursor-pointer w-full px-2 py-1">{option}</div>
+            </li>
+          ))}
+        </ul>
       )}
     </div>
   );
-};
+}
 
 export default Dropdown;

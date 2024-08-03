@@ -23,7 +23,7 @@ const labelVariant = cva('self-stretch font-medium', {
 });
 
 const textareaVariant = cva(
-  'w-full flex justify-center pl-16px-row pr-16px-row self-stretch border rounded-lg font-normal resize-none', // resize-none 추가
+  'w-full flex justify-center pl-16px-row pr-16px-row self-stretch border rounded-lg font-normal resize-none h-163-row', 
   {
     variants: {
       state: {
@@ -34,7 +34,7 @@ const textareaVariant = cva(
         disable: 'bg-input-disable-color border-text-button-disable text-text-button-disable cursor-not-allowed'
       },
       device: {
-        desktop: 'py-12px-col text-18px tracking-0.36px',
+        desktop: 'py-8px-col text-18px tracking-0.36px',
         mobile: 'py-8px-col text-14px tracking-0.28px'
       }
     },
@@ -95,11 +95,11 @@ const Textarea = ({ label, validationMessage, state, device, id, value, setValue
           className={textareaVariant({ state, device })}
           value={value}
           onChange={handleChange}
-          rows={6}
+          rows={4}
           disabled={state === 'disable'}
           {...props}
         />
-        <div className="absolute bottom-2 right-4 text-input-color">{`${value.length}/${maxLength}`}</div>
+        <div className="absolute bottom-2 right-4 text-input-color text-14px">{`${value.length}/${maxLength}`}</div>
       </div>
       {validationMessage && (
         <span id={textareaId} className={textVariant({ state, device })}>

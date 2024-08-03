@@ -18,8 +18,20 @@ const MypageServiceModal = ({ onClose }: MypageServiceModalProps) => {
     const [dropdownValue, setDropdownValue] = useState<string>('');
     const [text, setText] = useState('');
     const [textState, setTextState] = useState<'default' | 'filled' | 'error' | 'disable'>('default');
+    // 드롭다운에서 쓰는것
+    const [isOpen, setIsOpen] = useState(false);
+    const [selectedOption, setSelectedOption] = useState(null);
+    const toggleDropdown = () => {
+        setIsOpen(!isOpen);
+      };
+      
+      const options = ['기능 문의', '버그 신고', '계정 관련 문의', '피드백 및 제안'];
 
-
+      const handleOptionClick = (option:any) => {
+        setSelectedOption(option);
+        setIsOpen(false); // 옵션을 선택하면 드롭다운을 닫습니다.
+      };
+    // 드롭다운에서 쓰는것
     const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>): void => {
         const newEmail = e.target.value;
 
@@ -42,8 +54,8 @@ const MypageServiceModal = ({ onClose }: MypageServiceModalProps) => {
     const dropdownOptions = ['기능 문의', '버그 신고', '계정 관련 문의', '피드백 및 제안'];
 
     return (
-        <div className="flex flex-col justify-center items-center gap-32px-col px-96px-row py-72px-col rounded-5xl bg-sign-up border-4 border-border-color">
-            <h1 className="text-font-color text-24px font-bold tracking-0.48px">문의하기</h1>
+        <div className="flex flex-col justify-center items-center gap-32px-col px-96px-row py-70px-row rounded-5xl bg-sign-up border-4 border-border-color w-744px-row">
+            <h1 className="text-24px font-[700] mb-3 tracking-0.48px">문의하기</h1>
             {/* 여기에 내용넣기 */}
             <Input
                 type="email"
@@ -56,12 +68,7 @@ const MypageServiceModal = ({ onClose }: MypageServiceModalProps) => {
                 placeholder="이메일을 입력해주세요."
             />
 
-            <Dropdown
-                label="문의 종류를 선택해주세요."
-                value={dropdownValue}
-                setValue={setDropdownValue}
-                options={dropdownOptions}
-            />
+            <Dropdown />
 
             <Textarea
                 label="문의사항을 작성해주세요."
@@ -70,7 +77,7 @@ const MypageServiceModal = ({ onClose }: MypageServiceModalProps) => {
                 setValue={setText}
                 maxLength={500}
                 placeholder="문의하실 내용을 작성해주세요."
-            />
+            /> 
             <div className="w-full flex items-end justify-end self-stretch gap-16px-row">
                 <Button
                     priority="secondary"
