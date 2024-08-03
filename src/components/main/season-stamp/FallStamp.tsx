@@ -3,7 +3,7 @@ import React from 'react';
 
 const FallStamp = ({ petal, circle }: Stamp) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
+    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 20 20" fill="none">
       <mask id="a" fill={petal}>
         <path
           fillRule="evenodd"

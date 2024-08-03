@@ -1,8 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { DayPicker } from 'react-day-picker';
+import { Caption, CaptionLabel, DayPicker, IconLeft, IconRight } from 'react-day-picker';
 import { cn } from '@/lib/utils';
 import Stamp from '../main/Stamp';
 import { useRouter } from 'next/navigation';
@@ -10,6 +9,7 @@ import { formatFullDate } from '@/utils/dateUtils';
 import { Diary, DiaryList } from '@/types/diary.type';
 import { createClient } from '@/utils/supabase/client';
 import '../main/dateInput.css';
+import { useToast } from '@/providers/toast.context';
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
   diaryList: DiaryList;
@@ -28,25 +28,30 @@ function Calendar({
 }: CalendarProps) {
   const route = useRouter();
   const today = new Date();
+  const toast = useToast();
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
-      className={cn('p-3', className)}
+      className={cn(className)}
       classNames={{
-        months: 'flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0',
-        month: 'space-y-4',
-        caption: 'flex justify-center pt-1 relative items-center',
+        months: `${isCalendar ? 'flex flex-col border-4 border-[--border-color] rounded-[32px]' : ''}`,
+        month: '',
+        caption: 'flex justify-center relative items-center pt-32px-col pb-24px-col px-320px-row',
         caption_label: 'text-sm font-medium',
-        nav: 'space-x-1 flex items-center',
-        nav_button: cn('h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100'),
-        nav_button_previous: 'absolute left-1',
-        nav_button_next: 'absolute right-1',
-        table: 'w-full border-collapse space-y-1',
-        head_row: `${isCalendar ? 'flex' : 'hidden'}`,
-        head_cell: 'text-muted-foreground rounded-md w-9 font-normal text-[0.8rem]',
-        row: 'flex w-full mt-2',
+        nav: 'flex items-center',
+        nav_button: cn('h-7 w-7 bg-transparent opacity-50 hover:opacity-100'),
+        nav_button_previous: 'absolute left-250px-row ',
+        nav_button_next: 'absolute right-230px-row',
+        table: `${
+          isCalendar
+            ? 'w-full border-collapse flex flex-col items-center justify-center py-24px-col px-72px-row'
+            : 'hidden'
+        }`,
+        head_row: `flex px-16px-row py-16px-col space-x-48px-row  border-b border-[#33D4AA]`,
+        head_cell: 'text-black rounded-md w-9 font-normal md:text-18px text-14px-m',
+        row: 'flex w-full h-[4.8rem] space-x-48px-row px-16px-row py-16px-col',
         cell: 'h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20',
-        day: 'h-9 w-9 p-0 font-normal aria-selected:opacity-100',
+        day: 'h-9 w-9 font-normal aria-selected:opacity-100',
         day_range_end: 'day-range-end',
         day_selected:
           'bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground',
@@ -59,8 +64,22 @@ function Calendar({
         ...classNames
       }}
       components={{
-        IconLeft: ({ ...props }) => <ChevronLeft className="h-4 w-4" />,
-        IconRight: ({ ...props }) => <ChevronRight className="h-4 w-4" />,
+        IconLeft: ({ ...props }) => (
+          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="18" viewBox="0 0 10 18" fill="none">
+            <path
+              d="M9.6389 16.4629C9.80789 16.6319 9.90283 16.8611 9.90283 17.1001C9.90283 17.3391 9.80789 17.5683 9.6389 17.7373C9.4699 17.9063 9.24069 18.0012 9.0017 18.0012C8.7627 18.0012 8.53349 17.9063 8.3645 17.7373L0.264496 9.63728C0.180682 9.55368 0.114183 9.45436 0.0688124 9.34502C0.0234404 9.23568 8.58307e-05 9.11846 8.58307e-05 9.00008C8.58307e-05 8.8817 0.0234404 8.76448 0.0688124 8.65514C0.114183 8.5458 0.180682 8.44649 0.264496 8.36288L8.3645 0.262884C8.53349 0.0938873 8.7627 -0.00105286 9.0017 -0.00105286C9.24069 -0.00105286 9.4699 0.0938873 9.6389 0.262884C9.80789 0.431879 9.90283 0.661087 9.90283 0.900084C9.90283 1.13908 9.80789 1.36829 9.6389 1.53728L2.1743 9.00008L9.6389 16.4629Z"
+              fill="#080808"
+            />
+          </svg>
+        ),
+        IconRight: ({ ...props }) => (
+          <svg xmlns="http://www.w3.org/2000/svg" width="11" height="20" viewBox="0 0 10 18" fill="none">
+            <path
+              d="M0.762716 1.53721C0.59372 1.36821 0.498779 1.139 0.498779 0.900008C0.498779 0.661012 0.59372 0.431804 0.762716 0.262808C0.931711 0.093812 1.16092 -0.00112915 1.39992 -0.00112915C1.63891 -0.00112916 1.86812 0.093812 2.03712 0.262808L10.1371 8.36281C10.2209 8.44641 10.2874 8.54573 10.3328 8.65507C10.3782 8.76441 10.4015 8.88163 10.4015 9.00001C10.4015 9.11839 10.3782 9.23561 10.3328 9.34495C10.2874 9.45429 10.2209 9.55361 10.1371 9.63721L2.03712 17.7372C1.86812 17.9062 1.63891 18.0011 1.39992 18.0011C1.16092 18.0011 0.931711 17.9062 0.762716 17.7372C0.59372 17.5682 0.498779 17.339 0.498779 17.1C0.498779 16.861 0.59372 16.6318 0.762716 16.4628L8.22731 9.00001L0.762716 1.53721Z"
+              fill="#080808"
+            />
+          </svg>
+        ),
         CaptionLabel: ({ ...props }) => {
           const dateInputRef = React.useRef<HTMLInputElement>(null);
           const handleRef = () => {
@@ -68,11 +87,10 @@ function Calendar({
               dateInputRef.current.showPicker();
             }
           };
-
           return (
-            <div className="anchor">
+            <div className="anchor cursor-pointer">
               <input type="date" ref={dateInputRef} style={{ visibility: 'hidden' }} onChange={handleInputDate} />
-              <p onClick={() => handleRef()}>
+              <p onClick={() => handleRef()} className="md:text-24px text-16px-m">
                 {props.displayMonth.getFullYear()}년 {props.displayMonth.getMonth() + 1}월
               </p>
             </div>
@@ -97,15 +115,15 @@ function Calendar({
               }
               if (!session) {
                 if (2 <= diaryList.length) {
-                  alert('비회원은 2개이상 작성할 수 없습니다.');
+                  toast.on({ label: '비회원은 2개이상 작성할 수 없습니다.' });
                 } else if (today < props.date) {
-                  alert('미래의 일기는 작성하실 수 없습니다.');
+                  toast.on({ label: '미래의 일기는 작성하실 수 없습니다.' });
                 } else {
                   route.push(`/diaries/write/${formatFullDate(String(props.date))}`);
                 }
               } else {
                 if (today < props.date) {
-                  alert('미래의 일기는 작성하실 수 없습니다.');
+                  toast.on({ label: '미래의 일기는 작성하실 수 없습니다.' });
                 } else {
                   route.push(`/diaries/write/${formatFullDate(String(props.date))}`);
                 }
@@ -132,30 +150,26 @@ function Calendar({
             }
           }, []);
 
-          return isCalendar ? (
-            diaries ? (
-              <div
-                onClick={() => {
-                  route.push(`/diaries/${diaries.diaryId}`);
-                }}
-                className="flex flex-col items-center"
-              >
-                <Stamp petal={diaries.color} circle="#F7CA87" month={props.date.getMonth() + 1} />
-                <p className="text-sm">{props.date.getDate()}</p>
-              </div>
-            ) : (
-              <div
-                onClick={() => {
-                  handleGoWirtePage();
-                }}
-                className="flex flex-col items-center "
-              >
-                <Stamp petal="#FFF" circle="#D4D4D4" month={props.date.getMonth() + 1} isToday={isToday} />
-                <p className="text-sm">{props.date.getDate()}</p>
-              </div>
-            )
+          return diaries ? (
+            <div
+              onClick={() => {
+                route.push(`/diaries/${diaries.diaryId}`);
+              }}
+              className="flex flex-col items-center cursor-pointer"
+            >
+              <Stamp petal={diaries.color} circle="#F7CA87" month={props.date.getMonth() + 1} />
+              <p className="md:text-14px text-12px-m">{props.date.getDate()}</p>
+            </div>
           ) : (
-            <></>
+            <div
+              onClick={() => {
+                handleGoWirtePage();
+              }}
+              className="flex flex-col items-center cursor-pointer"
+            >
+              <Stamp petal="#FFF" circle="#D4D4D4" month={props.date.getMonth() + 1} isToday={isToday} />
+              <p className="md:text-14px text-12px-m">{props.date.getDate()}</p>
+            </div>
           );
         }
       }}
