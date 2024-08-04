@@ -15,6 +15,9 @@ const EmotionTagsInput = () => {
       setInputValue('');
     } else if (hasTestResult && testResult) {
       setHasTestResult(false);
+
+      setInputValue(testResult.result.emotion);
+      setShowGuide(true);
     } else {
       setTags([]);
     }
