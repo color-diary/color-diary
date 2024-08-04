@@ -19,12 +19,12 @@ const TermsModal = ({ isTermsChecked, onConfirm, onCancel }: TermsModalProps) =>
           onClick={onCancel}
           icon={
             isTermsChecked ? (
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="2.5" y="2.5" width="19" height="19" rx="3.5" fill="white" />
                 <rect x="2.5" y="2.5" width="19" height="19" rx="3.5" stroke="#A1A1A1" />
               </svg>
             ) : (
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clipPath="url(#clip0_2226_11984)">
                   <rect x="2" y="2" width="20" height="20" rx="4" fill="white" />
                   <path
@@ -51,7 +51,7 @@ const TermsModal = ({ isTermsChecked, onConfirm, onCancel }: TermsModalProps) =>
           onClick={onConfirm}
           icon={
             isTermsChecked ? (
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clipPath="url(#clip0_2226_11984)">
                   <rect x="2" y="2" width="20" height="20" rx="4" fill="white" />
                   <path
@@ -69,7 +69,7 @@ const TermsModal = ({ isTermsChecked, onConfirm, onCancel }: TermsModalProps) =>
                 </defs>
               </svg>
             ) : (
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="2.5" y="2.5" width="19" height="19" rx="3.5" fill="white" />
                 <rect x="2.5" y="2.5" width="19" height="19" rx="3.5" stroke="#A1A1A1" />
               </svg>

@@ -50,7 +50,7 @@ function Calendar({
         head_row: `flex px-16px-row py-16px-col space-x-48px-row  border-b border-[#33D4AA]`,
         head_cell: 'text-black rounded-md w-9 font-normal md:text-18px text-14px-m',
         row: 'flex w-full h-[4.8rem] space-x-48px-row px-16px-row py-16px-col',
-        cell: 'h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20',
+        cell: 'h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative',
         day: 'h-9 w-9 font-normal aria-selected:opacity-100',
         day_range_end: 'day-range-end',
         day_selected:
