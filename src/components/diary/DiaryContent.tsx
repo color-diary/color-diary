@@ -12,11 +12,11 @@ const DiaryContent = ({ diary }: { diary: Diary }) => {
 
   return (
     <>
-      <p className=" font-semibold text-18px-m md:text-24px"> {formattedDate}</p>
+      <p className=" font-semibold text-18px-m md:text-24px text-font-color"> {formattedDate}</p>
       <div className="flex flex-wrap gap-2">
         {diary.tags.map((tag, index) => (
-          <span key={index} className="text-[#545454] mb-5 text-12px-m md:text-16px">
-            {tag}
+          <span key={index} className="text-[#545454] mb-5 text-12px-m md:text-16px ">
+            #{tag}
           </span>
         ))}
       </div>
@@ -38,7 +38,7 @@ const DiaryContent = ({ diary }: { diary: Diary }) => {
         )}
       </div>
       <div className="mb-4 w-287px-row-m h-264px-col-m  md:w-480px-row md:h-192px-col">
-        <p className="text-16px-m  md:text-18px">{diary.content}</p>
+        <p className="text-16px-m  md:text-18px text-font-color">{diary.content}</p>
       </div>
       <div className="mb-4"></div>
     </>
