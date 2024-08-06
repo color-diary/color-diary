@@ -3,7 +3,7 @@ import { ResultType } from '@/types/test.type';
 const results: ResultType[] = [
   {
     result: 'joy',
-    emotion: '#기쁨',
+    emotion: '기쁨',
     color: '#C5E1FB',
     comment: '좋은 일이 가득했던 날인가봐요./오늘은 행복한 날이에요!',
     title: '#행복한_하루',
@@ -107,7 +107,7 @@ const results: ResultType[] = [
   },
   {
     result: 'sadness',
-    emotion: '#슬픔',
+    emotion: '슬픔',
     color: '#094986',
     comment: '오늘 하루가 힘드셨던 것 같아요./그만큼 잔뜩 울고, 푹 쉬길 바래요!',
     title: '#오늘은_슬픔이',
@@ -268,7 +268,7 @@ const results: ResultType[] = [
   },
   {
     result: 'lethargy',
-    emotion: '#무기력',
+    emotion: '무기력',
     color: '#D4D4D4',
     comment: '때론 나도 모르게 치칠때가 있죠./조용히 나를 안아줘요.',
     title: '#기운없는_무기력',
@@ -601,7 +601,7 @@ const results: ResultType[] = [
   },
   {
     result: 'anxiety',
-    emotion: '#불안',
+    emotion: '불안',
     color: '#FADFB7',
     comment: '잘 하고 싶은 마음이 있었나봐요./그 마음으로도 충분해요!',
     title: '#할수있다_불안이',
@@ -774,7 +774,7 @@ const results: ResultType[] = [
   },
   {
     result: 'anger',
-    emotion: '#분노',
+    emotion: '분노',
     color: '#3B3B3B',
     comment: '오늘 불쾌한 일이 있으셨나요?/분노를 건강하게 표출해요!',
     title: '#벼락의_분노',
@@ -896,7 +896,7 @@ const results: ResultType[] = [
   },
   {
     result: 'hope',
-    emotion: '#희망참',
+    emotion: '희망참',
     color: '#FCD4DC',
     comment: `나의 하루는 말 그대로 희망이./미래를 그려나가는 모습이 멋져요!`,
     title: '#나는야_희망이',
