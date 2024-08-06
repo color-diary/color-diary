@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import Button from '../common/Button';
 import { Calendar } from '../ui/calendar';
 import Cards from './Cards';
+import { useQuery } from '@tanstack/react-query';
 
 const MainSection = () => {
   const router = useRouter();
@@ -41,20 +42,26 @@ const MainSection = () => {
       const data = response.data;
       if (data) {
         setDiaryList(data);
-        setIsNeedNew(false);
-        if (formatFullDate(String(data[0]?.date)).slice(0, 7) === formatFullDate(String(today)).slice(0, 7)) {
-          const findDiary = data.find((i: Diary) => {
-            return new Date(i.date).getDate() === today.getDate();
-          });
-          if (findDiary) {
-            setIsNeedNew(false);
-          } else {
-            setIsNeedNew(true);
-          }
-        }
+        checkTodayWritten(data);
       }
     } else {
-      setDiaryList(JSON.parse(localStorage.getItem('localDiaries') || '[]'));
+      const data = JSON.parse(localStorage.getItem('localDiaries') || '[]');
+      setDiaryList(data);
+      checkTodayWritten(data);
+    }
+  };
+
+  const checkTodayWritten = (data: DiaryList) => {
+    setIsNeedNew(false);
+    if (formatFullDate(String(data[0]?.date)).slice(0, 7) === formatFullDate(String(today)).slice(0, 7)) {
+      const findDiary = data.find((i: Diary) => {
+        return new Date(i.date).getDate() === today.getDate();
+      });
+      if (findDiary) {
+        setIsNeedNew(false);
+      } else {
+        setIsNeedNew(true);
+      }
     }
   };
 
@@ -110,8 +117,6 @@ const MainSection = () => {
       localStorage.setItem('queryString', queryString);
     }
   }, [queryString]);
-
-  useEffect(() => {}, [diaryList]);
 
   return (
     <div className="h-screen flex justify-center mt-200px-col">

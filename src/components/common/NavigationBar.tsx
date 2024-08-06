@@ -276,7 +276,7 @@ const NavigationBar = () => {
     }
   ];
   return (
-    <aside className="fixed flex items-center bg-sign-up md:w-30 md:h-screen md:flex-col md:left-0 md:top-0 md:pt-32 md:px-6 w-full h-16 bottom-0 left-0 flex-row px-5 pt-1 border-t md:border-0 rounded-t-2xl border-border-color md:rounded-none">
+    <aside className="fixed flex items-center bg-sign-up md:w-30 md:h-screen md:flex-col md:left-0 md:top-0 md:pt-32 md:px-6 w-full h-16 bottom-0 left-0 flex-row px-5 pt-1 border-t md:border-0 rounded-t-2xl border-border-color md:rounded-none z-10">
       <nav className="w-full">
         <ul className="flex md:flex-col md:justify-end md:items-start md:gap-4 flex-row justify-between items-end">
           {buttonList.map((e) => {

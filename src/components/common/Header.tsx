@@ -72,7 +72,7 @@ const Header = () => {
   };
 
   return (
-    <div className="fixed top-0 left-0 w-full flex items-center py-1 md:py-2 h-12 md:h-18 shadow-header-shadow bg-layout px-5">
+    <div className="fixed top-0 left-0 w-full flex items-center py-1 md:py-2 h-12 md:h-18 shadow-header-shadow bg-layout px-5 z-10">
       <div className="md:w-full w-fit flex md:justify-center items-center">
         {deviceSize === 'smFix' && (pathname.startsWith('/diaries') || pathname === '/emotion-test') ? (
           <TextButton device={'mobile'} onClick={() => router.back()}>
