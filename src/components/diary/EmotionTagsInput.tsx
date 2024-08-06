@@ -88,7 +88,7 @@ const EmotionTagsInput = () => {
             style={{ flexShrink: 0 }}
           >
             <span className="text-font-color mr-1 text-14px-m md:text-20px">{tag}</span>
-            <button className=" text-font-color" onClick={() => handleDeleteTag(tag)}>
+            <button type="button" className=" text-font-color" onClick={() => handleDeleteTag(tag)}>
               x
             </button>
           </div>
