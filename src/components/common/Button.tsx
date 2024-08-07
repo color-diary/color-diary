@@ -20,7 +20,7 @@ const buttonVariant = cva(
         sm: 'px-16px-row py-8px-col text-14px rounded-lg tracking-0.28px',
         md: 'md:px-20px-row md:py-12px-col md:text-16px md:rounded-xl md:tracking-0.32px px-4 py-2 text-sm rounded-lg tracking-0.28px',
         lg: 'md:px-24px-row md:py-12px-col md:text-18px md:rounded-2xl md:tracking-0.36px px-4 py-2 text-sm rounded-lg tracking-0.28px',
-        half: 'w-1/2 py-12px-col text-16px rounded-xl tracking-0.32px',
+        half: 'w-1/2 md:py-12px-col md:text-16px md:rounded-xl md:tracking-0.32px py-2 text-sm rounded-lg tracking-0.28px',
         smFix: 'px-4 py-2 text-sm rounded-lg tracking-0.28px',
         mdFix:
           'md:px-5 md:py-3 md:text-base md:rounded-xl md:tracking-0.32px px-4 py-2 text-sm rounded-lg tracking-0.28px',
@@ -70,7 +70,7 @@ const iconVariant = cva('fill-current flex justify-center items-center', {
       sm: 'w-16px-row h-16px-col',
       md: 'md:w-20px-row md:h-20px-col w-4 h-4',
       lg: 'md:w-24px-row md:h-24px-col w-4 h-4',
-      half: 'w-20px-row h-20px-col',
+      half: 'md:w-20px-row md:h-20px-col w-4 h-4',
       smFix: 'w-4 h-4',
       mdFix: 'md:w-5 md:h-5 w-4 h-4',
       lgFix: 'w-6 h-6'

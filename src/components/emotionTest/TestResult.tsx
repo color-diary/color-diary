@@ -107,7 +107,7 @@ const TestResult = ({ emotion, positive, negative }: TestResultProps) => {
           </div>
         </div>
         <div className="flex items-center gap-16px-row-m md:gap-16px-row">
-          <Button href={'/emotion-test'} icon={<ReturnIcon />}>
+          <Button priority={'secondary'} href={'/emotion-test'} icon={<ReturnIcon />}>
             다시 확인하기
           </Button>
           <Button onClick={handleClickWriteDiaryButton} icon={<AngleRightWhite />}>

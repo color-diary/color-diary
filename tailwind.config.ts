@@ -121,6 +121,7 @@ const config = {
         '160px-col': 'calc(100vh * 0.1481)',
         '176px-col': 'calc(100vh * 0.16296)',
         '192px-col': 'calc(100vh * 0.1778)',
+        '195px-col': 'calc(100vh * 0.1015625)',
         '200px-col': 'calc(100vh * 0.1852)',
         '240px-col': 'calc(100vh * 0.2222)',
         '300px-col': 'calc(100vh * 0.2778)',
@@ -134,7 +135,9 @@ const config = {
         '760px-col': 'calc(100vh * 0.7037)',
         '818px-col': 'calc(100vh * 0.75741)',
         '859px-col': 'calc(100vh * 0.79537)',
+        '4px-row-m': 'calc(100vw * 0.01067)',
         '8px-row-m': 'calc(100vw * 0.02133)',
+        '12px-row-m': 'calc(100vw * 0.032)',
         '16px-row-m': 'calc(100vw * 0.04267)',
         '20px-row-m': 'calc(100vw * 0.05333)',
         '24px-row-m': 'calc(100vw * 0.064)',
@@ -148,6 +151,7 @@ const config = {
         '200px-row-m': 'calc(100vw * 0.533)',
         '252px-row-m': 'calc((252 / 375) * 100vw)',
         '287px-row-m': 'calc((287 / 375) * 100vw)',
+        '300px-row-m': 'calc(100vw * 0.8)',
         '335px-row-m': 'calc(100vw * 0.89333)',
         '360px-row-m': 'calc((360 / 375) * 100vw)',
         '480px-row-m': 'calc((480 / 375) * 100vw)',
@@ -157,19 +161,20 @@ const config = {
         '16px-col-m': 'calc(100vh * 0.02399)',
         '20px-col-m': 'calc( 100vh * 0.02999)',
         '24px-col-m': 'calc(100vh * 0.036)',
-        '32px-col-m': 'calc(100vw * 0.048)',
+        '32px-col-m': 'calc(100vh * 0.048)',
         '35px-col-m': 'calc((35 / 375) * 100vw)',
         '36px-col-m': 'calc(100vh * 0.054)',
         '40px-col-m': 'calc(100vh * 0.06)',
+        '56px-col-m': 'calc(100vh * 0.08396)',
         '64px-col-m': 'calc(100vh * 0.096)',
         '80px-col-m': 'calc(100vh * 0.11999)',
         '102px-col-m': 'calc(100vh * 0.153)',
         '135px-col-m': 'calc((135 / 375) * 100vw)',
         '140px-col-m': 'calc((140 / 375) * 100vw)',
         '192px-col-m': 'calc((192 / 375) * 100vw)',
-        '195px-col': 'calc(100vh * 0.1015625)',
         '200px-col-m': 'calc((200 / 375) * 100vw)',
         '264px-col-m': 'calc((264 / 375) * 100vw)',
+        '360px-col-m': 'calc(100vw * 0.5398)',
         '440px-col-m': 'calc(100vh * 0.6597)',
         '615px-col-m': 'calc((615 / 375) * 100vw)',
         'pt-148px-row': 'calc(148 / 1080 * 100vh)',
@@ -211,6 +216,7 @@ const config = {
         '28px-m': ['calc((100vw * 28 / 375) + (100vh * 28 / 742)) / 2)', { lineHeight: '1.35' }]
       },
       letterSpacing: {
+        '0.24px': '-0.015rem',
         '0.28px': '-0.0175rem',
         '0.32px': '-0.02rem',
         '0.36px': '-0.0225rem',
@@ -304,6 +310,20 @@ const config = {
         '.custom-terms-scrollbar': {
           '&::-webkit-scrollbar': {
             width: 'calc(100vw * 0.00417) !important'
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: 'white !important',
+            borderRadius: '16px !important',
+            border: '2px solid var(--validation-color) !important',
+            cursor: 'pointer'
+          },
+          '&::-webkit-scrollbar-track': {
+            backgroundColor: 'var(--sign-up-bg-color) !important'
+          }
+        },
+        '.custom-terms-scrollbar-mobile': {
+          '&::-webkit-scrollbar': {
+            width: 'calc(100vw * 0.02133) !important'
           },
           '&::-webkit-scrollbar-thumb': {
             backgroundColor: 'white !important',

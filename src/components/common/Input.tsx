@@ -38,7 +38,7 @@ const inputVariant = cva(
 );
 
 const iconVariant = cva(
-  'absolute md:right-16px-row right-16px-row-m cursor-pointer md:w-24px-row md:h-24px-col w-6 h-6 md:bottom-12px-col md:top-12px-col top-1/2 md:translate-y-0 -translate-y-1/2',
+  'absolute md:right-16px-row right-16px-row-m cursor-pointer md:w-24px-row md:h-24px-col w-24px-row-m h-24px-col-m md:bottom-12px-col md:top-12px-col top-1/2 md:translate-y-0 -translate-y-1/2',
   {
     variants: {
       state: {
@@ -81,7 +81,7 @@ const Input = ({ label, validationMessage, state, id, value, setValue, ...props 
   const clearInput = (): void => setValue('');
 
   return (
-    <div className="w-full flex flex-col items-start gap-8px-col">
+    <div className="w-full flex flex-col items-start md:gap-8px-col gap-8px-col-m">
       <label htmlFor={inputId} className={labelVariant({ state })}>
         {label}
       </label>
