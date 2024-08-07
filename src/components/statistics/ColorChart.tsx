@@ -107,7 +107,7 @@ const ColorChart = () => {
           <div className="h-full">
             <div className="flex flex-col items-center">
               <Image
-                src="/Flowers.png"
+                src="/Flowers.svg"
                 alt="공백이미지"
                 width={176}
                 height={176}
