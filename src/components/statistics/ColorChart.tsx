@@ -63,7 +63,7 @@ const ColorChart = () => {
   } satisfies ChartConfig;
   const sortedBackgroundColors = sortedColors.map((item, index) => `bg-[${item}]`);
   return (
-    <Card className="flex flex-col w-422px-row h-361px-col border border-[#E6D3BC] rounded-5xl ">
+    <Card className="flex flex-col md:w-422px-row md:h-361px-col border border-[#E6D3BC] rounded-5xl w-[335px] h-[208px]">
       <div className="flex items-center justify-center gap-12px-row text-20px mt-24px-col">
         <button onClick={() => changeDate(month - 1)}>&lt;</button>
         {year}.{month}
@@ -72,11 +72,8 @@ const ColorChart = () => {
       <CardContent>
         {sortedColors.length > 0 ? (
           (colorCounts[0] / length) * 100 < 5 ? (
-            <div className='flex flex-col items-center gap-24px-col'>
-              <ChartContainer
-                config={chartConfig}
-                className="mx-auto aspect-square max-h-300px-col h-260px-col"
-              >
+            <div className="flex flex-col items-center gap-24px-col">
+              <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-300px-col h-260px-col">
                 <PieChart className="w-192px-row h-192px-col">
                   <Pie data={chartData} dataKey="visitors" />
                 </PieChart>
@@ -87,11 +84,8 @@ const ColorChart = () => {
               </div>
             </div>
           ) : (
-            <div className='flex flex-col items-center'>
-              <ChartContainer
-                config={chartConfig}
-                className="mx-auto aspect-square max-h-300px-col h-260px-col"
-              >
+            <div className="flex flex-col items-center">
+              <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-300px-col h-260px-col">
                 <PieChart className="w-192px-row h-192px-col">
                   <Pie data={chartData} dataKey="visitors" />
                 </PieChart>
@@ -109,19 +103,19 @@ const ColorChart = () => {
             </div>
           )
         ) : (
-          <div className="h-full">
+          <div className="md:h-full">
             <div className="flex flex-col items-center">
               <Image
                 src="/Flowers.png"
                 alt="공백이미지"
                 width={176}
                 height={176}
-                className="w-176px-row h-176px-col mt-24px-col mb-24px-col"
+                className="md:w-176px-row md:h-176px-col md:mt-24px-col md:mb-24px-col w-[120px] h-[120px]"
               />
             </div>
-            <div className="mb-32px-col flex flex-col items-center">
-              <div className="text-16px">이달은 기록된 감정이 없어요.</div>
-              <div className="text-16px">더 많은 감정을 기록해봐요!</div>
+            <div className="md:mb-32px-col flex flex-col items-center">
+              <div className="md:text-16px text-[12px]">이달은 기록된 감정이 없어요.</div>
+              <div className="md:text-16px text-[12px]">더 많은 감정을 기록해봐요!</div>
             </div>
           </div>
         )}
