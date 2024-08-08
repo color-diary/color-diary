@@ -51,7 +51,7 @@ const ColorPicker = () => {
   return (
     <>
       <div className="flex flex-col  h-[16%] w-[100%] gap-2">
-        <p className="text-16px-m md:text-18px">오늘의 색은 무엇인가요?</p>
+        <p className="text-16px-m md:text-18px text-font-color">오늘의 색은 무엇인가요?</p>
         <div className="flex space-x-2 items-center">
           <br />
           {colors.map((color) => (

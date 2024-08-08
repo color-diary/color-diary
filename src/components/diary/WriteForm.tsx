@@ -24,6 +24,7 @@ import Button from '../common/Button';
 import TextButton from '../common/TextButton';
 import DiaryTextArea from './DiaryTextArea';
 import EmotionTagsInput from './EmotionTagsInput';
+import { FormEvent } from 'react';
 
 const WriteForm = () => {
   const router = useRouter();
@@ -124,7 +125,8 @@ const WriteForm = () => {
     }
   });
 
-  const handleWrite = () => {
+  const handleWrite = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (color && tags.length > 0 && content) {
       if (!userId) {
         saveToLocal(color, tags, content, img, date);
@@ -148,7 +150,8 @@ const WriteForm = () => {
     }
   };
 
-  const handleEdit = () => {
+  const handleEdit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (color && tags.length > 0 && content) {
       if (!userId) {
         updateLocalDiary(diaryId, color, tags, content, img, date);
@@ -209,7 +212,8 @@ const WriteForm = () => {
 
   return (
     <>
-      <div className="block md:hidden">
+      {' '}
+      <form className="block md:hidden" onSubmit={(e) => (isDiaryEditMode ? handleEdit(e) : handleWrite(e))}>
         <div className="flex flex-col items-center justify-center h-screen">
           <div className="flex flex-col gap-custom-24px-m w-335px-row-m ">
             <ColorPicker />
@@ -217,11 +221,12 @@ const WriteForm = () => {
             <DiaryTextArea />
             <ImgDrop />
             <div>
-              <p className="mb-2 text-14px-m">오늘 나의 감정이 궁금하다면?</p>
+              <p className="mb-2 text-14px-m text-font-color">오늘 나의 감정이 궁금하다면?</p>
               <Link href="/emotion-test">
                 <Button
                   size="md"
                   priority="secondary"
+                  type="button"
                   icon={
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <g id="icon/angle-right">
@@ -242,7 +247,7 @@ const WriteForm = () => {
           <div className="absolute bottom-24 right-4">
             <Button
               size="md"
-              onClick={isDiaryEditMode ? handleEdit : handleWrite}
+              type="submit"
               icon={
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -256,19 +261,20 @@ const WriteForm = () => {
             </Button>
           </div>
         </div>
-      </div>
-
-      <div className="hidden md:block">
+      </form>
+      <form className="hidden md:block" onSubmit={(e) => (isDiaryEditMode ? handleEdit(e) : handleWrite(e))}>
         <div className="flex items-center justify-center h-screen">
           <div className="  w-744px-row h-818px-col gap-custom-16px rounded-[32px] flex flex-col items-center justify-center bg-[#F9F5F0] border-4 border-[#E6D3BC]">
             <div className="flex h-46px-col  w-600px-row justify-between items-center">
               <div className="flex items-center  ">
-                <TextButton onClick={handleBackward}>뒤로가기</TextButton>
+                <TextButton onClick={handleBackward} type="button">
+                  뒤로가기
+                </TextButton>
               </div>
 
               <Button
                 size="md"
-                onClick={isDiaryEditMode ? handleEdit : handleWrite}
+                type="submit"
                 icon={
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -289,10 +295,11 @@ const WriteForm = () => {
                 <ImgDrop />
               </div>
               <div className="absolute bottom-0 right-0 flex flex-col justify-center items-center p-4">
-                <p className="mb-2 text-14px">오늘 나의 감정이 궁금하다면?</p>
+                <p className="mb-2 text-14px text-font-color">오늘 나의 감정이 궁금하다면?</p>
                 <Link href="/emotion-test">
                   <Button
                     size="md"
+                    type="button"
                     priority="secondary"
                     icon={
                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -313,7 +320,7 @@ const WriteForm = () => {
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </>
   );
 };
