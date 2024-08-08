@@ -5,20 +5,15 @@ import { cva, VariantProps } from 'class-variance-authority';
 import { useEffect, useState } from 'react';
 
 const toastVariant = cva(
-  'inline-flex justify-center items-center bg-toast text-white rounded-lg font-normal transition-opacity duration-500',
+  'inline-flex justify-center items-center bg-toast text-white rounded-lg font-normal transition-opacity duration-500 md:px-24px-row md:py-16px-col md:text-18px md:tracking-0.36px px-4 py-3 text-sm tracking-0.28px',
   {
     variants: {
-      device: {
-        desktop: 'px-24px-row py-16px-col text-18px tracking-0.36px',
-        mobile: 'px-16px-row py-12px-col text-14px tracking-0.28px'
-      },
       isOpen: {
         true: 'opacity-100',
         false: 'opacity-0'
       }
     },
     defaultVariants: {
-      device: 'desktop',
       isOpen: false
     }
   }
@@ -30,7 +25,7 @@ type ToastProps = {
   toast: ToastType;
 } & ToastVariantProps;
 
-const Toast = ({ toast, device }: ToastProps) => {
+const Toast = ({ toast }: ToastProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
@@ -39,8 +34,8 @@ const Toast = ({ toast, device }: ToastProps) => {
   }, []);
 
   return (
-    <div className="fixed top-0 bottom-0 left-0 right-0 z-20 flex justify-center items-center">
-      <div className={toastVariant({ device, isOpen })}>{toast.label}</div>
+    <div className="fixed top-0 bottom-0 left-0 right-0 z-30 flex justify-center items-center">
+      <div className={toastVariant({ isOpen })}>{toast.label}</div>
     </div>
   );
 };

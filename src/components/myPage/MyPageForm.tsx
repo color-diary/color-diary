@@ -15,13 +15,16 @@ import ServiceModal from './ServiceModal';
 import ChangeNicknameModal from './ChangeNicknameModal';
 import { Edit } from './svg/Edit';
 import { Logout } from './svg/Log-out';
-import { Mail } from './svg/Mail';
+import { BlueMailIcon } from './svg/Mail';
 import { Board } from './svg/Board';
 import { Join } from './svg/Join';
 import { Key } from './svg/Key';
 
 const MyPageForm = () => {
   const supabase = createClient();
+  const toast = useToast();
+  const modal = useModal();
+  const router = useRouter();
 
   const [nickname, setNickname] = useState('');
   const [newNickname, setNewNickname] = useState('');
@@ -30,15 +33,13 @@ const MyPageForm = () => {
   const [showTermsModal, setShowTermsModal] = useState(false);
   const [showServiceModal, setShowServiceModal] = useState(false);
   const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
+  const [isLoadingImage, setIsLoadingImage] = useState(false);
+  const [isAuthSuccess, setIsAuthSuccess] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const publicSetProfileImg = loginZustandStore((state) => state.publicSetProfileImg);
   const setIsLogin = loginZustandStore((state) => state.setIsLogin);
   const isLogin = loginZustandStore((state) => state.isLogin);
-
-  const router = useRouter();
-  const toast = useToast();
-  const modal = useModal();
 
   const openTermsModal = () => {
     setShowTermsModal(true);
@@ -62,6 +63,7 @@ const MyPageForm = () => {
 
   const closeChangePasswordModal = () => {
     setShowChangePasswordModal(false);
+    setIsAuthSuccess(false);
   };
 
   const validateNickname = (nickname: string) => {
@@ -128,25 +130,23 @@ const MyPageForm = () => {
       onCancel: () => modal.close(),
       confirmButtonContent: {
         children: '로그아웃 하기',
-        icon: (
-          <Logout />
-        )
+        icon: <Logout />
       },
       cancelButtonContent: {
         children: '로그인 유지하기',
-        icon: (
-          <Key />
-        )
+        icon: <Key />
       }
     });
   };
 
   const addImgFile = async (file: File) => {
     try {
+      setIsLoadingImage(true);
       const newFileName = `${Date.now()}.jpg`;
       const { error } = await supabase.storage.from('profileImg').upload(`${newFileName}`, file);
       if (error) {
         console.error(error);
+        setIsLoadingImage(false);
         return;
       }
       const res = supabase.storage.from('profileImg').getPublicUrl(newFileName);
@@ -160,26 +160,65 @@ const MyPageForm = () => {
           .update({ profileImg: res.data.publicUrl })
           .eq('id', userId);
       }
+      setIsLoadingImage(false);
     } catch (error) {
       console.error(error);
+      setIsLoadingImage(false);
     }
   };
 
   return (
-    <div className='flex items-center justify-center mt-[148px] md:mt-[312px]'>
-      <div className='flex flex-col w-full md:w-1128px-row items-start justify-center self-stretch gap-8 md:gap-10 px-5'>
+    <div className='flex items-center justify-center mt-[148px] px-5 md:px-[396px] md:mt-[312px]'>
+      <div className='flex flex-col w-full md:w-[1128px] items-start justify-center self-stretch gap-8 md:gap-10 '>
         <div className='flex flex-col items-start md:flex-row md:items-center w-full md:gap-14'>
           {isLogin ? (
             <div className='flex w-[160px] h-[160px] md:w-240px-row md:h-240px-row relative'>
+              {isLoadingImage ? (
+                <div className="absolute inset-0 flex items-center justify-center rounded-full">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 100 100"
+                    preserveAspectRatio="xMidYMid"
+                    width="100"
+                    height="100"
+                    style={{
+                      shapeRendering: 'auto',
+                      display: 'block',
+                      background: 'transparent',
+                    }}
+                  >
+                    <g>
+                      <g>
+                        <path
+                          strokeWidth="3"
+                          stroke="#e15b64"
+                          fill="none"
+                          d="M50 3A47 47 0 1 0 83.23401871576775 16.765981284232275"
+                        ></path>
+                        <path fill="#e15b64" d="M49 -4L49 10L56 3L49 -4"></path>
+                        <animateTransform
+                          keyTimes="0;1"
+                          values="0 50 50;360 50 50"
+                          dur="2.6315789473684212s"
+                          repeatCount="indefinite"
+                          type="rotate"
+                          attributeName="transform"
+                        ></animateTransform>
+                      </g>
+                    </g>
+                  </svg>
+                </div>
+              ) : null}
               <Image
                 src={profileImg}
                 alt="Profile Image"
                 fill
-                className="rounded-full cursor-pointer w-full object-cover px-[15px] py-[15px] md:px-[22.5px] md:py-[22.5px] "
+                className={`rounded-full cursor-pointer w-full object-cover px-[15px] py-[15px] md:px-[22.5px] md:py-[22.5px] relative ${isLoadingImage ? 'opacity-30' : ''}`}
                 onClick={() => fileInputRef.current?.click()}
+                onLoadingComplete={() => setIsLoadingImage(false)}
               />
               {!profileImg || profileImg === '/default-profile.jpg' ? (
-                <svg className='mt-[146px] ml-[179px] mr-[21px] mb-[52px] z-10 flex-shrink-0' xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 36 36" fill="none" style={{
+                <svg className=' absolute z-10  bottom-12 right-4  flex-shrink-0 md:w-[43px] md:h-[43px]' xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 36 36" fill="none" style={{
                   borderRadius: '132px',
                   border: '1px solid var(--Grey-900, #080808)',
                   background: 'var(--Bg-600, #EEE2D2)'
@@ -199,56 +238,57 @@ const MyPageForm = () => {
               />
             </div>
           ) : (
-            <div className='flex w-[160px] h-[160px] md:w-240px-row md:h-240px-row relative'>
+            <div className='flex w-[160px] h-[160px] md:w-[240px] md:h-[240px] relative'>
               <Image
                 src={profileImg}
                 alt="Profile Image"
                 fill
                 className="rounded-full w-full object-cover px-[22.5px] py-[22.5px]"
                 onClick={() => fileInputRef.current?.click()}
+                onLoadingComplete={() => setIsLoadingImage(false)}
               />
             </div>
           )}
 
           {isLogin ? (
-            <div className='flex flex-col justify-center items-start gap-24px-col mt-4'>
-              <div className='flex flex-col items-start gap-4'>
-                <div className='flex items-center gap-2 text-18px'>
-                  <span className='py-1 w-56px-col md:w-80px-row font-normal'>나의 이름</span>
-                  {isNicknameEditing ? (
+            <div className='flex flex-col justify-center items-start gap-[24px] mt-4'>
+              <div className='flex flex-col items-start gap-4 md:gap-4'>
+                <div className='flex items-center gap-2 md:gap-2 text-[14px] md:text-18px'>
+                  <span className='py-1 w-[56px] md:w-[80px] font-normal'>나의 이름</span>
+                  {isAuthSuccess && isNicknameEditing ? (
                     <input
                       type='text'
                       value={newNickname}
                       onChange={(e) => setNewNickname(e.target.value)}
-                      className='px-2 py-1 w-200px-row font-medium border border-gray-400 rounded-lg'
+                      className='px-2 py-1 w-[200px] font-medium border border-gray-400 rounded-lg'
                     />
                   ) : (
-                    <span className='px-2 py-1 w-120px-col md:w-200px-row font-medium'>{nickname}</span>
+                    <span className='px-2 py-1 w-[120px] md:w-[200px] font-medium'>{nickname}</span>
                   )}
                 </div>
-                <div className='flex items-center gap-2 text-18px'>
-                  <span className='py-1 w-56px-col md:w-80px-row font-normal'>비밀번호</span>
-                  <span className='px-2 py-1 w-120px-col md:w-200px-row font-normal'>******</span>
+                <div className='flex items-center gap-2 md:gap-2 text-[14px] md:text-[18px]'>
+                  <span className='py-1 w-[56px] md:w-[80px] font-normal'>비밀번호</span>
+                  <span className='px-2 py-1 w-[120px] md:w-[200px] font-normal'>******</span>
                 </div>
               </div>
-              {isNicknameEditing ? (
-                <div className='flex items-center gap-2'>
-                  <Button priority="primary" icon={<Edit/>} onClick={handleChangeNickname}>정보수정 완료</Button>
+              {isAuthSuccess && isNicknameEditing ? (
+                <div className='flex items-center gap-2 md:gap-2'>
+                  <Button priority="primary" icon={<Edit />} onClick={handleChangeNickname}>정보수정 완료</Button>
                 </div>
               ) : (
-                <Button priority="primary" icon={<Edit/>} onClick={openChangePasswordModal}>정보수정</Button>
+                <Button priority="primary" icon={<Edit />} onClick={() => { setIsNicknameEditing(true); openChangePasswordModal(); }}>정보수정</Button>
               )}
             </div>
           ) : (
-            <div className='flex flex-col justify-center items-start gap-6 mt-4'>
-              <div className='flex flex-col items-start gap-4'>
-                <div className='flex items-center gap-2 text-18px'>
-                  <span className='py-1 w-56px-col md:w-80px-row font-normal'>나의 이름</span>
-                  <span className='px-2 py-1 w-120px-col md:w-200px-row font-medium'>씨앗이</span>
+            <div className='flex flex-col justify-center items-start gap-[24px] mt-4'>
+              <div className='flex flex-col items-start md:gap-4'>
+                <div className='flex items-center gap-2 md:gap-2 text-[14px] md:text-[18px]'>
+                  <span className='py-4 w-[56px] md:w-[80px] font-normal'>나의 이름</span>
+                  <span className='px-2 py-4 w-[120px] md:w-[200px] font-medium'>씨앗이</span>
                 </div>
-                <div className='flex items-center gap-2 text-18px'>
-                  <span className='py-1 w-56px-col md:w-80px-row font-normal invisible'>비밀번호</span>
-                  <span className='px-2 py-1 w-120px-col md:w-200px-row font-normal invisible'>******</span>
+                <div className='flex items-center gap-2 md:gap-2 text-[14px] md:text-[18px]'>
+                  <span className='py-4 w-[56px] md:w-[80px] font-normal invisible'>비밀번호</span>
+                  <span className='px-2 py-4 w-[120px] md:w-[200px] font-normal invisible'>******</span>
                 </div>
               </div>
               <Button priority="primary" className='invisible'>정보수정</Button>
@@ -258,31 +298,30 @@ const MyPageForm = () => {
 
         {isLogin ? (
           <div className='flex justify-between items-center self-stretch border-t border-[#080808] '>
-            <div className='flex items-center mt-4 md:mt-6'>
+            <div className='flex items-center mt-4 md:mt-[24px]'>
               <Button priority="secondary" icon={<Logout />} size="lg" onClick={handleClickLogOut}>로그아웃</Button>
             </div>
-            <div className='flex items-center gap-4 mt-4 md:mt-6'>
-              <Button onClick={openMyPageServiceModal} priority="tertiary" icon={<Mail />} size="lg">문의하기</Button>
+            <div className='flex items-center gap-[16px] mt-4 md:mt-[24px]'>
+              <Button onClick={openMyPageServiceModal} priority="tertiary" icon={<BlueMailIcon />} size="lg">문의하기</Button>
               <Button onClick={openTermsModal} priority="tertiary" icon={<Board />} size="lg">이용약관</Button>
             </div>
           </div>
         ) : (
           <div className='flex justify-between items-center self-stretch border-t border-[#080808] '>
-            <div className='flex items-center m4-4 md:mt-6'>
+            <div className='flex items-center mt-4 md:mt-[24px]'>
               <Button priority="primary" size="lg" icon={<Join />} href={"/log-in"}>회원가입</Button>
             </div>
-            <div className='flex items-center gap-4 mt-4 md:mt-6'>
-              <Button onClick={openMyPageServiceModal} priority="tertiary" icon={<Mail />} size="lg">문의하기</Button>
+            <div className='flex items-center gap-[16px] mt-4 md:mt-[24px]'>
+              <Button onClick={openMyPageServiceModal} priority="tertiary" icon={<BlueMailIcon />} size="lg">문의하기</Button>
               <Button onClick={openTermsModal} priority="tertiary" icon={<Board />} size="lg">이용약관</Button>
             </div>
           </div>
         )}
       </div>
       {showTermsModal && (
-       
         <BackDrop>
           <div className='px-5'>
-          <MyPageTermsModal onClose={closeTermsModal} />
+            <MyPageTermsModal onClose={closeTermsModal} />
           </div>
         </BackDrop>
       )}
@@ -293,7 +332,7 @@ const MyPageForm = () => {
       )}
       {showChangePasswordModal && (
         <BackDrop>
-          <ChangeNicknameModal onClose={closeChangePasswordModal} />
+          <ChangeNicknameModal onClose={closeChangePasswordModal} onSuccess={() => setIsAuthSuccess(true)} />
         </BackDrop>
       )}
     </div>

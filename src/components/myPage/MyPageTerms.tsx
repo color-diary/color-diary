@@ -1,12 +1,12 @@
 import { splitCommentWithSlash } from '@/utils/splitCommentWithSlash';
 
 const MyPageTerms: JSX.Element = (
-  <div className="text-font-color text-[12px] md:text-14px font-normal tracking-0.28px">
-    <div className='mb-[16px] text-[16px] font-medium'>
+  <div className="text-font-color text-12px-m md:text-14px font-normal  tracking-0.28px">
+    <div className='mb-16px-col font-medium'>
     {splitCommentWithSlash(
       '제 1장 총칙'
     ).map((line, index) => (
-      <p key={`1-${index}`}>{line}</p>
+      <p className='text-16px-m md:text-16px ' key={`1-${index}`}>{line}</p>
     ))}
     </div>
     {splitCommentWithSlash(

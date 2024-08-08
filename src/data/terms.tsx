@@ -1,7 +1,7 @@
 import { splitCommentWithSlash } from '@/utils/splitCommentWithSlash';
 
 const terms: JSX.Element = (
-  <div className="text-font-color text-14px font-normal tracking-0.28px">
+  <div className="text-font-color text-12px-m md:text-14px font-normal tracking-0.24px md:tracking-0.28px">
     {splitCommentWithSlash(
       ' 제 1 조 (목적)/이 약관은 Color Inside(이하 "사이트")가 제공하는 모든 서비스(이하 "서비스")의 이용 조건 및 절차, 회원과 사이트의 권리, 의무 및 책임 사항을 규정함을 목적으로 합니다.'
     ).map((line, index) => (
