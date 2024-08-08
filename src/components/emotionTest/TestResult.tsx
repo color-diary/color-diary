@@ -12,6 +12,7 @@ import zustandStore from '@/zustand/zustandStore';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Button from '../common/Button';
+import LoadingSpinner from '../common/LoadingSpinner';
 import ProgressBar from './ProgressBar';
 import ShareButtons from './ShareButtons';
 import AngleRightWhite from './assets/AngleRightWhite';
@@ -19,7 +20,7 @@ import ReturnIcon from './assets/ReturnIcon';
 
 const TestResult = ({ emotion, positive, negative }: TestResultProps) => {
   const router = useRouter();
-  const { setHasTestResult } = zustandStore();
+  const { hasTestResult, setHasTestResult } = zustandStore();
 
   const [userId, setUserId] = useState<string | null>(null);
 
@@ -113,6 +114,7 @@ const TestResult = ({ emotion, positive, negative }: TestResultProps) => {
           <Button onClick={handleClickWriteDiaryButton} icon={<AngleRightWhite />}>
             일기 작성하러가기
           </Button>
+          {hasTestResult && <LoadingSpinner />}
         </div>
       </div>
       <ShareButtons emotion={resultDetails.emotion} />
