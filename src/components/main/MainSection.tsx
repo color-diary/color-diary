@@ -1,69 +1,92 @@
 'use client';
 
+import axios from 'axios';
+import Button from '../common/Button';
+import Cards from './Cards';
 import { useToast } from '@/providers/toast.context';
 import { Diary, DiaryList } from '@/types/diary.type';
-import { formatFullDate, getQueryStringDate } from '@/utils/dateUtils';
+import { formatFullDate } from '@/utils/dateUtils';
 import { createClient } from '@/utils/supabase/client';
-import axios from 'axios';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import Button from '../common/Button';
 import { Calendar } from '../ui/calendar';
-import Cards from './Cards';
+import { useQuery } from '@tanstack/react-query';
 
 const MainSection = () => {
   const router = useRouter();
   const toast = useToast();
+  const searchParams = useSearchParams();
 
   const today = new Date();
-  const newDate = new Date(Number(getQueryStringDate('year')), Number(getQueryStringDate('month')) - 1, 1);
-
+  const newDate = new Date(
+    Number(searchParams.get('YYMM')?.slice(0, 4)),
+    Number(searchParams.get('YYMM')?.slice(4, 6)) - 1,
+    1
+  );
+  const getInitialValue = (type: string) => {
+    if (type === 'date') {
+      return searchParams.get('YYMM') ? newDate : today;
+    }
+    if (type === 'form') {
+      return searchParams.get('form') ? searchParams.get('form') : 'calendar';
+    }
+  };
   const [queryString, setQueryString] = useState<string>();
-  const [diaryList, setDiaryList] = useState<DiaryList>([]);
-  const [date, setDate] = useState<Date | undefined>(undefined);
-  const [form, setForm] = useState<String | undefined>(undefined);
+  const [date, setDate] = useState<Date>(getInitialValue('date') as Date);
+  const [form, setForm] = useState<String>(getInitialValue('form') as string);
   const [isNeedNew, setIsNeedNew] = useState<boolean>(false);
 
-  const getDiaryList = async (year: number, month: number) => {
-    const supabase = createClient();
-    const {
-      data: { session },
-      error
-    } = await supabase.auth.getSession();
-    if (error) {
-      toast.on({ label: `로그인 정보를 확인하는데 실패했습니다: ${error.message}` });
-    }
+  const supabase = createClient();
+  const session = useQuery({ queryKey: ['session'], queryFn: async () => await supabase.auth.getSession() });
 
-    if (session) {
-      const response = await axios.get('/api/diaries', {
-        params: { year, month }
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const diaries = useQuery<DiaryList>({
+    queryKey: ['MainpageDiaries', 'main', year, month],
+    queryFn: async () => await axios.get(`/api/diaries?year=${year}&month=${month}`),
+    enabled: !!session.data
+  });
+
+  useEffect(() => {
+    if (session.error) {
+      toast.on({ label: `로그인 정보를 확인하는데 실패했습니다: ${session.error}` });
+      return;
+    }
+    if (!session.data) {
+      const data = JSON.parse(localStorage.getItem('localDiaries') || '[]');
+      checkTodayWritten(data);
+    }
+  }, [session]);
+
+  useEffect(() => {
+    if (diaries.error) {
+      toast.on({ label: `다이어리 리스트를 불러오는데 실패했습니다: ${diaries.error}` });
+      return;
+    }
+    if (diaries.data) {
+      checkTodayWritten(diaries.data.data);
+    }
+  }, [diaries]);
+
+  const checkTodayWritten = (data: DiaryList) => {
+    setIsNeedNew(false);
+    if (formatFullDate(String(data[0]?.date)).slice(0, 7) === formatFullDate(String(today)).slice(0, 7)) {
+      const findDiary = data.find((i: Diary) => {
+        return new Date(i.date).getDate() === today.getDate();
       });
-      const data = response.data;
-      if (data) {
-        setDiaryList(data);
+      if (findDiary) {
         setIsNeedNew(false);
-        if (formatFullDate(String(data[0]?.date)).slice(0, 7) === formatFullDate(String(today)).slice(0, 7)) {
-          const findDiary = data.find((i: Diary) => {
-            return new Date(i.date).getDate() === today.getDate();
-          });
-          if (findDiary) {
-            setIsNeedNew(false);
-          } else {
-            setIsNeedNew(true);
-          }
-        }
+      } else {
+        setIsNeedNew(true);
       }
-    } else {
-      setDiaryList(JSON.parse(localStorage.getItem('localDiaries') || '[]'));
     }
   };
 
   const makeQueryString = () => {
-    if (!date) return;
     if (String(date.getMonth() + 1).length === 1) {
-      setQueryString(`?form=${form}&YYMM=${String(date.getFullYear()) + String(0) + String(date.getMonth() + 1)}`);
+      setQueryString(`?form=${form}&YYMM=${String(year) + String(0) + String(month)}`);
     } else {
-      setQueryString(`?form=${form}&YYMM=${String(date.getFullYear()) + String(date.getMonth() + 1)}`);
+      setQueryString(`?form=${form}&YYMM=${String(year) + String(month)}`);
     }
   };
 
@@ -82,22 +105,7 @@ const MainSection = () => {
   };
 
   useEffect(() => {
-    const savedQueryString = localStorage.getItem('queryString');
-    if (savedQueryString) {
-      setQueryString(savedQueryString);
-      const start = savedQueryString.indexOf('=');
-      const end = savedQueryString.indexOf('&');
-      setForm(savedQueryString.slice(start + 1, end));
-    } else {
-      setForm('calendar');
-    }
-    setDate(savedQueryString ? newDate : today);
-  }, []);
-
-  useEffect(() => {
-    if (!date) return;
     setDate(date);
-    getDiaryList(date.getFullYear(), date.getMonth() + 1);
   }, [date]);
 
   useEffect(() => {
@@ -107,26 +115,24 @@ const MainSection = () => {
   useEffect(() => {
     if (queryString) {
       router.push(`${queryString}`);
-      localStorage.setItem('queryString', queryString);
     }
   }, [queryString]);
 
-  useEffect(() => {}, [diaryList]);
-
   return (
-    <div className="h-screen flex justify-center mt-200px-col">
-      <div className="px-20px-row-m">
-        <div className=" flex justify-between mb-36px-col w-[350px] md:w-full">
+    <div className="flex">
+      {/* bg-gray-300 */}
+      <div className="flex flex-col min-w-[335px] w-335px-row-m h-482px-col-m md:w-744px-row mx-auto mt-[96px] md:mt-[128px] space-y-24px-col-m">
+        <div className="flex justify-between">
           <p className="text-18px-m md:text-24px font-bold">나의 감정 기록</p>
-          <div className="flex justify-end md:text-14px text-12px-m">
+          <div className="flex items-center">
             <button
               name="calendar"
               onClick={(e) => {
                 changeForm(e.currentTarget.name);
               }}
             >
-              <div className="flex px-8px-row space-x-4px-row items-center">
-                <p>캘린더</p>
+              <div className="flex items-center cursor-pointer">
+                <p className="text-12px-m md:text-14px">캘린더</p>
                 {form === 'calendar' ? (
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                     <path
@@ -144,15 +150,22 @@ const MainSection = () => {
                 )}
               </div>
             </button>
-            <div className="bg-black h-4 w-0.5 mt-1 mx-2"></div>
+            <div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M11.3998 3.6C11.5589 3.6 11.7115 3.66321 11.8241 3.77573C11.9366 3.88826 11.9998 4.04087 11.9998 4.2V19.8C11.9998 19.9591 11.9366 20.1117 11.8241 20.2243C11.7115 20.3368 11.5589 20.4 11.3998 20.4C11.2407 20.4 11.0881 20.3368 10.9755 20.2243C10.863 20.1117 10.7998 19.9591 10.7998 19.8V4.2C10.7998 4.04087 10.863 3.88826 10.9755 3.77573C11.0881 3.66321 11.2407 3.6 11.3998 3.6Z"
+                  fill="#080808"
+                />
+              </svg>
+            </div>
             <button
               name="cards"
               onClick={(e) => {
                 changeForm(e.currentTarget.name);
               }}
             >
-              <div className="flex px-8px-row space-x-4px-row items-center justify-center">
-                <p>카드</p>
+              <div className="flex items-center cursor-pointer">
+                <p className="text-12px-m md:text-14px">카드</p>
                 {form === 'cards' ? (
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 20 20" fill="none">
                     <path
@@ -172,31 +185,50 @@ const MainSection = () => {
             </button>
           </div>
         </div>
-        <div className="flex flex-col">
-          {form === 'calendar' ? (
-            <div>
-              <Calendar
+        {diaries.data && (
+          <div className="">
+            {form === 'calendar' ? (
+              <div>
+                <Calendar
+                  isCalendar={form === 'calendar'}
+                  handleInputDate={handleInputDate}
+                  diaryList={diaries.data.data}
+                  month={date}
+                  onMonthChange={setDate}
+                />
+              </div>
+            ) : (
+              <Cards
                 isCalendar={form === 'calendar'}
                 handleInputDate={handleInputDate}
-                diaryList={diaryList}
-                month={date}
-                onMonthChange={setDate}
+                diaryList={diaries.data.data}
+                date={date}
+                setDate={setDate}
+                isNeedNew={isNeedNew}
               />
-            </div>
-          ) : (
-            <Cards
-              isCalendar={form === 'calendar'}
-              handleInputDate={handleInputDate}
-              diaryList={diaryList}
-              date={date}
-              setDate={setDate}
-              isNeedNew={isNeedNew}
-            />
-          )}
-        </div>
-        <div className="mt-24px-col w-full flex justify-end">
+            )}
+          </div>
+        )}
+        <div className="flex justify-between">
           <Button
             size="mdFix"
+            priority="secondary"
+            icon={
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+                <path
+                  d="M4.79993 12.9C4.79993 13.0061 4.84208 13.1078 4.91709 13.1828C4.99211 13.2578 5.09385 13.3 5.19993 13.3H8.79993C10.1087 13.3 11.1199 12.8056 11.7991 12.0408C12.4719 11.2832 12.7999 10.2856 12.7999 9.29999C12.7999 8.31439 12.4719 7.31599 11.7991 6.55919C11.1191 5.79439 10.1087 5.29999 8.79993 5.29999H4.56553L6.68313 3.18319C6.72032 3.146 6.74983 3.10184 6.76995 3.05325C6.79008 3.00466 6.80044 2.95258 6.80044 2.89999C6.80044 2.84739 6.79008 2.79531 6.76995 2.74672C6.74983 2.69813 6.72032 2.65398 6.68313 2.61679C6.64594 2.5796 6.60179 2.5501 6.5532 2.52997C6.50461 2.50984 6.45253 2.49948 6.39993 2.49948C6.34734 2.49948 6.29526 2.50984 6.24667 2.52997C6.19808 2.5501 6.15392 2.5796 6.11673 2.61679L3.31673 5.41679C3.27948 5.45394 3.24993 5.49808 3.22976 5.54668C3.2096 5.59528 3.19922 5.64737 3.19922 5.69999C3.19922 5.7526 3.2096 5.8047 3.22976 5.85329C3.24993 5.90189 3.27948 5.94603 3.31673 5.98319L6.11673 8.78319C6.19184 8.8583 6.29371 8.90049 6.39993 8.90049C6.50615 8.90049 6.60802 8.8583 6.68313 8.78319C6.75824 8.70808 6.80044 8.60621 6.80044 8.49999C6.80044 8.39377 6.75824 8.2919 6.68313 8.21679L4.56553 6.09999H8.79993C9.89113 6.09999 10.6799 6.50559 11.2007 7.09039C11.7279 7.68399 11.9999 8.48559 11.9999 9.29999C11.9999 10.1144 11.7279 10.916 11.2007 11.5096C10.6807 12.0944 9.89113 12.5 8.79993 12.5H5.19993C5.09385 12.5 4.99211 12.5421 4.91709 12.6171C4.84208 12.6922 4.79993 12.7939 4.79993 12.9Z"
+                  fill="#25B18C"
+                />
+              </svg>
+            }
+            onClick={() => {
+              setDate(today);
+            }}
+          >
+            오늘로 돌아가기
+          </Button>
+          <Button
+            size="smFix"
             priority="primary"
             icon={
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">

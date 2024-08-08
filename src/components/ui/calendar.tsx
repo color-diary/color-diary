@@ -5,7 +5,7 @@ import { useToast } from '@/providers/toast.context';
 import { Diary, DiaryList } from '@/types/diary.type';
 import { formatFullDate } from '@/utils/dateUtils';
 import { createClient } from '@/utils/supabase/client';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import * as React from 'react';
 import { DayPicker } from 'react-day-picker';
 import '../main/dateInput.css';
@@ -29,29 +29,34 @@ function Calendar({
   const route = useRouter();
   const today = new Date();
   const toast = useToast();
+  const searchParams = useSearchParams();
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
       className={cn(className)}
       classNames={{
-        months: `${isCalendar ? 'flex flex-col border-4 border-[--border-color] rounded-[32px]' : ''}`,
+        months: `${
+          isCalendar
+            ? 'flex flex-col border-2 md:border-4 border-[--border-color] rounded-[24px] md:rounded-[32px]'
+            : ''
+        }`,
         month: '',
-        caption: 'flex justify-center relative items-center pt-32px-col pb-24px-col px-320px-row',
+        caption: 'relative flex justify-center',
         caption_label: 'text-sm font-medium',
         nav: 'flex items-center',
         nav_button: cn('h-7 w-7 bg-transparent opacity-50 hover:opacity-100'),
-        nav_button_previous: 'absolute left-250px-row ',
-        nav_button_next: 'absolute right-230px-row',
+        nav_button_previous: 'absolute left-80px-row-m md:left-250px-row',
+        nav_button_next: 'absolute right-68px-row-m md:right-230px-row',
         table: `${
           isCalendar
-            ? 'w-full border-collapse flex flex-col items-center justify-center py-24px-col px-72px-row'
+            ? 'w-full border-collapse flex flex-col items-center justify-center py-24px-col px-72px-row '
             : 'hidden'
         }`,
-        head_row: `flex px-16px-row py-16px-col space-x-48px-row  border-b border-[#33D4AA]`,
+        head_row: ``,
         head_cell: 'text-black rounded-md w-9 font-normal md:text-18px text-14px-m',
-        row: 'flex w-full h-[4.8rem] space-x-48px-row px-16px-row py-16px-col',
-        cell: 'h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative',
-        day: 'h-9 w-9 font-normal aria-selected:opacity-100',
+        row: '',
+        cell: 'px-6px-row-m py-5px-col-m',
+        day: '',
         day_range_end: 'day-range-end',
         day_selected:
           'bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground',
@@ -88,9 +93,9 @@ function Calendar({
             }
           };
           return (
-            <div className="anchor cursor-pointer">
+            <div className="anchor cursor-pointer py-10px-col-m md:py-24px-col">
               <input type="date" ref={dateInputRef} style={{ visibility: 'hidden' }} onChange={handleInputDate} />
-              <p onClick={() => handleRef()} className="md:text-24px text-16px-m">
+              <p onClick={() => handleRef()} className="text-16px-m md:text-24px">
                 {props.displayMonth.getFullYear()}년 {props.displayMonth.getMonth() + 1}월
               </p>
             </div>
@@ -119,13 +124,21 @@ function Calendar({
                 } else if (today < props.date) {
                   toast.on({ label: '미래의 일기는 작성하실 수 없습니다.' });
                 } else {
-                  route.push(`/diaries/write/${formatFullDate(String(props.date))}`);
+                  route.push(
+                    `/diaries/write/${formatFullDate(String(props.date))}?form=${searchParams.get(
+                      'form'
+                    )}&YYMM=${searchParams.get('YYMM')}`
+                  );
                 }
               } else {
                 if (today < props.date) {
                   toast.on({ label: '미래의 일기는 작성하실 수 없습니다.' });
                 } else {
-                  route.push(`/diaries/write/${formatFullDate(String(props.date))}`);
+                  route.push(
+                    `/diaries/write/${formatFullDate(String(props.date))}?form=${searchParams.get(
+                      'form'
+                    )}&YYMM=${searchParams.get('YYMM')}`
+                  );
                 }
               }
             } catch (error) {
@@ -153,22 +166,24 @@ function Calendar({
           return diaries ? (
             <div
               onClick={() => {
-                route.push(`/diaries/${diaries.diaryId}`);
+                route.push(
+                  `/diaries/${diaries.diaryId}?form=${searchParams.get('form')}&YYMM=${searchParams.get('YYMM')}`
+                );
               }}
-              className="flex flex-col items-center cursor-pointer"
+              className="flex flex-col items-center"
             >
               <Stamp petal={diaries.color} circle="#F7CA87" month={props.date.getMonth() + 1} />
-              <p className="md:text-14px text-12px-m">{props.date.getDate()}</p>
+              <p className="text-12px-m">{props.date.getDate()}</p>
             </div>
           ) : (
             <div
               onClick={() => {
                 handleGoWritePage();
               }}
-              className="flex flex-col items-center cursor-pointer"
+              className="flex flex-col items-center"
             >
               <Stamp petal="#FFF" circle="#D4D4D4" month={props.date.getMonth() + 1} isToday={isToday} />
-              <p className="md:text-14px text-12px-m">{props.date.getDate()}</p>
+              <p className="text-12px-m">{props.date.getDate()}</p>
             </div>
           );
         }
