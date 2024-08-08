@@ -197,7 +197,7 @@ const WriteForm = () => {
         )
       },
       cancelButtonContent: {
-        children: '뒤로가지 않기',
+        children: '계속 작성하기',
         icon: (
           <svg width="17" height="17" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 17">
             <path
@@ -213,8 +213,8 @@ const WriteForm = () => {
   return (
     <>
       <form className="block md:hidden" onSubmit={(e) => (isDiaryEditMode ? handleEdit(e) : handleWrite(e))}>
-        <div className="flex flex-col items-center justify-center h-screen">
-          <div className="flex flex-col gap-custom-24px-m w-335px-row-m ">
+        <div className="relative flex flex-col items-center justify-center h-screen">
+          <div className="flex flex-col gap-24px-col-m md:gap-24px-col w-335px-row-m ">
             <ColorPicker />
             <EmotionTagsInput />
             <DiaryTextArea />
@@ -243,7 +243,7 @@ const WriteForm = () => {
               </Link>
             </div>
           </div>
-          <div className="absolute bottom-24 right-4">
+          <div className="absolute bottom-5 right-5">
             <Button
               size="md"
               type="submit"
@@ -256,7 +256,7 @@ const WriteForm = () => {
                 </svg>
               }
             >
-              {isDiaryEditMode ? '수정하기' : '작성완료'}
+              {isDiaryEditMode ? '수정 완료하기' : '작성 완료하기'}
             </Button>
           </div>
         </div>
@@ -285,7 +285,7 @@ const WriteForm = () => {
                       </svg>
                     }
                   >
-                    {isDiaryEditMode ? '수정하기' : '작성완료'}
+                    {isDiaryEditMode ? '수정 완료하기' : '작성 완료하기'}
                   </Button>
                 </div>
               </div>
@@ -294,9 +294,9 @@ const WriteForm = () => {
                   <ColorPicker />
                   <EmotionTagsInput />
                   <DiaryTextArea />
-                  <div className="flex w-552px-row h-152px-col">
+                  <div className="relative flex w-552px-row h-152px-col ">
                     <ImgDrop />
-                    <div className="flex flex-col justify-center items-center p-4">
+                    <div className="absolute right-0 bottom-0 flex flex-col justify-center items-center">
                       <p className="mb-2 text-14px text-font-color">오늘 나의 감정이 궁금하다면?</p>
                       <Link href="/emotion-test">
                         <Button

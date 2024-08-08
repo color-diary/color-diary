@@ -69,11 +69,17 @@ const ImgDrop = () => {
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   return (
-    <div className="flex flex-col gap-2">
-      <p className="text-16px-m md:text-18px text-font-color">Q. 오늘 감정에 맞는 이미지가 있나요?</p>
+    <div className="flex flex-col md:gap-8px-col md:w-335px-row md:h-152px-col">
+      <p className="text-16px-m md:text-18px text-font-color">Q. 오늘 감정에맞는 이미지가 있나요?</p>
       <div
         {...getRootProps()}
-        className="flex bg-[#F9F5F0] items-center justify-center rounded-[8px] border border-dashed border-[#E6D3BC] w-80px-row-m h-80px-col-m md:w-120px-row md:h-120px-row"
+        className="flex bg-[#F9F5F0] items-center justify-center rounded-[8px]  w-80px-row-m h-80px-col-m md:w-120px-row md:h-120px-row
+        "
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='8' ry='8' stroke='%23E6D3BC' stroke-width='2' stroke-dasharray='6' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e\")",
+          borderRadius: '8px'
+        }}
       >
         <input {...getInputProps()} />
         {watchedPreview ? (
@@ -90,7 +96,9 @@ const ImgDrop = () => {
         ) : (
           <div className="flex flex-col justify-center items-center md:w-120px-row md:h-120px-row">
             <p className="text-12px-m md:text-14px">이미지 첨부</p>
-            <CameraSVG />
+            <div className="md:h-36px-row md:w-36px-row">
+              <CameraSVG />
+            </div>
           </div>
         )}
       </div>
