@@ -17,7 +17,7 @@ function Dropdown() {
 
   return (
     <div className="flex flex-col items-start gap-2 self-stretch">
-      <label className="self-stretch text-[var(--Grey-900,#080808)] font-pretendard text-18px font-medium tracking-[-0.36px]">
+      <label className="self-stretch text-[var(--Grey-900,#080808)] font-pretendard text-[16px] md:text-18px font-medium tracking-[-0.36px]">
         문의 종류를 선택해주세요
       </label>
       <div
@@ -28,7 +28,7 @@ function Dropdown() {
           type="text"
           value={selectedOption || '---------------------문의종류 선택하기---------------------'}
           readOnly
-          className="w-full outline-none text-18px cursor-pointer border-[#A1A1A1]"
+          className="w-full outline-none text-[14px] md:text-18px cursor-pointer border-[#A1A1A1]"
         />
         <div>
           {isOpen ? (
@@ -54,7 +54,7 @@ function Dropdown() {
             <li
               key={option}
               onClick={() => handleOptionClick(option)}
-              className="w-full hover:rounded-lg hover:bg-[#DDF8F1] text-18px"
+              className="w-full hover:rounded-lg hover:bg-[#DDF8F1] text-[14px] md:text-18px"
             >
               <div className="cursor-pointer w-full px-2 py-1">{option}</div>
             </li>

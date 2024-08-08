@@ -125,6 +125,7 @@ const config = {
         '300px-col': 'calc(100vh * 0.2778)',
         '304px-col': 'calc(100vh * 0.2815)',
         '307px-col': 'calc(100vh * 0.2843)',
+        '335px-col': 'calc(100vh * 0.3102)',
         '354px-col': 'calc(100vh * 0.3278)',
         '361px-col': 'calc(100vh * 0.3343)',
         '401px-col': 'calc(100vh * 0.3713)',
