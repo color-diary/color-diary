@@ -22,7 +22,7 @@
       <td align="center"><img src="https://avatars.githubusercontent.com/u/131146693?v=4" width="100px;" alt="박세영"/></td>
       <td align="center"><img src="https://avatars.githubusercontent.com/u/48466548?v=4" width="100px;" alt="정민석"/></td>
       <td align="center"><img src="https://avatars.githubusercontent.com/u/167156559?v=4" width="100px;" alt="최연"/></td>
-      <td align="center"><img src="https://emoji.slack-edge.com/T06B9PCLY1E/%25ED%259B%2584%25EC%25B6%2594%25ED%258B%25B0%25EC%25BD%2598/6320e91f19318206.jpg" width="100px;" alt="이현경"/></td>
+      <td align="center"><img src="https://mir-s3-cdn-cf.behance.net/user/138/03789a522709235.66b43e924a12e.jpg" width="100px;" alt="이현경"/></td>
      </tr>
      <tr>
       <td align="center">팀장</td>
@@ -38,7 +38,7 @@
       <td align="center"><a href="https://github.com/SeYoungYee">@SeYoungYee</a></td>
       <td align="center"><a href="https://github.com/phantom2115">@phantom2115</a></td>
       <td align="center"><a href="https://github.com/Cameron-86">@Cameron-86</a></td>
-      <td align="center"></td>
+      <td align="center"><a href="https://www.behance.net/hyungyeonglee">@HYUNGYEONG LEE</a></td>
     </tr>
   </tbody>
 </table>
