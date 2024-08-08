@@ -5,7 +5,7 @@ import { useModal } from '@/providers/modal.context';
 import useZustandStore, { loginZustandStore } from '@/zustand/zustandStore';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import HomeIcon from './assets/HomeIcon';
+import HomeIconBlack from './assets/HomeIconBlack';
 import KeyIconWhite from './assets/KeyIconWhite';
 
 const NavigationBar = () => {
@@ -39,7 +39,7 @@ const NavigationBar = () => {
         onCancel: goToLogIn,
         confirmButtonContent: {
           children: '홈으로 이동하기',
-          icon: <HomeIcon />
+          icon: <HomeIconBlack />
         },
         cancelButtonContent: {
           children: '로그인 하러가기',
