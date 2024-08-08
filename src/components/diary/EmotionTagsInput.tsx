@@ -106,10 +106,10 @@ const EmotionTagsInput = () => {
             className="flex justify-between h-20px-col-m gap-12px-row-m  md:h-24px-col md:gap-4px-row  items-center bg-[#F7F0E9] rounded outline-none overflow-hidden"
             style={{ flexShrink: 0 }}
           >
-            <span className="text-font-color text-14px-m md:text-14px md:ml-8px-row">{tag}</span>
+            <span className="text-font-color pl-8px-row-m  text-14px-m md:text-14px md:ml-8px-row ">{tag}</span>
             <button
               type="button"
-              className="text-font-color text-14px-m md:text-14px md:mr-8px-row"
+              className="text-font-color text-14px-m md:text-14px pr-8px-row-m md:mr-8px-row"
               onClick={() => handleDeleteTag(tag)}
             >
               X

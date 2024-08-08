@@ -69,11 +69,11 @@ const ImgDrop = () => {
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   return (
-    <div className="flex flex-col md:gap-8px-col md:w-335px-row md:h-152px-col">
+    <div className="flex flex-col gap-8px-col-m md:gap-8px-col md:w-335px-row md:h-152px-col">
       <p className="text-16px-m md:text-18px text-font-color">Q. 오늘 감정에맞는 이미지가 있나요?</p>
       <div
         {...getRootProps()}
-        className="flex bg-[#F9F5F0] items-center justify-center rounded-[8px]  w-80px-row-m h-80px-col-m md:w-120px-row md:h-120px-row
+        className="flex bg-[#F9F5F0] items-center justify-center rounded-[8px]  w-80px-row-m h-80px-row-m md:w-120px-row md:h-120px-row
         "
         style={{
           backgroundImage:
@@ -83,7 +83,7 @@ const ImgDrop = () => {
       >
         <input {...getInputProps()} />
         {watchedPreview ? (
-          <div className="relative w-80px-row-m h-80px-col-m md:w-120px-row md:h-120px-row rounded-[8px]">
+          <div className="relative w-80px-row-m h-80px-row-m md:w-120px-row md:h-120px-row rounded-[8px]">
             <Image src={watchedPreview} alt="Preview" fill className="w-full h-full object-cover rounded-[8px]" />
             <button
               type="button"
@@ -94,9 +94,9 @@ const ImgDrop = () => {
             </button>
           </div>
         ) : (
-          <div className="flex flex-col justify-center items-center md:w-120px-row md:h-120px-row">
+          <div className="flex flex-col justify-center items-center h-40px-col-m md:w-120px-row md:h-120px-row">
             <p className="text-12px-m md:text-14px">이미지 첨부</p>
-            <div className="md:h-36px-row md:w-36px-row">
+            <div className="h-24px-row-m w-24px-col-m md:h-36px-row md:w-36px-row">
               <CameraSVG />
             </div>
           </div>
