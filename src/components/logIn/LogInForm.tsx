@@ -6,6 +6,7 @@ import { clearLocalDiaries } from '@/utils/diaryLocalStorage';
 import { createClient } from '@/utils/supabase/client';
 import { loginZustandStore } from '@/zustand/zustandStore';
 import axios from 'axios';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, useState } from 'react';
 import Button from '../common/Button';
@@ -172,23 +173,23 @@ const LogInForm = () => {
           </div>
           <div className="flex items-start gap-32px-row">
             <div className="flex justify-center">
-              <div className="w-44px-row h-44px-col rounded-full flex justify-center items-center">
-                <img src="/Apple.png" alt="Apple" />
+              <div className="relative aspect-square w-44px-row h-44px-row rounded-full flex justify-center items-center">
+                <Image src="/Apple.png" alt="Apple" fill className="object-fit" />
               </div>
             </div>
             <div className="flex justify-center">
-              <div className="w-44px-row h-44px-col rounded-full flex justify-center items-center">
-                <img src="/Google.png" alt="Google" />
+              <div className="relative aspect-square w-44px-row h-44px-row rounded-full flex justify-center items-center">
+                <Image src="/Google.png" alt="Google" fill className="object-fit" />
               </div>
             </div>
             <div className="flex justify-center">
-              <div className="w-44px-row h-44px-col rounded-full flex justify-center items-center">
-                <img src="/Kakao.png" alt="Kakao" />
+              <div className="relative aspect-square w-44px-row h-44px-row rounded-full flex justify-center items-center">
+                <Image src="/Kakao.png" alt="Kakao" fill className="object-fit" />
               </div>
             </div>
             <div className="flex justify-center">
-              <div className="w-44px-row h-44px-col rounded-full flex justify-center items-center">
-                <img src="/Naver.png" alt="Naver" />
+              <div className="relative aspect-square w-44px-row h-44px-row rounded-full flex justify-center items-center">
+                <Image src="/Naver.png" alt="Naver" fill className="object-fit" />
               </div>
             </div>
           </div>

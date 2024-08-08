@@ -1,18 +1,22 @@
 'use client';
+
 import { kadvice, KadviceJsonModel } from 'kadvice';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ColorChart from './ColorChart';
 import EmotionChart from './EmotionChart';
 
 const StatisticsForm = () => {
   const [advice, setAdvice] = useState<KadviceJsonModel | null>(null);
+
   useEffect(() => {
     const advice = kadvice.getOne();
     setAdvice(advice);
   }, []);
+
   if (!advice) {
     return null;
   }
+
   return (
     <div className="md:bg-[#FBF8F4] rounded-5xl w-744px-row h-916px-col flex items-center flex-col md:mt-128px-col mt-[94px] m-auto bg-[#FEFDFB] border-0 md:border-4 border-[#E6D3BC]">
       <div className="md:w-600px-row md:h-401px-col w-[335px] h-[240px] md:mt-56px-col">

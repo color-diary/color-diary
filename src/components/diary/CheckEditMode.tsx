@@ -1,9 +1,8 @@
 'use client';
 
-import React from 'react';
+import useZustandStore from '@/zustand/zustandStore';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import useZustandStore from '@/zustand/zustandStore';
 
 const CheckEditMode = ({ children }: { children: React.ReactNode }) => {
   const { isDiaryEditMode } = useZustandStore();

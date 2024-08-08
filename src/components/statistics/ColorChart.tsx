@@ -1,15 +1,16 @@
 'use client';
 
-import { Pie, PieChart } from 'recharts';
 import { Card, CardContent } from '@/components/ui/card';
-import { ChartConfig, ChartContainer, ChartLegend, ChartLegendContent } from '@/components/ui/chart';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { ChartConfig, ChartContainer } from '@/components/ui/chart';
 import { Diary } from '@/types/diary.type';
+import axios from 'axios';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { Pie, PieChart } from 'recharts';
 
 const ColorChart = () => {
   const today = new Date();
+
   const [year, setYear] = useState(today.getFullYear());
   const [month, setMonth] = useState(today.getMonth() + 1);
   const [sortedColors, setSortedColors] = useState<string[]>([]);
@@ -62,7 +63,7 @@ const ColorChart = () => {
       label: 'Visitors'
     }
   } satisfies ChartConfig;
-  const sortedBackgroundColors = sortedColors.map((item, index) => `bg-[${item}]`);
+
   return (
     <Card className="flex flex-col md:w-422px-row md:h-361px-col border border-[#E6D3BC] rounded-5xl w-[335px] h-[208px]">
       <div className="flex items-center justify-center md:gap-12px-row md:text-20px md:mt-24px-col gap-2 text-[16px] mt-[17px]">
@@ -95,8 +96,13 @@ const ColorChart = () => {
                 {colorCounts.slice(0, Math.min(3, colorCounts.length)).map((item, index) => {
                   return (
                     <div key={index} className="flex items-center ml-8px-row">
-                      <div className="md:w-20px-row md:h-20px-col w-[20px] h-[20px]" style={{ backgroundColor: sortedColors[index] }}></div>
-                      <div className="md:ml-8px-row md:text-14px ml-[8px] text-[12px]">{Math.floor((item / colorCounts.length) * 100)}%</div>
+                      <div
+                        className="md:w-20px-row md:h-20px-col w-[20px] h-[20px]"
+                        style={{ backgroundColor: sortedColors[index] }}
+                      ></div>
+                      <div className="md:ml-8px-row md:text-14px ml-[8px] text-[12px]">
+                        {Math.floor((item / colorCounts.length) * 100)}%
+                      </div>
                     </div>
                   );
                 })}
@@ -107,7 +113,7 @@ const ColorChart = () => {
           <div className="md:h-full flex flex-row md:flex-col items-center justify-center md:justify-start mt-[24px] gap-[16px] md:gap-0">
             <div className="flex flex-col items-center">
               <Image
-                src="/Flowers.png"
+                src="/Flowers.svg"
                 alt="공백이미지"
                 width={176}
                 height={176}

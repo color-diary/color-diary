@@ -1,4 +1,3 @@
-import React from 'react';
 import DiaryContainer from '@/components/diary/DiaryContainer';
 import { isValidUUID } from '@/utils/paramsValidation';
 import { notFound } from 'next/navigation';
@@ -8,11 +7,7 @@ const DiaryPage = ({ params }: { params: { id: string } }) => {
     notFound();
   }
 
-  return (
-    <>
-      <DiaryContainer />
-    </>
-  );
+  return <DiaryContainer />;
 };
 
 export default DiaryPage;

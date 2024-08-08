@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Diary } from '@/types/diary.type';
+import axios from 'axios';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 const EmotionChart = () => {
   const today = new Date();
@@ -67,7 +67,7 @@ const EmotionChart = () => {
   }
 
   return (
-    <div className="flex flex-col items-center md:w-600px-row md:h-304px-col w-[335px]  border rounded-5xl border-[#E6D3BC] bg-white">
+    <div className="flex flex-col items-center md:w-600px-row md:h-304px-col w-[335px] border rounded-5xl border-[#E6D3BC] bg-white">
       <div className="flex items-center justify-center md:gap-12px-row md:text-20px md:mt-24px-col mt-[16px] gap-[8px] text-[16px]">
         <button onClick={() => changeDate(month - 1)}>&lt;</button>
         {year}.{month}
@@ -78,7 +78,7 @@ const EmotionChart = () => {
         (tagCounts[0] / tagCounts.length) * 100 < 3 ? (
           <div className="flex flex-col items-center md:mt-24px-col mt-[24px]">
             <Image
-              src="/seasons.png"
+              src="/Seasons.svg"
               alt="사계절 이미지"
               width={282}
               height={50}

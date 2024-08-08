@@ -1,10 +1,9 @@
 'use client';
 
-import React from 'react';
-import { useRouter } from 'next/navigation';
-import { Calendar } from '../ui/calendar';
 import { DiaryList } from '@/types/diary.type';
 import { formatFullDate } from '@/utils/dateUtils';
+import { useRouter } from 'next/navigation';
+import { Calendar } from '../ui/calendar';
 
 interface CardsProps {
   isCalendar: boolean;
@@ -38,7 +37,7 @@ const Cards = ({ diaryList, isCalendar, date, setDate, handleInputDate, isNeedNe
           handleInputDate={handleInputDate}
         />
       </div>
-      <div className="flex grid md:grid-cols-4 grid-cols-2 gap-[16px] md:gap-x-24px-row md:gap-y-24px-col gap-x-3 gap-y-4">
+      <div className="grid md:grid-cols-4 grid-cols-2 gap-[16px] md:gap-x-24px-row md:gap-y-24px-col gap-x-3 gap-y-4">
         {diaryList.length === 0 ? (
           <p>일기가 아직 작성되지 않았습니다.</p>
         ) : (

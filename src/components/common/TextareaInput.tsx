@@ -23,7 +23,7 @@ const labelVariant = cva('self-stretch font-medium', {
 });
 
 const textareaVariant = cva(
-  'w-full flex justify-center pl-16px-row pr-16px-row self-stretch border rounded-lg font-normal resize-none h-163px-row h-full', 
+  'w-full flex justify-center pl-16px-row pr-16px-row self-stretch border rounded-lg font-normal resize-none h-163px-row h-full',
   {
     variants: {
       state: {
@@ -75,7 +75,17 @@ type TextareaProps = {
 } & TextareaVariantProps &
   ComponentProps<'textarea'>;
 
-const Textarea = ({ label, validationMessage, state, device, id, value, setValue, maxLength, ...props }: TextareaProps) => {
+const Textarea = ({
+  label,
+  validationMessage,
+  state,
+  device,
+  id,
+  value,
+  setValue,
+  maxLength,
+  ...props
+}: TextareaProps) => {
   const textareaId = id || crypto.randomUUID();
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {

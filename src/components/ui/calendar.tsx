@@ -1,15 +1,15 @@
 'use client';
 
-import * as React from 'react';
-import { Caption, CaptionLabel, DayPicker, IconLeft, IconRight } from 'react-day-picker';
 import { cn } from '@/lib/utils';
-import Stamp from '../main/Stamp';
-import { useRouter } from 'next/navigation';
-import { formatFullDate } from '@/utils/dateUtils';
-import { Diary, DiaryList } from '@/types/diary.type';
-import { createClient } from '@/utils/supabase/client';
-import '../main/dateInput.css';
 import { useToast } from '@/providers/toast.context';
+import { Diary, DiaryList } from '@/types/diary.type';
+import { formatFullDate } from '@/utils/dateUtils';
+import { createClient } from '@/utils/supabase/client';
+import { useRouter } from 'next/navigation';
+import * as React from 'react';
+import { DayPicker } from 'react-day-picker';
+import '../main/dateInput.css';
+import Stamp from '../main/Stamp';
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
   diaryList: DiaryList;
@@ -50,7 +50,7 @@ function Calendar({
         head_row: `flex px-16px-row py-16px-col space-x-48px-row  border-b border-[#33D4AA]`,
         head_cell: 'text-black rounded-md w-9 font-normal md:text-18px text-14px-m',
         row: 'flex w-full h-[4.8rem] space-x-48px-row px-16px-row py-16px-col',
-        cell: 'h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20',
+        cell: 'h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative',
         day: 'h-9 w-9 font-normal aria-selected:opacity-100',
         day_range_end: 'day-range-end',
         day_selected:
@@ -102,7 +102,7 @@ function Calendar({
             isToday = true;
           }
 
-          const handleGoWirtePage = async () => {
+          const handleGoWritePage = async () => {
             try {
               const supabase = createClient();
               const {
@@ -163,7 +163,7 @@ function Calendar({
           ) : (
             <div
               onClick={() => {
-                handleGoWirtePage();
+                handleGoWritePage();
               }}
               className="flex flex-col items-center cursor-pointer"
             >

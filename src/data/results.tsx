@@ -3,18 +3,12 @@ import { ResultType } from '@/types/test.type';
 const results: ResultType[] = [
   {
     result: 'joy',
-    emotion: '#기쁨',
+    emotion: '기쁨',
     color: '#C5E1FB',
     comment: '좋은 일이 가득했던 날인가봐요./오늘은 행복한 날이에요!',
     title: '#행복한_하루',
     image: (
-      <svg
-        width="calc(100vw * 0.1042)"
-        height="calc(100vh * 0.1852)"
-        viewBox="0 0 201 200"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg width="201" height="200" viewBox="0 0 201 200" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clipPath="url(#clip0_2448_12209)">
           S
           <rect x="0.5" width="200" height="200" rx="97" fill="#C5E1FB" />
@@ -113,18 +107,12 @@ const results: ResultType[] = [
   },
   {
     result: 'sadness',
-    emotion: '#슬픔',
+    emotion: '슬픔',
     color: '#094986',
     comment: '오늘 하루가 힘드셨던 것 같아요./그만큼 잔뜩 울고, 푹 쉬길 바래요!',
     title: '#오늘은_슬픔이',
     image: (
-      <svg
-        width="calc(100vw * 0.1042)"
-        height="calc(100vh * 0.1852)"
-        viewBox="0 0 200 201"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg width="200" height="201" viewBox="0 0 200 201" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clipPath="url(#clip0_2448_11993)">
           <rect y="0.5" width="200" height="200" rx="97" fill="#094986" />
           <mask id="path-3-inside-1_2448_11993" fill="white">
@@ -280,18 +268,12 @@ const results: ResultType[] = [
   },
   {
     result: 'lethargy',
-    emotion: '#무기력',
+    emotion: '무기력',
     color: '#D4D4D4',
     comment: '때론 나도 모르게 치칠때가 있죠./조용히 나를 안아줘요.',
     title: '#기운없는_무기력',
     image: (
-      <svg
-        width="calc(100vw * 0.1042)"
-        height="calc(100vh * 0.1852)"
-        viewBox="0 0 201 200"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg width="201" height="200" viewBox="0 0 201 200" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="2.5" y="2" width="196" height="196" rx="95" fill="#D4D4D4" />
         <rect x="2.5" y="2" width="196" height="196" rx="95" stroke="#878787" strokeWidth="4" />
         <mask id="path-2-inside-1_2448_12347" fill="white">
@@ -436,13 +418,7 @@ const results: ResultType[] = [
     comment: '평온한 하루를 보내신 것 같아요./소소한 하루도 소중하죠!',
     title: '#안정적인_평온함',
     image: (
-      <svg
-        width="calc(100vw * 0.1042)"
-        height="calc(100vh * 0.1852)"
-        viewBox="0 0 201 200"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg width="201" height="200" viewBox="0 0 201 200" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="2.5" y="2" width="196" height="196" rx="95" fill="#F5FAFE" />
         <rect x="2.5" y="2" width="196" height="196" rx="95" stroke="#96C9F8" strokeWidth="4" />
         <mask id="path-2-inside-1_2448_12295" fill="white">
@@ -500,7 +476,7 @@ const results: ResultType[] = [
         <path
           d="M52.8999 91.9257C51.2843 95.0571 46.301 99.6209 40.9259 92.7151"
           stroke="black"
-          stroke-opacity="0.2"
+          strokeOpacity="0.2"
           strokeWidth="4"
           strokeLinecap="round"
         />
@@ -625,18 +601,12 @@ const results: ResultType[] = [
   },
   {
     result: 'anxiety',
-    emotion: '#불안',
+    emotion: '불안',
     color: '#FADFB7',
     comment: '잘 하고 싶은 마음이 있었나봐요./그 마음으로도 충분해요!',
     title: '#할수있다_불안이',
     image: (
-      <svg
-        width="calc(100vw * 0.1042)"
-        height="calc(100vh * 0.1852)"
-        viewBox="0 0 201 200"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg width="201" height="200" viewBox="0 0 201 200" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="2.5" y="2" width="196" height="196" rx="95" fill="#FADFB7" />
         <rect x="2.5" y="2" width="196" height="196" rx="95" stroke="#F1A027" strokeWidth="4" />
         <path
@@ -804,18 +774,12 @@ const results: ResultType[] = [
   },
   {
     result: 'anger',
-    emotion: '#분노',
+    emotion: '분노',
     color: '#3B3B3B',
     comment: '오늘 불쾌한 일이 있으셨나요?/분노를 건강하게 표출해요!',
     title: '#벼락의_분노',
     image: (
-      <svg
-        width="calc(100vw * 0.1042)"
-        height="calc(100vh * 0.1852)"
-        viewBox="0 0 201 200"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg width="201" height="200" viewBox="0 0 201 200" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="2.5" y="2" width="196" height="196" rx="95" fill="#3B3B3B" />
         <rect x="2.5" y="2" width="196" height="196" rx="95" stroke="#080808" strokeWidth="4" />
         <rect x="2.5" y="2" width="196" height="196" rx="95" stroke="black" strokeOpacity="0.2" strokeWidth="4" />
@@ -932,18 +896,12 @@ const results: ResultType[] = [
   },
   {
     result: 'hope',
-    emotion: '#희망참',
+    emotion: '희망참',
     color: '#FCD4DC',
     comment: `나의 하루는 말 그대로 희망이./미래를 그려나가는 모습이 멋져요!`,
     title: '#나는야_희망이',
     image: (
-      <svg
-        width="calc(100vw * 0.1042)"
-        height="calc(100vh * 0.1852)"
-        viewBox="0 0 201 200"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg width="201" height="200" viewBox="0 0 201 200" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="2.5" y="2" width="196" height="196" rx="95" fill="#FCD4DC" />
         <rect x="2.5" y="2" width="196" height="196" rx="95" stroke="#F14667" strokeWidth="4" />
         <mask

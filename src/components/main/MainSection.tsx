@@ -2,11 +2,11 @@
 
 import { useToast } from '@/providers/toast.context';
 import { Diary, DiaryList } from '@/types/diary.type';
-import { formatFullDate } from '@/utils/dateUtils';
+import { formatFullDate, getQueryStringDate } from '@/utils/dateUtils';
 import { createClient } from '@/utils/supabase/client';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '../common/Button';
 import { Calendar } from '../ui/calendar';
 import Cards from './Cards';
@@ -14,18 +14,12 @@ import Cards from './Cards';
 const MainSection = () => {
   const router = useRouter();
   const toast = useToast();
-  const [queryString, setQueryString] = useState<string>();
-  const [diaryList, setDiaryList] = useState<DiaryList>([]);
-  const getQueryStringDate = (type: string) => {
-    if (typeof window !== 'undefined') {
-      const YYMM = localStorage.getItem('queryString')?.slice(-6);
-      if (YYMM) {
-        return type === 'year' ? YYMM.slice(0, 4) : YYMM.slice(4, 6);
-      }
-    }
-  };
+
   const today = new Date();
   const newDate = new Date(Number(getQueryStringDate('year')), Number(getQueryStringDate('month')) - 1, 1);
+
+  const [queryString, setQueryString] = useState<string>();
+  const [diaryList, setDiaryList] = useState<DiaryList>([]);
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [form, setForm] = useState<String | undefined>(undefined);
   const [isNeedNew, setIsNeedNew] = useState<boolean>(false);
@@ -120,7 +114,7 @@ const MainSection = () => {
   useEffect(() => {}, [diaryList]);
 
   return (
-    <div className="h-screen flex mt-200px-col items-center flex-col md:ml-[128px]">
+    <div className="h-screen flex justify-center mt-200px-col">
       <div className="px-20px-row-m">
         <div className=" flex justify-between mb-36px-col w-[350px] md:w-full">
           <p className="text-18px-m md:text-24px font-bold">나의 감정 기록</p>
@@ -214,7 +208,7 @@ const MainSection = () => {
             }
             href={'/emotion-test'}
           >
-            <p className="text-14px-m md:16px">나의 감정 확인하기</p>
+            나의 감정 확인하기
           </Button>
         </div>
       </div>
