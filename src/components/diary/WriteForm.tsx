@@ -212,7 +212,6 @@ const WriteForm = () => {
 
   return (
     <>
-      {' '}
       <form className="block md:hidden" onSubmit={(e) => (isDiaryEditMode ? handleEdit(e) : handleWrite(e))}>
         <div className="flex flex-col items-center justify-center h-screen">
           <div className="flex flex-col gap-custom-24px-m w-335px-row-m ">
@@ -262,60 +261,72 @@ const WriteForm = () => {
           </div>
         </div>
       </form>
+
       <form className="hidden md:block" onSubmit={(e) => (isDiaryEditMode ? handleEdit(e) : handleWrite(e))}>
         <div className="flex items-center justify-center h-screen">
-          <div className="  w-744px-row h-818px-col gap-custom-16px rounded-[32px] flex flex-col items-center justify-center bg-[#F9F5F0] border-4 border-[#E6D3BC]">
-            <div className="flex h-46px-col  w-600px-row justify-between items-center">
-              <div className="flex items-center  ">
-                <TextButton onClick={handleBackward} type="button">
-                  뒤로가기
-                </TextButton>
-              </div>
-
-              <Button
-                size="md"
-                type="submit"
-                icon={
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M18.6159 1.51123C18.2877 1.16589 17.8937 0.889755 17.457 0.699088C17.0204 0.508422 16.55 0.407083 16.0736 0.401044C15.5972 0.395005 15.1244 0.484388 14.6831 0.663926C14.2418 0.843463 13.8408 1.10952 13.5039 1.44643L2.25394 12.6964C1.86127 13.0897 1.58865 13.5867 1.46794 14.1292L0.414342 18.8692C0.392305 18.9679 0.395535 19.0704 0.423733 19.1675C0.45193 19.2645 0.504181 19.3529 0.575638 19.4243C0.647095 19.4958 0.735443 19.548 0.832485 19.5762C0.929527 19.6044 1.03212 19.6077 1.13074 19.5856L5.84194 18.538C6.40329 18.4143 6.91728 18.1319 7.32274 17.7244L16.8987 8.14843L17.3031 8.55163C17.5281 8.77666 17.6545 9.08183 17.6545 9.40003C17.6545 9.71822 17.5281 10.0234 17.3031 10.2484L16.1751 11.3764C16.066 11.4897 16.0057 11.6414 16.0073 11.7987C16.0089 11.956 16.0722 12.1064 16.1836 12.2175C16.295 12.3286 16.4456 12.3915 16.6029 12.3927C16.7603 12.3938 16.9117 12.3331 17.0247 12.2236L18.1515 11.0956C18.6015 10.6456 18.8542 10.0352 18.8542 9.39883C18.8542 8.76243 18.6015 8.15209 18.1515 7.70203L17.7483 7.29883L18.5523 6.49483C19.2106 5.83632 19.5855 4.94671 19.5971 4.01572C19.6088 3.08472 19.2575 2.18601 18.6159 1.51123ZM14.3511 2.29483C14.7967 1.85563 15.3978 1.61041 16.0234 1.61266C16.649 1.6149 17.2484 1.86442 17.6908 2.3068C18.1332 2.74918 18.3827 3.34853 18.3849 3.97415C18.3872 4.59976 18.1419 5.20089 17.7027 5.64643L6.47434 16.876C6.23022 17.1222 5.9202 17.2926 5.58154 17.3668L1.78954 18.2092L2.63914 14.3896C2.71004 14.0694 2.8712 13.7763 3.10354 13.5448L14.3511 2.29483Z"
-                      fill="white"
-                    />
-                  </svg>
-                }
-              >
-                {isDiaryEditMode ? '수정하기' : '작성완료'}
-              </Button>
-            </div>
-            <div className=" relative flex flex-col  items-start justify-start p-3 pl-5 bg-white w-600px-row h-644px-col rounded-[32px] border border-[#E6D3BC] ">
-              <div className="flex flex-col h-[100%] w-[100%] gap-2">
-                <ColorPicker />
-                <EmotionTagsInput />
-                <DiaryTextArea />
-                <ImgDrop />
-              </div>
-              <div className="absolute bottom-0 right-0 flex flex-col justify-center items-center p-4">
-                <p className="mb-2 text-14px text-font-color">오늘 나의 감정이 궁금하다면?</p>
-                <Link href="/emotion-test">
+          <div className="w-744px-row h-807px-col px-72px-row pb-72px-col pt-40px-col rounded-[32px] flex flex-col items-center justify-center bg-[#FBF8F4] border-4 border-[#E6D3BC]">
+            <div className="flex flex-col gap-16px-row">
+              <div className="flex h-46px-col  w-600px-row  justify-between items-center">
+                <div className="flex items-center ml-24px-row ">
+                  <TextButton onClick={handleBackward} type="button">
+                    뒤로가기
+                  </TextButton>
+                </div>
+                <div className="mr-24px-row">
                   <Button
                     size="md"
-                    type="button"
-                    priority="secondary"
+                    type="submit"
                     icon={
                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g id="icon/angle-right">
-                          <path
-                            id="Vector"
-                            d="M7.64589 4.14689C7.73953 4.05303 7.8666 4.00019 7.99919 4C8.13177 3.99981 8.259 4.05229 8.35289 4.14589L13.8369 9.61089C13.8881 9.66199 13.9288 9.72269 13.9566 9.78953C13.9843 9.85637 13.9986 9.92803 13.9986 10.0004C13.9986 10.0728 13.9843 10.1444 13.9566 10.2113C13.9288 10.2781 13.8881 10.3388 13.8369 10.3899L8.35289 15.8549C8.25847 15.9458 8.13209 15.9961 8.00099 15.9948C7.86989 15.9934 7.74455 15.9407 7.65197 15.8478C7.5594 15.755 7.50699 15.6295 7.50604 15.4984C7.50509 15.3673 7.55567 15.2411 7.64689 15.1469L12.8119 9.99989L7.64689 4.85389C7.55303 4.76026 7.50019 4.63318 7.5 4.5006C7.49981 4.36802 7.55229 4.24079 7.64589 4.14689Z"
-                            fill="currentColor"
-                          />
-                        </g>
+                        <path
+                          d="M18.6159 1.51123C18.2877 1.16589 17.8937 0.889755 17.457 0.699088C17.0204 0.508422 16.55 0.407083 16.0736 0.401044C15.5972 0.395005 15.1244 0.484388 14.6831 0.663926C14.2418 0.843463 13.8408 1.10952 13.5039 1.44643L2.25394 12.6964C1.86127 13.0897 1.58865 13.5867 1.46794 14.1292L0.414342 18.8692C0.392305 18.9679 0.395535 19.0704 0.423733 19.1675C0.45193 19.2645 0.504181 19.3529 0.575638 19.4243C0.647095 19.4958 0.735443 19.548 0.832485 19.5762C0.929527 19.6044 1.03212 19.6077 1.13074 19.5856L5.84194 18.538C6.40329 18.4143 6.91728 18.1319 7.32274 17.7244L16.8987 8.14843L17.3031 8.55163C17.5281 8.77666 17.6545 9.08183 17.6545 9.40003C17.6545 9.71822 17.5281 10.0234 17.3031 10.2484L16.1751 11.3764C16.066 11.4897 16.0057 11.6414 16.0073 11.7987C16.0089 11.956 16.0722 12.1064 16.1836 12.2175C16.295 12.3286 16.4456 12.3915 16.6029 12.3927C16.7603 12.3938 16.9117 12.3331 17.0247 12.2236L18.1515 11.0956C18.6015 10.6456 18.8542 10.0352 18.8542 9.39883C18.8542 8.76243 18.6015 8.15209 18.1515 7.70203L17.7483 7.29883L18.5523 6.49483C19.2106 5.83632 19.5855 4.94671 19.5971 4.01572C19.6088 3.08472 19.2575 2.18601 18.6159 1.51123ZM14.3511 2.29483C14.7967 1.85563 15.3978 1.61041 16.0234 1.61266C16.649 1.6149 17.2484 1.86442 17.6908 2.3068C18.1332 2.74918 18.3827 3.34853 18.3849 3.97415C18.3872 4.59976 18.1419 5.20089 17.7027 5.64643L6.47434 16.876C6.23022 17.1222 5.9202 17.2926 5.58154 17.3668L1.78954 18.2092L2.63914 14.3896C2.71004 14.0694 2.8712 13.7763 3.10354 13.5448L14.3511 2.29483Z"
+                          fill="white"
+                        />
                       </svg>
                     }
                   >
-                    나의 감정 확인하기
+                    {isDiaryEditMode ? '수정하기' : '작성완료'}
                   </Button>
-                </Link>
+                </div>
+              </div>
+              <div className="flex flex-col  items-start justify-start pt-24px-col pb-24px-col pl-24px-row pr-24px-row bg-white w-600px-row h-633px-col rounded-[32px] border border-[#E6D3BC] ">
+                <div className="flex flex-col gap-24px-col">
+                  <ColorPicker />
+                  <EmotionTagsInput />
+                  <DiaryTextArea />
+                  <div className="flex w-552px-row h-152px-col">
+                    <ImgDrop />
+                    <div className="flex flex-col justify-center items-center p-4">
+                      <p className="mb-2 text-14px text-font-color">오늘 나의 감정이 궁금하다면?</p>
+                      <Link href="/emotion-test">
+                        <Button
+                          size="md"
+                          type="button"
+                          priority="secondary"
+                          icon={
+                            <svg
+                              width="20"
+                              height="20"
+                              viewBox="0 0 20 20"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <g id="icon/angle-right">
+                                <path
+                                  id="Vector"
+                                  d="M7.64589 4.14689C7.73953 4.05303 7.8666 4.00019 7.99919 4C8.13177 3.99981 8.259 4.05229 8.35289 4.14589L13.8369 9.61089C13.8881 9.66199 13.9288 9.72269 13.9566 9.78953C13.9843 9.85637 13.9986 9.92803 13.9986 10.0004C13.9986 10.0728 13.9843 10.1444 13.9566 10.2113C13.9288 10.2781 13.8881 10.3388 13.8369 10.3899L8.35289 15.8549C8.25847 15.9458 8.13209 15.9961 8.00099 15.9948C7.86989 15.9934 7.74455 15.9407 7.65197 15.8478C7.5594 15.755 7.50699 15.6295 7.50604 15.4984C7.50509 15.3673 7.55567 15.2411 7.64689 15.1469L12.8119 9.99989L7.64689 4.85389C7.55303 4.76026 7.50019 4.63318 7.5 4.5006C7.49981 4.36802 7.55229 4.24079 7.64589 4.14689Z"
+                                  fill="currentColor"
+                                />
+                              </g>
+                            </svg>
+                          }
+                        >
+                          나의 감정 확인하기
+                        </Button>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
