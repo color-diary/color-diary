@@ -33,7 +33,6 @@ const ColorChart = () => {
       try {
         const response = await axios.get<Diary[]>(`/api/diaries?year=${year}&month=${month}`);
         const diaries = response.data;
-        console.log(diaries);
         setLength(diaries.length);
 
         const allColors = diaries.flatMap((entry) => entry.color);
