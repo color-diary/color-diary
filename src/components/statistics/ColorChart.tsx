@@ -66,7 +66,7 @@ const ColorChart = () => {
 
   return (
     <Card className="flex flex-col md:w-422px-row md:h-361px-col border border-[#E6D3BC] rounded-5xl w-[335px] h-[208px]">
-      <div className="flex items-center justify-center md:gap-12px-row md:text-20px md:mt-24px-col gap-2 text-[16px] mt-[17px]">
+      <div className="flex items-center justify-center md:gap-12px-row md:text-20px md:mt-24px-col gap-2 text-[16px] mt-[17px] text-font-color">
         <button onClick={() => changeDate(month - 1)}>&lt;</button>
         {year}.{month}
         <button onClick={() => changeDate(month + 1)}>&gt;</button>
@@ -81,8 +81,8 @@ const ColorChart = () => {
                 </PieChart>
               </ChartContainer>
               <div className="flex flex-col items-center">
-                <div className="md:text-16px text-[12px]">이 달은 다양한 감정을 느끼셨나봐요.</div>
-                <div className="md:text-16px text-[12px]">색상이 다채로워요!</div>
+                <div className="md:text-16px text-[12px] text-font-color">이 달은 다양한 감정을 느끼셨나봐요.</div>
+                <div className="md:text-16px text-[12px] text-font-color">색상이 다채로워요!</div>
               </div>
             </div>
           ) : (
@@ -100,7 +100,7 @@ const ColorChart = () => {
                         className="md:w-20px-row md:h-20px-col w-[20px] h-[20px]"
                         style={{ backgroundColor: sortedColors[index] }}
                       ></div>
-                      <div className="md:ml-8px-row md:text-14px ml-[8px] text-[12px]">
+                      <div className="md:ml-8px-row md:text-14px ml-[8px] text-[12px] text-font-color">
                         {Math.floor((item / colorCounts.length) * 100)}%
                       </div>
                     </div>
@@ -121,8 +121,8 @@ const ColorChart = () => {
               />
             </div>
             <div className="md:mb-32px-col flex flex-col items-center">
-              <div className="md:text-16px text-[12px]">이달은 기록된 감정이 없어요.</div>
-              <div className="md:text-16px text-[12px]">더 많은 감정을 기록해봐요!</div>
+              <div className="md:text-16px text-[12px] text-font-color">이달은 기록된 감정이 없어요.</div>
+              <div className="md:text-16px text-[12px] text-font-color">더 많은 감정을 기록해봐요!</div>
             </div>
           </div>
         )}

@@ -68,7 +68,7 @@ const EmotionChart = () => {
 
   return (
     <div className="flex flex-col items-center md:w-600px-row md:h-304px-col w-[335px] border rounded-5xl border-[#E6D3BC] bg-white pb-[24px]">
-      <div className="flex items-center justify-center md:gap-12px-row md:text-20px md:mt-24px-col mt-[16px] gap-[8px] text-[16px]">
+      <div className="flex items-center justify-center md:gap-12px-row md:text-20px md:mt-24px-col mt-[16px] gap-[8px] text-[16px] text-font-color">
         <button onClick={() => changeDate(month - 1)}>&lt;</button>
         {year}.{month}
         <button onClick={() => changeDate(month + 1)}>&gt;</button>
@@ -84,11 +84,11 @@ const EmotionChart = () => {
               height={50}
               className="md:w-282px-row md:h-50px-colx md:mb-16px-col w-[232px] h-[40px] mb-[16px]"
             />
-            <div className="md:text-16px text-[12px]">다양한 감정을 느끼신 것 같아요.</div>
-            <div className="md:text-16px text-[12px]">
+            <div className="md:text-16px text-[12px] text-font-color">다양한 감정을 느끼신 것 같아요.</div>
+            <div className="md:text-16px text-[12px] text-font-color">
               다양한 감정이 동일한 빈도로 나타내고 있어 통계를 제공할 수 없어요.
             </div>
-            <div className="md:text-16px text-[12px]">하지만 감정을 기록하는 건 좋은 습관입니다.</div>
+            <div className="md:text-16px text-[12px] text-font-color">하지만 감정을 기록하는 건 좋은 습관입니다.</div>
             <div className="text-[#25B18C] md:text-20px text-[14px] md:mt-24px-col mt-[16px] mb-[24px]">
               #다양한_감정의_주인공은_바로_나
             </div>
@@ -130,13 +130,13 @@ const EmotionChart = () => {
       ) : (
         <div className="md:mt-64px-col mt-[24px] flex flex-col items-center">
           <div className="text-[#25B18C] md:text-20px text-[14px]">#이달은_감정기록이_필요해</div>
-          <div className="md:mt-16px-col md:text-16px mt-[16px] text-[12px]">
+          <div className="md:mt-16px-col md:text-16px mt-[16px] text-[12px] text-font-color">
             아직 감정 해시태그가 기록되지 않았어요.
           </div>
-          <div className="md:text-16px text-[12px]">
+          <div className="md:text-16px text-[12px] text-font-color">
             감정 해시태그를 추가하면 자기 이해와 관리에 도움이 될 수 있답니다.
           </div>
-          <div className="md:text-16px text-[12px] mb-[24px]">오늘의 감정을 해시태그로 표현해보세요!</div>
+          <div className="md:text-16px text-[12px] mb-[24px] text-font-color">오늘의 감정을 해시태그로 표현해보세요!</div>
         </div>
       )}
     </div>
