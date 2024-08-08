@@ -312,7 +312,7 @@ const config = {
             width: 'calc(100vw * 0.00417) !important'
           },
           '&::-webkit-scrollbar-thumb': {
-            backgroundColor: 'white !important',
+            backgroundColor: 'var(--text-button-disable-color) !important',
             borderRadius: '16px !important',
             border: '2px solid var(--validation-color) !important',
             cursor: 'pointer'
@@ -326,7 +326,7 @@ const config = {
             width: 'calc(100vw * 0.02133) !important'
           },
           '&::-webkit-scrollbar-thumb': {
-            backgroundColor: 'white !important',
+            backgroundColor: 'var(--text-button-disable-color) !important',
             borderRadius: '16px !important',
             border: '2px solid var(--validation-color) !important',
             cursor: 'pointer'
