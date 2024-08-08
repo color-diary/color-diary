@@ -131,7 +131,7 @@ const Test = () => {
           <span className="w-full md:w-600px-row flex justify-end text-font-color text-12px-m md:text-14px font-normal tracking-0.28px">
             {step + 1}/{TOTAL_QUESTION}
           </span>
-          {!isLastQuestion && <LoadingSpinner />}
+          {isLastQuestion && <LoadingSpinner />}
         </div>
       ) : (
         <div className="flex flex-col mx-32px-row-m my-40px-col-m md:mx-72px-row md:mt-56px-col md:mb-80px-col gap-56px-col flex-shrink-0s">
