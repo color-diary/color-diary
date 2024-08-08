@@ -172,7 +172,7 @@ const config = {
         '135px-col-m': 'calc((135 / 375) * 100vw)',
         '140px-col-m': 'calc((140 / 375) * 100vw)',
         '192px-col-m': 'calc((192 / 375) * 100vw)',
-        '200px-col-m': 'calc((200 / 375) * 100vw)',
+        '200px-col-m': 'calc(100vh * 0.2463)',
         '264px-col-m': 'calc((264 / 375) * 100vw)',
         '360px-col-m': 'calc(100vw * 0.5398)',
         '440px-col-m': 'calc(100vh * 0.6597)',

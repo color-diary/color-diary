@@ -9,6 +9,7 @@ import zustandStore from '@/zustand/zustandStore';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Button from '../common/Button';
+import LoadingSpinner from '../common/LoadingSpinner';
 import TextButton from '../common/TextButton';
 import ProgressBar from './ProgressBar';
 import AngleRightBlack from './assets/AngleRightBlack';
@@ -111,7 +112,7 @@ const Test = () => {
             <ul className="w-full md:w-600px-row flex flex-col items-start md:px-24px-row md:py-24px-col gap-16px-col-m md:gap-24px-col">
               {questions[step].options.map((option, index) => (
                 <li
-                  key={index}
+                  key={`${step + 1}-${index}`}
                   className="w-full flex justify-between items-center px-16px-row-m py-4px-col-m md:px-16px-row md:py-4px-col gap-8px-row-m md:gap-8px-row"
                 >
                   <span
@@ -130,6 +131,7 @@ const Test = () => {
           <span className="w-full md:w-600px-row flex justify-end text-font-color text-12px-m md:text-14px font-normal tracking-0.28px">
             {step + 1}/{TOTAL_QUESTION}
           </span>
+          {isLastQuestion && <LoadingSpinner />}
         </div>
       ) : (
         <div className="flex flex-col mx-32px-row-m my-40px-col-m md:mx-72px-row md:mt-56px-col md:mb-80px-col gap-56px-col flex-shrink-0s">
