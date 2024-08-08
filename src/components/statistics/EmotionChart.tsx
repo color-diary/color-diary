@@ -67,7 +67,7 @@ const EmotionChart = () => {
   }
 
   return (
-    <div className="flex flex-col items-center md:w-600px-row md:h-304px-col w-[335px] border rounded-5xl border-[#E6D3BC] bg-white">
+    <div className="flex flex-col items-center md:w-600px-row md:h-304px-col w-[335px] border rounded-5xl border-[#E6D3BC] bg-white pb-[24px]">
       <div className="flex items-center justify-center md:gap-12px-row md:text-20px md:mt-24px-col mt-[16px] gap-[8px] text-[16px]">
         <button onClick={() => changeDate(month - 1)}>&lt;</button>
         {year}.{month}
@@ -95,19 +95,19 @@ const EmotionChart = () => {
           </div>
         ) : (
           <div className="flex flex-row mt-24px-col md:h-200px-col h-[136px] gap-[7.5px]">
-            <div className="flex flex-col md:gap-16px-col md:py-24px-col md:h-200px-col gap-[16px] py-[14px] h-[136px]">
+            <div className="flex flex-col md:gap-16px-col md:py-24px-col md:h-200px-col gap-[16px] py-[16px] h-[136px]">
               {chartData.map((item, index) => {
                 return (
                   <div
                     key={index}
-                    className="flex items-center text-start md:w-60px-row md:h-40px-col w-[50px] h-[19px]"
+                    className="flex items-center text-start md:w-100px-row md:h-40px-col w-[70px] h-[24px]"
                   >
                     <span className="md:text-18px text-[14px] w-full truncate">{item.tag}</span>
                   </div>
                 );
               })}
             </div>
-            <div className="flex flex-col border-l-2 border-[#25B18C] md:gap-16px-col md:py-24px-col py-[14px] gap-[16px]">
+            <div className="flex flex-col border-l-2 border-[#25B18C] md:gap-16px-col md:py-24px-col py-[16px] gap-[16px]">
               {progresses.map((item, index) => {
                 return (
                   <div key={index} className="flex items-center w-full">
