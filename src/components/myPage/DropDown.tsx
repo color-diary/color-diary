@@ -21,15 +21,14 @@ function Dropdown() {
         문의 종류를 선택해주세요
       </label>
       <div
-        className="w-full flex items-center px-4 py-2 rounded-lg cursor-pointer bg-white"
-        style={{ border: `${isOpen ? '1px solid border-[#25B18C]' : '1px solid var(--input-color)'}` }}
+        className={`w-full flex items-center px-4 py-2 rounded-lg cursor-pointer bg-white border ${isOpen ? 'border-[#25B18C]' : 'border-[var(--input-color)]'}`}
         onClick={toggleDropdown}
       >
         <input
           type="text"
           value={selectedOption || '---------------------문의종류 선택하기---------------------'}
           readOnly
-          className="w-full outline-none text-18px cursor-pointer"
+          className="w-full outline-none text-18px cursor-pointer border-[#A1A1A1]"
         />
         <div>
           {isOpen ? (

@@ -60,6 +60,7 @@ const config = {
         '60px-row': 'calc(100vw * 0.0313)',
         '72px-row': 'calc(100vw * 0.0375)',
         '77px-row': 'calc((77 / 1920) * 100vw)',
+        '80px-row': 'calc((80 / 1920) * 100vw)',
         '96px-row': 'calc(100vw * 0.05)',
         '120px-row': 'calc(120 / 1920 * 100vw)',
         '128px-row': 'calc(100vw * 0.0667)',
@@ -214,6 +215,7 @@ const config = {
         '0.56px': '-0.035rem'
       },
       colors: {
+        
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
