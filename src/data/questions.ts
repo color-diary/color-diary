@@ -100,14 +100,14 @@ const questions: QuestionType[] = [
       {
         label: 'B. 기분이 좋아지는 음악',
         value: ['sadness', 'lethargy', 'anxiety', 'anger'],
-        sentiment: 'negative',
-        points: { hope: 0, joy: 0, sadness: 1, lethargy: 0.8, calm: 0, anxiety: 0.9, anger: 1 }
+        sentiment: 'positive',
+        points: { hope: 0, joy: 0.5, sadness: 1, lethargy: 0.8, calm: 0, anxiety: 0.9, anger: 1 }
       },
       {
         label: 'C. 기분이 차분해지는 음악',
         value: ['anger', 'anxiety'],
         sentiment: 'negative',
-        points: { hope: 0, joy: 0, sadness: 0, lethargy: 0, calm: 0, anxiety: 1, anger: 0.9 }
+        points: { hope: 0, joy: 0, sadness: 0, lethargy: 0, calm: 0.8, anxiety: 1, anger: 0.9 }
       },
       {
         label: 'D. 힘이 나는 음악',
@@ -170,8 +170,8 @@ const questions: QuestionType[] = [
       {
         label: 'D. 지금',
         value: ['lethargy', 'hope'],
-        sentiment: 'negative',
-        points: { hope: 0.6, joy: 0, sadness: 0, lethargy: 1, calm: 0, anxiety: 0, anger: 0 }
+        sentiment: 'positive',
+        points: { hope: 0.9, joy: 0, sadness: 0, lethargy: 1, calm: 0, anxiety: 0, anger: 0 }
       }
     ]
   }
