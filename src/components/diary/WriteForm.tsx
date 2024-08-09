@@ -17,7 +17,6 @@ import { createClient } from '@/utils/supabase/client';
 import useZustandStore from '@/zustand/zustandStore';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Button from '../common/Button';

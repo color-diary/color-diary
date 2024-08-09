@@ -182,7 +182,6 @@ const config = {
         '16px-col-m': 'calc(100vh * 0.0197)',
         '20px-col-m': 'calc(100vh *  0.0246)',
         '24px-col-m': 'calc(100vh * 0.02956)',
-
         '28px-col-m': 'calc(100vh * 0.0345)',
         '32px-col-m': 'calc(100vh * 0.0394)',
         '35px-col-m': 'calc(100vh * 0.0431)',
@@ -192,6 +191,7 @@ const config = {
         '64px-col-m': 'calc(100vh * 0.0788)',
         '80px-col-m': 'calc(100vh * 0.0985)',
         '90px-col-m': 'calc(100vh * 0.1108)',
+        '95px-col-m': 'calc(100vh * 0.11709)',
         '102px-col-m': 'calc(100vh * 0.1252)',
         '135px-col-m': 'calc(100vh * 0.1667)',
         '140px-col-m': 'calc(100vh * 0.1725)',
@@ -202,7 +202,6 @@ const config = {
         '440px-col-m': 'calc(100vh * 0.541)',
         '482px-col-m': 'calc(100vh * 0.593)',
         '615px-col-m': 'calc(100vh * 0.757)',
-
         'pt-148px-row': 'calc(148 / 1080 * 100vh)',
         'pt-312px-row': 'calc(312 / 1080 * 100vh)',
         'pt-20px-row': 'calc(20 / 1920 * 100vw)',

@@ -41,17 +41,17 @@ const DiaryTextArea = () => {
           control={control}
           render={({ field }) => (
             <textarea
-              className="text-font-color w-full h-95px-col-m md:h-148px-col rounded-[8px] resize-none custom-scrollbar text-14px-m md:text-18px outline-none"
+              className="text-font-color w-full h-102px-col-m md:h-148px-col rounded-[8px] resize-none custom-scrollbar text-14px-m md:text-18px outline-none"
               placeholder="오늘의 감정과 관련된 일을 작성해주세요.
-                ex)오늘의 점심이 정말 맛있었어요. 정말 행복한 하루를 보낸 것 같아요."
+              ex)오늘의 점심이 정말 맛있었어요. 정말 행복한 하루를 보낸 것 같아요."
               value={field.value}
               onChange={(e) => handleContentChange(e.target.value)}
               maxLength={500}
             />
           )}
         />
-        <div className="relative h-16px-col-m md:h-12px-col rounded-[8px]">
-          <div className="rounded-[8px] absolute bottom-0.5 right-1 text-gray-400 text-12px-m md:text-14px">
+        <div className="relative h-12px-col-m md:h-12px-col rounded-[8px]">
+          <div className="rounded-[8px] absolute bottom--1 md:bottom-0 right-1 text-gray-400 text-12px-m md:text-14px">
             {charCount}/500
           </div>
         </div>
