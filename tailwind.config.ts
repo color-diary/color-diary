@@ -119,6 +119,7 @@ const config = {
         '74px-col': 'calc(100vh * 0.06852)',
         '76px-col': 'calc(100vh * 0.07037)',
         '80px-col': 'calc(100vh * 0.07407)',
+        '84px-col': 'calc(100vh * 0.0778)',
         '94px-col': 'calc(100vh * 0.087037)',
         '102px-col': 'calc(100vh * 0.09453)',
         '105px-col': 'calc(100vh * 0.0972)',
@@ -258,7 +259,6 @@ const config = {
         '0.56px': '-0.035rem'
       },
       colors: {
-        
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
