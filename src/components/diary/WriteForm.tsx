@@ -215,6 +215,7 @@ const WriteForm = () => {
   };
 
   const RouteToEmotionTest = () => {
+    modal.close();
     void router.replace('/emotion-test');
   };
 

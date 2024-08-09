@@ -15,6 +15,7 @@ import Button from '../common/Button';
 import TextButton from '../common/TextButton';
 import DiaryContent from './DiaryContent';
 import { useSearchParams } from 'next/navigation';
+import LoadingSpinner from '../common/LoadingSpinner';
 
 const DiaryContainer = () => {
   const router = useRouter();
@@ -94,7 +95,11 @@ const DiaryContainer = () => {
   });
 
   if (isLoading || isQueryLoading) {
-    return <p>Loading...</p>;
+    return (
+      <p>
+        <LoadingSpinner />
+      </p>
+    );
   }
 
   const diaryData = userId ? diary : localDiary;
