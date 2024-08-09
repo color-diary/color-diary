@@ -42,8 +42,12 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
     return emailRegex.test(email);
   };
 
+  const validateNicknameNull = (nickname:string): boolean =>{
+    return nickname !== null && nickname !== undefined && nickname.trim() !== '';
+  }
+
   const validateNickname = (nickname: string): boolean => {
-    return nickname.length >= 3;
+    return nickname.length >= 3 && nickname.length <= 8;
   };
 
   const validatePassword = (password: string): boolean => {
@@ -59,8 +63,12 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
       return toast.on({ label: '이메일을 작성하지 않으셨어요. 이메일을 작성해주세요.' });
     }
 
-    if (!validateNickname(nickname)) {
+    if (!validateNicknameNull(nickname)) {
       return toast.on({ label: '이름을 작성하지 않으셨어요. 이름을 작성해주세요.' });
+    }
+  
+    if (!validateNickname(nickname)) {
+      return toast.on({ label: '이름은 3~8글자 이내로 작성해주세요.' });
     }
 
     if (!validatePassword(password)) {
@@ -140,6 +148,9 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
     setNickname(newNickname);
     setNicknameState(() => {
       if (newNickname === '') return 'default';
+      else if(!validateNicknameNull(newNickname)) { return 'error';
+
+      }
       else {
         if (!validateNickname(newNickname)) return 'error';
         else return 'filled';
@@ -219,7 +230,7 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
                 setValue={setNickname}
                 onChange={handleChangeNickname}
                 label="이름"
-                validationMessage="띄어쓰기는 불가능해요"
+                validationMessage="띄어쓰기는 불가능해요.(3~8글자 이내)"
                 placeholder="사용할 이름을 입력해주세요."
               />
               <Input

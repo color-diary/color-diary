@@ -2,7 +2,7 @@
 
 import useZustandStore from '@/zustand/zustandStore';
 import { useEffect } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 
 type FormValues = {
   customColor: string;
@@ -10,7 +10,7 @@ type FormValues = {
   showRainbow: boolean;
 };
 const ColorPicker = () => {
-  const colors = ['#F05050', '#F1883C', '#FBED12', '#55F896', '#7BDFED', '#444EE9', '#B979EC'];
+  const colors = ['#F05050', '#F4B557', '#FDED57', '#33D4AA', '#7BDFED', '#5B60B7', '#B77CD2'];
   const { control, setValue, watch } = useForm<FormValues>({
     defaultValues: {
       customColor: '',
@@ -19,7 +19,7 @@ const ColorPicker = () => {
     }
   });
 
-  const { color, setColor, isDiaryEditMode, testResult, hasTestResult, setHasTestResult } = useZustandStore();
+  const { color, setColor, isDiaryEditMode, testResult, hasTestResult } = useZustandStore();
   const customColor = watch('customColor');
   const pickedColor = watch('pickedColor');
   const showRainbow = watch('showRainbow');
@@ -38,9 +38,8 @@ const ColorPicker = () => {
       setValue('pickedColor', testResult.result.color);
       setValue('showRainbow', false);
       setValue('customColor', testResult.result.color);
-      setHasTestResult(false);
     }
-  }, [isDiaryEditMode, color, testResult, hasTestResult, setValue, setHasTestResult]);
+  }, [isDiaryEditMode, color, testResult, setValue]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const color = event.target.value;

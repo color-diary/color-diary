@@ -23,12 +23,13 @@ const Header = () => {
   const isLogin = loginZustandStore((state) => state.isLogin);
   const setIsLogin = loginZustandStore((state) => state.setIsLogin);
   const publicProfileImg = loginZustandStore((state) => state.publicProfileImg);
-  const { setIsDiaryEditMode } = useZustandStore();
+  const { setIsDiaryEditMode, setHasTestResult } = useZustandStore();
 
   const supabase = createClient();
 
   const handleClick = () => {
     setIsDiaryEditMode(false);
+    setHasTestResult(false);
   };
 
   useEffect(() => {

@@ -1,6 +1,7 @@
 'use client';
 
 import { Diary } from '@/types/diary.type';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
@@ -9,9 +10,6 @@ const EmotionChart = () => {
   const today = new Date();
   const [year, setYear] = useState(today.getFullYear());
   const [month, setMonth] = useState(today.getMonth() + 1);
-  const [sortedTags, setSortedTags] = useState<string[]>([]);
-  const [tagCounts, setTagCounts] = useState<number[]>([]);
-  const [progresses, setProgresses] = useState<number[]>([]);
 
   const changeDate = (changeMonth: number) => {
     if (changeMonth === 0) {
@@ -24,42 +22,32 @@ const EmotionChart = () => {
     setMonth(changeMonth);
   };
 
-  useEffect(() => {
-    const getDiaries = async () => {
-      try {
-        const response = await axios.get<Diary[]>(`/api/diaries?year=${year}&month=${month}`);
-        const diaries = response.data;
-        const allTags = diaries.flatMap((entry) => entry.tags);
-        const counts = allTags.reduce<Record<string, number>>((acc, tag) => {
-          acc[tag] = (acc[tag] || 0) + 1;
-          return acc;
-        }, {});
+  const { data: diaries = [] } = useQuery({
+    queryKey: ['statisticsDiary', year, month],
+    queryFn: async () => {
+      const response = await axios.get<Diary[]>(`/api/diaries?year=${year}&month=${month}`);
+      const diaries = response.data;
+      return diaries;
+    }
+  });
 
-        const sortedTagEntries = Object.entries(counts).sort((a, b) => b[1] - a[1]);
-
-        setSortedTags(sortedTagEntries.map((entry) => entry[0]));
-        setTagCounts(sortedTagEntries.map((entry) => entry[1]));
-      } catch (error) {
-        console.error('Error fetching diaries:', error);
-      }
-    };
-    getDiaries();
-  }, [year, month]);
+  const allTags = diaries.flatMap((entry) => entry.tags);
+  const counts = allTags.reduce<Record<string, number>>((acc, tag) => {
+    acc[tag] = (acc[tag] || 0) + 1;
+    return acc;
+  }, {});
+  const sortedTagEntries = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+  const sortedTags = sortedTagEntries.map((entry) => entry[0]);
+  const tagCounts = sortedTagEntries.map((entry) => entry[1]);
 
   let sum = 0;
   tagCounts.forEach((item) => {
     sum += item;
   });
 
-  useEffect(() => {
-    if (tagCounts.length > 0) {
-      const maxCount = tagCounts[0];
-      const newProgresses = tagCounts.slice(0, 3).map((count) => (count / maxCount) * 100);
-      setProgresses(newProgresses);
-    } else {
-      setProgresses([0, 0, 0]);
-    }
-  }, [tagCounts]);
+  const maxCount = tagCounts[0];
+  const newProgresses = tagCounts.slice(0, 3).map((count) => (count / maxCount) * 100);
+  const progresses = tagCounts.length > 0 ? newProgresses : [0, 0, 0];
 
   const chartData = [];
   for (let i = 0; i < Math.min(sortedTags.length, 3); i++) {
@@ -116,7 +104,7 @@ const EmotionChart = () => {
                     <div className="relative md:h-40px-col h-[24px] flex self-stretch rounded-lg md:w-310px-row w-[204px]">
                       <div
                         className={`flex justify-end absolute top-0 left-0 md:h-40px-col h-[24px] ${backgroundColor[index]} border-l-0 border-dashed border-2 border-[#25B18C] rounded-e-2xl transition-all duration-300`}
-                        style={{ width: `${progresses[index]}%` }}
+                        style={{ width: `${item}%` }}
                       >
                         <div className="text-center text-[#25B18C] md:text-14px text-[12px] bg-white rounded-3xl md:py-4px-col py-[2px] md:px-8px-row px-[6px] absolute right-13.5px-row transform -translate-y-1/2 top-1/2">
                           {tagCounts[index]}개
