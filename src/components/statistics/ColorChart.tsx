@@ -3,6 +3,7 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { ChartConfig, ChartContainer } from '@/components/ui/chart';
 import { Diary } from '@/types/diary.type';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
@@ -13,9 +14,6 @@ const ColorChart = () => {
 
   const [year, setYear] = useState(today.getFullYear());
   const [month, setMonth] = useState(today.getMonth() + 1);
-  const [sortedColors, setSortedColors] = useState<string[]>([]);
-  const [colorCounts, setColorCounts] = useState<number[]>([]);
-  const [length, setLength] = useState<number>(0);
 
   const changeDate = (changeMonth: number) => {
     if (changeMonth === 0) {
@@ -28,29 +26,57 @@ const ColorChart = () => {
     setMonth(changeMonth);
   };
 
-  useEffect(() => {
-    const getDiaries = async () => {
-      try {
-        const response = await axios.get<Diary[]>(`/api/diaries?year=${year}&month=${month}`);
-        const diaries = response.data;
-        setLength(diaries.length);
+  // useEffect(() => {
+  //   const getDiaries = async () => {
+  //     try {
+  //       const response = await axios.get<Diary[]>(`/api/diaries?year=${year}&month=${month}`);
+  //       const diaries = response.data;
+  //       setLength(diaries.length);
 
-        const allColors = diaries.flatMap((entry) => entry.color);
+  //       const allColors = diaries.flatMap((entry) => entry.color);
 
-        const counts = allColors.reduce<Record<string, number>>((acc, color) => {
-          acc[color] = (acc[color] || 0) + 1;
-          return acc;
-        }, {});
+  //       const counts = allColors.reduce<Record<string, number>>((acc, color) => {
+  //         acc[color] = (acc[color] || 0) + 1;
+  //         return acc;
+  //       }, {});
 
-        const sortedTagEntries = Object.entries(counts).sort((a, b) => b[1] - a[1]);
-        setSortedColors(sortedTagEntries.map((entry) => entry[0]));
-        setColorCounts(sortedTagEntries.map((entry) => entry[1]));
-      } catch (error) {
-        console.error('Error fetching diaries:', error);
-      }
-    };
-    getDiaries();
-  }, [year, month]);
+  //       const sortedTagEntries = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+  //       setSortedColors(sortedTagEntries.map((entry) => entry[0]));
+  //       setColorCounts(sortedTagEntries.map((entry) => entry[1]));
+  //     } catch (error) {
+  //       console.error('Error fetching diaries:', error);
+  //     }
+  //   };
+  //   getDiaries();
+  // }, [year, month]);
+
+  const {
+    data: diaries = [],
+    isLoading,
+    error
+  } = useQuery({
+    queryKey: ['statisticsDiary', year, month],
+    queryFn: async () => {
+      const response = await axios.get<Diary[]>(`/api/diaries?year=${year}&month=${month}`);
+      const diaries = response.data;
+      return diaries;
+    }
+  });
+
+  if (isLoading) return <div>로딩화면</div>;
+  if (error) return <div>에러 {error.message}</div>;
+
+  const length = diaries.length;
+  const allColors = diaries.flatMap((entry) => entry.color);
+
+  const counts = allColors.reduce<Record<string, number>>((acc, color) => {
+    acc[color] = (acc[color] || 0) + 1;
+    return acc;
+  }, {});
+
+  const sortedTagEntries = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+  const sortedColors = sortedTagEntries.map((entry) => entry[0]);
+  const colorCounts = sortedTagEntries.map((entry) => entry[1]);
 
   const chartData = [];
   for (let i = 0; i < colorCounts.length; i++) {
