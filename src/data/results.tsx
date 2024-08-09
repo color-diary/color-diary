@@ -413,7 +413,7 @@ const results: ResultType[] = [
   },
   {
     result: 'calm',
-    emotion: '#평온',
+    emotion: '평온',
     color: '#F5FAFE',
     comment: '평온한 하루를 보내신 것 같아요./소소한 하루도 소중하죠!',
     title: '#안정적인_평온함',
