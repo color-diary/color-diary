@@ -17,7 +17,7 @@ const ServiceModal = ({ onClose }: ServiceModalProps) => {
   const [text, setText] = useState<string>('');
   const maxLength = 500;
 
-  const handleTextChange = (e: any) => {
+  const handleTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     if (e.target.value.length <= maxLength) {
       setText(e.target.value);
     }
