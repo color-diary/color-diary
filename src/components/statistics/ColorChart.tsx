@@ -26,35 +26,7 @@ const ColorChart = () => {
     setMonth(changeMonth);
   };
 
-  // useEffect(() => {
-  //   const getDiaries = async () => {
-  //     try {
-  //       const response = await axios.get<Diary[]>(`/api/diaries?year=${year}&month=${month}`);
-  //       const diaries = response.data;
-  //       setLength(diaries.length);
-
-  //       const allColors = diaries.flatMap((entry) => entry.color);
-
-  //       const counts = allColors.reduce<Record<string, number>>((acc, color) => {
-  //         acc[color] = (acc[color] || 0) + 1;
-  //         return acc;
-  //       }, {});
-
-  //       const sortedTagEntries = Object.entries(counts).sort((a, b) => b[1] - a[1]);
-  //       setSortedColors(sortedTagEntries.map((entry) => entry[0]));
-  //       setColorCounts(sortedTagEntries.map((entry) => entry[1]));
-  //     } catch (error) {
-  //       console.error('Error fetching diaries:', error);
-  //     }
-  //   };
-  //   getDiaries();
-  // }, [year, month]);
-
-  const {
-    data: diaries = [],
-    isLoading,
-    error
-  } = useQuery({
+  const { data: diaries = [] } = useQuery({
     queryKey: ['statisticsDiary', year, month],
     queryFn: async () => {
       const response = await axios.get<Diary[]>(`/api/diaries?year=${year}&month=${month}`);
@@ -63,12 +35,8 @@ const ColorChart = () => {
     }
   });
 
-  if (isLoading) return <div>로딩화면</div>;
-  if (error) return <div>에러 {error.message}</div>;
-
   const length = diaries.length;
   const allColors = diaries.flatMap((entry) => entry.color);
-
   const counts = allColors.reduce<Record<string, number>>((acc, color) => {
     acc[color] = (acc[color] || 0) + 1;
     return acc;
