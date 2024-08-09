@@ -20,7 +20,7 @@ import ReturnIcon from './assets/ReturnIcon';
 
 const TestResult = ({ emotion, positive, negative }: TestResultProps) => {
   const router = useRouter();
-  const { hasTestResult, setHasTestResult } = zustandStore();
+  const { hasTestResult, setHasTestResult, testResult, setColor, setTags } = zustandStore();
 
   const [userId, setUserId] = useState<string | null>(null);
 
@@ -62,9 +62,15 @@ const TestResult = ({ emotion, positive, negative }: TestResultProps) => {
       if (hasLimit) {
         toast.on({ label: '비회원은 기록을 최대 2개만 남길 수 있어요' });
       } else {
-        setHasTestResult(true);
+        if (testResult) {
+          setHasTestResult(true);
+          setColor(testResult.result.color);
+          setTags([testResult.result.emotion]);
 
-        router.push(`/diaries/write/${formatFullDate()}`);
+          router.push(`/diaries/write/${formatFullDate()}`);
+        } else {
+          toast.on({ label: '감정 테스트 결과를 불러오는 데 실패했어요.' });
+        }
       }
     }
   };
