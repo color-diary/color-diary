@@ -66,6 +66,8 @@ const EmotionChart = () => {
     chartData.push({ tag: sortedTags[i] });
   }
 
+  const backgroundColor = ['bg-[#EEE2D2]', 'bg-[#F4EBE1]', 'bg-[#F9F5F0]'];
+
   return (
     <div className="flex flex-col items-center md:w-600px-row md:h-304px-col w-[335px] border rounded-5xl border-[#E6D3BC] bg-white pb-[24px]">
       <div className="flex items-center justify-center md:gap-12px-row md:text-20px md:mt-24px-col mt-[16px] gap-[8px] text-[16px] text-font-color">
@@ -113,7 +115,7 @@ const EmotionChart = () => {
                   <div key={index} className="flex items-center w-full">
                     <div className="relative md:h-40px-col h-[24px] flex self-stretch rounded-lg md:w-310px-row w-[204px]">
                       <div
-                        className="flex justify-end absolute top-0 left-0 md:h-40px-col h-[24px] bg-[#F4EBE1] border-l-0 border-dashed border-2 border-[#25B18C] rounded-e-2xl transition-all duration-300"
+                        className={`flex justify-end absolute top-0 left-0 md:h-40px-col h-[24px] ${backgroundColor[index]} border-l-0 border-dashed border-2 border-[#25B18C] rounded-e-2xl transition-all duration-300`}
                         style={{ width: `${progresses[index]}%` }}
                       >
                         <div className="text-center text-[#25B18C] md:text-14px text-[12px] bg-white rounded-3xl md:py-4px-col py-[2px] md:px-8px-row px-[6px] absolute right-13.5px-row transform -translate-y-1/2 top-1/2">
@@ -136,7 +138,9 @@ const EmotionChart = () => {
           <div className="md:text-16px text-[12px] text-font-color">
             감정 해시태그를 추가하면 자기 이해와 관리에 도움이 될 수 있답니다.
           </div>
-          <div className="md:text-16px text-[12px] mb-[24px] text-font-color">오늘의 감정을 해시태그로 표현해보세요!</div>
+          <div className="md:text-16px text-[12px] mb-[24px] text-font-color">
+            오늘의 감정을 해시태그로 표현해보세요!
+          </div>
         </div>
       )}
     </div>
