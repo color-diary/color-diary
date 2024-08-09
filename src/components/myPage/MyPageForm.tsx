@@ -173,7 +173,7 @@ const MyPageForm = () => {
 
   return (
     <div className='flex items-center justify-center mt-[148px] px-5 md:px-[396px] md:mt-[312px]'>
-      <div className='flex flex-col w-full md:w-[1128px] items-start justify-center self-stretch gap-32 md:gap-43px-row '>
+      <div className='flex flex-col w-full md:w-[1128px] items-start justify-center self-stretch gap-32px-row-m md:gap-43px-row '>
         <div className='flex flex-col items-start md:flex-row md:items-center w-full md:gap-14'>
           {isLogin ? (
             <div className='flex w-[160px] h-[160px] md:w-240px-row md:h-240px-row relative'>
@@ -246,12 +246,12 @@ const MyPageForm = () => {
           ) : (
             <div className='flex flex-col justify-center items-start gap-[24px] mt-4'>
               <div className='flex flex-col items-start md:gap-4'>
-                <div className='flex items-center gap-2 md:gap-2 text-[14px] md:text-18px'>
-                  <span className='py-4 w-[56px] md:w-[80px] font-normal'>나의 이름</span>
+                <div className='flex items-center gap-2 md:gap-2 text-14px-m md:text-18px'>
+                  <span className='py-4 w-[60px] md:w-[80px] font-normal'>나의 이름</span>
                   <span className='px-2 py-4 w-[120px] md:w-[200px] font-medium'>씨앗이</span>
                 </div>
-                <div className='flex items-center gap-2 md:gap-2 text-[14px] md:text-[18px]'>
-                  <span className='py-4 w-[56px] md:w-[80px] font-normal invisible'>비밀번호</span>
+                <div className='flex items-center gap-2 md:gap-2 text-14px-m md:text-18px'>
+                  <span className='py-4 w-[60px] md:w-[80px] font-normal invisible'>비밀번호</span>
                   <span className='px-2 py-4 w-[120px] md:w-[200px] font-normal invisible'>******</span>
                 </div>
               </div>
