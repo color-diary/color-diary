@@ -53,14 +53,14 @@ function Calendar({
         }`,
         table: `${
           isCalendar
-            ? 'w-full border-collapse flex flex-col items-center justify-center md:px-72px-row md:py-24px-col px-16px-row-m py-16px-col-m'
+            ? 'w-full border-collapse flex flex-col items-center md:px-72px-row md:py-24px-col px-16px-row-m py-16px-col-m '
             : 'hidden'
         }`,
         head_row: `border-b border-[#25B18C] flex md:space-x-48px-row space-x-12px-row-m px-16px-row-m py-8px-col-m md:px-16px-row md:py-16px-col`,
         head_cell: 'w-9 font-normal text-14px-m md:text-18px md:w-8',
         tbody: 'mt-2 md:mt-0 flex flex-col',
-        row: 'flex space-x-12px-row-m space-y-12px-col-m md:space-x-48px-row md:px-16px-row md:py-16px-col',
-        cell: '',
+        row: 'flex space-x-12px-row-m space-y-12px-col-m md:space-x-48px-row md:px-16px-row md:py-16px-col first:justify-end',
+        cell: 'flex items-end',
         day: '',
         day_range_end: 'day-range-end',
         day_selected:

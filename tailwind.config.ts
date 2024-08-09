@@ -24,6 +24,12 @@ const config = {
         '2xl': '1536px'
       }
     },
+    maxWidth: {
+      'container-l': '1280px',
+      'container-lv2': '1240px',
+      'container-m': '744px',
+      'container-s': '375px'
+    },
     extend: {
       fontFamily: {
         pretendard: ['var(--font-pretendard)']

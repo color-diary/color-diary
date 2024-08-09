@@ -37,7 +37,7 @@ const MainSection = () => {
     }
   };
   const today = new Date();
-  const todayYYMM = makeQueryString('YYMM', today);
+  const todayYYMM = makeQueryString('YYMM', today) as number;
   const getInitialValue = (type: string) => {
     if (type === 'date') {
       return searchParams.get('YYMM') ? newDate : today;
@@ -53,14 +53,11 @@ const MainSection = () => {
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
 
-  //console.log(session.data?.data.session); // 비회원 null // 회원 {access_token}
-  // 데이터는 구조분해 할당 등으로 완전히 정제해서 내려주기
-
   const diaries = useQuery<DiaryList>({
     queryKey: ['diaries', 'main', year, month],
     queryFn: async () => {
       const supabase = createClient();
-      const { data } = await supabase.auth.getUser(); // 세션 확인하는 훅 만들어서 캐싱해두기
+      const { data } = await supabase.auth.getUser();
       const { user } = data;
       if (user) {
         const { data } = await axios.get(`/api/diaries?year=${year}&month=${month}`);
@@ -86,35 +83,7 @@ const MainSection = () => {
     if (queryString) {
       router.push(`${queryString}`);
     }
-  }, [queryString]); // 훅은 무조건 실행 되어야함 아랫거 때문에 끊기면 경고준다
-
-  // const localList = useQuery<DiaryList>({
-  //   queryKey: ['MainpageDiaries', 'main'],
-  //   queryFn: () => {
-  //     const data = JSON.parse(localStorage.getItem('localDiaries') || '[]');
-  //     return data;
-  //   },
-  //   enabled: !!!session.data
-  // });
-
-  //checkTodayWritten();
-
-  // useEffect(() => {
-  //   if (diaries.error) {
-  //     toast.on({ label: `다이어리 리스트를 불러오는데 실패했습니다: ${diaries.error}` });
-  //     return;
-  //   }
-
-  //   if (diaries.isPending) return;
-
-  //   if (diaries.data) {
-  //     checkTodayWritten(diaries.data.data);
-  //   }
-  // }, [diaries]);
-
-  // console.log(diaries.data?.data);
-  // console.log(localList.data); // 아나 useState 사용하면 안되는 것 같아서 localStorage.get도 useQuery로 만들었더니 값이 캐싱되어서 또 문제가 생기네
-  //console.log(localList.data || diaries.data?.data);
+  }, [queryString]);
 
   const checkTodayWritten = (data: DiaryList) => {
     setIsNeedNew(false);
@@ -145,13 +114,11 @@ const MainSection = () => {
   };
 
   if (diaries.isLoading) {
-    return <div className="ml-[500px] mt-[500px]">loading..</div>;
+    return <div className="mt-[40rem] ml-[80rem] text-24px">loading..</div>;
   }
 
-  console.log(diaries.data);
-
   return (
-    <div className="flex flex-col min-w-[335px] w-335px-row-m md:w-744px-row mx-auto mt-[96px] md:mt-[128px] space-y-24px-col-m ">
+    <div className="flex flex-col min-w-[335px] w-335px-row-m md:w-744px-row mx-auto mt-[96px] md:mt-[128px] space-y-24px-col-m">
       <div className="flex justify-between">
         <p className="text-18px-m md:text-24px font-bold">나의 감정 기록</p>
         <div className="flex items-center">
