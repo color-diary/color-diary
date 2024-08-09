@@ -38,7 +38,7 @@ export default function RootLayout({
             <ModalProvider>
               <Header />
               <NavigationBar />
-              {children}
+              <div className="pt-12 pb-16 h-auto md:pt-12 md:pb-0">{children}</div>
             </ModalProvider>
           </ToastProvider>
         </QueryProvider>

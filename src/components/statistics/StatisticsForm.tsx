@@ -24,7 +24,7 @@ const StatisticsForm = () => {
   }
 
   return (
-    <div className="md:bg-[#FBF8F4] rounded-5xl w-744px-row md:h-916px-col flex items-center flex-col md:mt-128px-col mt-[94px] m-auto bg-[#FEFDFB] border-0 md:border-4 border-[#E6D3BC]">
+    <div className="md:bg-[#FBF8F4] rounded-5xl w-744px-row md:h-916px-col flex items-center flex-col md:mt-128px-col mt-[48px] m-auto bg-[#FEFDFB] border-0 md:border-4 border-[#E6D3BC]">
       <div className="md:w-600px-row md:h-401px-col w-[335px] h-[240px] md:mt-56px-col">
         <h2 className="md:text-24px text-[18px] font-bold text-font-color">이달의 감정 색상</h2>
         <div className="flex md:mt-8px-col mt-2">
