@@ -10,7 +10,7 @@ type FormValues = {
   showRainbow: boolean;
 };
 const ColorPicker = () => {
-  const colors = ['#F05050', '#F1883C', '#FBED12', '#55F896', '#7BDFED', '#444EE9', '#B979EC'];
+  const colors = ['#F05050', '#F4B557', '#FDED57', '#33D4AA', '#7BDFED', '#5B60B7', '#B77CD2'];
   const { control, setValue, watch } = useForm<FormValues>({
     defaultValues: {
       customColor: '',

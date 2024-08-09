@@ -28,6 +28,7 @@ import AngleRightGreen from './assets/AngleRightGreen';
 import EditIcon from './assets/EditIcon';
 import ReturnIcon from './assets/ReturnIcon';
 import XIconWhite from './assets/XIconWhite';
+import { tZustandStore } from '@/types/zustandStore.type';
 
 const WriteForm = () => {
   const router = useRouter();
@@ -43,7 +44,7 @@ const WriteForm = () => {
   const YYMM = searchParams.get('YYMM');
 
   const { color, tags, content, img, isDiaryEditMode, setIsDiaryEditMode, hasTestResult, setHasTestResult } =
-    useZustandStore((state) => ({
+    useZustandStore((state: tZustandStore) => ({
       color: state.color,
       tags: state.tags,
       content: state.content,
