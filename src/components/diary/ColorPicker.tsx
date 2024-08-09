@@ -1,63 +1,73 @@
 'use client';
 
 import useZustandStore from '@/zustand/zustandStore';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useForm, Controller } from 'react-hook-form';
 
+type FormValues = {
+  customColor: string;
+  pickedColor: string;
+  showRainbow: boolean;
+};
 const ColorPicker = () => {
   const colors = ['#F05050', '#F1883C', '#FBED12', '#55F896', '#7BDFED', '#444EE9', '#B979EC'];
-  const [customColor, setCustomColor] = useState('');
-  const [showRainbow, setShowRainbow] = useState(true);
-  const [pickedColor, setPickedColor] = useState('');
+  const { control, setValue, watch } = useForm<FormValues>({
+    defaultValues: {
+      customColor: '',
+      pickedColor: '',
+      showRainbow: true
+    }
+  });
 
   const { color, setColor, isDiaryEditMode, testResult, hasTestResult, setHasTestResult } = useZustandStore();
+  const customColor = watch('customColor');
+  const pickedColor = watch('pickedColor');
+  const showRainbow = watch('showRainbow');
 
   useEffect(() => {
     if (isDiaryEditMode) {
-      setPickedColor(color);
+      setValue('pickedColor', color);
 
       if (!colors.includes(color)) {
-        setShowRainbow(false);
-        setCustomColor(color);
+        setValue('showRainbow', false);
+        setValue('customColor', color);
       } else {
-        setShowRainbow(true);
+        setValue('showRainbow', true);
       }
     } else if (hasTestResult && testResult) {
-      setPickedColor(testResult.result.color);
-
-      setShowRainbow(false);
-      setCustomColor(testResult.result.color);
-
+      setValue('pickedColor', testResult.result.color);
+      setValue('showRainbow', false);
+      setValue('customColor', testResult.result.color);
       setHasTestResult(false);
     }
-  }, []);
+  }, [isDiaryEditMode, color, testResult, hasTestResult, setValue, setHasTestResult]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const color = event.target.value;
-    setCustomColor(color);
-    setPickedColor(color);
-    setShowRainbow(false);
+    setValue('customColor', color);
+    setValue('pickedColor', color);
+    setValue('showRainbow', false);
     setColor(color);
   };
 
   const handleRainbowClick = () => {
-    setShowRainbow(true);
+    setValue('showRainbow', true);
   };
 
   const handleColor = (color: string) => {
-    setPickedColor(color);
+    setValue('pickedColor', color);
     setColor(color);
   };
 
   return (
     <>
-      <div className="flex flex-col  h-[16%] w-[100%] gap-2">
+      <div className="flex flex-col  gap-8px-col-m md:w-552px-row md:h-72px-col md:gap-8px-col">
         <p className="text-16px-m md:text-18px text-font-color">오늘의 색은 무엇인가요?</p>
-        <div className="flex space-x-2 items-center">
-          <br />
+        <div className="flex justify-start gap-16px-row-m md:gap-16px-row">
           {colors.map((color) => (
             <div
               key={color}
-              className={`w-24px-row-m h-24px-row-m  md:w-[2.5vw] md:h-[2.5vw] rounded-full cursor-pointer ${
+              className={`w-24px-row-m h-24px-row-m md:w-40px-row md:h-40px-row rounded-full cursor-pointer ${
                 pickedColor === color ? 'border-4 border-[#25B18C]' : ''
               }`}
               style={{ backgroundColor: color }}
@@ -65,20 +75,29 @@ const ColorPicker = () => {
             />
           ))}
           {showRainbow ? (
-            <div
-              className="relative w-24px-row-m h-24px-row-m md:w-[2.5vw] md:h-[2.5vw] rounded-full overflow-hidden"
-              onClick={handleRainbowClick}
-            >
-              <input
-                type="color"
-                value={customColor}
-                onChange={handleChange}
-                className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
-              />
-              <div className="w-24px-row-m h-24px-row-m md:w-[2.5vw] md:h-[2.5vw] rounded-full rainbow-gradient"></div>
-            </div>
+            <Controller
+              name="customColor"
+              control={control}
+              render={({ field }) => (
+                <div
+                  className="relative w-24px-row-m h-24px-row-m md:w-40px-row md:h-40px-row rounded-full overflow-hidden"
+                  onClick={handleRainbowClick}
+                >
+                  <input
+                    type="color"
+                    value={field.value}
+                    onChange={(e) => {
+                      handleChange(e);
+                      field.onChange(e);
+                    }}
+                    className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
+                  />
+                  <div className="w-24px-row-m h-24px-row-m md:w-40px-row md:h-40px-row rounded-full rainbow-gradient"></div>
+                </div>
+              )}
+            />
           ) : (
-            <div className="relative w-24px-row-m h-24px-row-m md:w-[2.5vw] md:h-[2.5vw] rounded-full overflow-hidden">
+            <div className="relative w-24px-row-m h-24px-row-m md:w-40px-row md:h-40px-row rounded-full overflow-hidden">
               <input
                 type="color"
                 value={customColor}
@@ -86,7 +105,7 @@ const ColorPicker = () => {
                 className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
               />
               <div
-                className={`w-24px-row-m h-24px-row-m md:w-[2.5vw] md:h-[2.5vw] rounded-full cursor-pointer ${
+                className={`w-24px-row-m h-24px-row-m md:w-40px-row md:h-40px-row rounded-full cursor-pointer ${
                   pickedColor === customColor ? 'border-4 border-[#25B18C]' : ''
                 }`}
                 style={{ backgroundColor: customColor }}
