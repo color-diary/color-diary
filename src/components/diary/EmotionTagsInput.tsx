@@ -1,43 +1,65 @@
 'use client';
 
 import useZustandStore from '@/zustand/zustandStore';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useForm, Controller } from 'react-hook-form';
+
+type FormValues = {
+  inputValue: string;
+  tags: string[];
+};
 
 const EmotionTagsInput = () => {
-  const { tags, setTags, isDiaryEditMode, testResult, hasTestResult, setHasTestResult } = useZustandStore();
+  const { isDiaryEditMode, testResult, hasTestResult, setHasTestResult, tags, setTags } = useZustandStore();
 
-  const [inputValue, setInputValue] = useState('');
-  const [error, setError] = useState<string | null>(null);
+  const {
+    control,
+    setValue,
+    watch,
+    setError,
+    clearErrors,
+    formState: { errors }
+  } = useForm<FormValues>({
+    defaultValues: {
+      inputValue: '',
+      tags: []
+    }
+  });
+
+  const inputValue = watch('inputValue');
+  const watchedTags = watch('tags', tags);
 
   useEffect(() => {
     if (isDiaryEditMode) {
-      setInputValue('');
+      setValue('inputValue', '');
+      setValue('tags', tags);
     } else if (hasTestResult && testResult) {
       setHasTestResult(false);
-
-      setInputValue(testResult.result.emotion);
+      setValue('inputValue', testResult.result.emotion);
+      setValue('tags', tags);
     } else {
       setTags([]);
+      setValue('tags', []);
     }
-  }, [isDiaryEditMode, hasTestResult, testResult, setHasTestResult, setTags]);
+  }, [isDiaryEditMode, hasTestResult, testResult, setHasTestResult, setValue]);
 
   const validateTags = (tagsArray: string[]) => {
     if (tagsArray.length > 5) {
       return '태그는 최대 5개만 입력할 수 있습니다.';
     }
-
     return null;
   };
 
   const addTag = (newTag: string) => {
-    const newTags = [...tags, newTag];
+    const newTags = [...watchedTags, newTag];
     const validationError = validateTags(newTags);
     if (validationError) {
-      setError(validationError);
+      setError('tags', { type: 'manual', message: validationError });
     } else {
-      setInputValue('');
+      setValue('inputValue', '');
       setTags(newTags);
-      setError(null);
+      setValue('tags', newTags);
+      clearErrors('tags');
     }
   };
 
@@ -48,65 +70,74 @@ const EmotionTagsInput = () => {
         event.stopPropagation();
         const trimmedValue = inputValue.trim();
         if (trimmedValue) {
-          if (!tags.includes(trimmedValue)) {
+          if (!watchedTags.includes(trimmedValue)) {
             addTag(trimmedValue);
           } else {
-            setError('단어가 중복됩니다.');
+            setError('tags', { type: 'manual', message: '단어가 중복됩니다.' });
           }
-        } else {
-          return;
         }
       }
     }
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setInputValue(event.target.value);
-    setError(null);
-    if (event.target.value !== '') {
-    }
+    setValue('inputValue', event.target.value);
+    clearErrors('tags');
   };
 
   const handleDeleteTag = (tagToDelete: string) => {
-    const newTags = tags.filter((tag) => tag !== tagToDelete);
+    const newTags = watchedTags.filter((tag) => tag !== tagToDelete);
     setTags(newTags);
+    setValue('tags', newTags);
   };
 
   return (
-    <div className="flex flex-col w-[100%] gap-1">
-      <p className="text-16px-m md:text-18px text-font-color">Q. 오늘 나의 감정태그를 작성해볼까요?</p>
+    <div className="flex flex-col gap-8px-col-m md:w-552px-row md:h-94px-col md:gap-8px-col">
+      <p className="text-16px-m md:text-18px text-font-color">Q. 오늘 나의 감정 태그를 작성해 볼까요?</p>
       <div
-        className={`w-[80%]  flex items-center rounded-[8px] border-2 custom-scrollbar ${
-          error ? 'border-red-500' : 'border-gray-300'
+        className={`bg-white flex items-center w-335px-row-m h-35px-col-m  md:w-552px-row md:h-35px-col px-16px-row-m  py-8px-col-m gap-12px-row-m md:py-8px-col  md:px-16px-row md:gap-16px-row rounded-[8px] border custom-scrollbar ${
+          errors.tags ? 'border-red-500' : 'border-[#A1A1A1]'
         }`}
         style={{ overflowX: 'auto', overflowY: 'hidden', whiteSpace: 'nowrap' }}
       >
-        {tags?.map((tag, index) => (
+        {watchedTags.map((tag, index) => (
           <div
             key={index}
-            className="justify-between  h-20px-col-m  md:h-24px-col  ml-2 flex items-center bg-[#F7F0E9] rounded px-2 py-1 mr-2 outline-none overflow-hidden"
+            className="flex justify-between h-20px-col-m gap-12px-row-m  md:h-24px-col md:gap-4px-row  items-center bg-[#F7F0E9] rounded outline-none overflow-hidden"
             style={{ flexShrink: 0 }}
           >
-            <span className="text-font-color mr-1 text-14px-m md:text-20px">{tag}</span>
-            <button type="button" className=" text-font-color" onClick={() => handleDeleteTag(tag)}>
-              x
+            <span className="text-font-color pl-8px-row-m  text-14px-m md:pl-0 md:text-14px md:ml-8px-row ">{tag}</span>
+            <button
+              type="button"
+              className="text-font-color text-14px-m md:text-14px pr-8px-row-m md:pr-0 md:mr-8px-row"
+              onClick={() => handleDeleteTag(tag)}
+            >
+              X
             </button>
           </div>
         ))}
-        <textarea
-          className="text-font-color flex-grow p-2 rounded  overflow-hidden resize-none outline-none text-14px-m md:text-18px w-335px-row-m h-35px-col-m md:w-552px-row md:h-40px-col"
-          placeholder={tags.length === 0 ? 'ex) 행복   감사하는_마음  만족' : ''}
-          value={inputValue}
-          onChange={handleInputChange}
-          onKeyDown={handleKeyDown}
-          style={{ minWidth: '100px' }}
+        <Controller
+          name="inputValue"
+          control={control}
+          render={({ field }) => (
+            <textarea
+              className="pt-8px-col-m text-font-color items-center justify-center outline-none rounded overflow-hidden resize-none  text-14px-m md:text-14px w-335px-row-m h-35px-col-m md:w-552px-row md:h-35px-col md:py-8px-col "
+              placeholder={watchedTags.length === 0 ? 'ex) 행복   감사하는_마음  만족' : ''}
+              value={field.value}
+              onChange={(e) => {
+                handleInputChange(e);
+                field.onChange(e);
+              }}
+              onKeyDown={handleKeyDown}
+              style={{ minWidth: '100px' }}
+            />
+          )}
         />
       </div>
-
-      {error ? (
-        <p className="text-red-500 text-12px-m md:text-18px">{error}</p>
+      {errors.tags ? (
+        <p className="text-red-500 text-12px-m md:text-14px">{errors.tags.message}</p>
       ) : (
-        <p className="text-[#a1a1a1] text-12px-m ml-2  md:text-18px">엔터를 눌러 태그를 입력해주세요.</p>
+        <p className="text-[#a1a1a1] text-px-m  md:text-14px">엔터를 눌러 태그를 입력해주세요.</p>
       )}
     </div>
   );
