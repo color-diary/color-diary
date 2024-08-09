@@ -21,5 +21,5 @@ export type loginStatusZustandStore = {
   isLogin: boolean;
   setIsLogin: (isLogin: boolean) => void;
   publicProfileImg: string;
-  publicSetProfileImg: (profileImg:string) => void;
-}
+  publicSetProfileImg: (profileImg: string) => void;
+};
