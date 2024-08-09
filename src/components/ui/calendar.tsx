@@ -45,17 +45,22 @@ function Calendar({
         caption_label: 'text-sm font-medium',
         nav: 'flex items-center',
         nav_button: cn('h-7 w-7 bg-transparent opacity-50 hover:opacity-100'),
-        nav_button_previous: 'absolute left-80px-row-m md:left-250px-row',
-        nav_button_next: 'absolute right-68px-row-m md:right-230px-row',
+        nav_button_previous: `${
+          isCalendar ? 'absolute left-70px-row-m md:left-230px-row' : 'absolute md:right-230px-row'
+        }`,
+        nav_button_next: `${
+          isCalendar ? 'absolute right-60px-row-m md:right-200px-row' : 'absolute md:left-250px-row'
+        }`,
         table: `${
           isCalendar
-            ? 'w-full border-collapse flex flex-col items-center justify-center py-24px-col px-72px-row '
+            ? 'w-full border-collapse flex flex-col items-center md:px-72px-row md:py-24px-col px-16px-row-m py-16px-col-m '
             : 'hidden'
         }`,
-        head_row: ``,
-        head_cell: 'text-black rounded-md w-9 font-normal md:text-18px text-14px-m',
-        row: '',
-        cell: 'px-6px-row-m py-5px-col-m',
+        head_row: `border-b border-[#25B18C] flex md:space-x-48px-row space-x-12px-row-m px-16px-row-m py-8px-col-m md:px-16px-row md:py-16px-col`,
+        head_cell: 'w-9 font-normal text-14px-m md:text-18px md:w-8',
+        tbody: 'mt-2 md:mt-0 flex flex-col',
+        row: 'flex space-x-12px-row-m space-y-12px-col-m md:space-x-48px-row md:px-16px-row md:py-16px-col first:justify-end',
+        cell: 'flex items-end',
         day: '',
         day_range_end: 'day-range-end',
         day_selected:
@@ -70,7 +75,7 @@ function Calendar({
       }}
       components={{
         IconLeft: ({ ...props }) => (
-          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="18" viewBox="0 0 10 18" fill="none">
+          <svg xmlns="http://www.w3.org/2000/svg" width="11" height="20" viewBox="0 0 10 20" fill="none">
             <path
               d="M9.6389 16.4629C9.80789 16.6319 9.90283 16.8611 9.90283 17.1001C9.90283 17.3391 9.80789 17.5683 9.6389 17.7373C9.4699 17.9063 9.24069 18.0012 9.0017 18.0012C8.7627 18.0012 8.53349 17.9063 8.3645 17.7373L0.264496 9.63728C0.180682 9.55368 0.114183 9.45436 0.0688124 9.34502C0.0234404 9.23568 8.58307e-05 9.11846 8.58307e-05 9.00008C8.58307e-05 8.8817 0.0234404 8.76448 0.0688124 8.65514C0.114183 8.5458 0.180682 8.44649 0.264496 8.36288L8.3645 0.262884C8.53349 0.0938873 8.7627 -0.00105286 9.0017 -0.00105286C9.24069 -0.00105286 9.4699 0.0938873 9.6389 0.262884C9.80789 0.431879 9.90283 0.661087 9.90283 0.900084C9.90283 1.13908 9.80789 1.36829 9.6389 1.53728L2.1743 9.00008L9.6389 16.4629Z"
               fill="#080808"
@@ -93,7 +98,7 @@ function Calendar({
             }
           };
           return (
-            <div className="anchor cursor-pointer py-10px-col-m md:py-24px-col">
+            <div className="anchor cursor-pointer py-12px-col-m md:py-24px-col">
               <input type="date" ref={dateInputRef} style={{ visibility: 'hidden' }} onChange={handleInputDate} />
               <p onClick={() => handleRef()} className="text-16px-m md:text-24px">
                 {props.displayMonth.getFullYear()}년 {props.displayMonth.getMonth() + 1}월
@@ -125,9 +130,9 @@ function Calendar({
                   toast.on({ label: '미래의 일기는 작성하실 수 없습니다.' });
                 } else {
                   route.push(
-                    `/diaries/write/${formatFullDate(String(props.date))}?form=${searchParams.get(
-                      'form'
-                    )}&YYMM=${searchParams.get('YYMM')}`
+                    `/diaries/write/${formatFullDate(String(props.date))}?form=calendar&YYMM=${searchParams.get(
+                      'YYMM'
+                    )}`
                   );
                 }
               } else {
@@ -135,9 +140,9 @@ function Calendar({
                   toast.on({ label: '미래의 일기는 작성하실 수 없습니다.' });
                 } else {
                   route.push(
-                    `/diaries/write/${formatFullDate(String(props.date))}?form=${searchParams.get(
-                      'form'
-                    )}&YYMM=${searchParams.get('YYMM')}`
+                    `/diaries/write/${formatFullDate(String(props.date))}?form=calendar&YYMM=${searchParams.get(
+                      'YYMM'
+                    )}`
                   );
                 }
               }
@@ -166,24 +171,22 @@ function Calendar({
           return diaries ? (
             <div
               onClick={() => {
-                route.push(
-                  `/diaries/${diaries.diaryId}?form=${searchParams.get('form')}&YYMM=${searchParams.get('YYMM')}`
-                );
+                route.push(`/diaries/${diaries.diaryId}?form=calendar&YYMM=${searchParams.get('YYMM')}`);
               }}
-              className="flex flex-col items-center"
+              className="flex flex-col items-center cursor-pointer"
             >
               <Stamp petal={diaries.color} circle="#F7CA87" month={props.date.getMonth() + 1} />
-              <p className="text-12px-m">{props.date.getDate()}</p>
+              <p className="text-12px-m md:text-14px">{props.date.getDate()}</p>
             </div>
           ) : (
             <div
               onClick={() => {
                 handleGoWritePage();
               }}
-              className="flex flex-col items-center"
+              className="flex flex-col items-center cursor-pointer"
             >
               <Stamp petal="#FFF" circle="#D4D4D4" month={props.date.getMonth() + 1} isToday={isToday} />
-              <p className="text-12px-m">{props.date.getDate()}</p>
+              <p className="text-12px-m md:text-14px mt-1">{props.date.getDate()}</p>
             </div>
           );
         }
