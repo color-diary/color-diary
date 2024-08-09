@@ -4,8 +4,8 @@ import { ChangeEvent, useState } from 'react';
 import Button from '../common/Button';
 import Input from '../common/Input';
 import Dropdown from './DropDown';
-import { WhiteXicon, GreenXicon } from './svg/Xicon';
-import { WhiteMailIcon } from './svg/Mail';
+import { WhiteXicon, GreenXicon } from './assets/Xicon';
+import { WhiteMailIcon } from './assets/Mail';
 
 interface ServiceModalProps {
   onClose: () => void;

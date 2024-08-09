@@ -1,7 +1,7 @@
 import Button from '../common/Button';
 import MyPageTerms from './MyPageTerms';
-import { Exit } from './svg/Exit';
-import { TermsExit } from './svg/TermsExit';
+import { Exit } from './assets/Exit';
+import { TermsExit } from './assets/TermsExit';
 
 interface TermsModalProps {
 

@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 import Input from '../common/Input';
 import Button from '../common/Button';
 import axios from 'axios';
-import { GreenXicon } from './svg/Xicon';
-import { Edit } from './svg/Edit';
+import { GreenXicon } from './assets/Xicon';
+import { Edit } from './assets/Edit';
 import { useToast } from '@/providers/toast.context';
 
 interface ChangeNicknameModalProps {
   onClose: () => void;
-  onSuccess: () => void;
+  onSuccess: (success: boolean) => void;
 }
 
 const ChangeNicknameModal = ({ onClose, onSuccess }: ChangeNicknameModalProps) => {
@@ -22,7 +22,7 @@ const ChangeNicknameModal = ({ onClose, onSuccess }: ChangeNicknameModalProps) =
     try {
       const response = await axios.post('/api/auth/check-password', data);
       if (response.status === 200) {
-        onSuccess();
+        onSuccess(true);
         toast.on({ label: '인증성공' }); 
         onClose();
       }
