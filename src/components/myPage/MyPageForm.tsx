@@ -179,16 +179,17 @@ const MyPageForm = () => {
             <div className='flex w-[160px] h-[160px] md:w-240px-row md:h-240px-row relative'>
               {isLoadingImage ? (
                 <div className="absolute inset-0 flex items-center justify-center rounded-full">
-                 <Loading />
+                  <Loading />
                 </div>
               ) : null}
               <Image
                 src={profileImg}
                 alt="Profile Image"
                 fill
+                sizes="(max-width: 768px)"
                 className={`cursor-pointer w-[80px] object-cover px-[15px] py-[15px] md:px-24px-col md:py-24px-col relative ${isDefaultImage ? '' : 'rounded-full'} ${isLoadingImage ? 'opacity-30' : ''}`}
                 onClick={() => fileInputRef.current?.click()}
-                onLoadingComplete={() => setIsLoadingImage(false)}
+                onLoad={() => setIsLoadingImage(false)}
               />
               <input
                 type="file"
@@ -207,9 +208,9 @@ const MyPageForm = () => {
                 src='/default-profile.jpg'
                 alt="Profile Image"
                 fill
+                sizes="(max-width: 768px)"
                 className="rounded-full w-full object-cover px-24px-row py-24px-row"
-                onClick={() => fileInputRef.current?.click()}
-                onLoadingComplete={() => setIsLoadingImage(false)}
+                priority={true}
               />
             </div>
           )}
