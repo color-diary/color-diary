@@ -25,7 +25,7 @@ const ShareButtons = ({ emotion }: ShareButtonsProps) => {
         objectType: 'feed',
         content: {
           title: 'Color Inside 오늘 당신의 감정의 색은?',
-          description: `#오늘_나는_${emotion.slice(1, 3)} #너는_어때?`,
+          description: `#오늘_나는_${emotion} #너는_어때?`,
           imageUrl: 'https://ngnwhcimrvjbniipoibl.supabase.co/storage/v1/object/public/thumbnail/image.png',
           link: {
             mobileWebUrl: window.location.href,
