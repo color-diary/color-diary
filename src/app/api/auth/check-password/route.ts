@@ -12,9 +12,9 @@ export async function POST(request: NextRequest) {
         password,
     });
     if (error) {
-        console.error('로그인 에러=>', error.status)
-        return NextResponse.json({ message: '로그인에 실패했습니다.'}, { status: error.status })
+        console.error('인증 에러=>', error.status)
+        return NextResponse.json({ message: '인증에 실패했습니다.' }, { status: error.status })
     } else {
-        return NextResponse.json({ message: '로그인에 성공하였습니다.'}, { status: 200 });
+        return NextResponse.json({ message: '인증에 성공하였습니다.', userData }, { status: 200 });
     }
 }

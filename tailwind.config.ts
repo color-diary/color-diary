@@ -62,6 +62,7 @@ const config = {
         '72px-row': 'calc(100vw * 0.0375)',
         '77px-row': 'calc((77 / 1920) * 100vw)',
         '90px-row': 'calc(100vw * 0.046875)',
+        '80px-row': 'calc((80 / 1920) * 100vw)',
         '96px-row': 'calc(100vw * 0.05)',
         '120px-row': 'calc(120 / 1920 * 100vw)',
         '128px-row': 'calc(100vw * 0.0667)',
@@ -137,6 +138,7 @@ const config = {
         '300px-col': 'calc(100vh * 0.2778)',
         '304px-col': 'calc(100vh * 0.2815)',
         '307px-col': 'calc(100vh * 0.2843)',
+        '335px-col': 'calc(100vh * 0.3102)',
         '354px-col': 'calc(100vh * 0.3278)',
         '361px-col': 'calc(100vh * 0.3343)',
         '401px-col': 'calc(100vh * 0.3713)',
@@ -256,6 +258,7 @@ const config = {
         '0.56px': '-0.035rem'
       },
       colors: {
+        
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',

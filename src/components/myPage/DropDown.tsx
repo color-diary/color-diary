@@ -16,20 +16,20 @@ function Dropdown() {
   const options = ['기능 문의', '버그 신고', '계정 관련 문의', '피드백 및 제안'];
 
   return (
-    <div className="flex flex-col items-start gap-2 self-stretch">
-      <label className="self-stretch text-[var(--Grey-900,#080808)] font-pretendard text-18px font-medium tracking-[-0.36px]">
+    <div className="flex flex-col items-start gap-8px-col self-stretch">
+      <label className="self-stretch text-[var(--Grey-900,#080808)] font-pretendard text-16px-m md:text-18px font-medium tracking-[-0.36px]">
         문의 종류를 선택해주세요
       </label>
       <div
-        className="w-full flex items-center px-4 py-2 rounded-lg cursor-pointer bg-white"
-        style={{ border: `${isOpen ? '1px solid border-[#25B18C]' : '1px solid var(--input-color)'}` }}
+        className={`w-full flex items-center px-16px-row py-8px-col rounded-lg cursor-pointer bg-white border ${isOpen ? 'border-[#25B18C]' : 'border-[var(--input-color)]'}`}
         onClick={toggleDropdown}
       >
         <input
           type="text"
-          value={selectedOption || '---------------------문의종류 선택하기---------------------'}
+          value={selectedOption || '문의 종류 선택하기'}
           readOnly
-          className="w-full outline-none text-18px cursor-pointer"
+          className="w-full outline-none text-14px-m md:text-18px cursor-pointer border-[#A1A1A1]"
+          style={{ textAlign: 'center' }} 
         />
         <div>
           {isOpen ? (
@@ -50,14 +50,14 @@ function Dropdown() {
         </div>
       </div>
       {isOpen && (
-        <ul className="flex py-4 px-2 gap-4 flex-col justify-center items-start self-stretch rounded-lg border-[1px] border-[#25B18C] bg-white">
+        <ul className="flex py-16px-col px-8px-row gap-4 flex-col justify-center items-start self-stretch rounded-lg border-[1px] border-[#25B18C] bg-white">
           {options.map((option) => (
             <li
               key={option}
               onClick={() => handleOptionClick(option)}
-              className="w-full hover:rounded-lg hover:bg-[#DDF8F1] text-18px"
+              className="w-full hover:rounded-lg hover:bg-[#DDF8F1] text-14px-m md:text-18px"
             >
-              <div className="cursor-pointer w-full px-2 py-1">{option}</div>
+              <div className="cursor-pointer w-full px-8px-row py-4px-col">{option}</div>
             </li>
           ))}
         </ul>
