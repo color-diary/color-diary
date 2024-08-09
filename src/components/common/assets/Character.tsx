@@ -1,8 +1,8 @@
 const Character = () => {
   return (
-    <div className="fixed top-0 bottom-0 left-0 right-0 z-20 flex items-center justify-center">
-      <div className="w-102px-row-m h-102px-row-m md:w-200px-row md:h-200px-row flex items-center justify-center px-44px-row-m md:px-44px-row">
-        <svg width="100" height="120" viewBox="0 0 144 154" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <div className="absolute flex items-center justify-center">
+      <div className="w-80px-row-m h-80px-row-m md:w-128px-row md:h-128px-row flex items-center justify-center">
+        <svg width="144" height="154" viewBox="0 0 144 154" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             fillRule="evenodd"
             clipRule="evenodd"
