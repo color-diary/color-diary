@@ -113,11 +113,11 @@ const Test = () => {
               {questions[step].options.map((option, index) => (
                 <li
                   key={`${step + 1}-${index}`}
-                  className="w-full flex justify-between items-center px-16px-row-m py-4px-col-m md:px-16px-row md:py-4px-col gap-8px-row-m md:gap-8px-row text-font-color hover:text-default"
+                  className="w-full flex justify-between items-center px-16px-row-m py-4px-col-m md:px-16px-row md:py-4px-col gap-8px-row-m md:gap-8px-row text-font-color hover:text-default transition cursor-pointer"
                 >
                   <span
                     onClick={() => handleSelectAnswer(option.value, option.sentiment, option.points)}
-                    className="w-full text-font-color text-start text-14px-m md:text-18px font-normal tracking-0.28px md:tracking-0.36px hover:text-default transition cursor-pointer"
+                    className="w-full text-start text-14px-m md:text-18px font-normal tracking-0.28px md:tracking-0.36px"
                   >
                     {option.label}
                   </span>
