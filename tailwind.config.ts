@@ -24,6 +24,12 @@ const config = {
         '2xl': '1536px'
       }
     },
+    maxWidth: {
+      'container-l': '1280px',
+      'container-lv2': '1240px',
+      'container-m': '744px',
+      'container-s': '375px'
+    },
     extend: {
       fontFamily: {
         pretendard: ['var(--font-pretendard)']
@@ -49,12 +55,13 @@ const config = {
         '19.5px-row': 'calc(100vw * 0.0102)',
         '20px-row': 'calc(100vw * 0.01042)',
         '24px-row': 'calc(100vw * 0.01250)',
+        '30px-row': 'calc(100vw * 0.01563)',
         '32px-row': 'calc(100vw * 0.01667)',
+        '36px-row': 'calc(100vw * 0.01870)',
         '43px-row': 'calc(100vw * 0.0224)',
         '40px-row': 'calc(100vw * 0.020833)',
         '44px-row': 'calc(100vw * 0.02292)',
         '46px-row': 'calc(100vw * 0.023958333)',
-        '36px-row': 'calc(100vw * 0.01870)',
         '48px-row': 'calc(100vw * 0.025)',
         '68px-row': 'calc(100vw * 0.03536)',
         '70px-row': 'calc(100vw * 0.036458333)',
@@ -158,17 +165,20 @@ const config = {
         '16px-row-m': 'calc(100vh * 0.01970)',
         '20px-row-m': 'calc(100vw * 0.05333)',
         '24px-row-m': 'calc(100vw * 0.064)',
+        '30px-row-m': 'calc(100vw * 0.08)',
         '32px-row-m': 'calc(100vw * 0.08533)',
         '48px-row-m': 'calc(100vw * 0.128)',
+        '60px-row-m': 'calc(100vw * (60 / 375))',
         '64px-row-m': 'calc(100vw * 0.1707)',
-        '70px-row-m': 'calc(100vw * 0.1867)',
         '68px-row-m': 'calc(100vw * (68 / 375))',
+        '70px-row-m': 'calc(100vw * 0.1867)',
         '78px-row-m': 'calc(100vw * (78 / 375))',
         '90px-row-m': 'calc(100vw * 0.24)',
         '80px-row-m': 'calc(100vw * 0.21333)',
         '102px-row-m': 'calc(100vw * 0.272)',
         '110px-row-m': 'calc(100vw * 0.2933)',
         '120px-row-m': 'calc(100vw * 0.32)',
+        '160px-row-m': 'calc(100vw * 0.4264)',
         '196px-row-m': 'calc(100vw * 0.5227)',
         '200px-row-m': 'calc(100vw * 0.533)',
         '252px-row-m': 'calc((252 / 375) * 100vw)',
@@ -205,6 +215,8 @@ const config = {
         '440px-col-m': 'calc(100vh * 0.541)',
         '482px-col-m': 'calc(100vh * 0.593)',
         '615px-col-m': 'calc(100vh * 0.757)',
+        '44px-col-m': 'calc(100vh * 0.066)',
+        '88px-col-m': 'calc(100vh * 0.132)',
         'pt-148px-row': 'calc(148 / 1080 * 100vh)',
         'pt-312px-row': 'calc(312 / 1080 * 100vh)',
         'pt-20px-row': 'calc(20 / 1920 * 100vw)',
