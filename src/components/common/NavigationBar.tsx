@@ -14,11 +14,12 @@ const NavigationBar = () => {
   const router = useRouter();
   const modal = useModal();
 
-  const { setIsDiaryEditMode } = useZustandStore();
+  const { setIsDiaryEditMode, setHasTestResult } = useZustandStore();
   const isLogin = loginZustandStore((state) => state.isLogin);
 
   const handleClickIcon = (): void => {
     setIsDiaryEditMode(false);
+    setHasTestResult(false);
   };
 
   const goToHome = (): void => {

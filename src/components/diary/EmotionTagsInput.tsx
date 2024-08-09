@@ -2,7 +2,7 @@
 
 import useZustandStore from '@/zustand/zustandStore';
 import { useEffect } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 
 type FormValues = {
   inputValue: string;
@@ -10,7 +10,7 @@ type FormValues = {
 };
 
 const EmotionTagsInput = () => {
-  const { isDiaryEditMode, testResult, hasTestResult, setHasTestResult, tags, setTags } = useZustandStore();
+  const { isDiaryEditMode, hasTestResult, testResult, tags, setTags } = useZustandStore();
 
   const {
     control,
@@ -34,14 +34,13 @@ const EmotionTagsInput = () => {
       setValue('inputValue', '');
       setValue('tags', tags);
     } else if (hasTestResult && testResult) {
-      setHasTestResult(false);
-      setValue('inputValue', testResult.result.emotion);
+      setValue('inputValue', '');
       setValue('tags', tags);
     } else {
       setTags([]);
       setValue('tags', []);
     }
-  }, [isDiaryEditMode, hasTestResult, testResult, setHasTestResult, setValue]);
+  }, [isDiaryEditMode, testResult, setValue]);
 
   const validateTags = (tagsArray: string[]) => {
     if (tagsArray.length > 5) {
