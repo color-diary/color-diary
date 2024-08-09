@@ -25,14 +25,19 @@ import TextButton from '../common/TextButton';
 import DiaryTextArea from './DiaryTextArea';
 import EmotionTagsInput from './EmotionTagsInput';
 import { FormEvent } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 const WriteForm = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const params = useParams();
   const date = params.id as string;
   const diaryId = params.id as string;
   const toast = useToast();
   const modal = useModal();
+
+  const form = searchParams.get('form');
+  const YYMM = searchParams.get('YYMM');
 
   const { color, tags, content, img, isDiaryEditMode, setIsDiaryEditMode } = useZustandStore((state) => ({
     color: state.color,
@@ -74,7 +79,7 @@ const WriteForm = () => {
           const hasTodayDiary = await checkHasDiaryData(date);
           if (!hasTodayDiary) {
             toast.on({ label: '오늘은 이미 기록작성이 완료돠었어요. 다른날짜를 원하시면 홈으로 이동해주세요.' });
-            router.replace('/');
+            router.replace(`/?form=${form}&YYMM=${YYMM}`);
           }
         }
       } else {
@@ -82,11 +87,11 @@ const WriteForm = () => {
           if (checkLocalDiaryExistsForDate(date)) {
             toast.on({ label: '오늘은 이미 기록작성이 완료돠었어요. 다른날짜를 원하시면 홈으로 이동해주세요.' });
 
-            router.replace('/');
+            router.replace(`/?form=${form}&YYMM=${YYMM}`);
           } else if (isLocalDiaryOverTwo()) {
             toast.on({ label: '비회원은 기록을 최대 2개만 남길 수 있어요.' });
 
-            router.replace('/');
+            router.replace(`/?form=${form}&YYMM=${YYMM}`);
           }
         }
       }
@@ -118,7 +123,7 @@ const WriteForm = () => {
     onSuccess: () => {
       toast.on({ label: isDiaryEditMode ? '나의 감정이 수정되었어요.' : '나의 감정이 기록되었어요.' });
       setIsDiaryEditMode(false);
-      router.replace('/');
+      router.replace(`/?form=${form}&YYMM=${YYMM}`);
     },
     onError: (error: Error) => {
       toast.on({ label: '작성 실패.' });
@@ -132,7 +137,7 @@ const WriteForm = () => {
         saveToLocal(color, tags, content, img, date);
         toast.on({ label: '나의 감정이 기록되었어요' });
 
-        router.replace('/');
+        router.replace(`/?form=${form}&YYMM=${YYMM}`);
         return;
       }
       if (!isDiaryEditMode) {
@@ -155,7 +160,7 @@ const WriteForm = () => {
     if (color && tags.length > 0 && content) {
       if (!userId) {
         updateLocalDiary(diaryId, color, tags, content, img, date);
-        router.replace('/');
+        router.replace(`/?form=${form}&YYMM=${YYMM}`);
         toast.on({ label: '나의 감정이 수정되었어요.' });
 
         return;
@@ -210,6 +215,40 @@ const WriteForm = () => {
     });
   };
 
+  const RouteToEmotionTest = () => {
+    void router.replace('/emotion-test');
+  };
+
+  const handlePreventEmotionTest = (): void => {
+    modal.open({
+      label: '감정테스트로 넘어가면 작성한 내용이 사라집니다. /이동하시겠습니까?',
+      onConfirm: RouteToEmotionTest,
+      onCancel: () => modal.close(),
+      confirmButtonContent: {
+        children: '감정테스트하기',
+        icon: (
+          <svg width="16" height="17" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 17">
+            <path
+              d="M9.2001 3.69995C9.2001 3.38169 9.07367 3.07647 8.84863 2.85142C8.62358 2.62638 8.31836 2.49995 8.0001 2.49995C7.68184 2.49995 7.37661 2.62638 7.15157 2.85142C6.92653 3.07647 6.8001 3.38169 6.8001 3.69995H9.2001ZM6.0001 3.69995C6.0001 3.16952 6.21081 2.66081 6.58588 2.28574C6.96096 1.91066 7.46966 1.69995 8.0001 1.69995C8.53053 1.69995 9.03924 1.91066 9.41431 2.28574C9.78938 2.66081 10.0001 3.16952 10.0001 3.69995H14.0001C14.1062 3.69995 14.2079 3.74209 14.2829 3.81711C14.358 3.89212 14.4001 3.99386 14.4001 4.09995C14.4001 4.20604 14.358 4.30778 14.2829 4.38279C14.2079 4.45781 14.1062 4.49995 14.0001 4.49995H13.1569L12.7689 7.85675C12.5108 7.78592 12.2468 7.7388 11.9801 7.71595L12.3521 4.49995H3.6489L4.5929 12.684C4.63804 13.0739 4.82493 13.4336 5.11803 13.6947C5.41113 13.9558 5.78998 14.1 6.1825 14.1H7.6801C7.8273 14.3869 8.0025 14.6536 8.2057 14.9H6.1825C5.59366 14.8999 5.02539 14.6834 4.58581 14.2916C4.14623 13.8998 3.86602 13.3601 3.7985 12.7752L2.8433 4.49995H2.0001C1.89401 4.49995 1.79227 4.45781 1.71726 4.38279C1.64224 4.30778 1.6001 4.20604 1.6001 4.09995C1.6001 3.99386 1.64224 3.89212 1.71726 3.81711C1.79227 3.74209 1.89401 3.69995 2.0001 3.69995H6.0001ZM15.2001 12.1C15.2001 13.0547 14.8208 13.9704 14.1457 14.6455C13.4706 15.3207 12.5549 15.7 11.6001 15.7C10.6453 15.7 9.72964 15.3207 9.05451 14.6455C8.37938 13.9704 8.0001 13.0547 8.0001 12.1C8.0001 11.1452 8.37938 10.2295 9.05451 9.55437C9.72964 8.87924 10.6453 8.49995 11.6001 8.49995C12.5549 8.49995 13.4706 8.87924 14.1457 9.55437C14.8208 10.2295 15.2001 11.1452 15.2001 12.1ZM13.0833 11.1832C13.1584 11.108 13.2006 11.0062 13.2006 10.9C13.2006 10.7937 13.1584 10.6919 13.0833 10.6168C13.0082 10.5416 12.9063 10.4994 12.8001 10.4994C12.6939 10.4994 12.592 10.5416 12.5169 10.6168L11.6001 11.5344L10.6833 10.6168C10.6082 10.5416 10.5063 10.4994 10.4001 10.4994C10.2939 10.4994 10.192 10.5416 10.1169 10.6168C10.0418 10.6919 9.99959 10.7937 9.99959 10.9C9.99959 11.0062 10.0418 11.108 10.1169 11.1832L11.0345 12.1L10.1169 13.0168C10.0797 13.0539 10.0502 13.0981 10.0301 13.1467C10.01 13.1953 9.99959 13.2474 9.99959 13.3C9.99959 13.3525 10.01 13.4046 10.0301 13.4532C10.0502 13.5018 10.0797 13.546 10.1169 13.5832C10.1541 13.6203 10.1982 13.6498 10.2468 13.67C10.2954 13.6901 10.3475 13.7005 10.4001 13.7005C10.4527 13.7005 10.5048 13.6901 10.5534 13.67C10.602 13.6498 10.6461 13.6203 10.6833 13.5832L11.6001 12.6656L12.5169 13.5832C12.5541 13.6203 12.5982 13.6498 12.6468 13.67C12.6954 13.6901 12.7475 13.7005 12.8001 13.7005C12.8527 13.7005 12.9048 13.6901 12.9534 13.67C13.002 13.6498 13.0461 13.6203 13.0833 13.5832C13.1205 13.546 13.15 13.5018 13.1701 13.4532C13.1902 13.4046 13.2006 13.3525 13.2006 13.3C13.2006 13.2474 13.1902 13.1953 13.1701 13.1467C13.15 13.0981 13.1205 13.0539 13.0833 13.0168L12.1657 12.1L13.0833 11.1832Z"
+              fill="currentColor"
+            />
+          </svg>
+        )
+      },
+      cancelButtonContent: {
+        children: '계속 작성하기',
+        icon: (
+          <svg width="17" height="17" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 17">
+            <path
+              d="M3.52096 3.8728L3.56656 3.8168C3.63284 3.75066 3.72023 3.70987 3.8135 3.70154C3.90676 3.69321 4 3.71786 4.07696 3.7712L4.13296 3.8168L8.24976 7.9344L12.3666 3.8168C12.4328 3.75066 12.5202 3.70987 12.6135 3.70154C12.7068 3.69321 12.8 3.71786 12.877 3.7712L12.933 3.8168C12.9991 3.88309 13.0399 3.97047 13.0482 4.06374C13.0566 4.15701 13.0319 4.25024 12.9786 4.3272L12.933 4.3832L8.81536 8.5L12.933 12.6168C12.9991 12.6831 13.0399 12.7705 13.0482 12.8637C13.0566 12.957 13.0319 13.0502 12.9786 13.1272L12.933 13.1832C12.8667 13.2493 12.7793 13.2901 12.686 13.2985C12.5928 13.3068 12.4995 13.2821 12.4226 13.2288L12.3666 13.1832L8.24976 9.0656L4.13296 13.1832C4.06667 13.2493 3.97928 13.2901 3.88602 13.2985C3.79275 13.3068 3.69952 13.2821 3.62256 13.2288L3.56656 13.1832C3.50042 13.1169 3.45963 13.0295 3.45129 12.9363C3.44296 12.843 3.46761 12.7498 3.52096 12.6728L3.56656 12.6168L7.68416 8.5L3.56656 4.3832C3.50042 4.31692 3.45963 4.22953 3.45129 4.13626C3.44296 4.04299 3.46761 3.94976 3.52096 3.8728Z"
+              fill="currentColor"
+            />
+          </svg>
+        )
+      }
+    });
+  };
+
   return (
     <>
       <form className="block md:hidden" onSubmit={(e) => (isDiaryEditMode ? handleEdit(e) : handleWrite(e))}>
@@ -221,7 +260,7 @@ const WriteForm = () => {
             <ImgDrop />
             <div>
               <p className="mb-2 text-14px-m text-font-color">오늘 나의 감정이 궁금하다면?</p>
-              <Link href="/emotion-test">
+              <div onClick={handlePreventEmotionTest}>
                 <Button
                   size="md"
                   priority="secondary"
@@ -240,7 +279,7 @@ const WriteForm = () => {
                 >
                   나의 감정 확인하기
                 </Button>
-              </Link>
+              </div>
             </div>
           </div>
           <div className="absolute bottom-5 right-5">
@@ -298,7 +337,7 @@ const WriteForm = () => {
                     <ImgDrop />
                     <div className="absolute right-0 bottom-0 flex flex-col justify-center items-center">
                       <p className="mb-2 text-14px text-font-color">오늘 나의 감정이 궁금하다면?</p>
-                      <Link href="/emotion-test">
+                      <div onClick={handlePreventEmotionTest}>
                         <Button
                           size="md"
                           type="button"
@@ -323,7 +362,7 @@ const WriteForm = () => {
                         >
                           나의 감정 확인하기
                         </Button>
-                      </Link>
+                      </div>
                     </div>
                   </div>
                 </div>

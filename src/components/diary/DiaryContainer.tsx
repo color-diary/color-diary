@@ -14,11 +14,16 @@ import { useEffect, useState } from 'react';
 import Button from '../common/Button';
 import TextButton from '../common/TextButton';
 import DiaryContent from './DiaryContent';
+import { useSearchParams } from 'next/navigation';
 
 const DiaryContainer = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const params = useParams();
   const diaryId = params.id as string;
+
+  const form = searchParams.get('form');
+  const YYMM = searchParams.get('YYMM');
 
   const toast = useToast();
   const modal = useModal();
@@ -78,9 +83,9 @@ const DiaryContainer = () => {
       await axios.delete(`/api/diaries/${diaryId}`);
     },
     onSuccess: () => {
-      toast.on({ label: '다이어리삭제 성공' });
+      toast.on({ label: '다이어리가 삭제되었습니다' });
 
-      router.push('/');
+      router.replace(`/?form=${form}&YYMM=${YYMM}`);
     },
     onError: (error: Error) => {
       console.error('Error deleting diary:', error);
@@ -122,9 +127,9 @@ const DiaryContainer = () => {
       deleteMutation.mutate();
     } else {
       deleteFromLocal(diaryId);
-      toast.on({ label: '로컬다이어리 지우기 성공' });
+      toast.on({ label: '다이어리가 삭제되었습니다' });
 
-      router.push('/');
+      router.replace(`/?form=${form}&YYMM=${YYMM}`);
     }
 
     modal.close();

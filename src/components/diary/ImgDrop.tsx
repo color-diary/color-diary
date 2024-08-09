@@ -70,7 +70,7 @@ const ImgDrop = () => {
 
   return (
     <div className="flex flex-col gap-8px-col-m md:gap-8px-col md:w-335px-row md:h-152px-col">
-      <p className="text-16px-m md:text-18px text-font-color">Q. 오늘 감정에맞는 이미지가 있나요?</p>
+      <p className="text-16px-m md:text-18px text-font-color">Q. 오늘 감정에 맞는 이미지가 있나요?</p>
       <div
         {...getRootProps()}
         className="flex bg-[#F9F5F0] items-center justify-center rounded-[8px]  w-80px-row-m h-80px-row-m md:w-120px-row md:h-120px-row
