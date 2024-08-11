@@ -29,6 +29,7 @@ import PencilIcon from './assets/PencilIcon ';
 import TrashBinIcon from './assets/TrashBinIcon';
 import XIconWhite from './assets/XIconWhite';
 import { tZustandStore } from '@/types/zustandStore.type';
+import LoadingSpinner from '../common/LoadingSpinner';
 
 const WriteForm = () => {
   const router = useRouter();
@@ -57,6 +58,7 @@ const WriteForm = () => {
   );
 
   const [userId, setUserId] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchSession = async () => {
@@ -75,6 +77,8 @@ const WriteForm = () => {
         }
       } catch (error) {
         console.error('Failed to get session:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchSession();
@@ -231,6 +235,14 @@ const WriteForm = () => {
       }
     });
   };
+
+  if (isLoading) {
+    return (
+      <div>
+        <LoadingSpinner />
+      </div>
+    );
+  }
 
   return (
     <>

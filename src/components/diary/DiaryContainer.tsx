@@ -75,7 +75,7 @@ const DiaryContainer = () => {
   const {
     data: diary,
     error,
-    isLoading: isQueryLoading
+    isPending: isQueryLoading
   } = useQuery({
     queryKey: ['diary', diaryId],
     queryFn: () => fetchDiary(diaryId),
