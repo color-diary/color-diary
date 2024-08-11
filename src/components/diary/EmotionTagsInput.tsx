@@ -134,9 +134,9 @@ const EmotionTagsInput = () => {
         />
       </div>
       {errors.tags ? (
-        <p className="text-red-500 text-12px-m md:text-14px">{errors.tags.message}</p>
+        <p className="text-red-500 md:text-14px">{errors.tags.message}</p>
       ) : (
-        <p className="text-[#a1a1a1] text-px-m  md:text-14px">엔터를 눌러 태그를 입력해주세요.</p>
+        <p className="text-[#a1a1a1] text-px-m md:text-14px">엔터를 눌러 태그를 입력해주세요.</p>
       )}
     </div>
   );

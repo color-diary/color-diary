@@ -1,4 +1,4 @@
-const ReturnIcon = () => {
+const TrashBinIcon = () => {
   return (
     <svg width="16" height="17" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 17">
       <path
@@ -9,4 +9,4 @@ const ReturnIcon = () => {
   );
 };
 
-export default ReturnIcon;
+export default TrashBinIcon;
