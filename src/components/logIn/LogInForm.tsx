@@ -87,7 +87,7 @@ const LogInForm = () => {
                 id="email"
                 type="email"
                 value={email}
-                setValue={setEmail}
+                //setValue={setEmail}
                 onChange={handleChangeEmail}
                 label="이메일"
                 placeholder="이메일을 입력해주세요."
@@ -96,7 +96,7 @@ const LogInForm = () => {
                 id="password"
                 type="password"
                 value={password}
-                setValue={setPassword}
+                //setValue={setPassword}
                 onChange={handleChangePassword}
                 label="비밀번호"
                 placeholder="비밀번호를 입력해주세요."

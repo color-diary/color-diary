@@ -56,7 +56,7 @@ const ServiceModal = ({ onClose }: ServiceModalProps) => {
           type="email"
           state={emailState}
           value={email}
-          setValue={setEmail}
+          //onchange={setEmail}
           onChange={handleChangeEmail}
           label="답변받을 이메일을 입력해주세요."
           validationMessage="ex)abcd@gmail.com"

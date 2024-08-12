@@ -69,16 +69,17 @@ type InputProps = {
   label: string;
   validationMessage?: string;
   value: string;
-  setValue: Dispatch<SetStateAction<string>>;
+  //setValue: Dispatch<SetStateAction<string>>;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 } & InputVariantProps &
   ComponentProps<'input'>;
 
-const Input = ({ label, validationMessage, state, id, value, setValue, ...props }: InputProps) => {
+const Input = ({ label, validationMessage, state, id, value, onChange, ...props }: InputProps) => {
   const inputId = id || crypto.randomUUID();
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => setValue(e.target.value);
+  // const handleChange = (e: ChangeEvent<HTMLInputElement>): void => setValue(e.target.value);
 
-  const clearInput = (): void => setValue('');
+  // const clearInput = (): void => setValue('');
 
   return (
     <div className="w-full flex flex-col items-start md:gap-8px-col gap-8px-col-m">
@@ -90,12 +91,12 @@ const Input = ({ label, validationMessage, state, id, value, setValue, ...props 
           id={inputId}
           className={inputVariant({ state })}
           value={value}
-          onChange={handleChange}
+          onChange={onChange}
           disabled={state === 'disable'}
           {...props}
         />
         {(state === 'filled' || state === 'error') && (
-          <button type="button" className={iconVariant({ state })} onClick={clearInput}>
+          <button type="button" className={iconVariant({ state })} onClick={() => onChange({ target: { value: '' } } as ChangeEvent<HTMLInputElement>)}>
             {state === 'filled' ? <XIconBlack /> : <XIconRed />}
           </button>
         )}
