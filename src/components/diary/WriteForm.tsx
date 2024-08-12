@@ -6,6 +6,7 @@ import ImgDrop from '@/components/diary/ImgDrop';
 import { useModal } from '@/providers/modal.context';
 import { useToast } from '@/providers/toast.context';
 import { NewDiary } from '@/types/diary.type';
+import { tZustandStore } from '@/types/zustandStore.type';
 import {
   checkLocalDiaryExistsForDate,
   isLocalDiaryOverTwo,
@@ -20,15 +21,15 @@ import axios from 'axios';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { FormEvent, useEffect, useState } from 'react';
 import Button from '../common/Button';
+import LoadingSpinner from '../common/LoadingSpinner';
 import TextButton from '../common/TextButton';
 import DiaryTextArea from './DiaryTextArea';
 import EmotionTagsInput from './EmotionTagsInput';
 import AngelRightBlack from './assets/AngelRightBlack';
 import AngleRightGreen from './assets/AngleRightGreen';
-import EditIcon from './assets/EditIcon';
-import ReturnIcon from './assets/ReturnIcon';
+import BackArrowIcon from './assets/BackArrowIcon';
+import PencilIcon from './assets/PencilIcon ';
 import XIconWhite from './assets/XIconWhite';
-import { tZustandStore } from '@/types/zustandStore.type';
 
 const WriteForm = () => {
   const router = useRouter();
@@ -56,6 +57,7 @@ const WriteForm = () => {
     }));
 
   const [userId, setUserId] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchSession = async () => {
@@ -74,6 +76,8 @@ const WriteForm = () => {
         }
       } catch (error) {
         console.error('Failed to get session:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchSession();
@@ -128,10 +132,12 @@ const WriteForm = () => {
     },
     onSuccess: () => {
       toast.on({ label: isDiaryEditMode ? '나의 감정이 수정되었어요.' : '나의 감정이 기록되었어요.' });
+
+      if (hasTestResult) router.replace('/');
+      else router.replace(`/?form=${form}&YYMM=${YYMM}`);
+
       setIsDiaryEditMode(false);
       setHasTestResult(false);
-
-      router.replace(`/?form=${form}&YYMM=${YYMM}`);
     },
     onError: (error: Error) => {
       toast.on({ label: '작성 실패.' });
@@ -201,7 +207,7 @@ const WriteForm = () => {
       onCancel: () => modal.close(),
       confirmButtonContent: {
         children: '뒤로가기',
-        icon: <ReturnIcon />
+        icon: <BackArrowIcon />
       },
       cancelButtonContent: {
         children: '계속 작성하기',
@@ -210,7 +216,7 @@ const WriteForm = () => {
     });
   };
 
-  const RouteToEmotionTest = () => {
+  const routeToEmotionTest = () => {
     modal.close();
     void router.replace('/emotion-test');
   };
@@ -218,7 +224,7 @@ const WriteForm = () => {
   const handlePreventEmotionTest = (): void => {
     modal.open({
       label: '페이지를 나가시면 입력한 내용이 취소될 수 있어요./나의 감정을 확인하러 가실 건가요?',
-      onConfirm: RouteToEmotionTest,
+      onConfirm: routeToEmotionTest,
       onCancel: () => modal.close(),
       confirmButtonContent: {
         children: '감정 확인하기',
@@ -230,6 +236,14 @@ const WriteForm = () => {
       }
     });
   };
+
+  if (isLoading) {
+    return (
+      <div>
+        <LoadingSpinner />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -250,7 +264,7 @@ const WriteForm = () => {
             </div>
           </div>
           <div className="absolute bottom-5 right-5">
-            <Button size="md" type="submit" icon={<EditIcon />}>
+            <Button size="md" type="submit" icon={<PencilIcon />}>
               {isDiaryEditMode ? '수정 완료하기' : '작성 완료하기'}
             </Button>
           </div>
@@ -267,7 +281,7 @@ const WriteForm = () => {
                   </TextButton>
                 </div>
                 <div className="mr-24px-row">
-                  <Button size="md" type="submit" icon={<EditIcon />}>
+                  <Button size="md" type="submit" icon={<PencilIcon />}>
                     {isDiaryEditMode ? '수정 완료하기' : '작성 완료하기'}
                   </Button>
                 </div>
