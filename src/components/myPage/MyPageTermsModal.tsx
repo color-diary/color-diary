@@ -19,7 +19,7 @@ const MyPageTermsModal = ({ onClose }: TermsModalProps) => {
       </div>
 
       <div className="w-full md:w-540px-row h-560px-col overflow-y-scroll small-custom-terms-scrollbar">{terms}</div>
-      <div className="w-full flex items-end justify-end self-stretch ">
+      <div className="w-full flex items-end justify-end self-stretch">
         <Button
           size={'lg'}
           onClick={onClose}
