@@ -4,7 +4,7 @@ import { ComponentProps, ReactNode } from 'react';
 import ButtonDefault from './assets/ButtonDefault';
 
 const buttonVariant = cva(
-  'inline-flex justify-center items-center gap-4px-row text-center font-medium transition border',
+  'inline-flex justify-center items-center gap-4px-row text-center font-medium border active:scale-95 transition-all',
   {
     variants: {
       priority: {
