@@ -197,7 +197,7 @@ const DiaryContainer = () => {
       </div>
 
       <div className="hidden md:block">
-        <div className="flex items-center justify-center h-screen">
+        <div className="flex items-center justify-center h-screen pt-[80px] ">
           <div
             className="relative flex items-center justify-center w-720px-row h-859px-col min-h-96 rounded-[32px] lg:border-4 lg:border-[#E6D3BC] p-[6.5vh] pl-[1.5vh]"
             style={{ backgroundColor: diaryData.color }}

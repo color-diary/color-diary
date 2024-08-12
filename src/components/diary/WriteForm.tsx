@@ -26,10 +26,10 @@ import EmotionTagsInput from './EmotionTagsInput';
 import AngelRightBlack from './assets/AngelRightBlack';
 import AngleRightGreen from './assets/AngleRightGreen';
 import PencilIcon from './assets/PencilIcon ';
-import TrashBinIcon from './assets/TrashBinIcon';
 import XIconWhite from './assets/XIconWhite';
 import { tZustandStore } from '@/types/zustandStore.type';
 import LoadingSpinner from '../common/LoadingSpinner';
+import BackArrowIcon from './assets/BackArrowIcon';
 
 const WriteForm = () => {
   const router = useRouter();
@@ -206,7 +206,7 @@ const WriteForm = () => {
       onCancel: () => modal.close(),
       confirmButtonContent: {
         children: '뒤로가기',
-        icon: <TrashBinIcon />
+        icon: <BackArrowIcon />
       },
       cancelButtonContent: {
         children: '계속 작성하기',
