@@ -106,7 +106,7 @@ const EmotionChart = () => {
                         className={`flex justify-end absolute top-0 left-0 md:h-40px-col h-[24px] ${backgroundColor[index]} border-l-0 rounded-e-2xl transition-all duration-300`}
                         style={{ width: `${item}%` }}
                       >
-                        <div className="text-center text-[#25B18C] md:text-14px text-[12px] bg-white rounded-3xl md:py-4px-col py-[2px] md:px-8px-row px-[6px] absolute right-13.5px-row transform -translate-y-1/2 top-1/2">
+                        <div className="text-center text-[#878787] md:text-14px text-[12px] bg-white rounded-3xl md:py-4px-col py-[2px] md:px-8px-row px-[6px] absolute right-13.5px-row transform -translate-y-1/2 top-1/2">
                           {tagCounts[index]}개
                         </div>
                       </div>
