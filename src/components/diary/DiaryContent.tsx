@@ -37,8 +37,8 @@ const DiaryContent = ({ diary }: { diary: Diary }) => {
           </div>
         )}
       </div>
-      <div className="mb-4 w-287px-row-m h-264px-col-m  md:w-480px-row md:h-192px-col">
-        <p className="text-16px-m  md:text-18px text-font-color">{diary.content}</p>
+      <div className="mb-4 w-287px-row-m h-264px-col-m  md:w-480px-row md:h-192px-col overflow-y-auto">
+        <p className="text-16px-m  md:text-18px text-font-color ">{diary.content}</p>
       </div>
       <div className="mb-4"></div>
     </>
