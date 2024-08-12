@@ -92,18 +92,18 @@ const EmotionChart = () => {
                     key={index}
                     className="flex items-center text-start md:w-100px-row md:h-40px-col w-[70px] h-[24px]"
                   >
-                    <span className="md:text-18px text-[14px] w-full truncate">{item.tag}</span>
+                    <span className="md:text-18px text-[14px] w-full truncatet text-font-color">{item.tag}</span>
                   </div>
                 );
               })}
             </div>
-            <div className="flex flex-col border-l-2 border-[#25B18C] md:gap-16px-col md:py-24px-col py-[16px] gap-[16px]">
+            <div className="flex flex-col border-l-2 border-[#E6D3BC] md:gap-16px-col md:py-24px-col py-[16px] gap-[16px]">
               {progresses.map((item, index) => {
                 return (
                   <div key={index} className="flex items-center w-full">
                     <div className="relative md:h-40px-col h-[24px] flex self-stretch rounded-lg md:w-310px-row w-[204px]">
                       <div
-                        className={`flex justify-end absolute top-0 left-0 md:h-40px-col h-[24px] ${backgroundColor[index]} border-l-0 border-dashed border-2 border-[#25B18C] rounded-e-2xl transition-all duration-300`}
+                        className={`flex justify-end absolute top-0 left-0 md:h-40px-col h-[24px] ${backgroundColor[index]} border-l-0 rounded-e-2xl transition-all duration-300`}
                         style={{ width: `${item}%` }}
                       >
                         <div className="text-center text-[#25B18C] md:text-14px text-[12px] bg-white rounded-3xl md:py-4px-col py-[2px] md:px-8px-row px-[6px] absolute right-13.5px-row transform -translate-y-1/2 top-1/2">
