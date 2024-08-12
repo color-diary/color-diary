@@ -6,6 +6,7 @@ import Input from '../common/Input';
 import Dropdown from './DropDown';
 import { WhiteXicon, GreenXicon } from './assets/Xicon';
 import { WhiteMailIcon } from './assets/Mail';
+import { useForm } from 'react-hook-form';
 
 interface ServiceModalProps {
   onClose: () => void;
@@ -18,8 +19,9 @@ const ServiceModal = ({ onClose }: ServiceModalProps) => {
   const maxLength = 500;
 
   const handleTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    if (e.target.value.length <= maxLength) {
-      setText(e.target.value);
+    const inputText = e.target.value;
+    if (inputText.length <= maxLength) {
+      setText(inputText);
     }
   };
 
@@ -40,7 +42,6 @@ const ServiceModal = ({ onClose }: ServiceModalProps) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
-
 
   return (
     <div className='flex flex-col px-20px-row w-full  md:w-744px-row'>
@@ -70,6 +71,7 @@ const ServiceModal = ({ onClose }: ServiceModalProps) => {
 ex)일기의 날짜가 입력이 안돼요.`}
             className='w-full resize-none h-135px-col-m md:h-160px-row outline-none text-14px-m md:text-18px'
             onChange={handleTextChange}
+            value={text} 
           />
           <div className='text-right bg-white text-12px-m md:text-14px text-[#A1A1A1]'>
             {text.length}/{maxLength}
