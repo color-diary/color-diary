@@ -19,7 +19,7 @@ const useTypingWords = (text: string): string => {
     }, 100);
 
     return () => clearInterval(typingWords);
-  });
+  }, [count, text]);
 
   return typing;
 };

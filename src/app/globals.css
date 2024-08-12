@@ -186,3 +186,44 @@ body {
 .custom-scrollbar::-webkit-scrollbar-track {
   border-radius: 22px;
 }
+
+.loader {
+  width: calc(100vw * 0.1458);
+  height: calc(100vw * 0.1458);
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 2s linear infinite;
+}
+
+.loader-mobile {
+  width: calc(100vw * 0.448);
+  height: calc(100vw * 0.448);
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 2s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.jump-svg {
+  animation: jump 500ms infinite;
+}
+
+@keyframes jump {
+  0% {
+    transform: translateY(10px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(10px);
+  }
+}
