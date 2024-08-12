@@ -90,9 +90,9 @@ const EmotionChart = () => {
                 return (
                   <div
                     key={index}
-                    className="flex items-center text-start md:w-100px-row md:h-40px-col w-[70px] h-[24px]"
+                    className="flex items-center text-start md:w-100px-row md:h-40px-col w-[50px] h-[24px]"
                   >
-                    <span className="md:text-18px text-[14px] w-full truncatet text-font-color">{item.tag}</span>
+                    <span className="md:text-18px text-[14px] w-full truncate text-font-color">{item.tag}</span>
                   </div>
                 );
               })}
