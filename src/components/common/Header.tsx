@@ -27,7 +27,7 @@ const Header = () => {
 
   const supabase = createClient();
 
-  const handleClick = () => {
+  const handleClick = (): void => {
     setIsDiaryEditMode(false);
     setHasTestResult(false);
   };
@@ -65,7 +65,14 @@ const Header = () => {
     <div className="z-10 fixed top-0 left-0 w-full flex items-center py-1 md:py-2 h-12 md:h-18 shadow-header-shadow bg-layout px-5">
       <div className="flex md:hidden w-fit items-center">
         {pathname.startsWith('/diaries') || pathname === '/emotion-test' ? (
-          <TextButton onClick={() => router.back()}>뒤로 가기</TextButton>
+          <TextButton
+            onClick={() => {
+              handleClick();
+              router.back();
+            }}
+          >
+            뒤로 가기
+          </TextButton>
         ) : (
           <Link
             href={'/'}
