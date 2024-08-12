@@ -6,6 +6,7 @@ import ImgDrop from '@/components/diary/ImgDrop';
 import { useModal } from '@/providers/modal.context';
 import { useToast } from '@/providers/toast.context';
 import { NewDiary } from '@/types/diary.type';
+import { tZustandStore } from '@/types/zustandStore.type';
 import {
   checkLocalDiaryExistsForDate,
   isLocalDiaryOverTwo,
@@ -20,16 +21,15 @@ import axios from 'axios';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { FormEvent, useEffect, useState } from 'react';
 import Button from '../common/Button';
+import LoadingSpinner from '../common/LoadingSpinner';
 import TextButton from '../common/TextButton';
 import DiaryTextArea from './DiaryTextArea';
 import EmotionTagsInput from './EmotionTagsInput';
 import AngelRightBlack from './assets/AngelRightBlack';
 import AngleRightGreen from './assets/AngleRightGreen';
+import BackArrowIcon from './assets/BackArrowIcon';
 import PencilIcon from './assets/PencilIcon ';
 import XIconWhite from './assets/XIconWhite';
-import { tZustandStore } from '@/types/zustandStore.type';
-import LoadingSpinner from '../common/LoadingSpinner';
-import BackArrowIcon from './assets/BackArrowIcon';
 
 const WriteForm = () => {
   const router = useRouter();
@@ -44,8 +44,8 @@ const WriteForm = () => {
   const form = searchParams.get('form');
   const YYMM = searchParams.get('YYMM');
 
-  const { color, tags, content, img, isDiaryEditMode, setIsDiaryEditMode, setHasTestResult } = useZustandStore(
-    (state: tZustandStore) => ({
+  const { color, tags, content, img, isDiaryEditMode, setIsDiaryEditMode, hasTestResult, setHasTestResult } =
+    useZustandStore((state: tZustandStore) => ({
       color: state.color,
       tags: state.tags,
       content: state.content,
@@ -54,11 +54,10 @@ const WriteForm = () => {
       setIsDiaryEditMode: state.setIsDiaryEditMode,
       hasTestResult: state.hasTestResult,
       setHasTestResult: state.setHasTestResult
-    })
-  );
+    }));
 
   const [userId, setUserId] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchSession = async () => {
@@ -133,10 +132,12 @@ const WriteForm = () => {
     },
     onSuccess: () => {
       toast.on({ label: isDiaryEditMode ? '나의 감정이 수정되었어요.' : '나의 감정이 기록되었어요.' });
+
+      if (hasTestResult) router.replace('/');
+      else router.replace(`/?form=${form}&YYMM=${YYMM}`);
+
       setIsDiaryEditMode(false);
       setHasTestResult(false);
-
-      router.replace(`/?form=${form}&YYMM=${YYMM}`);
     },
     onError: (error: Error) => {
       toast.on({ label: '작성 실패.' });
