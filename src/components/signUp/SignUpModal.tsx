@@ -217,7 +217,7 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
                 type="email"
                 state={emailState}
                 value={email}
-                //setValue={setEmail}
+                setValue={setEmail}
                 onChange={handleChangeEmail}
                 label="이메일"
                 validationMessage="ex)abcd@gmail.com"
@@ -227,7 +227,7 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
                 type="text"
                 state={nicknameState}
                 value={nickname}
-                //setValue={setNickname}
+                setValue={setNickname}
                 onChange={handleChangeNickname}
                 label="이름"
                 validationMessage="띄어쓰기는 불가능해요.(3~8글자 이내)"
@@ -237,7 +237,7 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
                 type="password"
                 state={passwordState}
                 value={password}
-                //setValue={setPassword}
+                setValue={setPassword}
                 onChange={handleChangePassword}
                 label="비밀번호"
                 validationMessage="영문과 숫자를 포함해주세요.(6글자 이상)"
@@ -247,7 +247,7 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
                 type="password"
                 state={confirmPasswordState}
                 value={confirmPassword}
-                //setValue={setConfirmPassword}
+                setValue={setConfirmPassword}
                 onChange={handleChangeConfirmPassword}
                 label="비밀번호 확인하기"
                 validationMessage="상단에 입력한 비밀번호와 동일하게 입력해주세요"

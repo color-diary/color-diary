@@ -83,10 +83,10 @@ const iconVariant = cva('fill-current flex justify-center items-center', {
 
 type ButtonVariantProps = VariantProps<typeof buttonVariant>;
 
-type ButtonProps = { children: ReactNode; icon?: ReactNode; type?:'button' | 'submit'} & ButtonVariantProps &
+type ButtonProps = { children: ReactNode; icon?: ReactNode } & ButtonVariantProps &
   (({ href?: undefined } & ComponentProps<'button'>) | ({ href: string } & ComponentProps<typeof Link>));
 
-const Button = ({ priority, state, size, children, icon, type='button', ...props }: ButtonProps) => {
+const Button = ({ priority, state, size, children, icon, ...props }: ButtonProps) => {
   if (props.href) {
     return (
       <Link className={buttonVariant({ priority, state, size })} aria-disabled={state === 'disable'} {...props}>
@@ -96,7 +96,7 @@ const Button = ({ priority, state, size, children, icon, type='button', ...props
     );
   } else if (typeof props.href === 'undefined')
     return (
-      <button className={buttonVariant({ priority, state, size })} disabled={state === 'disable'} type={type} {...props}>
+      <button className={buttonVariant({ priority, state, size })} disabled={state === 'disable'} {...props}>
         {children}
         {<span className={iconVariant({ size })}>{icon ? icon : <ButtonDefault />}</span>}
       </button>

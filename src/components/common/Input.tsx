@@ -20,7 +20,7 @@ const labelVariant = cva('self-stretch font-medium md:text-18px md:tracking-0.36
 });
 
 const inputVariant = cva(
-  'w-full flex justify-center md:pl-16px-row md:pr-48px-row pl-16px-row-m pr-48px-row-m self-stretch border rounded-lg font-normal md:py-12px-col md:text-18px md:tracking-0.36px py-8px-col-m text-14px-m tracking-0.28px',
+  'w-full flex justify-center md:pl-16px-row md:pr-48px-row pl-16px-row-m pr-48px-row-m self-stretch border rounded-lg font-normal md:py-12px-col md:text-18px md:tracking-0.36px py-8px-col-m text-14px-m tracking-0.28px border-[#A1A1A1] outline-none',
   {
     variants: {
       state: {
@@ -69,17 +69,16 @@ type InputProps = {
   label: string;
   validationMessage?: string;
   value: string;
-  //setValue: Dispatch<SetStateAction<string>>;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  setValue: Dispatch<SetStateAction<string>>;
 } & InputVariantProps &
   ComponentProps<'input'>;
 
-const Input = ({ label, validationMessage, state, id, value, onChange, ...props }: InputProps) => {
+const Input = ({ label, validationMessage, state, id, value, setValue, ...props }: InputProps) => {
   const inputId = id || crypto.randomUUID();
 
-  // const handleChange = (e: ChangeEvent<HTMLInputElement>): void => setValue(e.target.value);
+  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => setValue(e.target.value);
 
-  // const clearInput = (): void => setValue('');
+  const clearInput = (): void => setValue('');
 
   return (
     <div className="w-full flex flex-col items-start md:gap-8px-col gap-8px-col-m">
@@ -91,12 +90,12 @@ const Input = ({ label, validationMessage, state, id, value, onChange, ...props 
           id={inputId}
           className={inputVariant({ state })}
           value={value}
-          onChange={onChange}
+          onChange={handleChange}
           disabled={state === 'disable'}
           {...props}
         />
         {(state === 'filled' || state === 'error') && (
-          <button type="button" className={iconVariant({ state })} onClick={() => onChange({ target: { value: '' } } as ChangeEvent<HTMLInputElement>)}>
+          <button type="button" className={iconVariant({ state })} onClick={clearInput}>
             {state === 'filled' ? <XIconBlack /> : <XIconRed />}
           </button>
         )}
