@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import ColorChart from './ColorChart';
 import EmotionChart from './EmotionChart';
 import localFont from 'next/font/local';
+import * as ChannelService from '@channel.io/channel-web-sdk-loader';
 
 const myFont = localFont({
   src: '../../fonts/BMJUA_otf.otf',
@@ -13,6 +14,13 @@ const myFont = localFont({
 
 const StatisticsForm = () => {
   const [advice, setAdvice] = useState<KadviceJsonModel | null>(null);
+
+  useEffect(() => {
+    ChannelService.loadScript();
+    ChannelService.boot({
+      pluginKey: '9314d117-4756-4d97-8a35-895a898acbfd' // fill your plugin key
+    });
+  }, []);
 
   useEffect(() => {
     const advice = kadvice.getOne();
