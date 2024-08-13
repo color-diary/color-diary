@@ -90,21 +90,29 @@ const EmotionChart = () => {
                 return (
                   <div
                     key={index}
-                    className="flex items-center text-start md:w-100px-row md:h-40px-col w-[50px] h-[24px]"
+                    className="relative flex items-center text-start md:w-100px-row md:h-40px-col w-[70px] h-[24px]"
                   >
-                    <span className="md:text-18px text-[14px] w-full truncate text-font-color">{item.tag}</span>
+                    <span className="md:text-18px text-[14px] w-full truncate text-font-color hover:whitespace-normal hover:overflow-visible hover:absolute hover:bg-white ">
+                      #{item.tag}
+                    </span>
                   </div>
                 );
               })}
             </div>
-            <div className="flex flex-col border-l-2 border-[#E6D3BC] md:gap-16px-col md:py-24px-col py-[16px] gap-[16px]">
+            <div className="flex flex-col border-l-2 border-[#25B18C] md:gap-16px-col md:py-24px-col py-[16px] gap-[16px]">
               {progresses.map((item, index) => {
                 return (
                   <div key={index} className="flex items-center w-full">
-                    <div className="relative md:h-40px-col h-[24px] flex self-stretch rounded-lg md:w-310px-row w-[204px]">
+                    <div className="relative md:h-40px-col h-[24px] flex self-stretc md:w-310px-row w-[204px]">
                       <div
-                        className={`flex justify-end absolute top-0 left-0 md:h-40px-col h-[24px] ${backgroundColor[index]} border-l-0 rounded-e-2xl transition-all duration-300`}
-                        style={{ width: `${item}%` }}
+                        className={`flex justify-end absolute top-0 left-0 md:h-40px-col h-[24px] ${backgroundColor[index]}  transition-all duration-300`}
+                        style={{
+                          width: `${item}%`,
+                          backgroundImage:
+                            "url(\"data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='8' ry='8' stroke='%23E6D3BC' stroke-width='2' stroke-dasharray='6' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e\")",
+                          borderRadius: '0px 16px 16px 0px'
+                        }}
+                        // style={{ width: `${item}%` }}
                       >
                         <div className="text-center text-[#878787] md:text-14px text-[12px] bg-white rounded-3xl md:py-4px-col py-[2px] md:px-8px-row px-[6px] absolute right-13.5px-row transform -translate-y-1/2 top-1/2">
                           {tagCounts[index]}개
