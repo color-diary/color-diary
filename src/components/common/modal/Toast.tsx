@@ -30,7 +30,7 @@ const Toast = ({ toast }: ToastProps) => {
 
   useEffect(() => {
     setIsOpen(true);
-    setTimeout(() => setIsOpen(false), 1200 - 500);
+    setTimeout(() => setIsOpen(false), 1300 - 500);
   }, []);
 
   return (

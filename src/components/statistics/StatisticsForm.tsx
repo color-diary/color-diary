@@ -41,7 +41,7 @@ const StatisticsForm = () => {
         <EmotionChart />
       </div>
       <div
-        className={`md:hidden w-[330px] h-[44px] text-[16px] mt-[24px] text-center text-[#545454] md:mb-0 mb-[62px] ${myFont.className}`}
+        className={`md:hidden w-[330px] h-[44px] text-[16px] mt-[24px] text-center 545454] md:mb-0 mb-[62px] ${myFont.className}`}
       >
         &quot;{advice.message}&quot;
       </div>
