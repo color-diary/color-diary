@@ -28,8 +28,8 @@ function Dropdown() {
           type="text"
           value={selectedOption || '문의 종류 선택하기'}
           readOnly
-          className="w-full outline-none text-14px-m md:text-18px cursor-pointer border-[#A1A1A1]"
-          style={{ textAlign: 'center' }} 
+          className="flex w-full outline-none text-14px-m md:text-18px cursor-pointer border-[#A1A1A1] "
+          style={{ textAlign: 'left' }} 
         />
         <div>
           {isOpen ? (
@@ -55,7 +55,7 @@ function Dropdown() {
             <li
               key={option}
               onClick={() => handleOptionClick(option)}
-              className="w-full hover:rounded-lg hover:bg-[#DDF8F1] text-14px-m md:text-18px"
+              className="w-full hover:rounded-lg hover:bg-[#DDF8F1] text-14px-m md:text-18px hover:text-[#1C876B]"
             >
               <div className="cursor-pointer w-full px-8px-row py-4px-col">{option}</div>
             </li>

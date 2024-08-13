@@ -23,23 +23,12 @@ const LogInForm = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [emailState, setEmailState] = useState<InputStateType>('default');
-  const [passwordState, setPasswordState] = useState<InputStateType>('default');
 
   const setIsLogin = loginZustandStore((state) => state.setIsLogin);
   const publicSetProfileImg = loginZustandStore((state) => state.publicSetProfileImg);
 
   const supabase = createClient();
 
-  const validateEmail = (email: string): boolean => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    return emailRegex.test(email);
-  };
-
-  const validatePassword = (password: string): boolean => {
-    return password.length >= 6;
-  };
 
   const handleClickLogIn = async (): Promise<void> => {
     if (!email || !password) return toast.on({ label: '이메일과 비밀번호를 작성해주세요.' });
@@ -65,7 +54,6 @@ const LogInForm = () => {
         }
 
         clearLocalDiaries();
-
         router.replace('/');
       }
     } catch (error) {
@@ -76,28 +64,14 @@ const LogInForm = () => {
 
   const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>): void => {
     const newEmail = e.target.value;
-
     setEmail(newEmail);
-    setEmailState(() => {
-      if (newEmail === '') return 'default';
-      else {
-        if (!validateEmail(newEmail)) return 'error';
-        else return 'filled';
-      }
-    });
+   
   };
 
   const handleChangePassword = (e: ChangeEvent<HTMLInputElement>): void => {
     const newPassword = e.target.value;
-
     setPassword(newPassword);
-    setPasswordState(() => {
-      if (newPassword === '') return 'default';
-      else {
-        if (!validatePassword(newPassword)) return 'error';
-        else return 'filled';
-      }
-    });
+
   };
 
   return (
@@ -112,7 +86,6 @@ const LogInForm = () => {
               <Input
                 id="email"
                 type="email"
-                state={emailState}
                 value={email}
                 setValue={setEmail}
                 onChange={handleChangeEmail}
@@ -122,7 +95,6 @@ const LogInForm = () => {
               <Input
                 id="password"
                 type="password"
-                state={passwordState}
                 value={password}
                 setValue={setPassword}
                 onChange={handleChangePassword}
@@ -142,28 +114,7 @@ const LogInForm = () => {
               </Button>
             </div>
           </div>
-          <div className="flex items-start md:gap-32px-row gap-24px-row-m">
-            <div className="flex justify-center">
-              <div className="relative aspect-square w-11 h-11 md:w-44px-row md:h-44px-row rounded-full flex justify-center items-center">
-                <Image src="/Apple.png" alt="Apple" fill className="object-fit" />
-              </div>
-            </div>
-            <div className="flex justify-center">
-              <div className="relative aspect-square w-11 h-11 md:w-44px-row md:h-44px-row rounded-full flex justify-center items-center">
-                <Image src="/Google.png" alt="Google" fill className="object-fit" />
-              </div>
-            </div>
-            <div className="flex justify-center">
-              <div className="relative aspect-square w-11 h-11 md:w-44px-row md:h-44px-row rounded-full flex justify-center items-center">
-                <Image src="/Kakao.png" alt="Kakao" fill className="object-fit" />
-              </div>
-            </div>
-            <div className="flex justify-center">
-              <div className="relative aspect-square w-11 h-11 md:w-44px-row md:h-44px-row rounded-full flex justify-center items-center">
-                <Image src="/Naver.png" alt="Naver" fill className="object-fit" />
-              </div>
-            </div>
-          </div>
+        
         </div>
       </div>
       <SignUpModal isVisible={isModalVisible} onClose={() => setIsModalVisible(false)} />

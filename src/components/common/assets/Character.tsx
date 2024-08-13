@@ -1,7 +1,7 @@
 const Character = () => {
   return (
-    <div className="absolute flex items-center justify-center">
-      <div className="w-80px-row-m h-80px-row-m md:w-128px-row md:h-128px-row flex items-center justify-center">
+    <div className="absolute jump-svg flex items-center justify-center w-168px-row-m h-168px-row-m md:w-280px-row md:h-280px-row">
+      <div className="w-86px-row-m h-86px-row-m md:w-144px-row md:h-144px-row flex items-center justify-center">
         <svg width="144" height="154" viewBox="0 0 144 154" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             fillRule="evenodd"

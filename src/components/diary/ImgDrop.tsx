@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { useCallback, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { useForm } from 'react-hook-form';
-import CameraSVG from './assets/CameraSVG';
+import CameraIcon from './assets/CameraIcon';
 
 type FormValues = {
   img: File | null;
@@ -97,7 +97,7 @@ const ImgDrop = () => {
           <div className="flex flex-col justify-center items-center h-40px-col-m md:w-120px-row md:h-120px-row">
             <p className="text-12px-m md:text-14px">이미지 첨부</p>
             <div className="h-24px-row-m w-24px-col-m md:h-36px-row md:w-36px-row">
-              <CameraSVG />
+              <CameraIcon />
             </div>
           </div>
         )}
