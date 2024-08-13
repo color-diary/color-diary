@@ -2,7 +2,7 @@ import { Stamp } from '@/types/stamp.type';
 
 const SummerStamp = ({ petal, circle }: Stamp) => {
   return (
-    <svg xmlns="http://www.w3.org/3000/svg" width="30" height="30" viewBox="0 0 20 20" fill="none">
+    <svg xmlns="http://www.w3.org/3000/svg" width="100%" height="100%" viewBox="0 0 20 20" fill="none">
       <path
         fill={petal}
         stroke="#F7CA87"
