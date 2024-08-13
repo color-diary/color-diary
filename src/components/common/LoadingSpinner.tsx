@@ -32,7 +32,9 @@ const LoadingSpinner: React.FC = () => {
         <Character />
       </div>
       <div className="flex items-center">
-        <div className="relative text-layout">{loadingText}</div>
+        <p className="relative text-layout text-start text-14px-m md:text-20px font-normal tracking-0.28px md:tracking-tight">
+          {loadingText}
+        </p>
         <p className="absolute text-start text-14px-m md:text-20px font-normal tracking-0.28px md:tracking-tight">
           {typingText}
         </p>
