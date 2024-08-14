@@ -50,6 +50,7 @@ const MyPageForm = () => {
     queryKey: ['information'],
     queryFn: async () => {
       const { data } = await axios.get('/api/auth/me/information');
+      setNewNickname(data[0].nickname);
       return data;
     }
   });
@@ -63,10 +64,26 @@ const MyPageForm = () => {
       modal.close();
       toast.on({ label: '로그아웃 되었습니다.' });
 
-      queryClient.removeQueries({ queryKey: ['information', 'user'] });
+      queryClient.removeQueries({ queryKey: ['information'] });
+      queryClient.removeQueries({ queryKey: ['user'] });
+      queryClient.removeQueries({ queryKey: ['diaries'] });
+      queryClient.removeQueries({ queryKey: ['main'] });
     },
     onError: (error) => {
       console.error('로그아웃 오류 발생: ', error);
+    }
+  });
+
+  const { mutate: changeNickname } = useMutation({
+    mutationFn: (nickname: string) => axios.patch('/api/auth/me/information', { nickname }),
+    onSuccess: () => {
+      setIsNicknameEditing(false);
+      toast.on({ label: '닉네임이 성공적으로 변경되었습니다.' });
+
+      queryClient.refetchQueries({ queryKey: ['information'] });
+    },
+    onError: (error) => {
+      console.error('닉네임 수정 오류 발생: ', error);
     }
   });
 
@@ -94,27 +111,16 @@ const MyPageForm = () => {
     setShowChangePasswordModal(false);
   };
 
-  const handleChangeNickname = async () => {
+  const handleClickChangeNickname = (): void => {
     if (!validateNickname(newNickname)) {
       toast.on({ label: '닉네임은 3글자 이상 8글자 이하이어야 합니다.' });
-      setNewNickname(nickname);
       return;
     }
 
-    try {
-      if (user) {
-        const { error } = await supabase.from('users').update({ nickname: newNickname }).eq('id', user.id);
-        if (!error) {
-          setIsNicknameEditing(false);
-          toast.on({ label: '닉네임이 성공적으로 변경되었습니다.' });
-        }
-      }
-    } catch (error) {
-      console.error(error);
-    }
+    changeNickname(newNickname);
   };
 
-  const handleClickLogOut = async () => {
+  const handleClickLogOut = (): void => {
     modal.open({
       label: '로그아웃 하실건가요?',
       onConfirm: logOut,
@@ -231,7 +237,7 @@ const MyPageForm = () => {
                     priority="primary"
                     icon={<Edit />}
                     onClick={() => {
-                      handleChangeNickname();
+                      handleClickChangeNickname();
                       setIsAuthSuccess(false);
                     }}
                   >
