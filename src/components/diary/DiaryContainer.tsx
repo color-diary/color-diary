@@ -97,12 +97,22 @@ const DiaryContainer = () => {
     }
   });
 
-  if (isLoading || isQueryLoading) {
+  if (isLoading) {
     return (
       <div>
         <LoadingSpinner />
       </div>
     );
+  }
+
+  if (userId) {
+    if (isQueryLoading) {
+      return (
+        <div>
+          <LoadingSpinner />
+        </div>
+      );
+    }
   }
 
   const diaryData = userId ? diary : localDiary;
