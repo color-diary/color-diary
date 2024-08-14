@@ -31,28 +31,62 @@ export type Database = {
           tags?: string;
           userId?: string;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: 'diaries_userId_fkey';
+            columns: ['userId'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          }
+        ];
+      };
+      diaryStickers: {
+        Row: {
+          diaryId: string | null;
+          id: string;
+          stickersData: Json | null;
+        };
+        Insert: {
+          diaryId?: string | null;
+          id?: string;
+          stickersData?: Json | null;
+        };
+        Update: {
+          diaryId?: string | null;
+          id?: string;
+          stickersData?: Json | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'diaryStickers_diaryId_fkey';
+            columns: ['diaryId'];
+            isOneToOne: false;
+            referencedRelation: 'diaries';
+            referencedColumns: ['diaryId'];
+          }
+        ];
       };
       users: {
         Row: {
           created_at: string;
           email: string;
           id: string;
-          nickname: string;
+          nickname: string | null;
           profileImg: string | null;
         };
         Insert: {
           created_at?: string;
           email: string;
           id: string;
-          nickname: string;
+          nickname?: string | null;
           profileImg?: string | null;
         };
         Update: {
           created_at?: string;
           email?: string;
           id?: string;
-          nickname?: string;
+          nickname?: string | null;
           profileImg?: string | null;
         };
         Relationships: [
