@@ -19,6 +19,14 @@ import LoadingSpinner from '../common/LoadingSpinner';
 import TrashBinIcon from './assets/TrashBinIcon';
 import PencilIcon from './assets/PencilIcon ';
 import XIconWhite from './assets/XIconWhite';
+import StickerPicker from './StickerPicker';
+import Sticker from './Sticker';
+
+type StickerType = {
+  id: number;
+  component: JSX.Element;
+  position: { x: number; y: number };
+};
 
 const DiaryContainer = () => {
   const router = useRouter();
@@ -36,6 +44,13 @@ const DiaryContainer = () => {
   const [localDiary, setLocalDiary] = useState<Diary | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [stickers, setStickers] = useState<StickerType[]>([]);
+  const [isPickerVisible, setIsPickerVisible] = useState<boolean>(false);
+
+  const handleStickerSelect = (sticker: Omit<StickerType, 'position'>) => {
+    setStickers([...stickers, { ...sticker, position: { x: 200, y: 250 } }]);
+    setIsPickerVisible(false);
+  };
 
   useEffect(() => {
     const fetchSession = async () => {
@@ -161,76 +176,67 @@ const DiaryContainer = () => {
 
   return (
     <>
-      <div className="block md:hidden">
+      <div
+        className="flex items-center justify-center h-screen md:pt-[80px] md:!bg-[#FEFDFB] "
+        style={{ backgroundColor: diaryData.color }}
+      >
         <div
-          className="flex items-center justify-center h-screen w-screen"
+          className="flex flex-col md:flex md:flex-row items-center justify-center gap-8px-col-m md:gap-16px-row md:w-720px-row md:h-807px-col rounded-[32px] md:border-4 md:border-[#E6D3BC] md:py-56px-col md:pr-56px-row md:pl-16px-row "
           style={{ backgroundColor: diaryData.color }}
         >
-          <div className="flex flex-col gap-custom-8px-m h-[70%]">
-            <div className="flex  gap-[20vh] justify-center">
-              <div className="flex  justify-center gap-[3vh]">
-                <div className="w-[4vw] h-[4vw] bg-white rounded-full"></div>
-                <div className="w-[4vw] h-[4vw] bg-white rounded-full"></div>
-                <div className="w-[4vw] h-[4vw] bg-white rounded-full"></div>
-              </div>
-              <div className="flex  justify-center gap-[3vh]">
-                <div className="w-[4vw] h-[4vw] bg-white rounded-full"></div>
-                <div className="w-[4vw] h-[4vw] bg-white rounded-full"></div>
-                <div className="w-[4vw] h-[4vw] bg-white rounded-full"></div>
-              </div>
+          <div className="flex gap-70px-row-m md:flex-col md:gap-y-320px-col md:!p-0">
+            <div className="flex md:flex-col justify-center gap-16px-row-m px-24px-row-m md:gap-40px-col md:!p-0">
+              <div className="w-16px-row-m h-16px-col-m md:w-32px-row md:h-32px-row bg-white rounded-full"></div>
+              <div className="w-16px-row-m h-16px-col-m md:w-32px-row md:h-32px-row bg-white rounded-full"></div>
+              <div className="w-16px-row-m h-16px-col-m md:w-32px-row md:h-32px-row bg-white rounded-full"></div>
             </div>
-            <div className="relative flex flex-col items-center justify-center bg-white w-360px-row-m h-[100%] rounded-[32px] border border-[#E6D3BC] p-8">
-              <div className="w-[99%] h-[100%]">
+            <div className="flex md:flex-col justify-center gap-16px-row-m px-24px-row-m md:gap-40px-col md:!p-0">
+              <div className="w-16px-row-m h-16px-col-m md:w-32px-row md:h-32px-row bg-white rounded-full"></div>
+              <div className="w-16px-row-m h-16px-col-m md:w-32px-row md:h-32px-row bg-white rounded-full"></div>
+              <div className="w-16px-row-m h-16px-col-m md:w-32px-row md:h-32px-row bg-white rounded-full"></div>
+            </div>
+          </div>
+          <div className="relative flex flex-col flex-start justify-center w-335px-row-m h-603px-col-m px-24px-row-m py-24px-col-m bg-white md:w-600px-row md:h-696px-col rounded-[32px] border border-[#E6D3BC] md:px-60px-row md:py-40px-col md:gap-40px-col">
+            {stickers.map((sticker, index) => (
+              <Sticker
+                key={index}
+                sticker={sticker}
+                onDelete={(id: number) => setStickers(stickers.filter((s) => s.id !== id))}
+              />
+            ))}
+            <div className="md:w-480px-row md:h-530px-col">
+              <div className="hidden md:block">
+                <TextButton onClick={handleBackward}>뒤로가기</TextButton>
+              </div>
+              <div className="items-start justify-start ">
                 <DiaryContent diary={diaryData} />
               </div>
-              <div className="absolute bottom-5 right-5 flex gap-5">
-                <Button onClick={handleEdit} icon={<PencilIcon />}>
-                  수정하기
-                </Button>
-                <Button onClick={handleDelete} priority="secondary" icon={<TrashBinIcon />}>
-                  삭제하기
-                </Button>
-              </div>
+            </div>
+            <div className="flex justify-end gap-16px-row-m md:gap-16px-row">
+              <Button onClick={handleEdit} icon={<PencilIcon />}>
+                수정하기
+              </Button>
+              <Button onClick={handleDelete} priority="secondary" icon={<TrashBinIcon />}>
+                삭제하기
+              </Button>
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="hidden md:block">
-        <div className="flex items-center justify-center h-screen pt-[80px] ">
-          <div
-            className="relative flex items-center justify-center w-720px-row h-859px-col min-h-96 rounded-[32px] lg:border-4 lg:border-[#E6D3BC] p-[6.5vh] pl-[1.5vh]"
-            style={{ backgroundColor: diaryData.color }}
+        <div className="absolute bottom-40 right-3 hidden md:block">
+          <button
+            onClick={() => setIsPickerVisible(true)}
+            className=" mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
           >
-            <div className="flex flex-col gap-[20vh] w-[9%] ">
-              <div className="flex flex-col justify-center gap-[5vh]">
-                <div className="w-[2vw] h-[2vw] bg-white rounded-full"></div>
-                <div className="w-[2vw] h-[2vw] bg-white rounded-full"></div>
-                <div className="w-[2vw] h-[2vw] bg-white rounded-full"></div>
-              </div>
-              <div className="flex flex-col justify-center gap-[5vh]">
-                <div className="w-[2vw] h-[2vw] bg-white rounded-full"></div>
-                <div className="w-[2vw] h-[2vw] bg-white rounded-full"></div>
-                <div className="w-[2vw] h-[2vw] bg-white rounded-full"></div>
-              </div>
-            </div>
-            <div className="relative flex flex-col items-center justify-center bg-white w-[90%] h-[100%] rounded-[32px] border border-[#E6D3BC] p-8">
-              <div className="absolute flex top-6 left-7 mb-4 items-center ">
-                <TextButton onClick={handleBackward}>뒤로가기</TextButton>
-              </div>
-              <div className="absolute top-14 left-8 w-[90%] h-[90%] items-start justify-start ">
-                <DiaryContent diary={diaryData} />
-              </div>
-              <div className="absolute bottom-5 right-5 flex gap-5">
-                <Button onClick={handleEdit} icon={<PencilIcon />}>
-                  수정하기
-                </Button>
-                <Button onClick={handleDelete} priority="secondary" icon={<TrashBinIcon />}>
-                  삭제하기
-                </Button>
-              </div>
-            </div>
-          </div>
+            편집하기
+          </button>
+
+          {isPickerVisible && <StickerPicker onSelect={handleStickerSelect} />}
+          <button
+            onClick={() => console.log('Stickers data: ', stickers)}
+            className="mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+          >
+            Save Stickers (Disabled)
+          </button>
         </div>
       </div>
     </>
