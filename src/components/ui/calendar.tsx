@@ -197,25 +197,27 @@ function Calendar({
         }}
         {...props}
       />
-      <div className="absolute bg-[#fff] w-4/5 h-[74%] top-102px-col-m left-32px-row-m md:w-4/5 md:h-2/3 md:top-170px-col md:left-70px-row flex flex-col justify-center items-center">
-        <div className="loading flex space-x-16px-row-m md:space-x-16px-row">
-          <div className="w-32px-row-m md:w-40px-row delay-200 animate-[jump_1s_ease-in-out_infinite]">
-            <LoadingSpring />
+      {isCalendar && isLoading && (
+        <div className="absolute bg-[#fff] w-4/5 h-[74%] top-102px-col-m left-32px-row-m md:w-4/5 md:h-2/3 md:top-170px-col md:left-70px-row flex flex-col justify-center items-center">
+          <div className="loading flex space-x-16px-row-m md:space-x-16px-row">
+            <div className="w-32px-row-m md:w-40px-row delay-200 animate-[jump_1s_ease-in-out_infinite]">
+              <LoadingSpring />
+            </div>
+            <div className="w-32px-row-m md:w-40px-row delay-500 animate-[jump_1s_ease-in-out_infinite]">
+              <LoadingSummer />
+            </div>
+            <div className="w-32px-row-m md:w-40px-row delay-700 animate-[jump_1s_ease-in-out_infinite]">
+              <LoadingFall />
+            </div>
+            <div className="w-32px-row-m md:w-40px-row delay-1000 animate-[jump_1s_ease-in-out_infinite]">
+              <LoadingWinter />
+            </div>
           </div>
-          <div className="w-32px-row-m md:w-40px-row delay-500 animate-[jump_1s_ease-in-out_infinite]">
-            <LoadingSummer />
-          </div>
-          <div className="w-32px-row-m md:w-40px-row delay-700 animate-[jump_1s_ease-in-out_infinite]">
-            <LoadingFall />
-          </div>
-          <div className="w-32px-row-m md:w-40px-row delay-1000 animate-[jump_1s_ease-in-out_infinite]">
-            <LoadingWinter />
-          </div>
+          <p className="text-14px-m md:text-20px mt-24px-col-m md:mt-24px-col">
+            계절을 불러오고 있어요. 잠시만 기다려주세요.
+          </p>
         </div>
-        <p className="text-14px-m md:text-20px mt-24px-col-m md:mt-24px-col">
-          계절을 불러오고 있어요. 잠시만 기다려주세요.
-        </p>
-      </div>
+      )}
     </div>
   );
 }
