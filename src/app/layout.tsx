@@ -6,6 +6,7 @@ import { ToastProvider } from '@/providers/toast.context';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
+import Landing from '@/components/common/Landing';
 
 export const metadata: Metadata = {
   title: 'Color Inside',
@@ -22,11 +23,7 @@ const pretendard = localFont({
   variable: '--font-pretendard'
 });
 
-export default function RootLayout({
-  children
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
@@ -38,7 +35,9 @@ export default function RootLayout({
             <ModalProvider>
               <Header />
               <NavigationBar />
-              <div className="pt-12 pb-16 h-auto md:pt-0 md:pb-0">{children}</div>
+              <Landing>
+                <div className="pt-12 pb-16 h-auto md:pt-0 md:pb-0">{children}</div>
+              </Landing>
             </ModalProvider>
           </ToastProvider>
         </QueryProvider>
