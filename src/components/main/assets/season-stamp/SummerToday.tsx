@@ -1,6 +1,6 @@
 const SummerToday = () => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none">
+    <svg xmlns="http://www.w3.org/2000/svg" width="120%" height="120%" viewBox="0 0 32 32" fill="none">
       <g filter="url(#a)">
         <circle cx="16" cy="16" r="12" fill="#F1A027" />
       </g>

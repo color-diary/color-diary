@@ -1,11 +1,11 @@
-import FallStamp from './season-stamp/FallStamp';
-import FallToday from './season-stamp/FallToday';
-import SpringStamp from './season-stamp/SpringStamp';
-import SpringToday from './season-stamp/SpringToday';
-import SummerStamp from './season-stamp/SummerStamp';
-import SummerToday from './season-stamp/SummerToday';
-import WinterStamp from './season-stamp/WinterStamp';
-import WinterToday from './season-stamp/WinterToday';
+import FallStamp from './assets/season-stamp/FallStamp';
+import FallToday from './assets/season-stamp/FallToday';
+import SpringStamp from './assets/season-stamp/SpringStamp';
+import SpringToday from './assets/season-stamp/SpringToday';
+import SummerStamp from './assets/season-stamp/SummerStamp';
+import SummerToday from './assets/season-stamp/SummerToday';
+import WinterStamp from './assets/season-stamp/WinterStamp';
+import WinterToday from './assets/season-stamp/WinterToday';
 
 interface StampProps {
   petal: string;
