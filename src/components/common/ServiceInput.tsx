@@ -42,7 +42,7 @@ type InputProps = {
 } & InputVariantProps &
   React.ComponentProps<'input'>;
 
-const TestInput = forwardRef<HTMLInputElement, InputProps>(({ label, state, id,  ...props }, ref) => {
+const ServiceInput = forwardRef<HTMLInputElement, InputProps>(({ label, state, id,  ...props }, ref) => {
   const inputId = id || crypto.randomUUID();
 
   return (
@@ -62,4 +62,4 @@ const TestInput = forwardRef<HTMLInputElement, InputProps>(({ label, state, id, 
   );
 });
 
-export default TestInput;
+export default ServiceInput;

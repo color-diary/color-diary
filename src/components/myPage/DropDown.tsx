@@ -1,14 +1,14 @@
 import { useState } from 'react';
 
 function Dropdown() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleOptionClick = (option: any) => {
+  const handleOptionClick = (option: string) => {
     setSelectedOption(option);
     setIsOpen(false);
   };

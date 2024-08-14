@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import TestInput from '../common/TestInput';
+import ServiceInput from '../common/ServiceInput';
 import Button from '../common/Button';
 import Dropdown from './DropDown';
 import { WhiteXicon, GreenXicon } from './assets/Xicon';
@@ -22,7 +22,6 @@ const ServiceModal = ({ onClose }: ServiceModalProps) => {
   const { register, handleSubmit, watch, formState: { errors, isSubmitted } } = useForm<FormData>();
 
   const onSubmit: SubmitHandler<FormData> = data => {
-    console.log('제출된 데이터=> ', data);
     onClose();
   };
 
@@ -48,9 +47,9 @@ const ServiceModal = ({ onClose }: ServiceModalProps) => {
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className='flex flex-col mb-[24px]'>
-          <TestInput
+          <ServiceInput
             type="text"
-            label="이메일을 입력해주세yo"
+            label="이메일을 입력해주세요"
             {...register("setEmail", {
               required: "이메일이 입력되지 않았어요.",
               pattern: {
@@ -62,7 +61,7 @@ const ServiceModal = ({ onClose }: ServiceModalProps) => {
             state={errors.setEmail ? 'error' : isSubmitted ? 'filled' : 'default'}
             onKeyDown={handleEnterDown}  
           />
-          {errors.setEmail && <span className="text-error-color">{errors.setEmail.message}</span>}
+          {errors.setEmail && <span className="text-error-color  md:text-18px text-14px-m mt-[6px]">{errors.setEmail.message}</span>}
           </div>
           <Dropdown 
            
@@ -106,7 +105,7 @@ ex)일기의 날짜가 입력이 안돼요.`}
                 {textareaValue.length}/{maxLength}
               </div>
             </div>
-            {errors.textarea && <span className="text-error-color">{errors.textarea.message}</span>}
+            {errors.textarea && <span className="text-error-color md:text-18px text-14px-m mt-[6px]">{errors.textarea.message}</span>}
             </div>
           </div>
           
