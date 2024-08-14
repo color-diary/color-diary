@@ -20,7 +20,7 @@ const labelVariant = cva('self-stretch font-medium md:text-18px md:tracking-0.36
 });
 
 const inputVariant = cva(
-  'w-full flex justify-center md:pl-16px-row md:pr-48px-row pl-16px-row-m pr-48px-row-m self-stretch border rounded-lg font-normal md:py-12px-col md:text-18px md:tracking-0.36px py-8px-col-m text-14px-m tracking-0.28px border-[#A1A1A1] outline-none',
+  'w-full flex justify-center md:pl-16px-row md:pr-48px-row pl-16px-row-m pr-48px-row-m self-stretch border rounded-lg font-normal md:py-12px-col md:text-18px md:tracking-0.36px py-8px-col-m text-14px-m tracking-0.28px',
   {
     variants: {
       state: {
