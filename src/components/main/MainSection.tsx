@@ -172,6 +172,7 @@ const MainSection = () => {
               diaryList={diaries.data || []}
               month={date}
               onMonthChange={setDate}
+              isLoading={diaries.isLoading}
             />
           </div>
         ) : (
