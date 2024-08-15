@@ -26,8 +26,6 @@ const ServiceModal = ({ onClose }: ServiceModalProps) => {
   };
 
   const textareaValue = watch('textarea', '');
-  const emailValue = watch('setEmail', '');
-  
 
   const handleEnterDown = (event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (event.key === 'Enter' && !event.shiftKey) {

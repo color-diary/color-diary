@@ -61,5 +61,6 @@ const ServiceInput = forwardRef<HTMLInputElement, InputProps>(({ label, state, i
     </div>
   );
 });
+ServiceInput.displayName = 'ServiceInput';
 
 export default ServiceInput;
