@@ -42,9 +42,9 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
     return emailRegex.test(email);
   };
 
-  const validateNicknameNull = (nickname:string): boolean =>{
+  const validateNicknameNull = (nickname: string): boolean => {
     return nickname !== null && nickname !== undefined && nickname.trim() !== '';
-  }
+  };
 
   const validateNickname = (nickname: string): boolean => {
     return nickname.length >= 3 && nickname.length <= 8;
@@ -66,7 +66,7 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
     if (!validateNicknameNull(nickname)) {
       return toast.on({ label: '이름을 작성하지 않으셨어요. 이름을 작성해주세요.' });
     }
-  
+
     if (!validateNickname(nickname)) {
       return toast.on({ label: '이름은 3~8글자 이내로 작성해주세요.' });
     }
@@ -148,10 +148,9 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
     setNickname(newNickname);
     setNicknameState(() => {
       if (newNickname === '') return 'default';
-      else if(!validateNicknameNull(newNickname)) { return 'error';
-
-      }
-      else {
+      else if (!validateNicknameNull(newNickname)) {
+        return 'error';
+      } else {
         if (!validateNickname(newNickname)) return 'error';
         else return 'filled';
       }

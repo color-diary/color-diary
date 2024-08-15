@@ -1,12 +1,9 @@
 'use client';
 
 import { useToast } from '@/providers/toast.context';
-import { InputStateType } from '@/types/input.type';
 import { clearLocalDiaries } from '@/utils/diaryLocalStorage';
-import { createClient } from '@/utils/supabase/client';
 import { loginZustandStore } from '@/zustand/zustandStore';
 import axios from 'axios';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, useState } from 'react';
 import Button from '../common/Button';
@@ -25,10 +22,6 @@ const LogInForm = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const setIsLogin = loginZustandStore((state) => state.setIsLogin);
-  const publicSetProfileImg = loginZustandStore((state) => state.publicSetProfileImg);
-
-  const supabase = createClient();
-
 
   const handleClickLogIn = async (): Promise<void> => {
     if (!email || !password) return toast.on({ label: '이메일과 비밀번호를 작성해주세요.' });
@@ -41,17 +34,7 @@ const LogInForm = () => {
         setPassword('');
         setIsLogin(true);
 
-        const { data: userData } = await supabase.auth.getUser();
-        if (userData && userData.user) {
-          const userId = userData.user?.id;
-          const { data } = await supabase.from('users').select('profileImg, nickname').eq('id', userId).single();
-          if (data && data?.profileImg) {
-            publicSetProfileImg(data?.profileImg);
-          }
-          if (data?.nickname) {
-            toast.on({ label: `${data.nickname}님 안녕하세요. 만나서 반가워요!` });
-          }
-        }
+        toast.on({ label: `${response.data[0].nickname}님 안녕하세요. 만나서 반가워요!` });
 
         clearLocalDiaries();
         router.replace('/');
@@ -65,17 +48,15 @@ const LogInForm = () => {
   const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>): void => {
     const newEmail = e.target.value;
     setEmail(newEmail);
-   
   };
 
   const handleChangePassword = (e: ChangeEvent<HTMLInputElement>): void => {
     const newPassword = e.target.value;
     setPassword(newPassword);
-
   };
 
   return (
-    <div className="h-screen flex justify-center items-center">
+    <div className="h-h-screen-custom md:h-screen flex justify-center items-center">
       <div className="w-full md:w-744px-row inline-flex flex-col justify-center items-center rounded-5xl md:border-4 md:border-border-color bg-layout md:bg-white px-20px-row-m md:px-96px-row md:py-72px-col gap-40px-col-m md:gap-48px-col">
         <h1 className="text-font-color font-bold md:text-24px md:tracking-0.48px text-18px-m tracking-0.36px">
           로그인
@@ -114,7 +95,6 @@ const LogInForm = () => {
               </Button>
             </div>
           </div>
-        
         </div>
       </div>
       <SignUpModal isVisible={isModalVisible} onClose={() => setIsModalVisible(false)} />

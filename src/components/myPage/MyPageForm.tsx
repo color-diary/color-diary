@@ -163,7 +163,7 @@ const MyPageForm = () => {
   if (isPending) return <LoadingSpinner />;
 
   return (
-    <div className="flex items-center justify-center mt-[148px] px-5 md:px-[396px] md:mt-[312px]">
+    <div className="flex items-center justify-center mt-95px-col-m px-5 md:px-394px-row md:mt-307px-col">
       <div className="flex flex-col w-full md:w-[1128px] items-start justify-center self-stretch gap-32px-row-m md:gap-43px-row ">
         <div className="flex flex-col items-start md:flex-row md:items-center w-full md:gap-14">
           {isLogin && userData ? (
