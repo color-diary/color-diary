@@ -33,16 +33,30 @@ const inputVariant = cva(
     }
   );
 
+const validationMessageVariant = cva('font-normal md:text-18px md:tracking-0.36px text-14px-m tracking-0.28px', {
+  variants: {
+    state: {
+      default: 'text-validation',
+      filled: 'text-validation',
+      error: 'text-[#F02222]',
+      disable: 'text-text-button-disable'
+    }
+  },
+  defaultVariants: {
+    state: 'default'
+  }
+});
 
 type InputVariantProps = VariantProps<typeof inputVariant>;
 
 type InputProps = {
   label: string;
+  validationMessage?: string;
   state?: 'default' | 'filled' | 'error' | 'disable';
 } & InputVariantProps &
   React.ComponentProps<'input'>;
 
-const ServiceInput = forwardRef<HTMLInputElement, InputProps>(({ label, state, id,  ...props }, ref) => {
+const ServiceInput = forwardRef<HTMLInputElement, InputProps>(({ label, state, id, validationMessage, ...props }, ref) => {
   const inputId = id || crypto.randomUUID();
 
   return (
@@ -58,6 +72,11 @@ const ServiceInput = forwardRef<HTMLInputElement, InputProps>(({ label, state, i
           {...props}
         />
       </div>
+      {validationMessage && (
+        <span className={validationMessageVariant({ state })}>
+          {validationMessage}
+        </span>
+      )}
     </div>
   );
 });
