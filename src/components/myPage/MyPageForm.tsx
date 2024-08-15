@@ -1,6 +1,5 @@
 'use client';
 
-import useAuth from '@/hooks/useAuth';
 import { useModal } from '@/providers/modal.context';
 import { useToast } from '@/providers/toast.context';
 import { validateNickname } from '@/utils/validation';
@@ -29,7 +28,6 @@ const MyPageForm = () => {
   const modal = useModal();
   const router = useRouter();
 
-  const { user } = useAuth();
   const queryClient = useQueryClient();
 
   const [newNickname, setNewNickname] = useState<string>('');
@@ -42,7 +40,6 @@ const MyPageForm = () => {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const publicSetProfileImg = loginZustandStore((state) => state.publicSetProfileImg);
   const setIsLogin = loginZustandStore((state) => state.setIsLogin);
   const isLogin = loginZustandStore((state) => state.isLogin);
 
@@ -59,7 +56,6 @@ const MyPageForm = () => {
     mutationFn: () => axios.delete('/api/auth/log-out'),
     onSuccess: () => {
       setIsLogin(false);
-      publicSetProfileImg('');
       router.replace('/');
       modal.close();
       toast.on({ label: '로그아웃 되었습니다.' });
@@ -81,43 +77,66 @@ const MyPageForm = () => {
       toast.on({ label: '닉네임이 성공적으로 변경되었습니다.' });
 
       queryClient.refetchQueries({ queryKey: ['information'] });
+      queryClient.refetchQueries({ queryKey: ['user'] });
     },
     onError: (error) => {
       console.error('닉네임 수정 오류 발생: ', error);
     }
   });
 
-  const openTermsModal = () => {
+  const { mutate: changeProfile } = useMutation({
+    mutationFn: async (img: File) => {
+      const formData = new FormData();
+      formData.append('img', img);
+
+      await axios.post('/api/auth/me/information', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+    },
+    onSuccess: () => {
+      setIsLoadingImage(false);
+
+      queryClient.refetchQueries({ queryKey: ['information'] });
+      queryClient.refetchQueries({ queryKey: ['user'] });
+    },
+    onError: (error) => {
+      console.error('프로필 이미지 업로드 오류 발생: ', error);
+      setIsLoadingImage(false);
+    }
+  });
+
+  const openTermsModal = (): void => {
     setShowTermsModal(true);
   };
 
-  const closeTermsModal = () => {
+  const closeTermsModal = (): void => {
     setShowTermsModal(false);
   };
 
-  const openMyPageServiceModal = () => {
+  const openMyPageServiceModal = (): void => {
     setShowServiceModal(true);
   };
 
-  const closeMyPageServiceModal = () => {
+  const closeMyPageServiceModal = (): void => {
     setShowServiceModal(false);
   };
 
-  const openChangePasswordModal = () => {
+  const openChangePasswordModal = (): void => {
     setShowChangePasswordModal(true);
   };
 
-  const closeChangePasswordModal = () => {
+  const closeChangePasswordModal = (): void => {
     setShowChangePasswordModal(false);
   };
 
   const handleClickChangeNickname = (): void => {
     if (!validateNickname(newNickname)) {
       toast.on({ label: '닉네임은 3글자 이상 8글자 이하이어야 합니다.' });
-      return;
+    } else {
+      changeNickname(newNickname);
     }
-
-    changeNickname(newNickname);
   };
 
   const handleClickLogOut = (): void => {
@@ -136,31 +155,9 @@ const MyPageForm = () => {
     });
   };
 
-  const addImgFile = async (file: File) => {
-    try {
-      setIsLoadingImage(true);
-      const newFileName = `${Date.now()}.jpg`;
-      const { error } = await supabase.storage.from('profileImg').upload(`${newFileName}`, file);
-      if (error) {
-        console.error(error);
-        setIsLoadingImage(false);
-        return;
-      }
-      const res = supabase.storage.from('profileImg').getPublicUrl(newFileName);
-      publicSetProfileImg(res.data.publicUrl);
-      const { data: userInfo } = await supabase.auth.getUser();
-      const userId = userInfo.user?.id;
-      if (userId) {
-        const { data: user, error: userError } = await supabase
-          .from('users')
-          .update({ profileImg: res.data.publicUrl })
-          .eq('id', userId);
-      }
-      setIsLoadingImage(false);
-    } catch (error) {
-      console.error(error);
-      setIsLoadingImage(false);
-    }
+  const addImgFile = (file: File): void => {
+    setIsLoadingImage(true);
+    changeProfile(file);
   };
 
   if (isPending) return <LoadingSpinner />;
@@ -183,7 +180,7 @@ const MyPageForm = () => {
                 sizes="(max-width: 768px)"
                 className={`cursor-pointer w-[80px] object-cover px-[15px] py-[15px] md:px-24px-col md:py-24px-col relative $ ${
                   isLoadingImage ? 'opacity-30' : ''
-                }`}
+                } rounded-full`}
                 onClick={() => fileInputRef.current?.click()}
                 onLoad={() => setIsLoadingImage(false)}
               />
@@ -238,7 +235,6 @@ const MyPageForm = () => {
                     icon={<Edit />}
                     onClick={() => {
                       handleClickChangeNickname();
-                      setIsAuthSuccess(false);
                     }}
                   >
                     정보수정 완료
@@ -275,7 +271,6 @@ const MyPageForm = () => {
             </div>
           )}
         </div>
-
         {isLogin ? (
           <div className="flex justify-between items-center self-stretch border-t border-[#080808] ">
             <div className="flex items-center mt-4 md:mt-[24px]">

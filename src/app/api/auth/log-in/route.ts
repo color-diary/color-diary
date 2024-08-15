@@ -12,6 +12,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     email,
     password
   });
+
   if (error) {
     console.error('로그인 에러=>', error.status);
     return NextResponse.json({ message: '로그인에 실패했습니다.' }, { status: error.status });
