@@ -5,14 +5,14 @@ import Draggable from 'react-draggable';
 import XIconBlack from './assets/XIconBlack';
 
 type StickerType = {
-  id: number;
+  id: string;
   component: JSX.Element;
   position: { x: number; y: number };
 };
 
 type StickerProps = {
   sticker: StickerType;
-  onDelete: (id: number) => void;
+  onDelete: (id: string) => void;
 };
 
 const Sticker: React.FC<StickerProps> = ({ sticker, onDelete }) => {

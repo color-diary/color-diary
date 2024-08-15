@@ -10,7 +10,7 @@ import useZustandStore from '@/zustand/zustandStore';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useParams, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Button from '../common/Button';
 import TextButton from '../common/TextButton';
 import DiaryContent from './DiaryContent';
@@ -23,7 +23,7 @@ import StickerPicker from './StickerPicker';
 import Sticker from './Sticker';
 
 type StickerType = {
-  id: number;
+  id: string;
   component: JSX.Element;
   position: { x: number; y: number };
 };
@@ -46,9 +46,26 @@ const DiaryContainer = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [stickers, setStickers] = useState<StickerType[]>([]);
   const [isPickerVisible, setIsPickerVisible] = useState<boolean>(false);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  // const handleStickerSelect = (sticker: Omit<StickerType, 'position'>) => {
+  //   setStickers([...stickers, { ...sticker, position: { x: 200, y: 250 } }]);
+  //   setIsPickerVisible(false);
+  // };
 
   const handleStickerSelect = (sticker: Omit<StickerType, 'position'>) => {
-    setStickers([...stickers, { ...sticker, position: { x: 200, y: 250 } }]);
+    if (containerRef.current) {
+      const containerRect = containerRef.current.getBoundingClientRect();
+      // 스티커 크기를 가정하여 중앙에 배치
+      const stickerWidth = 65; // 실제 스티커의 너비
+      const stickerHeight = 65; // 실제 스티커의 높이
+
+      // 부모 요소의 중앙 계산
+      const centerX = containerRect.width / 2 - stickerWidth / 2;
+      const centerY = containerRect.height / 2 - stickerHeight / 2;
+
+      setStickers([...stickers, { ...sticker, position: { x: centerX, y: centerY } }]);
+    }
     setIsPickerVisible(false);
   };
 
@@ -112,12 +129,22 @@ const DiaryContainer = () => {
     }
   });
 
-  if (isLoading || isQueryLoading) {
+  if (isLoading) {
     return (
       <div>
         <LoadingSpinner />
       </div>
     );
+  }
+
+  if (userId) {
+    if (isQueryLoading) {
+      return (
+        <div>
+          <LoadingSpinner />
+        </div>
+      );
+    }
   }
 
   const diaryData = userId ? diary : localDiary;
@@ -177,7 +204,7 @@ const DiaryContainer = () => {
   return (
     <>
       <div
-        className="flex items-center justify-center h-screen md:pt-[80px] md:!bg-[#FEFDFB] "
+        className="flex items-center justify-center h-h-screen-custom md:h-screen md:pt-[80px] md:!bg-[#FEFDFB] "
         style={{ backgroundColor: diaryData.color }}
       >
         <div
@@ -196,12 +223,15 @@ const DiaryContainer = () => {
               <div className="w-16px-row-m h-16px-col-m md:w-32px-row md:h-32px-row bg-white rounded-full"></div>
             </div>
           </div>
-          <div className="relative flex flex-col flex-start justify-center w-335px-row-m h-603px-col-m px-24px-row-m py-24px-col-m bg-white md:w-600px-row md:h-696px-col rounded-[32px] border border-[#E6D3BC] md:px-60px-row md:py-40px-col md:gap-40px-col">
+          <div
+            ref={containerRef}
+            className="relative flex flex-col flex-start justify-center w-335px-row-m h-603px-col-m px-24px-row-m py-24px-col-m bg-white md:w-600px-row md:h-696px-col rounded-[32px] border border-[#E6D3BC] md:px-60px-row md:py-40px-col md:gap-40px-col"
+          >
             {stickers.map((sticker, index) => (
               <Sticker
                 key={index}
                 sticker={sticker}
-                onDelete={(id: number) => setStickers(stickers.filter((s) => s.id !== id))}
+                onDelete={(id: string) => setStickers(stickers.filter((s) => s.id !== id))}
               />
             ))}
             <div className="md:w-480px-row md:h-530px-col">
