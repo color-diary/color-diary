@@ -61,7 +61,6 @@ const ServiceModal = ({ onClose }: ServiceModalProps) => {
             validationMessage={errors.setEmail?.message}
             onKeyDown={handleEnterDown}  
           />
-          {/* {errors.setEmail && <span className="text-error-color  md:text-18px text-14px-m mt-[6px]">{errors.setEmail.message}</span>} */}
           </div>
           <Dropdown 
            
