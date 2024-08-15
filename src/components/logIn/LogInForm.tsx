@@ -84,12 +84,12 @@ const LogInForm = () => {
               <ServiceInput
                 id="email"
                 type="email"
-                {...register('email', { 
-                  required: '이메일을 입력해주세요.', 
+                {...register('email', {
+                  required: '이메일을 입력해주세요.',
                   pattern: {
                     value: /^[a-zA-Z0-9]{4,10}@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
                     message: '유효한 이메일 형식이 아닙니다.'
-                  } 
+                  }
                 })}
                 label="이메일"
                 placeholder="이메일을 입력해주세요."
@@ -109,7 +109,7 @@ const LogInForm = () => {
               <span className="flex items-center justify-center w-6 h-6 md:w-24px-row md:h-24px-row">
                 <Vector />
               </span>
-              <Button size={'half'} icon={<SignUpIcon />} priority="secondary" onClick={() => setIsModalVisible(true)}>
+              <Button size={'half'} icon={<SignUpIcon />} priority="secondary" onClick={() => setIsModalVisible(true)} type="button">
                 회원가입 하기
               </Button>
             </div>
