@@ -97,7 +97,9 @@ const LogInForm = () => {
               <ServiceInput
                 id="password"
                 type="password"
-                {...register('password', { required: '비밀번호를 입력해주세요.' })}
+                {...register('password', {
+                  required: '비밀번호를 입력해주세요.'
+                })}
                 label="비밀번호"
                 placeholder="비밀번호를 입력해주세요."
               />

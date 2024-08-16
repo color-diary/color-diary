@@ -58,7 +58,7 @@ const ServiceModal = ({ onClose }: ServiceModalProps) => {
             })}
             placeholder="이메일을 입력해주세요."
             state={errors.setEmail ? 'error' : isSubmitted ? 'filled' : 'default'}
-            validationMessage={errors.setEmail?.message}
+            helperMessage={errors.setEmail?.message}
             onKeyDown={handleEnterDown}  
           />
           </div>

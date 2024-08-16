@@ -1,14 +1,12 @@
 'use client';
 
 import { useToast } from '@/providers/toast.context';
-import { InputStateType } from '@/types/input.type';
 import { clearLocalDiaries, fetchLocalDiaries } from '@/utils/diaryLocalStorage';
 import { urlToFile } from '@/utils/imageFileUtils';
 import axios from 'axios';
-import { ChangeEvent, useState } from 'react';
+import { useForm, SubmitHandler, useWatch } from 'react-hook-form';
 import BackDrop from '../common/BackDrop';
 import Button from '../common/Button';
-import Input from '../common/Input';
 import TermsModal from './TermsModal';
 import AngleRightBlue from './assets/AngleRightBlue';
 import CheckFalse from './assets/CheckFalse';
@@ -16,6 +14,15 @@ import CheckTrue from './assets/CheckTrue';
 import SignUpIcon from './assets/SignUpIcon';
 import XIconBlack from './assets/XIconBlack';
 import XIconGreen from './assets/XIconGreen';
+import ServiceInput from '../common/ServiceInput';
+import { useState } from 'react';
+
+interface SignUpFormData {
+  email: string;
+  nickname: string;
+  password: string;
+  confirmPassword: string;
+}
 
 interface ModalProps {
   isVisible: boolean;
@@ -24,77 +31,19 @@ interface ModalProps {
 
 const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
   const toast = useToast();
-
-  const [email, setEmail] = useState<string>('');
-  const [nickname, setNickname] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [confirmPassword, setConfirmPassword] = useState<string>('');
-  const [isOpenTerms, setIsOpenTerms] = useState<boolean>(false);
+  const { register, handleSubmit, watch, reset, trigger, formState: { errors, isSubmitted } } = useForm<SignUpFormData>();
   const [isTermsChecked, setIsTermsChecked] = useState<boolean>(false);
-  const [emailState, setEmailState] = useState<InputStateType>('default');
-  const [nicknameState, setNicknameState] = useState<InputStateType>('default');
-  const [passwordState, setPasswordState] = useState<InputStateType>('default');
-  const [confirmPasswordState, setConfirmPasswordState] = useState<InputStateType>('default');
+  const [isOpenTerms, setIsOpenTerms] = useState(false);
 
-  const validateEmail = (email: string): boolean => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    return emailRegex.test(email);
-  };
-
-  const validateNicknameNull = (nickname:string): boolean =>{
-    return nickname !== null && nickname !== undefined && nickname.trim() !== '';
-  }
-
-  const validateNickname = (nickname: string): boolean => {
-    return nickname.length >= 3 && nickname.length <= 8;
-  };
-
-  const validatePassword = (password: string): boolean => {
-    return password.length >= 6;
-  };
-
-  const validateConfirmPassword = (password: string, confirmPassword: string): boolean => {
-    return password === confirmPassword;
-  };
-
-  const handleClickSignUp = async (): Promise<void> => {
-    if (!validateEmail(email)) {
-      return toast.on({ label: '이메일을 작성하지 않으셨어요. 이메일을 작성해주세요.' });
-    }
-
-    if (!validateNicknameNull(nickname)) {
-      return toast.on({ label: '이름을 작성하지 않으셨어요. 이름을 작성해주세요.' });
-    }
-  
-    if (!validateNickname(nickname)) {
-      return toast.on({ label: '이름은 3~8글자 이내로 작성해주세요.' });
-    }
-
-    if (!validatePassword(password)) {
-      return toast.on({ label: '비밀번호를 작성하지 않으셨어요. 비밀번호를 작성해주세요.' });
-    }
-
-    if (!validateConfirmPassword(password, confirmPassword)) {
-      return toast.on({ label: '비밀번호 확인을 하지 않으셨어요. 비밀번호를 확인해주세요.' });
-    }
-
+  const onSubmit: SubmitHandler<SignUpFormData> = async (data) => {
     if (!isTermsChecked) {
       return toast.on({ label: '이용약관에 동의하지 않으셨어요. 동의하셔야 회원가입이 가능해요.' });
     }
 
-    const data = { email, password, nickname };
     try {
       const response = await axios.post('/api/auth/sign-up', data);
-
       if (response.status === 200) {
         toast.on({ label: '회원가입이 완료되었어요. 로그인 후 서비스를 이용해봐요!' });
-
-        setEmail('');
-        setPassword('');
-        setNickname('');
-        setConfirmPassword('');
-        onClose();
 
         const savedDiaries = fetchLocalDiaries();
 
@@ -123,73 +72,45 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
 
           clearLocalDiaries();
         }
+        reset();
+        onClose();
       }
     } catch (error) {
       console.error(error);
+      toast.on({ label: '회원가입 중 오류가 발생했습니다. 다시 시도해주세요.' });
     }
   };
 
-  const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>): void => {
-    const newEmail = e.target.value;
-
-    setEmail(newEmail);
-    setEmailState(() => {
-      if (newEmail === '') return 'default';
-      else {
-        if (!validateEmail(newEmail)) return 'error';
-        else return 'filled';
-      }
-    });
-  };
-
-  const handleChangeNickname = (e: ChangeEvent<HTMLInputElement>): void => {
-    const newNickname = e.target.value;
-
-    setNickname(newNickname);
-    setNicknameState(() => {
-      if (newNickname === '') return 'default';
-      else if(!validateNicknameNull(newNickname)) { return 'error';
-
-      }
-      else {
-        if (!validateNickname(newNickname)) return 'error';
-        else return 'filled';
-      }
-    });
-  };
-
-  const handleChangePassword = (e: ChangeEvent<HTMLInputElement>): void => {
-    const newPassword = e.target.value;
-
-    setPassword(newPassword);
-    setPasswordState(() => {
-      if (newPassword === '') return 'default';
-      else {
-        if (!validatePassword(newPassword)) return 'error';
-        else return 'filled';
-      }
-    });
-  };
-
-  const handleChangeConfirmPassword = (e: ChangeEvent<HTMLInputElement>): void => {
-    const newConfirmPassword = e.target.value;
-
-    setConfirmPassword(newConfirmPassword);
-    setConfirmPasswordState(() => {
-      if (newConfirmPassword === '') return 'default';
-      if (!validateConfirmPassword(password, newConfirmPassword)) return 'error';
-      return 'filled';
-    });
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLFormElement>) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      handleSubmit(onSubmit)();
+    }
   };
 
   const checkTerms = (): void => {
     setIsTermsChecked(true);
     setIsOpenTerms(false);
+    toast.on({ label: '이용약관에 동의하셨어요.' });
   };
 
   const cancelTerms = (): void => {
     setIsTermsChecked(false);
     setIsOpenTerms(false);
+    toast.on({ label: '이용약관에 동의하지 않으셨어요.' });
+  };
+
+  const handleError = () => {
+    trigger();
+    if (errors.email) {
+      toast.on({ label: errors.email.message || '이메일을 작성해주세요.' });
+    } else if (errors.nickname) {
+      toast.on({ label: errors.nickname.message || '이름을 작성해주세요.' });
+    } else if (errors.password) {
+      toast.on({ label: errors.password.message || '비밀번호를 작성해주세요.' });
+    } else if (errors.confirmPassword) {
+      toast.on({ label: errors.confirmPassword.message || '비밀번호 확인을 작성해주세요.' });
+    }
   };
 
   if (!isVisible) return null;
@@ -211,47 +132,77 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
               회원가입
             </h2>
           </div>
-          <div className="w-full flex flex-col items-start gap-24px-col-m md:gap-24px-col self-stretch">
+          <form onSubmit={handleSubmit(onSubmit, handleError)} onKeyDown={handleKeyDown} className="w-full flex flex-col items-start gap-24px-col-m md:gap-24px-col self-stretch">
             <div className="w-full flex flex-col gap-16px-col-m md:gap-16px-col items-start self-stretch">
-              <Input
+              <ServiceInput
                 type="email"
-                state={emailState}
-                value={email}
-                setValue={setEmail}
-                onChange={handleChangeEmail}
+                state={errors.email ? 'error' : (isSubmitted && !errors.email) ? 'filled' : 'default'}
+                {...register('email', {
+                  required: '이메일을 작성하지 않으셨어요.',
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: '유효한 이메일 형식이 아닙니다.',
+                  },
+                })}
                 label="이메일"
-                validationMessage="ex)abcd@gmail.com"
                 placeholder="이메일을 입력해주세요."
+                helperMessage={errors.email?.message || "ex)abcd@gmail.com"}
               />
-              <Input
+              <ServiceInput
                 type="text"
-                state={nicknameState}
-                value={nickname}
-                setValue={setNickname}
-                onChange={handleChangeNickname}
+                state={errors.nickname ? 'error' : (isSubmitted && !errors.nickname) ? 'filled' : 'default'}
+                {...register('nickname', {
+                  required: '이름을 작성하지 않으셨어요. 이름을 작성해주세요.',
+                  minLength: {
+                    value: 3,
+                    message: '이름은 3글자 이상이어야 합니다.',
+                  },
+                  maxLength: {
+                    value: 8,
+                    message: '이름은 8글자 이하이어야 합니다.',
+                  },
+                  pattern: {
+                    value: /^[^\s]+$/,
+                    message: '띄어쓰기는 불가능해요. 띄어쓰기를 없애주세요',
+                  },
+                })}
                 label="이름"
-                validationMessage="띄어쓰기는 불가능해요.(3~8글자 이내)"
                 placeholder="사용할 이름을 입력해주세요."
+                helperMessage={errors.nickname?.message || "띄어쓰기는 불가능해요.(3~8글자 이내)"}
               />
-              <Input
+
+              <ServiceInput
                 type="password"
-                state={passwordState}
-                value={password}
-                setValue={setPassword}
-                onChange={handleChangePassword}
+                state={errors.password ? 'error' : (isSubmitted && !errors.password) ? 'filled' : 'default'}
+                {...register('password', {
+                  required: '비밀번호를 작성하지 않으셨어요. 비밀번호를 작성해주세요.',
+                  minLength: {
+                    value: 6,
+                    message: '비밀번호는 6글자 이상이어야 합니다.',
+                  },
+                  pattern: {
+                    value: /^[^\s]+$/,
+                    message: '띄어쓰기는 불가능해요. 띄어쓰기를 없애주세요',
+                  },
+                })}
                 label="비밀번호"
-                validationMessage="영문과 숫자를 포함해주세요.(6글자 이상)"
                 placeholder="비밀번호를 입력해주세요."
+                helperMessage={errors.password?.message || "영문과 숫자를 포함해주세요.(6글자 이상)"}
               />
-              <Input
+              <ServiceInput
                 type="password"
-                state={confirmPasswordState}
-                value={confirmPassword}
-                setValue={setConfirmPassword}
-                onChange={handleChangeConfirmPassword}
+                state={errors.confirmPassword ? 'error' : (isSubmitted && !errors.confirmPassword) ? 'filled' : 'default'}
+                {...register('confirmPassword', {
+                  required: '비밀번호 확인을 하지 않으셨어요. 비밀번호를 확인해주세요',
+                  validate: (value) => value === watch('password') || '상단에 입력한 비밀번호와 동일하지 않아요. 다시 작성해주세요.',
+                  pattern: {
+                    value: /^[^\s]+$/,
+                    message: '띄어쓰기는 불가능해요. 띄어쓰기를 없애주세요',
+                  },
+                })}
                 label="비밀번호 확인하기"
-                validationMessage="상단에 입력한 비밀번호와 동일하게 입력해주세요"
                 placeholder="비밀번호를 다시 입력해주세요."
+                helperMessage={errors.confirmPassword?.message || "상단에 입력한 비밀번호와 동일하게 입력해주세요"}
               />
             </div>
             <div className="flex items-center justify-center gap-4px-row-m md:gap-4px-row">
@@ -262,15 +213,15 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
                 {isTermsChecked ? <CheckTrue /> : <CheckFalse />}
               </span>
             </div>
-          </div>
-          <div className="flex items-start gap-16px-row-m md:gap-16px-row mt-16px-col-m md:mt-0">
-            <Button priority={'secondary'} onClick={onClose} icon={<XIconGreen />}>
-              취소하기
-            </Button>
-            <Button onClick={handleClickSignUp} icon={<SignUpIcon />}>
-              회원가입 완료하기
-            </Button>
-          </div>
+            <div className="flex w-full justify-end items-start gap-16px-row-m md:gap-16px-row mt-16px-col-m md:mt-0">
+              <Button priority={'secondary'} onClick={onClose} icon={<XIconGreen />}>
+                취소하기
+              </Button>
+              <Button type="submit" icon={<SignUpIcon />}>
+                회원가입 완료하기
+              </Button>
+            </div>
+          </form>
         </div>
       )}
     </BackDrop>
