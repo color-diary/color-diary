@@ -187,6 +187,12 @@ body {
   border-radius: 22px;
 }
 
+.img-loading {
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 2s linear infinite;
+}
+
 .loader {
   width: calc(100vw * 0.1458);
   height: calc(100vw * 0.1458);

@@ -6,7 +6,7 @@ import { splitCommentWithSlash } from '@/utils/splitCommentWithSlash';
 
 const NotFound = () => {
   return (
-    <div className="h-screen flex flex-col justify-center items-center">
+    <div className="h-h-screen-custom md:h-screen flex flex-col justify-center items-center">
       <div className="w-64px-row-m h-28px-col-m md:w-168px-row md:h-74px-col flex items-center justify-center">
         <NotFoundText />
       </div>

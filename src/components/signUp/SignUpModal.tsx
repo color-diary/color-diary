@@ -3,8 +3,9 @@
 import { useToast } from '@/providers/toast.context';
 import { clearLocalDiaries, fetchLocalDiaries } from '@/utils/diaryLocalStorage';
 import { urlToFile } from '@/utils/imageFileUtils';
+import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-import { useForm, SubmitHandler, useWatch } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import BackDrop from '../common/BackDrop';
 import Button from '../common/Button';
 import TermsModal from './TermsModal';
@@ -41,51 +42,62 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
     })
   }, [isSubmitted])
 
-  const onSubmit: SubmitHandler<SignUpFormData> = async (data) => {
+  const { mutate: signUp } = useMutation({
+    mutationFn: async (data: { email: string; nickname: string; password: string }) => {
+      const response = await axios.post('/api/auth/sign-up', {
+        email: data.email,
+        nickname: data.nickname,
+        password: data.password
+      });
 
+      const savedDiaries = fetchLocalDiaries();
+
+      console.log(response);
+
+      if (savedDiaries.length) {
+        savedDiaries.forEach(async (diary) => {
+          const formData = new FormData();
+          formData.append('userId', response.data);
+          formData.append('color', diary.color);
+          formData.append('tags', JSON.stringify(diary.tags));
+          formData.append('content', diary.content);
+          formData.append('date', new Date(diary.date).toISOString());
+
+          if (diary.img) {
+            const file = await urlToFile(diary.img);
+            formData.append('img', file);
+          } else {
+            formData.append('img', '');
+          }
+
+          await axios.post('/api/diaries', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          });
+        });
+
+        clearLocalDiaries();
+      }
+    },
+    onSuccess: () => {
+      toast.on({ label: '회원가입이 완료되었어요. 로그인 후 서비스를 이용해봐요!' });
+      setIsTermsChecked(false);
+      reset();
+      onClose();
+    },
+    onError: (error) => {
+      console.error('회원가입 실패: ', error);
+      toast.on({ label: '회원가입 중 오류가 발생했습니다. 다시 시도해주세요.' });
+    }
+  });
+
+  const onSubmit: SubmitHandler<SignUpFormData> = async (data) => {
     if (!isTermsChecked) {
       return toast.on({ label: '이용약관에 동의하지 않으셨어요. 동의하셔야 회원가입이 가능해요.' });
     }
 
-    try {
-      const response = await axios.post('/api/auth/sign-up', data);
-      if (response.status === 200) {
-        toast.on({ label: '회원가입이 완료되었어요. 로그인 후 서비스를 이용해봐요!' });
-
-        const savedDiaries = fetchLocalDiaries();
-
-        if (savedDiaries.length) {
-          savedDiaries.forEach(async (diary) => {
-            const formData = new FormData();
-            formData.append('userId', response.data.userData.user.id);
-            formData.append('color', diary.color);
-            formData.append('tags', JSON.stringify(diary.tags));
-            formData.append('content', diary.content);
-            formData.append('date', new Date(diary.date).toISOString());
-
-            if (diary.img) {
-              const file = await urlToFile(diary.img);
-              formData.append('img', file);
-            } else {
-              formData.append('img', '');
-            }
-
-            await axios.post('/api/diaries', formData, {
-              headers: {
-                'Content-Type': 'multipart/form-data'
-              }
-            });
-          });
-
-          clearLocalDiaries();
-        }
-        setIsTermsChecked(false);
-        onClose();
-      }
-    } catch (error) {
-      console.error(error);
-      toast.on({ label: '회원가입 중 오류가 발생했습니다. 다시 시도해주세요.' });
-    }
+    signUp(data);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLFormElement>) => {
@@ -140,17 +152,21 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
               회원가입
             </h2>
           </div>
-          <form onSubmit={handleSubmit(onSubmit, handleError)} onKeyDown={handleKeyDown} className="w-full flex flex-col items-start gap-24px-col-m md:gap-24px-col self-stretch">
+          <form
+            onSubmit={handleSubmit(onSubmit, handleError)}
+            onKeyDown={handleKeyDown}
+            className="w-full flex flex-col items-start gap-24px-col-m md:gap-24px-col self-stretch"
+          >
             <div className="w-full flex flex-col gap-16px-col-m md:gap-16px-col items-start self-stretch">
               <ServiceInput
                 type="email"
-                state={errors.email ? 'error' : (isSubmitted && !errors.email) ? 'filled' : 'default'}
+                state={errors.email ? 'error' : isSubmitted && !errors.email ? 'filled' : 'default'}
                 {...register('email', {
                   required: '이메일을 작성하지 않으셨어요.',
                   pattern: {
                     value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                    message: '유효한 이메일 형식이 아닙니다.',
-                  },
+                    message: '유효한 이메일 형식이 아닙니다.'
+                  }
                 })}
                 label="이메일"
                 placeholder="이메일을 입력해주세요."
@@ -164,7 +180,7 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
               />
               <ServiceInput
                 type="text"
-                state={errors.nickname ? 'error' : (isSubmitted && !errors.nickname) ? 'filled' : 'default'}
+                state={errors.nickname ? 'error' : isSubmitted && !errors.nickname ? 'filled' : 'default'}
                 {...register('nickname', {
                   required: '닉네임을 작성하지 않으셨어요. 닉네임을 작성해주세요.',
                   minLength: {
@@ -177,8 +193,8 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
                   },
                   pattern: {
                     value: /^[^\s]+$/,
-                    message: '띄어쓰기는 불가능해요. 띄어쓰기를 없애주세요',
-                  },
+                    message: '띄어쓰기는 불가능해요. 띄어쓰기를 없애주세요'
+                  }
                 })}
                 label="닉네임"
                 placeholder="사용할 닉네임을 입력해주세요."
@@ -193,7 +209,7 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
 
               <ServiceInput
                 type="password"
-                state={errors.password ? 'error' : (isSubmitted && !errors.password) ? 'filled' : 'default'}
+                state={errors.password ? 'error' : isSubmitted && !errors.password ? 'filled' : 'default'}
                 {...register('password', {
                   required: '비밀번호를 작성하지 않으셨어요. 비밀번호를 작성해주세요.',
                   minLength: {
@@ -221,14 +237,15 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
               />
               <ServiceInput
                 type="password"
-                state={errors.confirmPassword ? 'error' : (isSubmitted && !errors.confirmPassword) ? 'filled' : 'default'}
+                state={errors.confirmPassword ? 'error' : isSubmitted && !errors.confirmPassword ? 'filled' : 'default'}
                 {...register('confirmPassword', {
                   required: '비밀번호 확인을 하지 않으셨어요. 비밀번호를 확인해주세요',
-                  validate: (value) => value === watch('password') || '상단에 입력한 비밀번호와 동일하지 않아요. 다시 작성해주세요.',
+                  validate: (value) =>
+                    value === watch('password') || '상단에 입력한 비밀번호와 동일하지 않아요. 다시 작성해주세요.',
                   pattern: {
                     value: /^[^\s]+$/,
-                    message: '띄어쓰기는 불가능해요. 띄어쓰기를 없애주세요',
-                  },
+                    message: '띄어쓰기는 불가능해요. 띄어쓰기를 없애주세요'
+                  }
                 })}
                 label="비밀번호 확인하기"
                 placeholder="비밀번호를 다시 입력해주세요."
