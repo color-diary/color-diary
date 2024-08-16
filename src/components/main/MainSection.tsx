@@ -94,7 +94,7 @@ const MainSection = () => {
 
   useEffect(() => {
     queryClient.invalidateQueries({ queryKey: ['diaries', 'main', year, month] });
-  }, [isLoading]);
+  }, [user]);
 
   useEffect(() => {
     setDate(date);

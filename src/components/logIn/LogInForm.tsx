@@ -41,12 +41,13 @@ const LogInForm = () => {
       setIsLogin(true);
 
       clearLocalDiaries();
+
       router.replace('/');
 
       queryClient.refetchQueries({ queryKey: ['user'] });
       queryClient.refetchQueries({ queryKey: ['information'] });
-
-      queryClient.invalidateQueries({ queryKey: ['diaries', 'main'] });
+      queryClient.refetchQueries({ queryKey: ['diaries'] });
+      queryClient.refetchQueries({ queryKey: ['main'] });
     },
     onError: (error) => {
       console.error('로그인 실패: ', error);

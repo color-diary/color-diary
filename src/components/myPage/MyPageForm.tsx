@@ -178,9 +178,9 @@ const MyPageForm = () => {
                 alt="Profile Image"
                 fill
                 sizes="(max-width: 768px)"
-                className={`cursor-pointer w-[80px] object-cover px-[15px] py-[15px] md:px-24px-col md:py-24px-col relative $ ${
+                className={`cursor-pointer w-[80px] object-cover px-[15px] py-[15px] md:px-24px-col md:py-24px-col relative ${
                   isLoadingImage ? 'opacity-30' : ''
-                } rounded-full`}
+                } ${userData[0].profileImg ? 'rounded-full' : ''}`}
                 onClick={() => fileInputRef.current?.click()}
                 onLoad={() => setIsLoadingImage(false)}
               />
