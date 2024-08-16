@@ -4,6 +4,14 @@ import { useToast } from '@/providers/toast.context';
 import { InputStateType } from '@/types/input.type';
 import { clearLocalDiaries, fetchLocalDiaries } from '@/utils/diaryLocalStorage';
 import { urlToFile } from '@/utils/imageFileUtils';
+import {
+  validateConfirmPassword,
+  validateEmail,
+  validateNickname,
+  validateNicknameNull,
+  validatePassword
+} from '@/utils/validation';
+import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { ChangeEvent, useState } from 'react';
 import BackDrop from '../common/BackDrop';
@@ -36,29 +44,55 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
   const [passwordState, setPasswordState] = useState<InputStateType>('default');
   const [confirmPasswordState, setConfirmPasswordState] = useState<InputStateType>('default');
 
-  const validateEmail = (email: string): boolean => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const { mutate: signUp } = useMutation({
+    mutationFn: async () => {
+      const response = await axios.post('/api/auth/sign-up', { email, password, nickname });
 
-    return emailRegex.test(email);
-  };
+      const savedDiaries = fetchLocalDiaries();
 
-  const validateNicknameNull = (nickname: string): boolean => {
-    return nickname !== null && nickname !== undefined && nickname.trim() !== '';
-  };
+      console.log(response);
 
-  const validateNickname = (nickname: string): boolean => {
-    return nickname.length >= 3 && nickname.length <= 8;
-  };
+      if (savedDiaries.length) {
+        savedDiaries.forEach(async (diary) => {
+          const formData = new FormData();
+          formData.append('userId', response.data);
+          formData.append('color', diary.color);
+          formData.append('tags', JSON.stringify(diary.tags));
+          formData.append('content', diary.content);
+          formData.append('date', new Date(diary.date).toISOString());
 
-  const validatePassword = (password: string): boolean => {
-    return password.length >= 6;
-  };
+          if (diary.img) {
+            const file = await urlToFile(diary.img);
+            formData.append('img', file);
+          } else {
+            formData.append('img', '');
+          }
 
-  const validateConfirmPassword = (password: string, confirmPassword: string): boolean => {
-    return password === confirmPassword;
-  };
+          await axios.post('/api/diaries', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          });
+        });
 
-  const handleClickSignUp = async (): Promise<void> => {
+        clearLocalDiaries();
+      }
+    },
+    onSuccess: () => {
+      toast.on({ label: '회원가입이 완료되었어요. 로그인 후 서비스를 이용해봐요!' });
+
+      setEmail('');
+      setPassword('');
+      setNickname('');
+      setConfirmPassword('');
+      onClose();
+    },
+    onError: (error) => {
+      console.error('회원가입 실패: ', error);
+    }
+  });
+
+  const handleClickSignUp = (): void => {
     if (!validateEmail(email)) {
       return toast.on({ label: '이메일을 작성하지 않으셨어요. 이메일을 작성해주세요.' });
     }
@@ -83,50 +117,7 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
       return toast.on({ label: '이용약관에 동의하지 않으셨어요. 동의하셔야 회원가입이 가능해요.' });
     }
 
-    const data = { email, password, nickname };
-    try {
-      const response = await axios.post('/api/auth/sign-up', data);
-
-      if (response.status === 200) {
-        toast.on({ label: '회원가입이 완료되었어요. 로그인 후 서비스를 이용해봐요!' });
-
-        setEmail('');
-        setPassword('');
-        setNickname('');
-        setConfirmPassword('');
-        onClose();
-
-        const savedDiaries = fetchLocalDiaries();
-
-        if (savedDiaries.length) {
-          savedDiaries.forEach(async (diary) => {
-            const formData = new FormData();
-            formData.append('userId', response.data.userData.user.id);
-            formData.append('color', diary.color);
-            formData.append('tags', JSON.stringify(diary.tags));
-            formData.append('content', diary.content);
-            formData.append('date', new Date(diary.date).toISOString());
-
-            if (diary.img) {
-              const file = await urlToFile(diary.img);
-              formData.append('img', file);
-            } else {
-              formData.append('img', '');
-            }
-
-            await axios.post('/api/diaries', formData, {
-              headers: {
-                'Content-Type': 'multipart/form-data'
-              }
-            });
-          });
-
-          clearLocalDiaries();
-        }
-      }
-    } catch (error) {
-      console.error(error);
-    }
+    signUp();
   };
 
   const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>): void => {

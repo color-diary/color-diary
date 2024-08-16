@@ -1,11 +1,12 @@
 'use client';
 
+import useAuth from '@/hooks/useAuth';
 import { useToast } from '@/providers/toast.context';
 import { clearLocalDiaries } from '@/utils/diaryLocalStorage';
 import { loginZustandStore } from '@/zustand/zustandStore';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
+import { notFound, useRouter } from 'next/navigation';
 import { ChangeEvent, useState } from 'react';
 import Button from '../common/Button';
 import Input from '../common/Input';
@@ -18,6 +19,7 @@ const LogInForm = () => {
   const router = useRouter();
   const toast = useToast();
 
+  const { user } = useAuth();
   const queryClient = useQueryClient();
 
   const [email, setEmail] = useState<string>('');
@@ -66,6 +68,10 @@ const LogInForm = () => {
     const newPassword = e.target.value;
     setPassword(newPassword);
   };
+
+  if (user) {
+    return notFound();
+  }
 
   return (
     <div className="h-h-screen-custom md:h-screen flex justify-center items-center">
