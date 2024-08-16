@@ -22,12 +22,11 @@ const ServiceModal = ({ onClose }: ServiceModalProps) => {
   const { register, handleSubmit, watch, formState: { errors, isSubmitted } } = useForm<FormData>();
 
   const onSubmit: SubmitHandler<FormData> = data => {
+    console.log(data);
     onClose();
   };
 
   const textareaValue = watch('textarea', '');
-  const emailValue = watch('setEmail', '');
-  
 
   const handleEnterDown = (event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (event.key === 'Enter' && !event.shiftKey) {
@@ -59,9 +58,9 @@ const ServiceModal = ({ onClose }: ServiceModalProps) => {
             })}
             placeholder="이메일을 입력해주세요."
             state={errors.setEmail ? 'error' : isSubmitted ? 'filled' : 'default'}
+            helperMessage={errors.setEmail?.message}
             onKeyDown={handleEnterDown}  
           />
-          {errors.setEmail && <span className="text-error-color  md:text-18px text-14px-m mt-[6px]">{errors.setEmail.message}</span>}
           </div>
           <Dropdown 
            
