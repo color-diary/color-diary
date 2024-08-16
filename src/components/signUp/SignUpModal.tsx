@@ -3,10 +3,13 @@
 import { useToast } from '@/providers/toast.context';
 import { clearLocalDiaries, fetchLocalDiaries } from '@/utils/diaryLocalStorage';
 import { urlToFile } from '@/utils/imageFileUtils';
+import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-import { useForm, SubmitHandler, useWatch } from 'react-hook-form';
+import { useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import BackDrop from '../common/BackDrop';
 import Button from '../common/Button';
+import ServiceInput from '../common/ServiceInput';
 import TermsModal from './TermsModal';
 import AngleRightBlue from './assets/AngleRightBlue';
 import CheckFalse from './assets/CheckFalse';
@@ -14,8 +17,6 @@ import CheckTrue from './assets/CheckTrue';
 import SignUpIcon from './assets/SignUpIcon';
 import XIconBlack from './assets/XIconBlack';
 import XIconGreen from './assets/XIconGreen';
-import ServiceInput from '../common/ServiceInput';
-import { useState } from 'react';
 
 interface SignUpFormData {
   email: string;
@@ -31,54 +32,75 @@ interface ModalProps {
 
 const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
   const toast = useToast();
-  const { register, handleSubmit, watch, reset, trigger, formState: { errors, isSubmitted } } = useForm<SignUpFormData>();
+
   const [isTermsChecked, setIsTermsChecked] = useState<boolean>(false);
   const [isOpenTerms, setIsOpenTerms] = useState(false);
+
+  const { mutate: signUp } = useMutation({
+    mutationFn: async (data: { email: string; nickname: string; password: string }) => {
+      const response = await axios.post('/api/auth/sign-up', {
+        email: data.email,
+        nickname: data.nickname,
+        password: data.password
+      });
+
+      const savedDiaries = fetchLocalDiaries();
+
+      console.log(response);
+
+      if (savedDiaries.length) {
+        savedDiaries.forEach(async (diary) => {
+          const formData = new FormData();
+          formData.append('userId', response.data);
+          formData.append('color', diary.color);
+          formData.append('tags', JSON.stringify(diary.tags));
+          formData.append('content', diary.content);
+          formData.append('date', new Date(diary.date).toISOString());
+
+          if (diary.img) {
+            const file = await urlToFile(diary.img);
+            formData.append('img', file);
+          } else {
+            formData.append('img', '');
+          }
+
+          await axios.post('/api/diaries', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          });
+        });
+
+        clearLocalDiaries();
+      }
+    },
+    onSuccess: () => {
+      toast.on({ label: '회원가입이 완료되었어요. 로그인 후 서비스를 이용해봐요!' });
+
+      reset();
+      onClose();
+    },
+    onError: (error) => {
+      console.error('회원가입 실패: ', error);
+      toast.on({ label: '회원가입 중 오류가 발생했습니다. 다시 시도해주세요.' });
+    }
+  });
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    trigger,
+    formState: { errors, isSubmitted }
+  } = useForm<SignUpFormData>();
 
   const onSubmit: SubmitHandler<SignUpFormData> = async (data) => {
     if (!isTermsChecked) {
       return toast.on({ label: '이용약관에 동의하지 않으셨어요. 동의하셔야 회원가입이 가능해요.' });
     }
 
-    try {
-      const response = await axios.post('/api/auth/sign-up', data);
-      if (response.status === 200) {
-        toast.on({ label: '회원가입이 완료되었어요. 로그인 후 서비스를 이용해봐요!' });
-
-        const savedDiaries = fetchLocalDiaries();
-
-        if (savedDiaries.length) {
-          savedDiaries.forEach(async (diary) => {
-            const formData = new FormData();
-            formData.append('userId', response.data.userData.user.id);
-            formData.append('color', diary.color);
-            formData.append('tags', JSON.stringify(diary.tags));
-            formData.append('content', diary.content);
-            formData.append('date', new Date(diary.date).toISOString());
-
-            if (diary.img) {
-              const file = await urlToFile(diary.img);
-              formData.append('img', file);
-            } else {
-              formData.append('img', '');
-            }
-
-            await axios.post('/api/diaries', formData, {
-              headers: {
-                'Content-Type': 'multipart/form-data'
-              }
-            });
-          });
-
-          clearLocalDiaries();
-        }
-        reset();
-        onClose();
-      }
-    } catch (error) {
-      console.error(error);
-      toast.on({ label: '회원가입 중 오류가 발생했습니다. 다시 시도해주세요.' });
-    }
+    signUp(data);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLFormElement>) => {
@@ -132,77 +154,82 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
               회원가입
             </h2>
           </div>
-          <form onSubmit={handleSubmit(onSubmit, handleError)} onKeyDown={handleKeyDown} className="w-full flex flex-col items-start gap-24px-col-m md:gap-24px-col self-stretch">
+          <form
+            onSubmit={handleSubmit(onSubmit, handleError)}
+            onKeyDown={handleKeyDown}
+            className="w-full flex flex-col items-start gap-24px-col-m md:gap-24px-col self-stretch"
+          >
             <div className="w-full flex flex-col gap-16px-col-m md:gap-16px-col items-start self-stretch">
               <ServiceInput
                 type="email"
-                state={errors.email ? 'error' : (isSubmitted && !errors.email) ? 'filled' : 'default'}
+                state={errors.email ? 'error' : isSubmitted && !errors.email ? 'filled' : 'default'}
                 {...register('email', {
                   required: '이메일을 작성하지 않으셨어요.',
                   pattern: {
                     value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                    message: '유효한 이메일 형식이 아닙니다.',
-                  },
+                    message: '유효한 이메일 형식이 아닙니다.'
+                  }
                 })}
                 label="이메일"
                 placeholder="이메일을 입력해주세요."
-                helperMessage={errors.email?.message || "ex)abcd@gmail.com"}
+                helperMessage={errors.email?.message || 'ex)abcd@gmail.com'}
               />
               <ServiceInput
                 type="text"
-                state={errors.nickname ? 'error' : (isSubmitted && !errors.nickname) ? 'filled' : 'default'}
+                state={errors.nickname ? 'error' : isSubmitted && !errors.nickname ? 'filled' : 'default'}
                 {...register('nickname', {
                   required: '이름을 작성하지 않으셨어요. 이름을 작성해주세요.',
                   minLength: {
                     value: 3,
-                    message: '이름은 3글자 이상이어야 합니다.',
+                    message: '이름은 3글자 이상이어야 합니다.'
                   },
                   maxLength: {
                     value: 8,
-                    message: '이름은 8글자 이하이어야 합니다.',
+                    message: '이름은 8글자 이하이어야 합니다.'
                   },
                   pattern: {
                     value: /^[^\s]+$/,
-                    message: '띄어쓰기는 불가능해요. 띄어쓰기를 없애주세요',
-                  },
+                    message: '띄어쓰기는 불가능해요. 띄어쓰기를 없애주세요'
+                  }
                 })}
                 label="이름"
                 placeholder="사용할 이름을 입력해주세요."
-                helperMessage={errors.nickname?.message || "띄어쓰기는 불가능해요.(3~8글자 이내)"}
+                helperMessage={errors.nickname?.message || '띄어쓰기는 불가능해요.(3~8글자 이내)'}
               />
 
               <ServiceInput
                 type="password"
-                state={errors.password ? 'error' : (isSubmitted && !errors.password) ? 'filled' : 'default'}
+                state={errors.password ? 'error' : isSubmitted && !errors.password ? 'filled' : 'default'}
                 {...register('password', {
                   required: '비밀번호를 작성하지 않으셨어요. 비밀번호를 작성해주세요.',
                   minLength: {
                     value: 6,
-                    message: '비밀번호는 6글자 이상이어야 합니다.',
+                    message: '비밀번호는 6글자 이상이어야 합니다.'
                   },
                   pattern: {
                     value: /^[^\s]+$/,
-                    message: '띄어쓰기는 불가능해요. 띄어쓰기를 없애주세요',
-                  },
+                    message: '띄어쓰기는 불가능해요. 띄어쓰기를 없애주세요'
+                  }
                 })}
                 label="비밀번호"
                 placeholder="비밀번호를 입력해주세요."
-                helperMessage={errors.password?.message || "영문과 숫자를 포함해주세요.(6글자 이상)"}
+                helperMessage={errors.password?.message || '영문과 숫자를 포함해주세요.(6글자 이상)'}
               />
               <ServiceInput
                 type="password"
-                state={errors.confirmPassword ? 'error' : (isSubmitted && !errors.confirmPassword) ? 'filled' : 'default'}
+                state={errors.confirmPassword ? 'error' : isSubmitted && !errors.confirmPassword ? 'filled' : 'default'}
                 {...register('confirmPassword', {
                   required: '비밀번호 확인을 하지 않으셨어요. 비밀번호를 확인해주세요',
-                  validate: (value) => value === watch('password') || '상단에 입력한 비밀번호와 동일하지 않아요. 다시 작성해주세요.',
+                  validate: (value) =>
+                    value === watch('password') || '상단에 입력한 비밀번호와 동일하지 않아요. 다시 작성해주세요.',
                   pattern: {
                     value: /^[^\s]+$/,
-                    message: '띄어쓰기는 불가능해요. 띄어쓰기를 없애주세요',
-                  },
+                    message: '띄어쓰기는 불가능해요. 띄어쓰기를 없애주세요'
+                  }
                 })}
                 label="비밀번호 확인하기"
                 placeholder="비밀번호를 다시 입력해주세요."
-                helperMessage={errors.confirmPassword?.message || "상단에 입력한 비밀번호와 동일하게 입력해주세요"}
+                helperMessage={errors.confirmPassword?.message || '상단에 입력한 비밀번호와 동일하게 입력해주세요'}
               />
             </div>
             <div className="flex items-center justify-center gap-4px-row-m md:gap-4px-row">

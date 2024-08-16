@@ -24,11 +24,7 @@ export const loginZustandStore = create<loginStatusZustandStore>()(
   persist(
     (set) => ({
       isLogin: false,
-      publicProfileImg: '',
-      setIsLogin: (isLogin: boolean) => set({ isLogin }),
-      publicSetProfileImg: (publicProfileImg: string) => {
-        set({ publicProfileImg });
-      }
+      setIsLogin: (isLogin: boolean) => set({ isLogin })
     }),
     {
       name: 'zustand-store'
