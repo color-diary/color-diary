@@ -3,6 +3,7 @@
 import { useToast } from '@/providers/toast.context';
 import { clearLocalDiaries } from '@/utils/diaryLocalStorage';
 import { loginZustandStore } from '@/zustand/zustandStore';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, useState } from 'react';
@@ -17,32 +18,43 @@ const LogInForm = () => {
   const router = useRouter();
   const toast = useToast();
 
+  const queryClient = useQueryClient();
+
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const setIsLogin = loginZustandStore((state) => state.setIsLogin);
 
-  const handleClickLogIn = async (): Promise<void> => {
-    if (!email || !password) return toast.on({ label: '이메일과 비밀번호를 작성해주세요.' });
+  const { mutate: logIn } = useMutation({
+    mutationFn: async () => {
+      const response = await axios.post('/api/auth/log-in', { email, password });
 
-    const data = { email, password };
-    try {
-      const response = await axios.post('/api/auth/log-in', data);
-      if (response.status === 200) {
-        setEmail('');
-        setPassword('');
-        setIsLogin(true);
+      toast.on({ label: `${response.data[0].nickname}님 안녕하세요. 만나서 반가워요!` });
+    },
+    onSuccess: () => {
+      setEmail('');
+      setPassword('');
+      setIsLogin(true);
 
-        toast.on({ label: `${response.data[0].nickname}님 안녕하세요. 만나서 반가워요!` });
+      clearLocalDiaries();
+      router.replace('/');
 
-        clearLocalDiaries();
-        router.replace('/');
-      }
-    } catch (error) {
-      console.error(error);
+      queryClient.refetchQueries({ queryKey: ['user'] });
+      queryClient.refetchQueries({ queryKey: ['information'] });
+
+      queryClient.invalidateQueries({ queryKey: ['diaries', 'main'] });
+    },
+    onError: (error) => {
+      console.error('로그인 실패: ', error);
       toast.on({ label: '올바른 이메일과 비밀번호를 입력해주세요' });
     }
+  });
+
+  const handleClickLogIn = (): void => {
+    if (!email || !password) return toast.on({ label: '이메일과 비밀번호를 작성해주세요.' });
+
+    logIn();
   };
 
   const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>): void => {

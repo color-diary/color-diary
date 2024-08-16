@@ -43,17 +43,6 @@ const Header = () => {
   }, [user]);
 
   useEffect(() => {
-    const checkUser = async () => {
-      if (user == null) {
-        setIsLogin(false);
-      } else {
-        setIsLogin(true);
-      }
-    };
-    checkUser();
-  }, [isLogin]);
-
-  useEffect(() => {
     const backGroundBgm: HTMLAudioElement = new Audio('/background-bgm.mp3');
     backGroundBgm.volume = 0.07;
     backGroundBgm.loop = true;
