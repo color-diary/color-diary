@@ -139,7 +139,7 @@ const MainSection = () => {
   };
 
   return (
-    <div className="flex flex-col min-w-[335px] w-335px-row-m md:w-744px-row mx-auto mt-[96px] md:mt-[128px] space-y-24px-col-m">
+    <div className="flex flex-col min-w-[335px] w-335px-row-m md:w-744px-row mx-auto mt-12 md:mt-144px-col space-y-24px-col-m">
       <div className="flex justify-between">
         <p className="text-18px-m md:text-24px font-bold">나의 감정 기록</p>
         <div className="flex items-center">

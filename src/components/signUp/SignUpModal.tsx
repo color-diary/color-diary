@@ -5,9 +5,11 @@ import { clearLocalDiaries, fetchLocalDiaries } from '@/utils/diaryLocalStorage'
 import { urlToFile } from '@/utils/imageFileUtils';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import BackDrop from '../common/BackDrop';
 import Button from '../common/Button';
+import ServiceInput from '../common/ServiceInput';
 import TermsModal from './TermsModal';
 import AngleRightBlue from './assets/AngleRightBlue';
 import CheckFalse from './assets/CheckFalse';
@@ -15,8 +17,6 @@ import CheckTrue from './assets/CheckTrue';
 import SignUpIcon from './assets/SignUpIcon';
 import XIconBlack from './assets/XIconBlack';
 import XIconGreen from './assets/XIconGreen';
-import ServiceInput from '../common/ServiceInput';
-import { useEffect, useState } from 'react';
 
 interface SignUpFormData {
   email: string;
@@ -32,15 +32,27 @@ interface ModalProps {
 
 const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
   const toast = useToast();
-  const { register, handleSubmit, watch, reset, trigger, clearErrors, formState: { errors, isSubmitted } } = useForm<SignUpFormData>();
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    trigger,
+    formState: { errors, isSubmitted }
+  } = useForm<SignUpFormData>();
+
   const [isTermsChecked, setIsTermsChecked] = useState<boolean>(false);
   const [isOpenTerms, setIsOpenTerms] = useState(false);
 
   useEffect(() => {
     reset({
-      email: '', nickname: '', password: '', confirmPassword: ''
-    })
-  }, [isSubmitted])
+      email: '',
+      nickname: '',
+      password: '',
+      confirmPassword: ''
+    });
+  }, [isSubmitted]);
 
   const { mutate: signUp } = useMutation({
     mutationFn: async (data: { email: string; nickname: string; password: string }) => {
@@ -51,8 +63,6 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
       });
 
       const savedDiaries = fetchLocalDiaries();
-
-      console.log(response);
 
       if (savedDiaries.length) {
         savedDiaries.forEach(async (diary) => {
@@ -119,7 +129,7 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
     toast.on({ label: '이용약관에 동의하지 않으셨어요.' });
   };
 
-  const handleError = () => {
+  const handleError = (): void => {
     trigger();
     if (errors.email) {
       toast.on({ label: errors.email.message || '이메일을 작성해주세요.' });
@@ -173,9 +183,9 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
                 helperMessage={
                   errors.email
                     ? errors.email.message
-                    : (isSubmitted && !errors.email)
-                      ? "사용 가능한 이메일입니다."
-                      : "ex)abcd@gmail.com"
+                    : isSubmitted && !errors.email
+                    ? '사용 가능한 이메일입니다.'
+                    : 'ex)abcd@gmail.com'
                 }
               />
               <ServiceInput
@@ -185,11 +195,11 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
                   required: '닉네임을 작성하지 않으셨어요. 닉네임을 작성해주세요.',
                   minLength: {
                     value: 3,
-                    message: '닉네임은 3글자 이상이어야 합니다.',
+                    message: '닉네임은 3글자 이상이어야 합니다.'
                   },
                   maxLength: {
                     value: 8,
-                    message: '닉네임은 8글자 이하이어야 합니다.',
+                    message: '닉네임은 8글자 이하이어야 합니다.'
                   },
                   pattern: {
                     value: /^[^\s]+$/,
@@ -201,12 +211,11 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
                 helperMessage={
                   errors.nickname
                     ? errors.nickname.message
-                    : (isSubmitted && !errors.nickname)
-                      ? "사용 가능한 닉네임입니다."
-                      : "띄어쓰기는 불가능해요.(3~8글자 이내)"
+                    : isSubmitted && !errors.nickname
+                    ? '사용 가능한 닉네임입니다.'
+                    : '띄어쓰기는 불가능해요.(3~8글자 이내)'
                 }
               />
-
               <ServiceInput
                 type="password"
                 state={errors.password ? 'error' : isSubmitted && !errors.password ? 'filled' : 'default'}
@@ -214,25 +223,25 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
                   required: '비밀번호를 작성하지 않으셨어요. 비밀번호를 작성해주세요.',
                   minLength: {
                     value: 8,
-                    message: '비밀번호는 8글자 이상이어야 해요. 8글자이상 작성해주세요',
+                    message: '비밀번호는 8글자 이상이어야 해요. 8글자이상 작성해주세요'
                   },
                   maxLength: {
                     value: 14,
-                    message: '비밀번호는 14글자 이하이어야 해요. 8글자이하로 작성해주세요',
+                    message: '비밀번호는 14글자 이하이어야 해요. 8글자이하로 작성해주세요'
                   },
                   pattern: {
                     value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,14}$/,
-                    message: '비밀번호는 영문과 숫자를 포함해야 해요.',
-                  },
+                    message: '비밀번호는 영문과 숫자를 포함해야 해요.'
+                  }
                 })}
                 label="비밀번호"
                 placeholder="비밀번호를 입력해주세요."
                 helperMessage={
                   errors.password
                     ? errors.password.message
-                    : (isSubmitted && !errors.password)
-                      ? "사용 가능한 비밀번호입니다."
-                      : "영문과 숫자를 포함해주세요. (8~14글자)"
+                    : isSubmitted && !errors.password
+                    ? '사용 가능한 비밀번호입니다.'
+                    : '영문과 숫자를 포함해주세요. (8~14글자)'
                 }
               />
               <ServiceInput
@@ -252,9 +261,9 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
                 helperMessage={
                   errors.confirmPassword
                     ? errors.confirmPassword.message
-                    : (isSubmitted && !errors.confirmPassword)
-                      ? "비밀번호가 일치합니다."
-                      : "상단에 입력한 비밀번호와 동일하게 입력해주세요"
+                    : isSubmitted && !errors.confirmPassword
+                    ? '비밀번호가 일치합니다.'
+                    : '상단에 입력한 비밀번호와 동일하게 입력해주세요'
                 }
               />
             </div>
