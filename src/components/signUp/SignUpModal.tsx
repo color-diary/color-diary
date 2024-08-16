@@ -15,7 +15,7 @@ import SignUpIcon from './assets/SignUpIcon';
 import XIconBlack from './assets/XIconBlack';
 import XIconGreen from './assets/XIconGreen';
 import ServiceInput from '../common/ServiceInput';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface SignUpFormData {
   email: string;
@@ -31,14 +31,16 @@ interface ModalProps {
 
 const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
   const toast = useToast();
-  const { register, handleSubmit, watch, reset, trigger, clearErrors, resetField, formState: { errors, isSubmitted } } = useForm<SignUpFormData>();
+  const { register, handleSubmit, watch, reset, trigger, clearErrors, formState: { errors, isSubmitted } } = useForm<SignUpFormData>();
   const [isTermsChecked, setIsTermsChecked] = useState<boolean>(false);
   const [isOpenTerms, setIsOpenTerms] = useState(false);
 
-  const handleReset = () => {
-    clearErrors();
-    reset({ email: '', nickname: '', password: '', confirmPassword: '' });
-  }
+  useEffect(() => {
+    reset({
+      email: '', nickname: '', password: '', confirmPassword: ''
+    })
+  }, [isSubmitted])
+
   const onSubmit: SubmitHandler<SignUpFormData> = async (data) => {
 
     if (!isTermsChecked) {
@@ -77,8 +79,6 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
 
           clearLocalDiaries();
         }
-        console.log('테스트');
-        handleReset();
         setIsTermsChecked(false);
         onClose();
       }
@@ -256,7 +256,6 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
               <Button type="submit" icon={<SignUpIcon />}>
                 회원가입 완료하기
               </Button>
-              <button type='button' onClick={handleReset}>초기화</button>
             </div>
           </form>
         </div>
