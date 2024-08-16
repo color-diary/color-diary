@@ -1,5 +1,6 @@
 'use client';
 
+import useChannelTalk from '@/hooks/useChannelTalk';
 import { Diary, DiaryList } from '@/types/diary.type';
 import { formatFullDate } from '@/utils/dateUtils';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
@@ -21,6 +22,8 @@ import Cards from './Cards';
 const MainSection = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  useChannelTalk();
 
   const makeQueryString = (form: String, date: Date) => {
     const year = date.getFullYear();
