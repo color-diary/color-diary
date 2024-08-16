@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@channel.io/channel-web-sdk-loader": "^2.0.0",
     "@hookform/resolvers": "^3.9.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@supabase/ssr": "^0.4.0",

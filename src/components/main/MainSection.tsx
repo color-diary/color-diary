@@ -17,6 +17,7 @@ import BackTodayIcon from './assets/BackTodayIcon';
 import GoEmotionTestIcon from './assets/GoEmotionTestIcon';
 import SeparatorIcon from './assets/SeparatorIcon';
 import BluredCalendarIcon from './assets/BluredCalendarIcon';
+import useChannelTalk from '@/hooks/useChannelTalk';
 
 const MainSection = () => {
   const router = useRouter();
@@ -43,7 +44,7 @@ const MainSection = () => {
       }
     }
   };
-
+  useChannelTalk();
   const today = new Date();
   const todayYYMM = makeQueryString('YYMM', today) as number;
   const getInitialValue = (type: string) => {
