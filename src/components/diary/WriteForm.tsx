@@ -233,13 +233,13 @@ const WriteForm = () => {
   return (
     <>
       <form className="block md:hidden" onSubmit={(e) => (isDiaryEditMode ? handleEdit(e) : handleWrite(e))}>
-        <div className="relative flex flex-col items-center justify-center h-h-screen-custom">
-          <div className="flex flex-col gap-24px-col-m md:gap-24px-col w-335px-row-m ">
+        <div className="flex flex-col items-center justify-center py-48px-col-m">
+          <div className="flex flex-col gap-24px-col-m md:gap-24px-col w-335px-row-m">
             <ColorPicker />
             <EmotionTagsInput />
             <DiaryTextArea />
             <ImgDrop />
-            <div>
+            <div className="mb-32px-col-m">
               <p className="mb-2 text-14px-m text-font-color">오늘 나의 감정이 궁금하다면?</p>
               <div onClick={handlePreventEmotionTest}>
                 <Button size="md" priority="secondary" type="button" icon={<AngelRightBlack />}>
@@ -248,7 +248,7 @@ const WriteForm = () => {
               </div>
             </div>
           </div>
-          <div className="absolute bottom-5 right-5">
+          <div className="w-335px-row-m flex justify-end items-end">
             <Button size="md" type="submit" icon={<PencilIcon />}>
               {isDiaryEditMode ? '수정 완료하기' : '작성 완료하기'}
             </Button>

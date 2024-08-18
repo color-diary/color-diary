@@ -160,7 +160,7 @@ const DiaryContainer = () => {
     <>
       <div className="block md:hidden">
         <div
-          className="flex items-center justify-center h-h-screen-custom w-screen"
+          className="flex items-center justify-center h-h-screen-custom w-screen py-50px-col-m"
           style={{ backgroundColor: diaryData.color }}
         >
           <div className="flex flex-col gap-custom-8px-m h-full">
