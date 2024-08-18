@@ -1,24 +1,23 @@
 'use client';
 
 import { fetchDiary } from '@/apis/diary';
+import useAuth from '@/hooks/useAuth';
 import { useModal } from '@/providers/modal.context';
 import { useToast } from '@/providers/toast.context';
 import { Diary } from '@/types/diary.type';
 import { deleteFromLocal } from '@/utils/diaryLocalStorage';
-import { createClient } from '@/utils/supabase/client';
 import useZustandStore from '@/zustand/zustandStore';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Button from '../common/Button';
-import TextButton from '../common/TextButton';
-import DiaryContent from './DiaryContent';
-import { useSearchParams } from 'next/navigation';
 import LoadingSpinner from '../common/LoadingSpinner';
-import TrashBinIcon from './assets/TrashBinIcon';
+import TextButton from '../common/TextButton';
 import PencilIcon from './assets/PencilIcon ';
+import TrashBinIcon from './assets/TrashBinIcon';
 import XIconWhite from './assets/XIconWhite';
+import DiaryContent from './DiaryContent';
 
 const DiaryContainer = () => {
   const router = useRouter();
@@ -32,44 +31,32 @@ const DiaryContainer = () => {
   const toast = useToast();
   const modal = useModal();
 
+  const { user } = useAuth();
+
   const { setColor, setTags, setContent, setImg, setIsDiaryEditMode } = useZustandStore();
   const [localDiary, setLocalDiary] = useState<Diary | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchSession = async () => {
-      try {
-        const supabase = createClient();
-        const {
-          data: { session },
-          error
-        } = await supabase.auth.getSession();
-
-        if (error) {
-          throw new Error(error.message);
-        }
-
-        if (session) {
-          setUserId(session.user.id);
+    const readDiary = (): void => {
+      if (user) {
+        setUserId(user.id);
+      } else {
+        const savedDiaries = JSON.parse(localStorage.getItem('localDiaries') || '[]');
+        const foundDiary = savedDiaries.find((diary: Diary) => diary.diaryId === diaryId);
+        if (foundDiary) {
+          setLocalDiary(foundDiary);
         } else {
-          const savedDiaries = JSON.parse(localStorage.getItem('localDiaries') || '[]');
-          const foundDiary = savedDiaries.find((diary: Diary) => diary.diaryId === diaryId);
-          if (foundDiary) {
-            setLocalDiary(foundDiary);
-          } else {
-            toast.on({ label: '해당 다이어리를 찾을 수 없습니다.(비회원)' });
-            router.push('/');
-          }
+          toast.on({ label: '해당 다이어리를 찾을 수 없습니다.(비회원)' });
+          router.push('/');
         }
-      } catch (error) {
-        console.error('Failed to get session:', error);
-      } finally {
-        setIsLoading(false);
       }
+
+      setIsLoading(false);
     };
 
-    fetchSession();
+    readDiary();
   }, [router, diaryId, setColor, setTags, setContent, setImg]);
 
   const {
@@ -173,11 +160,11 @@ const DiaryContainer = () => {
     <>
       <div className="block md:hidden">
         <div
-          className="flex items-center justify-center h-screen w-screen"
+          className="flex items-center justify-center h-h-screen-custom w-screen py-50px-col-m"
           style={{ backgroundColor: diaryData.color }}
         >
-          <div className="flex flex-col gap-custom-8px-m h-[70%]">
-            <div className="flex  gap-[20vh] justify-center">
+          <div className="flex flex-col gap-custom-8px-m h-full">
+            <div className="flex gap-[20vh] justify-center">
               <div className="flex  justify-center gap-[3vh]">
                 <div className="w-[4vw] h-[4vw] bg-white rounded-full"></div>
                 <div className="w-[4vw] h-[4vw] bg-white rounded-full"></div>

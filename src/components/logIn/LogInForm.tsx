@@ -1,13 +1,12 @@
 'use client';
 
-import useAuth from '@/hooks/useAuth';
 import { useToast } from '@/providers/toast.context';
 import { clearLocalDiaries } from '@/utils/diaryLocalStorage';
 import { loginZustandStore } from '@/zustand/zustandStore';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
-import { notFound, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Button from '../common/Button';
 import ServiceInput from '../common/ServiceInput';
@@ -25,12 +24,13 @@ const LogInForm = () => {
   const router = useRouter();
   const toast = useToast();
 
-  const { user } = useAuth();
   const queryClient = useQueryClient();
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
+  const isLogin = loginZustandStore((state) => state.isLogin);
   const setIsLogin = loginZustandStore((state) => state.setIsLogin);
+
   const { mutate: logIn } = useMutation({
     mutationFn: async (data: { email: string; password: string }) => {
       const response = await axios.post('/api/auth/log-in', { email: data.email, password: data.password });
@@ -55,6 +55,14 @@ const LogInForm = () => {
     }
   });
 
+  useEffect(() => {
+    const checkSession = (): void => {
+      if (isLogin) router.replace('/');
+    };
+
+    checkSession();
+  }, []);
+
   const {
     register,
     handleSubmit,
@@ -65,17 +73,13 @@ const LogInForm = () => {
     logIn(data);
   };
 
-  const IsError = () => {
+  const handleError = (): void => {
     if (errors.email) {
       toast.on({ label: errors.email.message || '이메일을 확인해주세요.' });
     } else if (errors.password) {
       toast.on({ label: errors.password.message || '비밀번호를 확인해주세요.' });
     }
   };
-
-  if (user) {
-    return notFound();
-  }
 
   return (
     <div className="h-h-screen-custom md:h-screen flex justify-center items-center">
@@ -84,7 +88,7 @@ const LogInForm = () => {
           로그인
         </h1>
         <form
-          onSubmit={handleSubmit(onSubmit, IsError)}
+          onSubmit={handleSubmit(onSubmit, handleError)}
           className="w-full flex flex-col items-center md:gap-72px-col gap-56px-col-m"
         >
           <div className="flex flex-col items-start md:gap-48px-col gap-32px-col-m self-stretch">

@@ -27,7 +27,6 @@ const Header = () => {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
   const isLogin = loginZustandStore((state) => state.isLogin);
-  const setIsLogin = loginZustandStore((state) => state.setIsLogin);
   const { setIsDiaryEditMode, setHasTestResult } = useZustandStore();
 
   const { data: userData } = useQuery({
