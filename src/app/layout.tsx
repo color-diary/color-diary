@@ -7,6 +7,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
 import Landing from '@/components/common/Landing';
+import ChannelTalk from '@/components/common/ChannelTalk';
 
 export const metadata: Metadata = {
   title: 'Color Inside',
@@ -35,6 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <ModalProvider>
               <Header />
               <NavigationBar />
+              <ChannelTalk />
               <Landing>
                 <div className="pt-12 pb-16 h-auto md:pt-0 md:pb-0">{children}</div>
               </Landing>

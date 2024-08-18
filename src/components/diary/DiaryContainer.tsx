@@ -1,24 +1,23 @@
 'use client';
 
 import { fetchDiary } from '@/apis/diary';
+import useAuth from '@/hooks/useAuth';
 import { useModal } from '@/providers/modal.context';
 import { useToast } from '@/providers/toast.context';
 import { Diary } from '@/types/diary.type';
 import { deleteFromLocal } from '@/utils/diaryLocalStorage';
-import { createClient } from '@/utils/supabase/client';
 import useZustandStore from '@/zustand/zustandStore';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Button from '../common/Button';
-import TextButton from '../common/TextButton';
-import DiaryContent from './DiaryContent';
-import { useSearchParams } from 'next/navigation';
 import LoadingSpinner from '../common/LoadingSpinner';
-import TrashBinIcon from './assets/TrashBinIcon';
+import TextButton from '../common/TextButton';
 import PencilIcon from './assets/PencilIcon ';
+import TrashBinIcon from './assets/TrashBinIcon';
 import XIconWhite from './assets/XIconWhite';
+import DiaryContent from './DiaryContent';
 import StickerPicker from './StickerPicker';
 import Sticker from './Sticker';
 import CircleUI from './CircleUI';
@@ -69,6 +68,8 @@ const DiaryContainer = () => {
 
   const toast = useToast();
   const modal = useModal();
+
+  const { user } = useAuth();
 
   const { setColor, setTags, setContent, setImg, setIsDiaryEditMode } = useZustandStore();
   const [localDiary, setLocalDiary] = useState<Diary | null>(null);
@@ -136,35 +137,21 @@ const DiaryContainer = () => {
   };
 
   useEffect(() => {
-    const fetchSession = async () => {
-      try {
-        const supabase = createClient();
-        const {
-          data: { session },
-          error
-        } = await supabase.auth.getSession();
-
-        if (error) {
-          throw new Error(error.message);
-        }
-
-        if (session) {
-          setUserId(session.user.id);
+    const readDiary = (): void => {
+      if (user) {
+        setUserId(user.id);
+      } else {
+        const savedDiaries = JSON.parse(localStorage.getItem('localDiaries') || '[]');
+        const foundDiary = savedDiaries.find((diary: Diary) => diary.diaryId === diaryId);
+        if (foundDiary) {
+          setLocalDiary(foundDiary);
         } else {
-          const savedDiaries = JSON.parse(localStorage.getItem('localDiaries') || '[]');
-          const foundDiary = savedDiaries.find((diary: Diary) => diary.diaryId === diaryId);
-          if (foundDiary) {
-            setLocalDiary(foundDiary);
-          } else {
-            toast.on({ label: '해당 다이어리를 찾을 수 없습니다.(비회원)' });
-            router.push('/');
-          }
+          toast.on({ label: '해당 다이어리를 찾을 수 없습니다.(비회원)' });
+          router.push('/');
         }
-      } catch (error) {
-        console.error('Failed to get session:', error);
-      } finally {
-        setIsLoading(false);
       }
+
+      setIsLoading(false);
     };
 
     const fetchStickers = async () => {
@@ -192,7 +179,8 @@ const DiaryContainer = () => {
       }
     };
 
-    fetchSession();
+    readDiary();
+
     fetchStickers();
   }, [router, diaryId, setColor, setTags, setContent, setImg]);
 

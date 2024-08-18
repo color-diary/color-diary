@@ -1,7 +1,9 @@
 'use client';
 
-import { createClient } from '@/utils/supabase/client';
+import useAuth from '@/hooks/useAuth';
 import useZustandStore, { loginZustandStore } from '@/zustand/zustandStore';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -17,32 +19,27 @@ const Header = () => {
   const pathname = usePathname();
   const router = useRouter();
 
+  const { user } = useAuth();
+
+  const queryClient = useQueryClient();
+
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
   const isLogin = loginZustandStore((state) => state.isLogin);
-  const setIsLogin = loginZustandStore((state) => state.setIsLogin);
-  const publicProfileImg = loginZustandStore((state) => state.publicProfileImg);
   const { setIsDiaryEditMode, setHasTestResult } = useZustandStore();
 
-  const supabase = createClient();
-
-  const handleClick = (): void => {
-    setIsDiaryEditMode(false);
-    setHasTestResult(false);
-  };
+  const { data: userData } = useQuery({
+    queryKey: ['information'],
+    queryFn: async () => {
+      const { data } = await axios.get('/api/auth/me/information');
+      return data;
+    }
+  });
 
   useEffect(() => {
-    const checkUser = async () => {
-      const { data } = await supabase.auth.getUser();
-      if (data.user == null) {
-        setIsLogin(false);
-      } else {
-        setIsLogin(true);
-      }
-    };
-    checkUser();
-  }, [setIsLogin, supabase]);
+    queryClient.invalidateQueries({ queryKey: ['information', 'user'] });
+  }, [user]);
 
   useEffect(() => {
     const backGroundBgm: HTMLAudioElement = new Audio('/background-bgm.mp3');
@@ -51,7 +48,12 @@ const Header = () => {
     setAudio(backGroundBgm);
   }, []);
 
-  const toggleMusic = () => {
+  const handleClick = (): void => {
+    setIsDiaryEditMode(false);
+    setHasTestResult(false);
+  };
+
+  const toggleMusic = (): void => {
     if (!audio) return;
     if (isPlaying) {
       audio.pause();
@@ -96,21 +98,21 @@ const Header = () => {
         <button onClick={toggleMusic} className="w-6 h-6">
           {isPlaying ? <MusicOnIcon /> : <MusicOffIcon />}
         </button>
-        {!isLogin ? (
-          <Button onClick={handleClick} icon={<KeyIconGreen />} href={'/log-in'} priority="secondary" size={'mdFix'}>
-            로그인
-          </Button>
-        ) : (
+        {isLogin && userData ? (
           <Link href={'/my-page'} onClick={handleClick}>
             <div className="relative md:w-10 md:h-10 w-6 h-6 aspect-square">
               <Image
-                src={publicProfileImg || '/default-profile.jpg'}
+                src={userData[0].profileImg || '/default-profile.jpg'}
                 alt="Profile Image"
                 fill
                 className="rounded-full cursor-pointer object-cover"
               />
             </div>
           </Link>
+        ) : (
+          <Button onClick={handleClick} icon={<KeyIconGreen />} href={'/log-in'} priority="secondary" size={'mdFix'}>
+            로그인
+          </Button>
         )}
       </div>
     </div>
