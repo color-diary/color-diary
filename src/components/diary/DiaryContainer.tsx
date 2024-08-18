@@ -10,7 +10,7 @@ import useZustandStore from '@/zustand/zustandStore';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useParams, useRouter } from 'next/navigation';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '../common/Button';
 import TextButton from '../common/TextButton';
 import DiaryContent from './DiaryContent';
@@ -21,6 +21,18 @@ import PencilIcon from './assets/PencilIcon ';
 import XIconWhite from './assets/XIconWhite';
 import StickerPicker from './StickerPicker';
 import Sticker from './Sticker';
+import CircleUI from './CircleUI';
+import { v4 as uuidv4 } from 'uuid';
+import CalmSticker from './assets/emotion-stickers/CalmSticker';
+import JoySticker from './assets/emotion-stickers/JoySticker';
+import LethargySticker from './assets/emotion-stickers/LethargySticker';
+import AnxietySticker from './assets/emotion-stickers/AnxietySticker';
+import HopeSticker from './assets/emotion-stickers/HopeSticker';
+import AngerSticker from './assets/emotion-stickers/AngerSticker';
+import SadnessSticker from './assets/emotion-stickers/SadnessSticker';
+import SmilePlusIcon from './assets/SmilePlusIcon';
+import SaveIcon from './assets/SaveIcon';
+import XIconBlack from './assets/XIconBlack';
 
 type StickerType = {
   id: string;
@@ -28,11 +40,29 @@ type StickerType = {
   position: { x: number; y: number };
 };
 
+type DiaryStickers = {
+  id: string;
+  diaryId: string;
+  stickerData: StickerType[];
+};
+
+// 스티커 컴포넌트 매핑 객체
+const componentMapper: Record<string, JSX.Element> = {
+  CalmSticker: <CalmSticker />,
+  JoySticker: <JoySticker />,
+  LethargySticker: <LethargySticker />,
+  AnxietySticker: <AnxietySticker />,
+  HopeSticker: <HopeSticker />,
+  AngerSticker: <AngerSticker />,
+  SadnessSticker: <SadnessSticker />
+};
+
 const DiaryContainer = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const params = useParams();
   const diaryId = params.id as string;
+  const supabase = createClient();
 
   const form = searchParams.get('form');
   const YYMM = searchParams.get('YYMM');
@@ -46,27 +76,63 @@ const DiaryContainer = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [stickers, setStickers] = useState<StickerType[]>([]);
   const [isPickerVisible, setIsPickerVisible] = useState<boolean>(false);
-  const containerRef = useRef<HTMLDivElement | null>(null);
-
-  // const handleStickerSelect = (sticker: Omit<StickerType, 'position'>) => {
-  //   setStickers([...stickers, { ...sticker, position: { x: 200, y: 250 } }]);
-  //   setIsPickerVisible(false);
-  // };
 
   const handleStickerSelect = (sticker: Omit<StickerType, 'position'>) => {
-    if (containerRef.current) {
-      const containerRect = containerRef.current.getBoundingClientRect();
-      // 스티커 크기를 가정하여 중앙에 배치
-      const stickerWidth = 65; // 실제 스티커의 너비
-      const stickerHeight = 65; // 실제 스티커의 높이
+    setStickers([...stickers, { ...sticker, id: uuidv4(), position: { x: 200, y: 200 } }]);
 
-      // 부모 요소의 중앙 계산
-      const centerX = containerRect.width / 2 - stickerWidth / 2;
-      const centerY = containerRect.height / 2 - stickerHeight / 2;
-
-      setStickers([...stickers, { ...sticker, position: { x: centerX, y: centerY } }]);
-    }
+    console.log(stickers);
     setIsPickerVisible(false);
+  };
+
+  const saveStickers = async () => {
+    try {
+      const stickersToSave = stickers.map((sticker) => ({
+        ...sticker,
+        component: sticker.component.type.name // 컴포넌트 이름 저장
+      }));
+
+      const { data: existingStickerData, error: fetchError } = await supabase
+        .from('diaryStickers')
+        .select('id')
+        .eq('diaryId', diaryId)
+        .single();
+
+      if (fetchError && fetchError.code !== 'PGRST116') {
+        throw fetchError;
+      }
+
+      if (existingStickerData) {
+        const { error: updateError } = await supabase
+          .from('diaryStickers')
+          .update({ stickersData: stickersToSave })
+          .eq('id', existingStickerData.id);
+
+        if (updateError) {
+          throw updateError;
+        }
+
+        alert('스티커가 업데이트 되었습니다');
+      } else {
+        const { error: insertError } = await supabase.from('diaryStickers').insert({
+          diaryId,
+          stickersData: stickersToSave
+        });
+
+        if (insertError) {
+          throw insertError;
+        }
+
+        alert('스티커가 저장되었습니다');
+      }
+    } catch (error) {
+      console.error('Error saving stickers:', error);
+    }
+  };
+
+  const handlePositionChange = (id: string, position: { x: number; y: number }) => {
+    setStickers((prevStickers) =>
+      prevStickers.map((sticker) => (sticker.id === id ? { ...sticker, position } : sticker))
+    );
   };
 
   useEffect(() => {
@@ -101,7 +167,33 @@ const DiaryContainer = () => {
       }
     };
 
+    const fetchStickers = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('diaryStickers')
+          .select('stickersData')
+          .eq('diaryId', diaryId)
+          .single();
+
+        if (error && error.code !== 'PGRST116') {
+          throw error;
+        }
+
+        if (data) {
+          const stickersFromDB = data.stickersData?.map((sticker: StickerType) => ({
+            ...sticker,
+            component: componentMapper[sticker.component] || null
+          }));
+
+          setStickers(stickersFromDB);
+        }
+      } catch (error) {
+        console.error('Error fetching stickers:', error);
+      }
+    };
+
     fetchSession();
+    fetchStickers();
   }, [router, diaryId, setColor, setTags, setContent, setImg]);
 
   const {
@@ -208,35 +300,32 @@ const DiaryContainer = () => {
         style={{ backgroundColor: diaryData.color }}
       >
         <div
-          className="flex flex-col md:flex md:flex-row items-center justify-center gap-8px-col-m md:gap-16px-row md:w-720px-row md:h-807px-col rounded-[32px] md:border-4 md:border-[#E6D3BC] md:py-56px-col md:pr-56px-row md:pl-16px-row "
+          className="relative flex flex-col md:flex md:flex-row items-center justify-center gap-8px-col-m md:gap-16px-row md:w-720px-row md:h-807px-col rounded-[32px] md:border-4 md:border-[#E6D3BC] md:py-56px-col md:pr-56px-row md:pl-16px-row "
           style={{ backgroundColor: diaryData.color }}
         >
-          <div className="flex gap-70px-row-m md:flex-col md:gap-y-320px-col md:!p-0">
-            <div className="flex md:flex-col justify-center gap-16px-row-m px-24px-row-m md:gap-40px-col md:!p-0">
-              <div className="w-16px-row-m h-16px-col-m md:w-32px-row md:h-32px-row bg-white rounded-full"></div>
-              <div className="w-16px-row-m h-16px-col-m md:w-32px-row md:h-32px-row bg-white rounded-full"></div>
-              <div className="w-16px-row-m h-16px-col-m md:w-32px-row md:h-32px-row bg-white rounded-full"></div>
-            </div>
-            <div className="flex md:flex-col justify-center gap-16px-row-m px-24px-row-m md:gap-40px-col md:!p-0">
-              <div className="w-16px-row-m h-16px-col-m md:w-32px-row md:h-32px-row bg-white rounded-full"></div>
-              <div className="w-16px-row-m h-16px-col-m md:w-32px-row md:h-32px-row bg-white rounded-full"></div>
-              <div className="w-16px-row-m h-16px-col-m md:w-32px-row md:h-32px-row bg-white rounded-full"></div>
-            </div>
-          </div>
-          <div
-            ref={containerRef}
-            className="relative flex flex-col flex-start justify-center w-335px-row-m h-603px-col-m px-24px-row-m py-24px-col-m bg-white md:w-600px-row md:h-696px-col rounded-[32px] border border-[#E6D3BC] md:px-60px-row md:py-40px-col md:gap-40px-col"
-          >
-            {stickers.map((sticker, index) => (
-              <Sticker
-                key={index}
-                sticker={sticker}
-                onDelete={(id: string) => setStickers(stickers.filter((s) => s.id !== id))}
-              />
-            ))}
+          {stickers.map((sticker) => (
+            <Sticker
+              key={sticker.id}
+              sticker={sticker}
+              onDelete={(id: string) => setStickers(stickers.filter((s) => s.id !== id))}
+              onPositionChange={handlePositionChange}
+            />
+          ))}
+          <CircleUI />
+          <div className="relative flex flex-col flex-start justify-center w-335px-row-m h-603px-col-m px-24px-row-m py-24px-col-m bg-white md:w-600px-row md:h-696px-col rounded-[32px] border border-[#E6D3BC] md:px-60px-row md:py-40px-col md:gap-40px-col">
             <div className="md:w-480px-row md:h-530px-col">
-              <div className="hidden md:block">
-                <TextButton onClick={handleBackward}>뒤로가기</TextButton>
+              <div className="flex justify-between">
+                <div className="invisible md:visible">
+                  <TextButton onClick={handleBackward}>뒤로가기</TextButton>
+                </div>
+                <div className="flex gap-12px-row-m md:gap-8px-row">
+                  <button onClick={() => setIsPickerVisible(true)}>
+                    <SmilePlusIcon />
+                  </button>
+                  <button onClick={saveStickers}>
+                    <SaveIcon />
+                  </button>
+                </div>
               </div>
               <div className="items-start justify-start ">
                 <DiaryContent diary={diaryData} />
@@ -252,22 +341,20 @@ const DiaryContainer = () => {
             </div>
           </div>
         </div>
-        <div className="absolute bottom-40 right-3 hidden md:block">
-          <button
-            onClick={() => setIsPickerVisible(true)}
-            className=" mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-          >
-            편집하기
-          </button>
 
-          {isPickerVisible && <StickerPicker onSelect={handleStickerSelect} />}
-          <button
-            onClick={() => console.log('Stickers data: ', stickers)}
-            className="mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+        {isPickerVisible && (
+          <div
+            className="absolute inset-0 flex items-center justify-center z-50 "
+            style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
           >
-            Save Stickers (Disabled)
-          </button>
-        </div>
+            <div className="relative rounded-3xl bg-white border-2 border-[#E6D3BC] w-284-row-m h-310-col-m md:w-320px-row md:h-378px-col">
+              <StickerPicker onSelect={handleStickerSelect} />
+              <button onClick={() => setIsPickerVisible(false)} className=" absolute right-4 bottom-4 ">
+                <XIconBlack />
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

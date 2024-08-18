@@ -13,15 +13,16 @@ type StickerType = {
 type StickerProps = {
   sticker: StickerType;
   onDelete: (id: string) => void;
+  onPositionChange: (id: string, position: { x: number; y: number }) => void; // 위치 변경 핸들러 추가
 };
 
-const Sticker: React.FC<StickerProps> = ({ sticker, onDelete }) => {
+const Sticker: React.FC<StickerProps> = ({ sticker, onDelete, onPositionChange }) => {
   return (
     <Draggable
       defaultPosition={{ x: sticker.position.x, y: sticker.position.y }}
       onStop={(e, data) => {
         // 스티커 위치 업데이트 로직
-        console.log(`Sticker moved to x: ${data.x}, y: ${data.y}`);
+        onPositionChange(sticker.id, { x: data.x, y: data.y }); // 새로운 위치를 부모 컴포넌트에 전달
       }}
       bounds="parent"
     >
