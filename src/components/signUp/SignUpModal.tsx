@@ -144,7 +144,6 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
 
   if (!isVisible) return null;
 
-  console.log('errors=> ', errors);
   return (
     <BackDrop>
       {isOpenTerms ? (
