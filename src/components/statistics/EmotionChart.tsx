@@ -4,7 +4,8 @@ import { Diary } from '@/types/diary.type';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import LoadingSpinner from '../common/LoadingSpinner';
 
 const EmotionChart = () => {
   const today = new Date();
@@ -22,7 +23,7 @@ const EmotionChart = () => {
     setMonth(changeMonth);
   };
 
-  const { data: diaries = [] } = useQuery({
+  const { data: diaries = [], isPending } = useQuery({
     queryKey: ['statisticsDiary', year, month],
     queryFn: async () => {
       const response = await axios.get<Diary[]>(`/api/diaries?year=${year}&month=${month}`);
@@ -30,6 +31,10 @@ const EmotionChart = () => {
       return diaries;
     }
   });
+
+  if (isPending) {
+    return <LoadingSpinner />;
+  }
 
   const allTags = diaries.flatMap((entry) => entry.tags);
   const counts = allTags.reduce<Record<string, number>>((acc, tag) => {
