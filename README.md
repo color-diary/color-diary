@@ -47,6 +47,8 @@
 
 ## 🍒 프로젝트 소개
 
+<p align="center"><img src="https://github.com/user-attachments/assets/0ebd56cd-6f87-4040-b107-173db474eeaa" width="90%"/></p>
+
 - 프로젝트 명: **Color Inside**
 - 한 줄 설명: 감정을 색으로 표현하고 일상을 기록하는 다이어리 웹서비스
 - 기획의도: 바쁜 일상 속에서 자신을 돌아볼 시간을 가지기 어려운 사용자들에게, 감정과 일상을 색으로 시각화하여 자아성찰을 돕고 자신을 객관적으로 이해할 수 있도록 지원
@@ -55,13 +57,22 @@
 
 ## 📍 Stacks
 
-<img src="https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white" /> <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black"/> <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white">
+<img src="https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white" /> <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black"/>
+
+<img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white">
+
 <img src="https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white"/> <img src="https://img.shields.io/badge/shadcn/ui-black?style=for-the-badge&logo=shadcn/ui&logoColor=white" />
+
 <img src="https://img.shields.io/badge/-Tanstack%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=white" /> <img src="https://img.shields.io/badge/zustand-black?style=for-the-badge&logo=zustand&logoColor=white" />
+
 <img src="https://img.shields.io/badge/supabase-3FCF8E?style=for-the-badge&logo=supabase&logoColor=black">
+
 <img src="https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=white"> <img src="https://img.shields.io/badge/visual studio code-007ACC?style=for-the-badge&logo=visual studio code&logoColor=white">
+
 <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"> <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> <img src="https://img.shields.io/badge/slack-4A154B?style=for-the-badge&logo=slack&logoColor=white"> <img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
+
 <img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
+
 <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=Vercel&logoColor=white"/>
 
 <br />
@@ -80,7 +91,7 @@
 
 | 캘린더 형식                                                                                                      | 카드 형식                                                                                                        |
 | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| <img src="https://github.com/user-attachments/assets/0fdd5cd4-2c2e-478b-a84b-a3f494977d78" style="width:500px;"> | <img src="https://github.com/user-attachments/assets/6cb7cc33-a2b2-46c5-8dde-8a486939da6a" style="width:500px;"> |
+| <img src="https://github.com/user-attachments/assets/a1ae97c7-57b8-40d5-9887-643b11bc80a0" style="width:300px;"> | <img src="https://github.com/user-attachments/assets/ca71c488-6375-4a0d-ab00-8a044c77b7f3" style="width:300px;"> |
 
 <br />
 
@@ -94,7 +105,7 @@
 
 | 작성 페이지                                                                                                      |
 | ---------------------------------------------------------------------------------------------------------------- |
-| <img src="https://github.com/user-attachments/assets/1ec2d427-8f89-453f-b5c1-606692b0ccaa" style="width:500px;"> |
+| <img src="https://github.com/user-attachments/assets/a2814dfe-7cd9-4c04-87f8-dbe840c736ce" style="width:300px;"> |
 
 <br />
 
@@ -107,7 +118,7 @@
 
 | 조회 페이지 (이미지O)                                                                                            | 조회 페이지 (이미지 X)                                                                                           |
 | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| <img src="https://github.com/user-attachments/assets/9ea14f1a-9545-4248-add8-e2f80bef38bf" style="width:500px;"> | <img src="https://github.com/user-attachments/assets/0e50b905-c386-4612-a055-0b210cf32a38" style="width:500px;"> |
+| <img src="https://github.com/user-attachments/assets/6518ea22-8c29-4402-bdee-1eaff383e57d" style="width:300px;"> | <img src="https://github.com/user-attachments/assets/36445376-3740-4009-a0da-825b938296cd" style="width:300px;"> |
 
 <br />
 
@@ -118,7 +129,7 @@
 
 | 로그인 페이지                                                                                                    | 회원가입 모달                                                                                                    |
 | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| <img src="https://github.com/user-attachments/assets/fd5c5306-9eff-4775-a0f6-fa083036e39e" style="width:500px;"> | <img src="https://github.com/user-attachments/assets/c81c077c-b9fa-4e57-8e50-57a989a027fd" style="width:500px;"> |
+| <img src="https://github.com/user-attachments/assets/5f224baf-56d8-4579-b952-ec2d602dbbcf" style="width:300px;"> | <img src="https://github.com/user-attachments/assets/2a4f6356-fdac-41c1-a094-b448ae71a682" style="width:300px;"> |
 
 <br />
 
@@ -129,7 +140,7 @@
 
 | 비회원 마이페이지                                                                                                | 회원 마이페이지                                                                                                  |
 | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| <img src="https://github.com/user-attachments/assets/93e16cda-0461-4462-8fca-6fac9ad7af1a" style="width:500px;"> | <img src="https://github.com/user-attachments/assets/f9a4189f-d53c-4b30-9128-e577e0e3c0ca" style="width:500px;"> |
+| <img src="https://github.com/user-attachments/assets/fbb119f9-fa15-4448-95fe-5065211f8936" style="width:300px;"> | <img src="https://github.com/user-attachments/assets/5a070b8a-383b-4cf4-a005-a02bb9ce7375" style="width:300px;"> |
 
 <br />
 
@@ -143,7 +154,7 @@
 
 | 통계 페이지                                                                                                      |
 | ---------------------------------------------------------------------------------------------------------------- |
-| <img src="https://github.com/user-attachments/assets/288f252c-2566-4744-8cad-eb461094fd3a" style="width:500px;"> |
+| <img src="https://github.com/user-attachments/assets/143e4a7e-cbd5-4bc3-a5c8-28d38196b1c3" style="width:300px;"> |
 
 <br />
 
@@ -154,10 +165,6 @@
 - 감정 테스트 결과 페이지에서 바로 일기 작성 페이지로 이동 가능
 - 감정 테스트 결과를 카카오톡이나 링크를 통해 공유하는 기능 제공
 
-| 테스트 시작 화면                                                                                                 | 테스트 화면                                                                                                      |
-| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| <img src="https://github.com/user-attachments/assets/c5f1bc87-1e1d-4c54-966e-61b17dda797a" style="width:500px;"> | <img src="https://github.com/user-attachments/assets/67d139fd-8c68-4682-a573-8bf05a073b21" style="width:500px;"> |
-
-| 테스트 결과 화면                                                                                                 |
-| ---------------------------------------------------------------------------------------------------------------- |
-| <img src="https://github.com/user-attachments/assets/a826185e-2f01-4cb6-8ac9-1a0eafa1b278" style="width:500px;"> |
+| 테스트 시작 화면                                                                                                 | 테스트 화면                                                                                                      | 테스트 결과 화면                                                                                                 |
+| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| <img src="https://github.com/user-attachments/assets/65af032f-585e-493f-9c06-75a5acc1c451" style="width:300px;"> | <img src="https://github.com/user-attachments/assets/6d7b03e2-abec-4834-a6f4-ad65588dcb0e" style="width:300px;"> | <img src="https://github.com/user-attachments/assets/8a5a3371-d653-4a27-8bc5-c805c98451cc" style="width:300px;"> |

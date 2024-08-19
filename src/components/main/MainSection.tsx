@@ -5,7 +5,7 @@ import { formatFullDate } from '@/utils/dateUtils';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 import Button from '../common/Button';
 import { Calendar } from '../ui/calendar';
@@ -21,7 +21,6 @@ import Cards from './Cards';
 const MainSection = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-
   const makeQueryString = (form: String, date: Date) => {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
@@ -107,7 +106,7 @@ const MainSection = () => {
     }
   }, [queryString]);
 
-  const checkTodayWritten = (data: DiaryList) => {
+  const checkTodayWritten = (data: DiaryList): void => {
     setIsNeedNew(false);
     if (formatFullDate(String(data[0]?.date)).slice(0, 7) === formatFullDate(String(today)).slice(0, 7)) {
       const findDiary = data.find((i: Diary) => {
@@ -121,14 +120,14 @@ const MainSection = () => {
     }
   };
 
-  const changeForm = (name: string) => {
+  const changeForm = (name: string): void => {
     if (name === form) {
       return;
     }
     setForm(name);
   };
 
-  const handleInputDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputDate = (e: ChangeEvent<HTMLInputElement>): void => {
     const date = new Date(e.target.value);
     if (date) {
       setDate(date);
@@ -171,12 +170,12 @@ const MainSection = () => {
         {form === 'calendar' ? (
           <div>
             <Calendar
-              isCalendar={form === 'calendar'}
-              handleInputDate={handleInputDate}
               diaryList={diaries.data || []}
+              handleInputDate={handleInputDate}
+              isCalendar={form === 'calendar'}
+              isLoading={diaries.isLoading}
               month={date}
               onMonthChange={setDate}
-              isLoading={diaries.isLoading}
             />
           </div>
         ) : (

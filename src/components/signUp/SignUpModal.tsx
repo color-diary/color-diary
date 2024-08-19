@@ -3,9 +3,10 @@
 import { useToast } from '@/providers/toast.context';
 import { clearLocalDiaries, fetchLocalDiaries } from '@/utils/diaryLocalStorage';
 import { urlToFile } from '@/utils/imageFileUtils';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { KeyboardEvent, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import BackDrop from '../common/BackDrop';
 import Button from '../common/Button';
@@ -31,7 +32,11 @@ interface ModalProps {
 }
 
 const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
+  const router = useRouter();
+
   const toast = useToast();
+
+  const queryClient = useQueryClient();
 
   const {
     register,
@@ -46,13 +51,10 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
   const [isOpenTerms, setIsOpenTerms] = useState(false);
 
   useEffect(() => {
-    reset({
-      email: '',
-      nickname: '',
-      password: '',
-      confirmPassword: ''
-    });
-  }, [isSubmitted]);
+    if (!isSubmitted) {
+      reset();
+    }
+  }, [isSubmitted, reset]);
 
   const { mutate: signUp } = useMutation({
     mutationFn: async (data: { email: string; nickname: string; password: string }) => {
@@ -91,10 +93,17 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
       }
     },
     onSuccess: () => {
-      toast.on({ label: '회원가입이 완료되었어요. 로그인 후 서비스를 이용해봐요!' });
+      toast.on({ label: '회원가입이 완료되었어요. Color Inside를 이용해보세요!' });
       setIsTermsChecked(false);
       reset();
       onClose();
+
+      queryClient.refetchQueries({ queryKey: ['user'] });
+      queryClient.refetchQueries({ queryKey: ['information'] });
+      queryClient.refetchQueries({ queryKey: ['diaries'] });
+      queryClient.refetchQueries({ queryKey: ['main'] });
+
+      router.replace('/');
     },
     onError: (error) => {
       console.error('회원가입 실패: ', error);
@@ -110,7 +119,7 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
     signUp(data);
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLFormElement>) => {
+  const handleKeyDown = (event: KeyboardEvent<HTMLFormElement>): void => {
     if (event.key === 'Enter') {
       event.preventDefault();
       handleSubmit(onSubmit)();
