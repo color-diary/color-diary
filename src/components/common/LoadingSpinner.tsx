@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import Character from './assets/Character';
 import Spinner from './assets/Spinner';
 
-const LoadingSpinner: React.FC = () => {
+const LoadingSpinner = () => {
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => {
