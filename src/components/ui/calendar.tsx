@@ -17,13 +17,13 @@ import LoadingSummer from '../main/assets/LoadingSummer';
 import LoadingWinter from '../main/assets/LoadingWinter';
 import '../main/dateInput.css';
 import Stamp from '../main/Stamp';
-import { getEventListeners } from 'events';
 
 export type CalendarProps = ComponentProps<typeof DayPicker> & {
   diaryList: DiaryList;
   isCalendar: boolean;
   isLoading?: boolean;
   handleInputDate: (e: ChangeEvent<HTMLInputElement>) => void;
+  month: Date;
 };
 
 function Calendar({
@@ -44,7 +44,7 @@ function Calendar({
   const { user } = useAuth();
   const searchParams = useSearchParams();
   const tbodyRef = useRef<HTMLDivElement>(null);
-  const [coverHeight, setCoverHeight] = useState(0);
+  const [coverHeight, setCoverHeight] = useState<number>(330);
 
   const updateTbodyHight = () => {
     if (tbodyRef.current) {
@@ -55,13 +55,14 @@ function Calendar({
     }
   };
 
-  if (isLoading) setTimeout(updateTbodyHight, 100);
+  if (isLoading) setTimeout(updateTbodyHight, 1);
 
   return (
     <div className="relative" ref={tbodyRef}>
       <DayPicker
         showOutsideDays={showOutsideDays}
         locale={ko}
+        month={month}
         className={cn(className)}
         classNames={{
           months: `${
@@ -100,24 +101,6 @@ function Calendar({
           ...classNames
         }}
         components={{
-          IconLeft: ({ ...props }) => <CalenderPrevIcon />,
-          IconRight: ({ ...props }) => <CalenderNextIcon />,
-          CaptionLabel: ({ ...props }) => {
-            const dateInputRef = useRef<HTMLInputElement>(null);
-            const handleRef = () => {
-              if (dateInputRef.current) {
-                dateInputRef.current.showPicker();
-              }
-            };
-            return (
-              <div className="anchor cursor-pointer py-12px-col-m md:py-24px-col">
-                <input type="date" ref={dateInputRef} style={{ visibility: 'hidden' }} onChange={handleInputDate} />
-                <p onClick={() => handleRef()} className="text-16px-m md:text-24px">
-                  {props.displayMonth.getFullYear()}년 {props.displayMonth.getMonth() + 1}월
-                </p>
-              </div>
-            );
-          },
           Caption: ({ ...props }) => {
             const goPrevMonth = () => {
               if (!month || !onMonthChange) return;
@@ -134,7 +117,7 @@ function Calendar({
               }
             };
             return (
-              <div className="anchor cursor-pointer py-12px-col-m md:py-24px-col">
+              <div className="anchor cursor-pointer py-12px-col-m md:py-24px-col cursor-pointer">
                 <input type="date" ref={dateInputRef} style={{ visibility: 'hidden' }} onChange={handleInputDate} />
                 <div className="flex items-center justify-center">
                   <div onClick={() => goPrevMonth()}>
@@ -208,8 +191,8 @@ function Calendar({
                 }}
                 className="flex flex-col items-center cursor-pointer"
               >
-                <Stamp petal={diaries.color} circle="#F7CA87" month={props.date.getMonth() + 1} />
-                <p className="text-12px-m md:text-14px">{props.date.getDate()}</p>
+                <Stamp petal={diaries.color} circle="#F7CA87" month={month.getMonth() + 1} />
+                <p className="text-12px-m md:text-14px mt-1">{props.date.getDate()}</p>
               </div>
             ) : (
               <div
@@ -218,7 +201,7 @@ function Calendar({
                 }}
                 className="flex flex-col items-center cursor-pointer"
               >
-                <Stamp petal="#FFF" circle="#D4D4D4" month={props.date.getMonth() + 1} isToday={isToday} />
+                <Stamp petal="#FFF" circle="#D4D4D4" month={month.getMonth() + 1} isToday={isToday} />
                 <p className="text-12px-m md:text-14px mt-1">{props.date.getDate()}</p>
               </div>
             );
@@ -232,16 +215,16 @@ function Calendar({
           style={{ height: `${coverHeight}px` }}
         >
           <div className="loading flex space-x-16px-row-m md:space-x-16px-row">
-            <div className="w-32px-row-m md:w-40px-row delay-200 animate-[jump_1s_ease-in-out_infinite]">
+            <div className="w-32px-row-m md:w-40px-row animate-bounce">
               <LoadingSpring />
             </div>
-            <div className="w-32px-row-m md:w-40px-row delay-500 animate-[jump_1s_ease-in-out_infinite]">
+            <div className="w-32px-row-m md:w-40px-row animate-[bounce_1s_infinite_250ms]">
               <LoadingSummer />
             </div>
-            <div className="w-32px-row-m md:w-40px-row delay-700 animate-[jump_1s_ease-in-out_infinite]">
+            <div className="w-32px-row-m md:w-40px-row animate-[bounce_1s_infinite_500ms]">
               <LoadingFall />
             </div>
-            <div className="w-32px-row-m md:w-40px-row delay-1000 animate-[jump_1s_ease-in-out_infinite]">
+            <div className="w-32px-row-m md:w-40px-row animate-[bounce_1s_infinite_750ms]">
               <LoadingWinter />
             </div>
           </div>

@@ -65,12 +65,10 @@ const MainSection = () => {
   const month = date.getMonth() + 1;
 
   const { user, isLoading } = useAuth();
-  const queryClient = useQueryClient();
 
   const diaries = useQuery<DiaryList>({
     queryKey: ['diaries', 'main', year, month],
     queryFn: async () => {
-      if (isLoading) return [];
       if (user) {
         const { data } = await axios.get(`/api/diaries?year=${year}&month=${month}`);
         checkTodayWritten(data);
@@ -85,12 +83,9 @@ const MainSection = () => {
         checkTodayWritten(localList);
         return localList;
       }
-    }
+    },
+    enabled: !isLoading
   });
-
-  useEffect(() => {
-    queryClient.invalidateQueries({ queryKey: ['diaries', 'main', year, month] });
-  }, [user]);
 
   useEffect(() => {
     setDate(date);
