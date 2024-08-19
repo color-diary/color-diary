@@ -1,8 +1,9 @@
 'use client';
 
 import navigation from '@/data/navigation';
+import useAuth from '@/hooks/useAuth';
 import { useModal } from '@/providers/modal.context';
-import useZustandStore, { loginZustandStore } from '@/zustand/zustandStore';
+import useZustandStore from '@/zustand/zustandStore';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import HomeIconBlack from './assets/HomeIconBlack';
@@ -14,8 +15,9 @@ const NavigationBar = () => {
   const router = useRouter();
   const modal = useModal();
 
+  const { user } = useAuth();
+
   const { setIsDiaryEditMode, setHasTestResult } = useZustandStore();
-  const isLogin = loginZustandStore((state) => state.isLogin);
 
   const handleClickIcon = (): void => {
     setIsDiaryEditMode(false);
@@ -33,7 +35,7 @@ const NavigationBar = () => {
   };
 
   const handleClickStatisticsIcon = (): void => {
-    if (!isLogin) {
+    if (!user) {
       modal.open({
         label: '회원만 이용할 수 있는 화면이에요./로그인을 하실 건가요?',
         onConfirm: goToHome,

@@ -1,8 +1,8 @@
 'use client';
 
+import useAuth from '@/hooks/useAuth';
 import { useToast } from '@/providers/toast.context';
 import { clearLocalDiaries } from '@/utils/diaryLocalStorage';
-import { loginZustandStore } from '@/zustand/zustandStore';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
@@ -24,12 +24,10 @@ const LogInForm = () => {
   const router = useRouter();
   const toast = useToast();
 
+  const { user } = useAuth();
   const queryClient = useQueryClient();
 
   const [isModalVisible, setIsModalVisible] = useState(false);
-
-  const isLogin = loginZustandStore((state) => state.isLogin);
-  const setIsLogin = loginZustandStore((state) => state.setIsLogin);
 
   const { mutate: logIn } = useMutation({
     mutationFn: async (data: { email: string; password: string }) => {
@@ -38,8 +36,6 @@ const LogInForm = () => {
       toast.on({ label: `${response.data[0].nickname}님 안녕하세요. 만나서 반가워요!` });
     },
     onSuccess: () => {
-      setIsLogin(true);
-
       clearLocalDiaries();
 
       router.replace('/');
@@ -57,7 +53,7 @@ const LogInForm = () => {
 
   useEffect(() => {
     const checkSession = (): void => {
-      if (isLogin) router.replace('/');
+      if (user) router.replace('/');
     };
 
     checkSession();

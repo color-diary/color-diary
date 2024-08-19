@@ -1,7 +1,7 @@
 'use client';
 
 import useAuth from '@/hooks/useAuth';
-import useZustandStore, { loginZustandStore } from '@/zustand/zustandStore';
+import useZustandStore from '@/zustand/zustandStore';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import Image from 'next/image';
@@ -20,13 +20,11 @@ const Header = () => {
   const router = useRouter();
 
   const { user } = useAuth();
-
   const queryClient = useQueryClient();
 
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
-  const isLogin = loginZustandStore((state) => state.isLogin);
   const { setIsDiaryEditMode, setHasTestResult } = useZustandStore();
 
   const { data: userData } = useQuery({
@@ -38,8 +36,9 @@ const Header = () => {
   });
 
   useEffect(() => {
-    queryClient.invalidateQueries({ queryKey: ['information', 'user'] });
-  }, [user]);
+    queryClient.refetchQueries({ queryKey: ['information'] });
+    queryClient.refetchQueries({ queryKey: ['user'] });
+  }, [pathname]);
 
   useEffect(() => {
     const backGroundBgm: HTMLAudioElement = new Audio('/background-bgm.mp3');
@@ -98,7 +97,7 @@ const Header = () => {
         <button onClick={toggleMusic} className="w-6 h-6">
           {isPlaying ? <MusicOnIcon /> : <MusicOffIcon />}
         </button>
-        {isLogin && userData ? (
+        {user && userData ? (
           <Link href={'/my-page'} onClick={handleClick}>
             <div className="relative md:w-10 md:h-10 w-6 h-6 aspect-square">
               <Image
