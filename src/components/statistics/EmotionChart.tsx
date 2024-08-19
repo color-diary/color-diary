@@ -95,7 +95,7 @@ const EmotionChart = () => {
                 return (
                   <div
                     key={index}
-                    className="relative flex items-center text-start w-[50px] md:h-40px-col md:w-70px-row h-[24px]"
+                    className="relative flex items-center text-start md:w-80px-row md:h-40px-col w-[50px] h-[24px]"
                   >
                     <span className="md:text-18px text-[14px] w-full truncate text-font-color hover:whitespace-normal hover:overflow-visible hover:absolute hover:bg-white">
                       #{item.tag}
