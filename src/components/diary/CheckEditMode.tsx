@@ -2,9 +2,9 @@
 
 import useZustandStore from '@/zustand/zustandStore';
 import { useRouter } from 'next/navigation';
-import { PropsWithChildren, useEffect } from 'react';
+import { ReactNode, useEffect } from 'react';
 
-const CheckEditMode = ({ children }: { children: PropsWithChildren }) => {
+const CheckEditMode = ({ children }: { children: ReactNode }) => {
   const { isDiaryEditMode } = useZustandStore();
   const router = useRouter();
 
