@@ -17,6 +17,7 @@ import LoadingSummer from '../main/assets/LoadingSummer';
 import LoadingWinter from '../main/assets/LoadingWinter';
 import '../main/dateInput.css';
 import Stamp from '../main/Stamp';
+import { getEventListeners } from 'events';
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
   diaryList: DiaryList;
@@ -37,34 +38,27 @@ function Calendar({
   isLoading,
   ...props
 }: CalendarProps) {
+  const toast = useToast();
+  const today = new Date();
   const route = useRouter();
+  const { user } = useAuth();
   const searchParams = useSearchParams();
-  const ref = React.useRef<HTMLDivElement>(null);
-  const [coverHeight, setCoverHeight] = React.useState(0);
+  const tbodyRef = useRef<HTMLDivElement>(null);
+  const [coverHeight, setCoverHeight] = useState(0);
 
   const updateTbodyHight = () => {
-    if (ref.current) {
-      const tbody = ref.current.getElementsByTagName('tbody')[0];
+    if (tbodyRef.current) {
+      const tbody = tbodyRef.current.getElementsByTagName('tbody')[0];
       if (tbody) {
         setCoverHeight(tbody.offsetHeight);
       }
     }
   };
 
-  React.useEffect(() => {
-    updateTbodyHight();
-    //window.addEventListener();
-  }, []);
-  // 마운트 시 등록 언마운트 시 해제
-  console.log(coverHeight);
-
-  const toast = useToast();
-  const { user } = useAuth();
-
-  const today = new Date();
+  if (isLoading) setTimeout(updateTbodyHight, 100);
 
   return (
-    <div className="relative" ref={ref}>
+    <div className="relative" ref={tbodyRef}>
       <DayPicker
         showOutsideDays={showOutsideDays}
         locale={ko}
@@ -133,7 +127,7 @@ function Calendar({
               if (!month || !onMonthChange) return;
               onMonthChange(new Date(month.setMonth(month.getMonth() + 1)));
             };
-            const dateInputRef = React.useRef<HTMLInputElement>(null);
+            const dateInputRef = useRef<HTMLInputElement>(null);
             const handleRef = () => {
               if (dateInputRef.current) {
                 dateInputRef.current.showPicker();
@@ -232,30 +226,30 @@ function Calendar({
         }}
         {...props}
       />
-      <div
-        className={`absolute bottom-24px-col border left-1 right-1 bg-[#fff] rounded-[24px] md:rounded-[32px] flex flex-col justify-center items-center`}
-        style={{ height: `${coverHeight}px` }}
-      >
-        <div className="loading flex space-x-16px-row-m md:space-x-16px-row">
-          <div className="w-32px-row-m md:w-40px-row delay-200 animate-[jump_1s_ease-in-out_infinite]">
-            <LoadingSpring />
+      {isCalendar && isLoading && (
+        <div
+          className={`absolute bottom-24px-col left-1 right-1 bg-[#fff] rounded-[24px] md:rounded-[32px] flex flex-col justify-center items-center`}
+          style={{ height: `${coverHeight}px` }}
+        >
+          <div className="loading flex space-x-16px-row-m md:space-x-16px-row">
+            <div className="w-32px-row-m md:w-40px-row delay-200 animate-[jump_1s_ease-in-out_infinite]">
+              <LoadingSpring />
+            </div>
+            <div className="w-32px-row-m md:w-40px-row delay-500 animate-[jump_1s_ease-in-out_infinite]">
+              <LoadingSummer />
+            </div>
+            <div className="w-32px-row-m md:w-40px-row delay-700 animate-[jump_1s_ease-in-out_infinite]">
+              <LoadingFall />
+            </div>
+            <div className="w-32px-row-m md:w-40px-row delay-1000 animate-[jump_1s_ease-in-out_infinite]">
+              <LoadingWinter />
+            </div>
           </div>
-          <div className="w-32px-row-m md:w-40px-row delay-500 animate-[jump_1s_ease-in-out_infinite]">
-            <LoadingSummer />
-          </div>
-          <div className="w-32px-row-m md:w-40px-row delay-700 animate-[jump_1s_ease-in-out_infinite]">
-            <LoadingFall />
-          </div>
-          <div className="w-32px-row-m md:w-40px-row delay-1000 animate-[jump_1s_ease-in-out_infinite]">
-            <LoadingWinter />
-          </div>
+          <p className="text-14px-m md:text-20px mt-24px-col-m md:mt-24px-col">
+            계절을 불러오고 있어요. 잠시만 기다려주세요.
+          </p>
         </div>
-        <p className="text-14px-m md:text-20px mt-24px-col-m md:mt-24px-col">
-          계절을 불러오고 있어요. 잠시만 기다려주세요.
-        </p>
-      </div>
-      {/* {isCalendar && isLoading && (
-      )} */}
+      )}
     </div>
   );
 }
