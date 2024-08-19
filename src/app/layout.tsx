@@ -7,7 +7,6 @@ import QueryProvider from '@/providers/ReactQueryClientProvider';
 import { ToastProvider } from '@/providers/toast.context';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import { PropsWithChildren } from 'react';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -25,7 +24,7 @@ const pretendard = localFont({
   variable: '--font-pretendard'
 });
 
-export default function RootLayout({ children }: { children: PropsWithChildren }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
