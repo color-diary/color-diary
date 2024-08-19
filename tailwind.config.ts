@@ -207,6 +207,8 @@ const config = {
         '36px-col-m': 'calc(100vh * 0.0443)',
         '40px-col-m': 'calc(100vh * 0.0492)',
         '44px-col-m': 'calc(100vh * 0.066)',
+        '48px-col-m': 'calc(100vh * 0.0591)',
+        '50px-col-m': 'calc(100vh * 0.0616)',
         '56px-col-m': 'calc(100vh * 0.0689)',
         '64px-col-m': 'calc(100vh * 0.0788)',
         '80px-col-m': 'calc(100vh * 0.0985)',

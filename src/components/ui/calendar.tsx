@@ -1,22 +1,22 @@
 'use client';
 
+import useAuth from '@/hooks/useAuth';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/providers/toast.context';
 import { Diary, DiaryList } from '@/types/diary.type';
 import { formatFullDate } from '@/utils/dateUtils';
-import { createClient } from '@/utils/supabase/client';
+import { ko } from 'date-fns/locale';
 import { useRouter, useSearchParams } from 'next/navigation';
-import * as React from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { DayPicker } from 'react-day-picker';
+import CalenderNextIcon from '../main/assets/CalenderNextIcon';
+import CalenderPrevIcon from '../main/assets/CalenderPrevIcon';
+import LoadingFall from '../main/assets/LoadingFall';
+import LoadingSpring from '../main/assets/LoadingSpring';
+import LoadingSummer from '../main/assets/LoadingSummer';
+import LoadingWinter from '../main/assets/LoadingWinter';
 import '../main/dateInput.css';
 import Stamp from '../main/Stamp';
-import { ko } from 'date-fns/locale';
-import CalenderPrevIcon from '../main/assets/CalenderPrevIcon';
-import CalenderNextIcon from '../main/assets/CalenderNextIcon';
-import LoadingWinter from '../main/assets/LoadingWinter';
-import LoadingFall from '../main/assets/LoadingFall';
-import LoadingSummer from '../main/assets/LoadingSummer';
-import LoadingSpring from '../main/assets/LoadingSpring';
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
   diaryList: DiaryList;
@@ -38,8 +38,6 @@ function Calendar({
   ...props
 }: CalendarProps) {
   const route = useRouter();
-  const today = new Date();
-  const toast = useToast();
   const searchParams = useSearchParams();
   const ref = React.useRef<HTMLDivElement>(null);
   const [coverHeight, setCoverHeight] = React.useState(0);
@@ -59,6 +57,11 @@ function Calendar({
   }, []);
   // 마운트 시 등록 언마운트 시 해제
   console.log(coverHeight);
+
+  const toast = useToast();
+  const { user } = useAuth();
+
+  const today = new Date();
 
   return (
     <div className="relative" ref={ref}>
@@ -106,7 +109,7 @@ function Calendar({
           IconLeft: ({ ...props }) => <CalenderPrevIcon />,
           IconRight: ({ ...props }) => <CalenderNextIcon />,
           CaptionLabel: ({ ...props }) => {
-            const dateInputRef = React.useRef<HTMLInputElement>(null);
+            const dateInputRef = useRef<HTMLInputElement>(null);
             const handleRef = () => {
               if (dateInputRef.current) {
                 dateInputRef.current.showPicker();
@@ -161,55 +164,42 @@ function Calendar({
               isToday = true;
             }
 
-            const handleGoWritePage = async () => {
-              try {
-                const supabase = createClient();
-                const {
-                  data: { session },
-                  error
-                } = await supabase.auth.getSession();
-
-                if (error) {
-                  throw new Error(error.message);
-                }
-                if (!session) {
-                  if (2 <= diaryList.length) {
-                    toast.on({ label: '비회원은 2개이상 작성할 수 없습니다.' });
-                  } else if (today < props.date) {
-                    toast.on({ label: '미래의 일기는 작성하실 수 없습니다.' });
-                  } else {
-                    route.push(
-                      `/diaries/write/${formatFullDate(String(props.date))}?form=calendar&YYMM=${searchParams.get(
-                        'YYMM'
-                      )}`
-                    );
-                  }
+            const handleGoWritePage = (): void => {
+              if (!user) {
+                if (2 <= diaryList.length) {
+                  toast.on({ label: '비회원은 2개이상 작성할 수 없습니다.' });
+                } else if (today < props.date) {
+                  toast.on({ label: '미래의 일기는 작성하실 수 없습니다.' });
                 } else {
-                  if (today < props.date) {
-                    toast.on({ label: '미래의 일기는 작성하실 수 없습니다.' });
-                  } else {
-                    route.push(
-                      `/diaries/write/${formatFullDate(String(props.date))}?form=calendar&YYMM=${searchParams.get(
-                        'YYMM'
-                      )}`
-                    );
-                  }
+                  route.push(
+                    `/diaries/write/${formatFullDate(String(props.date))}?form=calendar&YYMM=${searchParams.get(
+                      'YYMM'
+                    )}`
+                  );
                 }
-              } catch (error) {
-                console.error('Failed to get session:', error);
+              } else {
+                if (today < props.date) {
+                  toast.on({ label: '미래의 일기는 작성하실 수 없습니다.' });
+                } else {
+                  route.push(
+                    `/diaries/write/${formatFullDate(String(props.date))}?form=calendar&YYMM=${searchParams.get(
+                      'YYMM'
+                    )}`
+                  );
+                }
               }
             };
 
-            const handleFindDiary = (diary: Diary) => {
+            const handleFindDiary = (diary: Diary): boolean => {
               if (formatFullDate(String(diary.date)) === formatFullDate(String(props.date))) {
                 return true;
               } else {
                 return false;
               }
             };
-            const [diaries, setDiaries] = React.useState<Diary>();
+            const [diaries, setDiaries] = useState<Diary>();
 
-            React.useEffect(() => {
+            useEffect(() => {
               if (!isCalendar) {
                 return;
               } else {

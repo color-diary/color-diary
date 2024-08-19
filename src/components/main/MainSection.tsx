@@ -1,6 +1,5 @@
 'use client';
 
-import useChannelTalk from '@/hooks/useChannelTalk';
 import { Diary, DiaryList } from '@/types/diary.type';
 import { formatFullDate } from '@/utils/dateUtils';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
@@ -20,7 +19,6 @@ import SeparatorIcon from './assets/SeparatorIcon';
 import Cards from './Cards';
 
 const MainSection = () => {
-  useChannelTalk();
   const router = useRouter();
   const searchParams = useSearchParams();
   const makeQueryString = (form: String, date: Date) => {
@@ -137,7 +135,7 @@ const MainSection = () => {
   };
 
   return (
-    <div className="flex flex-col min-w-[335px] w-335px-row-m md:w-744px-row mx-auto mt-[96px] md:mt-[128px] space-y-24px-col-m">
+    <div className="flex flex-col min-w-[335px] w-335px-row-m md:w-744px-row mx-auto mt-12 md:mt-144px-col space-y-24px-col-m">
       <div className="flex justify-between">
         <p className="text-18px-m md:text-24px font-bold">나의 감정 기록</p>
         <div className="flex items-center">

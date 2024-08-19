@@ -3,6 +3,7 @@
 import { checkHasDiaryData } from '@/apis/diary';
 import ColorPicker from '@/components/diary/ColorPicker';
 import ImgDrop from '@/components/diary/ImgDrop';
+import useAuth from '@/hooks/useAuth';
 import { useModal } from '@/providers/modal.context';
 import { useToast } from '@/providers/toast.context';
 import { NewDiary } from '@/types/diary.type';
@@ -14,7 +15,6 @@ import {
   updateLocalDiary
 } from '@/utils/diaryLocalStorage';
 import { urlToFile } from '@/utils/imageFileUtils';
-import { createClient } from '@/utils/supabase/client';
 import useZustandStore from '@/zustand/zustandStore';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
@@ -41,6 +41,8 @@ const WriteForm = () => {
   const toast = useToast();
   const modal = useModal();
 
+  const { user } = useAuth();
+
   const form = searchParams.get('form');
   const YYMM = searchParams.get('YYMM');
 
@@ -56,36 +58,11 @@ const WriteForm = () => {
       setHasTestResult: state.setHasTestResult
     }));
 
-  const [userId, setUserId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const fetchSession = async () => {
-      try {
-        const supabase = createClient();
-        const {
-          data: { session },
-          error
-        } = await supabase.auth.getSession();
-
-        if (error) {
-          throw new Error(error.message);
-        }
-        if (session) {
-          setUserId(session.user.id);
-        }
-      } catch (error) {
-        console.error('Failed to get session:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchSession();
-  }, [router]);
-
-  useEffect(() => {
-    const checkDiary = async () => {
-      if (userId) {
+    const checkDiary = async (): Promise<void> => {
+      if (user) {
         if (!isDiaryEditMode) {
           const hasTodayDiary = await checkHasDiaryData(date);
           if (!hasTodayDiary) {
@@ -106,9 +83,11 @@ const WriteForm = () => {
           }
         }
       }
+
+      setIsLoading(false);
     };
     checkDiary();
-  }, [userId, isDiaryEditMode, date, router]);
+  }, [user, isDiaryEditMode, date, router]);
 
   const mutation = useMutation({
     mutationFn: async (newDiary: NewDiary) => {
@@ -139,24 +118,30 @@ const WriteForm = () => {
       setIsDiaryEditMode(false);
       setHasTestResult(false);
     },
-    onError: (error: Error) => {
+    onError: () => {
       toast.on({ label: '작성 실패.' });
     }
   });
 
-  const handleWrite = (e: FormEvent<HTMLFormElement>) => {
+  const handleWrite = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     if (color && tags.length > 0 && content) {
-      if (!userId) {
+      if (!user) {
         saveToLocal(color, tags, content, img, date);
+
         toast.on({ label: '나의 감정이 기록되었어요' });
 
-        router.replace(`/?form=${form}&YYMM=${YYMM}`);
+        if (hasTestResult) {
+          router.replace('/');
+        } else {
+          router.replace(`/?form=${form}&YYMM=${YYMM}`);
+        }
+
         return;
       }
       if (!isDiaryEditMode) {
         mutation.mutate({
-          userId,
+          userId: user.id,
           color,
           tags,
           content,
@@ -169,10 +154,10 @@ const WriteForm = () => {
     }
   };
 
-  const handleEdit = (e: FormEvent<HTMLFormElement>) => {
+  const handleEdit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     if (color && tags.length > 0 && content) {
-      if (!userId) {
+      if (!user) {
         updateLocalDiary(diaryId, color, tags, content, img, date);
         router.replace(`/?form=${form}&YYMM=${YYMM}`);
         toast.on({ label: '나의 감정이 수정되었어요.' });
@@ -181,7 +166,7 @@ const WriteForm = () => {
       }
 
       mutation.mutate({
-        userId,
+        userId: user.id,
         color,
         tags,
         content,
@@ -193,7 +178,7 @@ const WriteForm = () => {
     }
   };
 
-  const confirmBackward = () => {
+  const confirmBackward = (): void => {
     modal.close();
     router.back();
     setIsDiaryEditMode(false);
@@ -216,7 +201,7 @@ const WriteForm = () => {
     });
   };
 
-  const routeToEmotionTest = () => {
+  const routeToEmotionTest = (): void => {
     modal.close();
     void router.replace('/emotion-test');
   };
@@ -248,13 +233,13 @@ const WriteForm = () => {
   return (
     <>
       <form className="block md:hidden" onSubmit={(e) => (isDiaryEditMode ? handleEdit(e) : handleWrite(e))}>
-        <div className="relative flex flex-col items-center justify-center h-screen">
-          <div className="flex flex-col gap-24px-col-m md:gap-24px-col w-335px-row-m ">
+        <div className="flex flex-col items-center justify-center py-48px-col-m">
+          <div className="flex flex-col gap-24px-col-m md:gap-24px-col w-335px-row-m">
             <ColorPicker />
             <EmotionTagsInput />
             <DiaryTextArea />
             <ImgDrop />
-            <div>
+            <div className="mb-32px-col-m">
               <p className="mb-2 text-14px-m text-font-color">오늘 나의 감정이 궁금하다면?</p>
               <div onClick={handlePreventEmotionTest}>
                 <Button size="md" priority="secondary" type="button" icon={<AngelRightBlack />}>
@@ -263,7 +248,7 @@ const WriteForm = () => {
               </div>
             </div>
           </div>
-          <div className="absolute bottom-5 right-5">
+          <div className="w-335px-row-m flex justify-end items-end">
             <Button size="md" type="submit" icon={<PencilIcon />}>
               {isDiaryEditMode ? '수정 완료하기' : '작성 완료하기'}
             </Button>
