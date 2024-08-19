@@ -76,12 +76,12 @@ const Cards = ({ diaryList, isCalendar, date, setDate, handleInputDate, isNeedNe
                     `/diaries/write/${formatFullDate(String(today))}?form=cards&YYMM=${searchParams.get('YYMM')}`
                   );
                 }}
-                className="min-w-160px-row-m min-h-88px-col-m md:min-w-0 md:min-h-0 w-160px-row-m md:w-168px-row h-88px-col md:h-102px-col rounded-lg md:rounded-3xl overflow-hidden border md:border-2 border-[#E6D3BC] bg-white shadow-[0_0_10px_0_#F1A027]"
+                className="flex flex-col min-w-160px-row-m min-h-88px-col-m md:min-w-0 md:min-h-0 w-160px-row-m md:w-168px-row h-88px-col md:h-102px-col rounded-lg md:rounded-3xl overflow-hidden border md:border-2 border-[#E6D3BC] bg-white shadow-[0_0_10px_0_#F1A027]"
               >
-                <div className="flex px-16px-row-m md:px-24px-row py-4px-col-m md:py-8px-col text-12px-m md:text-16px">
+                <div className="inline-flex px-16px-row-m md:px-24px-row py-4px-col-m md:py-8px-col text-12px-m md:text-16px">
                   {today.getDate()}일
                 </div>
-                <div className="flex justify-center mt-24px-col md:mt-0">
+                <div className="inline-flex justify-center items-center h-full">
                   <PlusDiaryIcon />
                 </div>
               </div>

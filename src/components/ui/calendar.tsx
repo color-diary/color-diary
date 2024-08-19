@@ -46,6 +46,9 @@ function Calendar({
   const tbodyRef = useRef<HTMLDivElement>(null);
   const [coverHeight, setCoverHeight] = useState(0);
 
+  console.log('isLoading =>', isLoading);
+  console.log('isCalendar =>', isCalendar);
+
   const updateTbodyHight = () => {
     if (tbodyRef.current) {
       const tbody = tbodyRef.current.getElementsByTagName('tbody')[0];
@@ -215,16 +218,16 @@ function Calendar({
           style={{ height: `${coverHeight}px` }}
         >
           <div className="loading flex space-x-16px-row-m md:space-x-16px-row">
-            <div className="w-32px-row-m md:w-40px-row delay-200 animate-[jump_1s_ease-in-out_infinite]">
+            <div className="w-32px-row-m md:w-40px-row animate-bounce">
               <LoadingSpring />
             </div>
-            <div className="w-32px-row-m md:w-40px-row delay-500 animate-[jump_1s_ease-in-out_infinite]">
+            <div className="w-32px-row-m md:w-40px-row animate-[bounce_1s_infinite_250ms]">
               <LoadingSummer />
             </div>
-            <div className="w-32px-row-m md:w-40px-row delay-700 animate-[jump_1s_ease-in-out_infinite]">
+            <div className="w-32px-row-m md:w-40px-row animate-[bounce_1s_infinite_500ms]">
               <LoadingFall />
             </div>
-            <div className="w-32px-row-m md:w-40px-row delay-1000 animate-[jump_1s_ease-in-out_infinite]">
+            <div className="w-32px-row-m md:w-40px-row animate-[bounce_1s_infinite_750ms]">
               <LoadingWinter />
             </div>
           </div>
