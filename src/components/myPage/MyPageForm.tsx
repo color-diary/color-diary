@@ -1,9 +1,9 @@
 'use client';
 
+import useAuth from '@/hooks/useAuth';
 import { useModal } from '@/providers/modal.context';
 import { useToast } from '@/providers/toast.context';
 import { validateNickname } from '@/utils/validation';
-import { loginZustandStore } from '@/zustand/zustandStore';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import Image from 'next/image';
@@ -28,6 +28,7 @@ const MyPageForm = () => {
   const modal = useModal();
   const router = useRouter();
 
+  const { user } = useAuth();
   const queryClient = useQueryClient();
 
   const [newNickname, setNewNickname] = useState<string>('');
@@ -39,9 +40,6 @@ const MyPageForm = () => {
   const [isAuthSuccess, setIsAuthSuccess] = useState<boolean>(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const setIsLogin = loginZustandStore((state) => state.setIsLogin);
-  const isLogin = loginZustandStore((state) => state.isLogin);
 
   const { data: userData, isPending } = useQuery({
     queryKey: ['information'],
@@ -55,7 +53,6 @@ const MyPageForm = () => {
   const { mutate: logOut } = useMutation({
     mutationFn: () => axios.delete('/api/auth/log-out'),
     onSuccess: () => {
-      setIsLogin(false);
       router.replace('/');
       modal.close();
       toast.on({ label: '로그아웃 되었습니다.' });
@@ -166,7 +163,7 @@ const MyPageForm = () => {
     <div className="flex items-center justify-center mt-95px-col-m px-5 md:px-394px-row md:mt-307px-col">
       <div className="flex flex-col w-full md:w-[1128px] items-start justify-center self-stretch gap-32px-row-m md:gap-43px-row ">
         <div className="flex flex-col items-start md:flex-row md:items-center w-full md:gap-14">
-          {isLogin && userData ? (
+          {user && userData ? (
             <div className="flex w-[160px] h-[160px] md:w-240px-row md:h-240px-row relative">
               {isLoadingImage ? (
                 <div className="absolute inset-0 flex items-center justify-center rounded-full">
@@ -207,7 +204,7 @@ const MyPageForm = () => {
               />
             </div>
           )}
-          {isLogin && userData ? (
+          {user && userData ? (
             <div className="flex flex-col justify-center items-start gap-[24px] mt-4">
               <div className="flex flex-col items-start gap-4 md:gap-4">
                 <div className="flex items-center gap-2 md:gap-2 text-[14px] md:text-18px">
@@ -271,7 +268,7 @@ const MyPageForm = () => {
             </div>
           )}
         </div>
-        {isLogin ? (
+        {user ? (
           <div className="flex justify-between items-center self-stretch border-t border-[#080808] ">
             <div className="flex items-center mt-4 md:mt-[24px]">
               <Button priority="secondary" icon={<Logout />} size="lg" onClick={handleClickLogOut}>
