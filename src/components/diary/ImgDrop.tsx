@@ -77,7 +77,7 @@ const ImgDrop = () => {
         "
         style={{
           backgroundImage:
-            "url(\"data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='8' ry='8' stroke='%23E6D3BC' strokeWidth='2' stroke-dasharray='6' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e\")",
+            "url(\"data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='8' ry='8' stroke='%23E6D3BC' strokeWidth='2' stroke-dasharray='6' stroke-dashoffset='0' strokeLinecap='square'/%3e%3c/svg%3e\")",
           borderRadius: '8px'
         }}
       >
