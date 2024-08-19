@@ -38,7 +38,7 @@ const Header = () => {
   useEffect(() => {
     queryClient.refetchQueries({ queryKey: ['information'] });
     queryClient.refetchQueries({ queryKey: ['user'] });
-  }, [pathname]);
+  }, [user, userData]);
 
   useEffect(() => {
     const backGroundBgm: HTMLAudioElement = new Audio('/background-bgm.mp3');

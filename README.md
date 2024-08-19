@@ -53,18 +53,26 @@
 - 한 줄 설명: 감정을 색으로 표현하고 일상을 기록하는 다이어리 웹서비스
 - 기획의도: 바쁜 일상 속에서 자신을 돌아볼 시간을 가지기 어려운 사용자들에게, 감정과 일상을 색으로 시각화하여 자아성찰을 돕고 자신을 객관적으로 이해할 수 있도록 지원
 
-
 <br />
 
 ## 📍 Stacks
 
-<img src="https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white" /> <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black"/> <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white">
+<img src="https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white" /> <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black"/>
+
+<img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white">
+
 <img src="https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white"/> <img src="https://img.shields.io/badge/shadcn/ui-black?style=for-the-badge&logo=shadcn/ui&logoColor=white" />
+
 <img src="https://img.shields.io/badge/-Tanstack%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=white" /> <img src="https://img.shields.io/badge/zustand-black?style=for-the-badge&logo=zustand&logoColor=white" />
+
 <img src="https://img.shields.io/badge/supabase-3FCF8E?style=for-the-badge&logo=supabase&logoColor=black">
+
 <img src="https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=white"> <img src="https://img.shields.io/badge/visual studio code-007ACC?style=for-the-badge&logo=visual studio code&logoColor=white">
+
 <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"> <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> <img src="https://img.shields.io/badge/slack-4A154B?style=for-the-badge&logo=slack&logoColor=white"> <img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
+
 <img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
+
 <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=Vercel&logoColor=white"/>
 
 <br />
@@ -157,8 +165,6 @@
 - 감정 테스트 결과 페이지에서 바로 일기 작성 페이지로 이동 가능
 - 감정 테스트 결과를 카카오톡이나 링크를 통해 공유하는 기능 제공
 
-| 테스트 시작 화면                                                                                                 | 테스트 화면                                                                                                      |  테스트 결과 화면                                                                                                 |
+| 테스트 시작 화면                                                                                                 | 테스트 화면                                                                                                      | 테스트 결과 화면                                                                                                 |
 | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | <img src="https://github.com/user-attachments/assets/65af032f-585e-493f-9c06-75a5acc1c451" style="width:300px;"> | <img src="https://github.com/user-attachments/assets/6d7b03e2-abec-4834-a6f4-ad65588dcb0e" style="width:300px;"> | <img src="https://github.com/user-attachments/assets/8a5a3371-d653-4a27-8bc5-c805c98451cc" style="width:300px;"> |
-
-
