@@ -1,17 +1,18 @@
 'use client';
 
-import Image from 'next/image';
-import { Calendar } from '../ui/calendar';
 import { DiaryList } from '@/types/diary.type';
 import { formatFullDate } from '@/utils/dateUtils';
+import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import { Calendar } from '../ui/calendar';
 import PlusDiaryIcon from './assets/PlusDiaryIcon';
 
 interface CardsProps {
   isCalendar: boolean;
+  setDate: Dispatch<SetStateAction<Date>>;
+  handleInputDate: (e: ChangeEvent<HTMLInputElement>) => void;
   date: Date;
-  setDate: React.Dispatch<React.SetStateAction<Date>>;
-  handleInputDate: (e: React.ChangeEvent<HTMLInputElement>) => void;
   diaryList: DiaryList;
   isNeedNew: boolean;
   todayYYMM: number;

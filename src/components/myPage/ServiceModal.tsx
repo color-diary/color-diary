@@ -1,10 +1,10 @@
-import React from 'react';
+import { KeyboardEvent } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Button from '../common/Button';
 import ServiceInput from '../common/ServiceInput';
 import Dropdown from './DropDown';
 import { WhiteMailIcon } from './assets/Mail';
-import { GreenXicon, WhiteXicon } from './assets/Xicon';
+import { GreenXIcon, WhiteXIcon } from './assets/XIcons';
 
 interface FormData {
   setEmail: string;
@@ -32,7 +32,7 @@ const ServiceModal = ({ onClose }: ServiceModalProps) => {
 
   const textareaValue = watch('textarea', '');
 
-  const handleEnterDown = (event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleEnterDown = (event: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     if (event.key === 'Enter' && !event.shiftKey) {
       event.preventDefault();
       handleSubmit(onSubmit)();
@@ -44,7 +44,7 @@ const ServiceModal = ({ onClose }: ServiceModalProps) => {
       <div className="flex flex-col gap-32px-col px-4 pt-4 pb-6 md:px-96px-row md:pt-36px-col md:pb-56px-col rounded-5xl bg-sign-up border-4 border-border-color">
         <div className="flex flex-col items-end self-stretch gap-1">
           <span className="cursor-pointer" onClick={onClose}>
-            <WhiteXicon />
+            <WhiteXIcon />
           </span>
           <h1 className="text-center self-stretch text-18px-m md:text-24px font-[700] mb-4 tracking-0.48px">
             문의하기
@@ -69,7 +69,6 @@ const ServiceModal = ({ onClose }: ServiceModalProps) => {
             />
           </div>
           <Dropdown />
-
           <div className="flex flex-col gap-2">
             <label
               htmlFor="textarea"
@@ -119,9 +118,8 @@ ex)일기의 날짜가 입력이 안돼요.`}
               )}
             </div>
           </div>
-
           <div className="flex w-full justify-center md:items-end md:justify-end self-stretch gap-16px-col md:gap-16px-row mt-8px-col">
-            <Button priority="secondary" size={'lg'} onClick={onClose} icon={<GreenXicon />}>
+            <Button priority="secondary" size={'lg'} onClick={onClose} icon={<GreenXIcon />}>
               문의사항 취소하기
             </Button>
             <Button type="submit" size={'lg'} icon={<WhiteMailIcon />}>

@@ -7,8 +7,8 @@ import { Diary, DiaryList } from '@/types/diary.type';
 import { formatFullDate } from '@/utils/dateUtils';
 import { ko } from 'date-fns/locale';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
-import { DayPicker, IconLeft, IconRight } from 'react-day-picker';
+import { ChangeEvent, ComponentProps, useEffect, useRef, useState } from 'react';
+import { DayPicker } from 'react-day-picker';
 import CalenderNextIcon from '../main/assets/CalenderNextIcon';
 import CalenderPrevIcon from '../main/assets/CalenderPrevIcon';
 import LoadingFall from '../main/assets/LoadingFall';
@@ -18,11 +18,11 @@ import LoadingWinter from '../main/assets/LoadingWinter';
 import '../main/dateInput.css';
 import Stamp from '../main/Stamp';
 
-export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
+export type CalendarProps = ComponentProps<typeof DayPicker> & {
   diaryList: DiaryList;
   isCalendar: boolean;
   isLoading?: boolean;
-  handleInputDate: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleInputDate: (e: ChangeEvent<HTMLInputElement>) => void;
   month: Date;
 };
 
@@ -238,6 +238,7 @@ function Calendar({
     </div>
   );
 }
+
 Calendar.displayName = 'Calendar';
 
 export { Calendar };

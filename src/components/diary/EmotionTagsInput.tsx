@@ -1,7 +1,7 @@
 'use client';
 
 import useZustandStore from '@/zustand/zustandStore';
-import { useEffect } from 'react';
+import { ChangeEvent, KeyboardEvent, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import XIconBlack from './assets/XIconBlack';
 
@@ -63,7 +63,7 @@ const EmotionTagsInput = () => {
     }
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+  const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === 'Enter') {
       event.preventDefault();
       if (event.nativeEvent.isComposing === false) {
@@ -80,7 +80,7 @@ const EmotionTagsInput = () => {
     }
   };
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setValue('inputValue', event.target.value);
     clearErrors('tags');
   };
