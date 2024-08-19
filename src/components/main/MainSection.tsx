@@ -2,7 +2,7 @@
 
 import { Diary, DiaryList } from '@/types/diary.type';
 import { formatFullDate } from '@/utils/dateUtils';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ChangeEvent, useEffect, useState } from 'react';

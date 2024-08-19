@@ -44,7 +44,7 @@ function Calendar({
   const { user } = useAuth();
   const searchParams = useSearchParams();
   const tbodyRef = useRef<HTMLDivElement>(null);
-  const [coverHeight, setCoverHeight] = useState(0);
+  const [coverHeight, setCoverHeight] = useState<number>(330);
 
   const updateTbodyHight = () => {
     if (tbodyRef.current) {
@@ -55,7 +55,7 @@ function Calendar({
     }
   };
 
-  if (isLoading) setTimeout(updateTbodyHight, 100);
+  if (isLoading) setTimeout(updateTbodyHight, 1);
 
   return (
     <div className="relative" ref={tbodyRef}>
