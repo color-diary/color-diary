@@ -18,12 +18,83 @@ import PencilIcon from './assets/PencilIcon ';
 import TrashBinIcon from './assets/TrashBinIcon';
 import XIconWhite from './assets/XIconWhite';
 import DiaryContent from './DiaryContent';
+import StickerPicker from './StickerPicker';
+import Sticker from './Sticker';
+import CircleUI from './CircleUI';
+import { v4 as uuidv4 } from 'uuid';
+import CalmSticker from './assets/diary-stickers/CalmSticker';
+import JoySticker from './assets/diary-stickers/JoySticker';
+import LethargySticker from './assets/diary-stickers/LethargySticker';
+import AnxietySticker from './assets/diary-stickers/AnxietySticker';
+import HopeSticker from './assets/diary-stickers/HopeSticker';
+import AngerSticker from './assets/diary-stickers/AngerSticker';
+import SadnessSticker from './assets/diary-stickers/SadnessSticker';
+import SmilePlusIcon from './assets/SmilePlusIcon';
+import SaveIcon from './assets/SaveIcon';
+import XIconBlack from './assets/XIconBlack';
+import { createClient } from '@/utils/supabase/client';
+import TipBubble from './assets/TipBubble';
+import SpringFlowerSticker from './assets/diary-stickers/SpringFlowerSticker';
+import WinterFlowerSticker from './assets/diary-stickers/WinterFlowerSticker';
+import SummerFlowerSticker from './assets/diary-stickers/SummerFlowerSticker';
+import FallFlowerSticker from './assets/diary-stickers/FallFlowerSticker';
+import SeedSticker from './assets/diary-stickers/SeedSticker';
+import LogoSticker from './assets/diary-stickers/LogoSticker';
+import ColorInsideTextSticker from './assets/diary-stickers/ColorInsideTextSticker';
+import HappyDayTextSticker from './assets/diary-stickers/HappyDayTextSticker';
+import DoAnythingSticker from './assets/diary-stickers/DoAnythingSticker';
+import TextSeedSticker from './assets/diary-stickers/TextSeedSticker';
+import TextGoodJobSticker from './assets/diary-stickers/TextGoodJobSticker';
+import NoThoughtSticker from './assets/diary-stickers/NoThoughtSticker';
+import SpecialDaySticker from './assets/diary-stickers/SpecialDaySticker';
+import SpecialMeSticker from './assets/diary-stickers/SpecialMeSticker';
+import PreciousMeSticker from './assets/diary-stickers/PreciousMeSticker';
+import NaSticker from './assets/diary-stickers/NaSticker';
+
+type StickerType = {
+  id: string;
+  component: JSX.Element;
+  position: { x: number; y: number };
+};
+
+type StickerDataType = {
+  id: string;
+  component: string;
+  position: { x: number; y: number };
+};
+
+const componentMapper: Record<string, JSX.Element> = {
+  SpringFlowerSticker: <SpringFlowerSticker />,
+  WinterFlowerSticker: <WinterFlowerSticker />,
+  SummerFlowerSticker: <SummerFlowerSticker />,
+  FallFlowerSticker: <FallFlowerSticker />,
+  AnxietySticker: <AnxietySticker />,
+  SadnessSticker: <SadnessSticker />,
+  SeedSticker: <SeedSticker />,
+  JoySticker: <JoySticker />,
+  LogoSticker: <LogoSticker />,
+  HopeSticker: <HopeSticker />,
+  LethargySticker: <LethargySticker />,
+  AngerSticker: <AngerSticker />,
+  CalmSticker: <CalmSticker />,
+  ColorInsideTextSticker: <ColorInsideTextSticker />,
+  HappyDayTextSticker: <HappyDayTextSticker />,
+  DoAnythingSticker: <DoAnythingSticker />,
+  TextSeedSticker: <TextSeedSticker />,
+  TextGoodJobSticker: <TextGoodJobSticker />,
+  NoThoughtSticker: <NoThoughtSticker />,
+  SpecialDaySticker: <SpecialDaySticker />,
+  SpecialMeSticker: <SpecialMeSticker />,
+  PreciousMeSticker: <PreciousMeSticker />,
+  NaSticker: <NaSticker />
+};
 
 const DiaryContainer = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const params = useParams();
   const diaryId = params.id as string;
+  const supabase = createClient();
 
   const form = searchParams.get('form');
   const YYMM = searchParams.get('YYMM');
@@ -37,6 +108,74 @@ const DiaryContainer = () => {
   const [localDiary, setLocalDiary] = useState<Diary | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [stickers, setStickers] = useState<StickerType[]>([]);
+  const [isPickerVisible, setIsPickerVisible] = useState<boolean>(false);
+  const [isTipVisible, setIsTipVisible] = useState(true);
+  const [isDeleteVisible, setIsDeleteVisible] = useState(false);
+
+  const handleStickerSelect = (sticker: Omit<StickerType, 'position'>) => {
+    setStickers([...stickers, { ...sticker, id: uuidv4(), position: { x: 200, y: 200 } }]);
+
+    setIsPickerVisible(false);
+  };
+
+  const handlePositionChange = (id: string, position: { x: number; y: number }) => {
+    setStickers((prevStickers) =>
+      prevStickers.map((sticker) => (sticker.id === id ? { ...sticker, position } : sticker))
+    );
+  };
+
+  const handleSaveStickers = async () => {
+    try {
+      const stickersToSave = stickers.map((sticker) => ({
+        ...sticker,
+        component: sticker.component.type.name
+      }));
+
+      const { data: existingStickerData, error: fetchError } = await supabase
+        .from('diaryStickers')
+        .select('id')
+        .eq('diaryId', diaryId)
+        .single();
+
+      if (fetchError && fetchError.code !== 'PGRST116') {
+        throw fetchError;
+      }
+
+      if (stickersToSave.length === 0) {
+        if (existingStickerData) {
+          await supabase.from('diaryStickers').delete().eq('id', existingStickerData.id);
+
+          toast.on({ label: '스티커가 삭제되었습니다' });
+        }
+      } else {
+        if (existingStickerData) {
+          const { error: updateError } = await supabase
+            .from('diaryStickers')
+            .update({ stickersData: stickersToSave })
+            .eq('id', existingStickerData.id);
+
+          if (updateError) {
+            throw updateError;
+          }
+
+          toast.on({ label: '스티커가 업데이트 되었습니다' });
+        } else {
+          const { error: insertError } = await supabase.from('diaryStickers').insert({
+            diaryId,
+            stickersData: stickersToSave
+          });
+
+          if (insertError) {
+            throw insertError;
+          }
+          toast.on({ label: '스티커가 저장되었습니다' });
+        }
+      }
+    } catch (error) {
+      console.error('Error saving stickers:', error);
+    }
+  };
 
   useEffect(() => {
     const readDiary = (): void => {
@@ -56,7 +195,34 @@ const DiaryContainer = () => {
       setIsLoading(false);
     };
 
+    const fetchStickers = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('diaryStickers')
+          .select('stickersData')
+          .eq('diaryId', diaryId)
+          .single();
+
+        if (error && error.code !== 'PGRST116') {
+          throw error;
+        }
+
+        if (data && Array.isArray(data.stickersData)) {
+          const stickersFromDB = (data.stickersData as StickerDataType[]).map((sticker) => ({
+            ...sticker,
+            component: componentMapper[sticker.component as keyof typeof componentMapper] || null
+          }));
+
+          setStickers(stickersFromDB);
+        }
+      } catch (error) {
+        console.error('Error fetching stickers:', error);
+      }
+    };
+
     readDiary();
+
+    fetchStickers();
   }, [router, diaryId, setColor, setTags, setContent, setImg]);
 
   const {
@@ -105,7 +271,7 @@ const DiaryContainer = () => {
   const diaryData = userId ? diary : localDiary;
 
   if (error) {
-    return <p className="text-red-500">본인이 쓴 글이 아님</p>;
+    return <p>본인이 쓴 글이 아님</p>;
   }
 
   if (!diaryData) {
@@ -158,77 +324,95 @@ const DiaryContainer = () => {
 
   return (
     <>
-      <div className="block md:hidden">
+      <div
+        className="flex items-center justify-center h-h-screen-custom md:h-screen md:pt-[80px] md:!bg-[#FEFDFB] "
+        style={{ backgroundColor: diaryData.color }}
+      >
         <div
-          className="flex items-center justify-center h-h-screen-custom w-screen py-50px-col-m"
+          className="relative flex flex-col md:flex md:flex-row items-center justify-center gap-8px-col-m md:gap-16px-row md:w-720px-row md:h-807px-col rounded-[32px] md:border-4 md:border-[#E6D3BC] md:py-56px-col md:pr-56px-row md:pl-16px-row "
           style={{ backgroundColor: diaryData.color }}
         >
-          <div className="flex flex-col gap-custom-8px-m h-full">
-            <div className="flex gap-[20vh] justify-center">
-              <div className="flex  justify-center gap-[3vh]">
-                <div className="w-[4vw] h-[4vw] bg-white rounded-full"></div>
-                <div className="w-[4vw] h-[4vw] bg-white rounded-full"></div>
-                <div className="w-[4vw] h-[4vw] bg-white rounded-full"></div>
+          {stickers.map((sticker) => (
+            <Sticker
+              key={sticker.id}
+              sticker={sticker}
+              onDelete={(id: string) => setStickers(stickers.filter((s) => s.id !== id))}
+              onPositionChange={handlePositionChange}
+              isDeleteVisible={isDeleteVisible}
+            />
+          ))}
+          <CircleUI />
+          <div className="relative flex flex-col flex-start justify-center w-335px-row-m h-603px-col-m px-24px-row-m py-24px-col-m bg-white md:w-600px-row md:h-696px-col rounded-[32px] border border-[#E6D3BC] md:px-60px-row md:py-40px-col md:gap-40px-col">
+            <div className="md:w-480px-row md:h-530px-col">
+              <div className="flex justify-between">
+                <div className="invisible md:visible">
+                  <TextButton onClick={handleBackward}>뒤로가기</TextButton>
+                </div>
+                <div className="relative flex gap-12px-row-m md:gap-8px-row">
+                  {userId && (
+                    <>
+                      <button
+                        onClick={() => {
+                          setIsPickerVisible(true);
+                          setIsDeleteVisible(true);
+                        }}
+                      >
+                        <SmilePlusIcon />
+                      </button>
+                      {isTipVisible && (
+                        <div
+                          onClick={() => setIsTipVisible(false)}
+                          className="absolute -top-12 -right-5 cursor-pointer z-50"
+                        >
+                          <TipBubble />
+                        </div>
+                      )}
+                      <button
+                        onClick={() => {
+                          handleSaveStickers();
+                          setIsDeleteVisible(false);
+                        }}
+                      >
+                        <SaveIcon />
+                      </button>
+                    </>
+                  )}
+                </div>
               </div>
-              <div className="flex  justify-center gap-[3vh]">
-                <div className="w-[4vw] h-[4vw] bg-white rounded-full"></div>
-                <div className="w-[4vw] h-[4vw] bg-white rounded-full"></div>
-                <div className="w-[4vw] h-[4vw] bg-white rounded-full"></div>
-              </div>
-            </div>
-            <div className="relative flex flex-col items-center justify-center bg-white w-360px-row-m h-[100%] rounded-[32px] border border-[#E6D3BC] p-8">
-              <div className="w-[99%] h-[100%]">
+              <div className="items-start justify-start ">
                 <DiaryContent diary={diaryData} />
               </div>
-              <div className="absolute bottom-5 right-5 flex gap-5">
-                <Button onClick={handleEdit} icon={<PencilIcon />}>
-                  수정하기
-                </Button>
-                <Button onClick={handleDelete} priority="secondary" icon={<TrashBinIcon />}>
-                  삭제하기
-                </Button>
-              </div>
+            </div>
+            <div className="flex justify-end gap-16px-row-m md:gap-16px-row">
+              <Button onClick={handleEdit} icon={<PencilIcon />}>
+                수정하기
+              </Button>
+              <Button onClick={handleDelete} priority="secondary" icon={<TrashBinIcon />}>
+                삭제하기
+              </Button>
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="hidden md:block">
-        <div className="flex items-center justify-center h-screen pt-[80px] ">
+        {isPickerVisible && (
           <div
-            className="relative flex items-center justify-center w-720px-row h-859px-col min-h-96 rounded-[32px] lg:border-4 lg:border-[#E6D3BC] p-[6.5vh] pl-[1.5vh]"
-            style={{ backgroundColor: diaryData.color }}
+            className="absolute inset-0 flex items-center justify-center z-50 "
+            style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
           >
-            <div className="flex flex-col gap-[20vh] w-[9%] ">
-              <div className="flex flex-col justify-center gap-[5vh]">
-                <div className="w-[2vw] h-[2vw] bg-white rounded-full"></div>
-                <div className="w-[2vw] h-[2vw] bg-white rounded-full"></div>
-                <div className="w-[2vw] h-[2vw] bg-white rounded-full"></div>
+            <div className="relative rounded-[32px] bg-white border-2 border-[#E6D3BC] w-284px-row-m h-310px-col-m md:w-320px-row md:h-auto">
+              <div className="flex justify-center border-b-2 border-[#E6D3BC] px-10px-row-m py-12px-col-m md:px-12px-col md:py-12px-col">
+                <p className="text-14px-m md:text-16px">스티커 모음집</p>
+                <SmilePlusIcon />
               </div>
-              <div className="flex flex-col justify-center gap-[5vh]">
-                <div className="w-[2vw] h-[2vw] bg-white rounded-full"></div>
-                <div className="w-[2vw] h-[2vw] bg-white rounded-full"></div>
-                <div className="w-[2vw] h-[2vw] bg-white rounded-full"></div>
+              <div className="py-24px-col-m px-16px-row-m md:px-24px-row md:pt-40px-col justify-center">
+                <StickerPicker onSelect={handleStickerSelect} />
               </div>
-            </div>
-            <div className="relative flex flex-col items-center justify-center bg-white w-[90%] h-[100%] rounded-[32px] border border-[#E6D3BC] p-8">
-              <div className="absolute flex top-6 left-7 mb-4 items-center ">
-                <TextButton onClick={handleBackward}>뒤로가기</TextButton>
-              </div>
-              <div className="absolute top-14 left-8 w-[90%] h-[90%] items-start justify-start ">
-                <DiaryContent diary={diaryData} />
-              </div>
-              <div className="absolute bottom-5 right-5 flex gap-5">
-                <Button onClick={handleEdit} icon={<PencilIcon />}>
-                  수정하기
-                </Button>
-                <Button onClick={handleDelete} priority="secondary" icon={<TrashBinIcon />}>
-                  삭제하기
-                </Button>
-              </div>
+              <button onClick={() => setIsPickerVisible(false)} className=" absolute right-4 bottom-4 ">
+                <XIconBlack />
+              </button>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </>
   );
