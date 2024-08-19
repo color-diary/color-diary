@@ -133,6 +133,7 @@ const MyPageForm = () => {
       toast.on({ label: '닉네임은 3글자 이상 8글자 이하이어야 합니다.' });
     } else {
       changeNickname(newNickname);
+      setIsAuthSuccess(false)
     }
   };
 
