@@ -21,7 +21,7 @@ const WinterToday = () => {
       />
       <defs>
         <filter id="a" width="26" height="26" x="0" y="0" colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse">
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
           <feGaussianBlur result="effect1_foregroundBlur_2307_16906" stdDeviation="2" />
         </filter>

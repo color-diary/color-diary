@@ -9,7 +9,7 @@ import PlusDiaryIcon from './assets/PlusDiaryIcon';
 
 interface CardsProps {
   isCalendar: boolean;
-  date: Date | undefined;
+  date: Date;
   setDate: React.Dispatch<React.SetStateAction<Date>>;
   handleInputDate: (e: React.ChangeEvent<HTMLInputElement>) => void;
   diaryList: DiaryList;

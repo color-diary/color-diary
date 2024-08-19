@@ -8,7 +8,7 @@ import { formatFullDate } from '@/utils/dateUtils';
 import { ko } from 'date-fns/locale';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
-import { DayPicker } from 'react-day-picker';
+import { DayPicker, IconLeft, IconRight } from 'react-day-picker';
 import CalenderNextIcon from '../main/assets/CalenderNextIcon';
 import CalenderPrevIcon from '../main/assets/CalenderPrevIcon';
 import LoadingFall from '../main/assets/LoadingFall';
@@ -17,13 +17,13 @@ import LoadingSummer from '../main/assets/LoadingSummer';
 import LoadingWinter from '../main/assets/LoadingWinter';
 import '../main/dateInput.css';
 import Stamp from '../main/Stamp';
-import { getEventListeners } from 'events';
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
   diaryList: DiaryList;
   isCalendar: boolean;
   isLoading?: boolean;
   handleInputDate: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  month: Date;
 };
 
 function Calendar({
@@ -45,6 +45,8 @@ function Calendar({
   const searchParams = useSearchParams();
   const tbodyRef = useRef<HTMLDivElement>(null);
   const [coverHeight, setCoverHeight] = useState(0);
+  // let day = 1;
+  console.log(month);
 
   const updateTbodyHight = () => {
     if (tbodyRef.current) {
@@ -62,6 +64,7 @@ function Calendar({
       <DayPicker
         showOutsideDays={showOutsideDays}
         locale={ko}
+        month={month}
         className={cn(className)}
         classNames={{
           months: `${
@@ -100,24 +103,6 @@ function Calendar({
           ...classNames
         }}
         components={{
-          IconLeft: ({ ...props }) => <CalenderPrevIcon />,
-          IconRight: ({ ...props }) => <CalenderNextIcon />,
-          CaptionLabel: ({ ...props }) => {
-            const dateInputRef = useRef<HTMLInputElement>(null);
-            const handleRef = () => {
-              if (dateInputRef.current) {
-                dateInputRef.current.showPicker();
-              }
-            };
-            return (
-              <div className="anchor cursor-pointer py-12px-col-m md:py-24px-col">
-                <input type="date" ref={dateInputRef} style={{ visibility: 'hidden' }} onChange={handleInputDate} />
-                <p onClick={() => handleRef()} className="text-16px-m md:text-24px">
-                  {props.displayMonth.getFullYear()}년 {props.displayMonth.getMonth() + 1}월
-                </p>
-              </div>
-            );
-          },
           Caption: ({ ...props }) => {
             const goPrevMonth = () => {
               if (!month || !onMonthChange) return;
@@ -134,7 +119,7 @@ function Calendar({
               }
             };
             return (
-              <div className="anchor cursor-pointer py-12px-col-m md:py-24px-col">
+              <div className="anchor cursor-pointer py-12px-col-m md:py-24px-col cursor-pointer">
                 <input type="date" ref={dateInputRef} style={{ visibility: 'hidden' }} onChange={handleInputDate} />
                 <div className="flex items-center justify-center">
                   <div onClick={() => goPrevMonth()}>
@@ -208,8 +193,8 @@ function Calendar({
                 }}
                 className="flex flex-col items-center cursor-pointer"
               >
-                <Stamp petal={diaries.color} circle="#F7CA87" month={props.date.getMonth() + 1} />
-                <p className="text-12px-m md:text-14px">{props.date.getDate()}</p>
+                <Stamp petal={diaries.color} circle="#F7CA87" month={month.getMonth() + 1} />
+                <p className="text-12px-m md:text-14px mt-1">{props.date.getDate()}</p>
               </div>
             ) : (
               <div
@@ -218,7 +203,7 @@ function Calendar({
                 }}
                 className="flex flex-col items-center cursor-pointer"
               >
-                <Stamp petal="#FFF" circle="#D4D4D4" month={props.date.getMonth() + 1} isToday={isToday} />
+                <Stamp petal="#FFF" circle="#D4D4D4" month={month.getMonth() + 1} isToday={isToday} />
                 <p className="text-12px-m md:text-14px mt-1">{props.date.getDate()}</p>
               </div>
             );
