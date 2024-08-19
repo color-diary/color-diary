@@ -46,13 +46,10 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
   const [isOpenTerms, setIsOpenTerms] = useState(false);
 
   useEffect(() => {
-    reset({
-      email: '',
-      nickname: '',
-      password: '',
-      confirmPassword: ''
-    });
-  }, [isSubmitted]);
+    if (!isSubmitted) {
+      reset();
+    }
+  }, [isSubmitted,reset]);
 
   const { mutate: signUp } = useMutation({
     mutationFn: async (data: { email: string; nickname: string; password: string }) => {
