@@ -45,8 +45,6 @@ function Calendar({
   const searchParams = useSearchParams();
   const tbodyRef = useRef<HTMLDivElement>(null);
   const [coverHeight, setCoverHeight] = useState(0);
-  // let day = 1;
-  console.log(month);
 
   const updateTbodyHight = () => {
     if (tbodyRef.current) {

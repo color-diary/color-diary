@@ -81,7 +81,7 @@ const Cards = ({ diaryList, isCalendar, date, setDate, handleInputDate, isNeedNe
                 <div className="flex px-16px-row-m md:px-24px-row py-4px-col-m md:py-8px-col text-12px-m md:text-16px">
                   {today.getDate()}일
                 </div>
-                <div className="flex justify-center items-center">
+                <div className="flex justify-center mt-24px-col md:mt-0">
                   <PlusDiaryIcon />
                 </div>
               </div>
