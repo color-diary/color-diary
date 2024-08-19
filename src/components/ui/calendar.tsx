@@ -46,9 +46,6 @@ function Calendar({
   const tbodyRef = useRef<HTMLDivElement>(null);
   const [coverHeight, setCoverHeight] = useState(0);
 
-  console.log('isLoading =>', isLoading);
-  console.log('isCalendar =>', isCalendar);
-
   const updateTbodyHight = () => {
     if (tbodyRef.current) {
       const tbody = tbodyRef.current.getElementsByTagName('tbody')[0];
