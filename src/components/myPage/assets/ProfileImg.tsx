@@ -1,5 +1,3 @@
-import React from 'react';
-
 const ProfileImg = () => (
   <svg width="196" height="196" viewBox="0 0 196 196" fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect width="196" height="196" fill="#F5F5F5" />

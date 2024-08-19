@@ -1,13 +1,14 @@
+import ChannelTalk from '@/components/common/ChannelTalk';
 import Header from '@/components/common/Header';
+import Landing from '@/components/common/Landing';
 import NavigationBar from '@/components/common/NavigationBar';
 import { ModalProvider } from '@/providers/modal.context';
 import QueryProvider from '@/providers/ReactQueryClientProvider';
 import { ToastProvider } from '@/providers/toast.context';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
+import { PropsWithChildren } from 'react';
 import './globals.css';
-import Landing from '@/components/common/Landing';
-import ChannelTalk from '@/components/common/ChannelTalk';
 
 export const metadata: Metadata = {
   title: 'Color Inside',
@@ -24,7 +25,7 @@ const pretendard = localFont({
   variable: '--font-pretendard'
 });
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: PropsWithChildren }) {
   return (
     <html lang="en">
       <head>

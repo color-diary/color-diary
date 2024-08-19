@@ -1,5 +1,5 @@
-import React, { forwardRef } from 'react';
 import { cva, VariantProps } from 'class-variance-authority';
+import { ComponentProps, forwardRef } from 'react';
 
 const labelVariant = cva('self-stretch font-medium md:text-18px md:tracking-0.36px text-16px-m tracking-0.32px', {
   variants: {
@@ -54,7 +54,7 @@ type InputProps = {
   helperMessage?: string;
   state?: 'default' | 'filled' | 'error' | 'disable';
 } & InputVariantProps &
-  React.ComponentProps<'input'>;
+  ComponentProps<'input'>;
 
 const ServiceInput = forwardRef<HTMLInputElement, InputProps>(({ label, state, id, helperMessage, ...props }, ref) => {
   const inputId = id || crypto.randomUUID();
@@ -65,21 +65,13 @@ const ServiceInput = forwardRef<HTMLInputElement, InputProps>(({ label, state, i
         {label}
       </label>
       <div className="relative w-full h-fit">
-        <input
-          id={inputId}
-          ref={ref}
-          className={inputVariant({ state })}
-          {...props}
-        />
+        <input id={inputId} ref={ref} className={inputVariant({ state })} {...props} />
       </div>
-      {helperMessage && (
-        <span className={helperMessageVariant({ state })}>
-          {helperMessage}
-        </span>
-      )}
+      {helperMessage && <span className={helperMessageVariant({ state })}>{helperMessage}</span>}
     </div>
   );
 });
+
 ServiceInput.displayName = 'ServiceInput';
 
 export default ServiceInput;

@@ -1,7 +1,7 @@
 'use client';
 
 import useZustandStore from '@/zustand/zustandStore';
-import { useEffect } from 'react';
+import { ChangeEvent, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 type FormValues = {
@@ -41,7 +41,7 @@ const ColorPicker = () => {
     }
   }, [isDiaryEditMode, color, testResult, setValue]);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const color = event.target.value;
     setValue('customColor', color);
     setValue('pickedColor', color);

@@ -1,12 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { PropsWithChildren, useEffect, useState } from 'react';
 import LandingIcon from './assets/LandingIcon';
 
 const Landing = ({
   children
 }: Readonly<{
-  children: React.ReactNode;
+  children: PropsWithChildren;
 }>) => {
   const [isLanding, setIsLanding] = useState(true);
 

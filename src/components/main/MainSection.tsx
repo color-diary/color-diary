@@ -5,7 +5,7 @@ import { formatFullDate } from '@/utils/dateUtils';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 import Button from '../common/Button';
 import { Calendar } from '../ui/calendar';
@@ -107,7 +107,7 @@ const MainSection = () => {
     }
   }, [queryString]);
 
-  const checkTodayWritten = (data: DiaryList) => {
+  const checkTodayWritten = (data: DiaryList): void => {
     setIsNeedNew(false);
     if (formatFullDate(String(data[0]?.date)).slice(0, 7) === formatFullDate(String(today)).slice(0, 7)) {
       const findDiary = data.find((i: Diary) => {
@@ -121,14 +121,14 @@ const MainSection = () => {
     }
   };
 
-  const changeForm = (name: string) => {
+  const changeForm = (name: string): void => {
     if (name === form) {
       return;
     }
     setForm(name);
   };
 
-  const handleInputDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputDate = (e: ChangeEvent<HTMLInputElement>): void => {
     const date = new Date(e.target.value);
     if (date) {
       setDate(date);

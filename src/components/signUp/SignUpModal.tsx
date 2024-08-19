@@ -6,7 +6,7 @@ import { urlToFile } from '@/utils/imageFileUtils';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { KeyboardEvent, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import BackDrop from '../common/BackDrop';
 import Button from '../common/Button';
@@ -54,7 +54,7 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
     if (!isSubmitted) {
       reset();
     }
-  }, [isSubmitted,reset]);
+  }, [isSubmitted, reset]);
 
   const { mutate: signUp } = useMutation({
     mutationFn: async (data: { email: string; nickname: string; password: string }) => {
@@ -119,7 +119,7 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
     signUp(data);
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLFormElement>) => {
+  const handleKeyDown = (event: KeyboardEvent<HTMLFormElement>): void => {
     if (event.key === 'Enter') {
       event.preventDefault();
       handleSubmit(onSubmit)();
