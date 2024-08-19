@@ -3,8 +3,8 @@ import React from 'react';
 const AngerSticker = () => {
   return (
     <svg
-      width="65"
-      height="65"
+      width="31"
+      height="24"
       viewBox="-10 -10 180 150"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -14,36 +14,36 @@ const AngerSticker = () => {
         d="M64 96.7107L76.4138 72.2937L97.1034 70.8574L81.931 86.6566L104 83.7841L72.2759 124L84.6897 93.8381L64 96.7107Z"
         fill="#F4B557"
         stroke="#EE7802"
-        stroke-width="4"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M116 89.9124L123.448 75.2622L135.862 74.4004L126.759 83.8799L140 82.1564L120.966 106.286L128.414 88.1888L116 89.9124Z"
         fill="#F4B557"
         stroke="#EE7802"
-        stroke-width="4"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M32 88.1888L38.2069 75.1664L48.5517 74.4004L40.9655 82.8266L52 81.2946L36.1379 102.743L42.3448 86.6568L32 88.1888Z"
         fill="#F4B557"
         stroke="#EE7802"
-        stroke-width="4"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <mask id="path-4-inside-1_4007_28001" fill="white">
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
+          fillRule="evenodd"
+          clipRule="evenodd"
           d="M114.618 70.5434C108.014 75.1983 99.8925 77.9429 91.1114 77.9429C84.6423 77.9429 78.5311 76.4533 73.1209 73.8077C68.4753 78.5379 61.9249 81.4848 54.6664 81.4848C43.7574 81.4848 34.4477 74.8284 30.8006 65.4657C28.0729 66.6541 25.0492 67.3151 21.8667 67.3151C9.79004 67.3151 0 57.7979 0 46.0579C0 34.3179 9.79004 24.8008 21.8667 24.8008C25.5857 24.8008 29.0879 25.7033 32.1541 27.2954C36.4495 19.4855 44.9196 14.1719 54.6664 14.1719C56.4144 14.1719 58.1214 14.3428 59.7706 14.6684C67.1164 5.7279 78.4258 0 91.1114 0C106.695 0 120.202 8.6441 126.835 21.2691C127.074 21.2616 127.314 21.2578 127.555 21.2578C135.757 21.2578 142.904 25.6473 146.646 32.1415C147.545 31.973 148.473 31.8848 149.423 31.8848C157.474 31.8848 164 38.2295 164 46.0562C164 52.7431 159.236 58.3483 152.827 59.839C151.26 70.0832 142.174 77.942 131.2 77.942C124.57 77.942 118.629 75.0734 114.618 70.5434Z"
         />
       </mask>
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M114.618 70.5434C108.014 75.1983 99.8925 77.9429 91.1114 77.9429C84.6423 77.9429 78.5311 76.4533 73.1209 73.8077C68.4753 78.5379 61.9249 81.4848 54.6664 81.4848C43.7574 81.4848 34.4477 74.8284 30.8006 65.4657C28.0729 66.6541 25.0492 67.3151 21.8667 67.3151C9.79004 67.3151 0 57.7979 0 46.0579C0 34.3179 9.79004 24.8008 21.8667 24.8008C25.5857 24.8008 29.0879 25.7033 32.1541 27.2954C36.4495 19.4855 44.9196 14.1719 54.6664 14.1719C56.4144 14.1719 58.1214 14.3428 59.7706 14.6684C67.1164 5.7279 78.4258 0 91.1114 0C106.695 0 120.202 8.6441 126.835 21.2691C127.074 21.2616 127.314 21.2578 127.555 21.2578C135.757 21.2578 142.904 25.6473 146.646 32.1415C147.545 31.973 148.473 31.8848 149.423 31.8848C157.474 31.8848 164 38.2295 164 46.0562C164 52.7431 159.236 58.3483 152.827 59.839C151.26 70.0832 142.174 77.942 131.2 77.942C124.57 77.942 118.629 75.0734 114.618 70.5434Z"
         fill="#A1A1A1"
       />
@@ -52,12 +52,12 @@ const AngerSticker = () => {
         fill="#6E6E6E"
         mask="url(#path-4-inside-1_4007_28001)"
       />
-      <path d="M56 49.5024L58.1101 45.8476" stroke="#F7CA87" stroke-width="2.1101" stroke-linecap="round" />
-      <path d="M59.165 49.5024L61.2751 45.8476" stroke="#F7CA87" stroke-width="2.1101" stroke-linecap="round" />
-      <path d="M62.3303 49.5024L64.4404 45.8476" stroke="#F7CA87" stroke-width="2.1101" stroke-linecap="round" />
-      <path d="M104 49.5024L106.11 45.8476" stroke="#F7CA87" stroke-width="2.1101" stroke-linecap="round" />
-      <path d="M107.165 49.5024L109.275 45.8476" stroke="#F7CA87" stroke-width="2.1101" stroke-linecap="round" />
-      <path d="M110.33 49.5024L112.44 45.8476" stroke="#F7CA87" stroke-width="2.1101" stroke-linecap="round" />
+      <path d="M56 49.5024L58.1101 45.8476" stroke="#F7CA87" strokeWidth="2.1101" strokeLinecap="round" />
+      <path d="M59.165 49.5024L61.2751 45.8476" stroke="#F7CA87" strokeWidth="2.1101" strokeLinecap="round" />
+      <path d="M62.3303 49.5024L64.4404 45.8476" stroke="#F7CA87" strokeWidth="2.1101" strokeLinecap="round" />
+      <path d="M104 49.5024L106.11 45.8476" stroke="#F7CA87" strokeWidth="2.1101" strokeLinecap="round" />
+      <path d="M107.165 49.5024L109.275 45.8476" stroke="#F7CA87" strokeWidth="2.1101" strokeLinecap="round" />
+      <path d="M110.33 49.5024L112.44 45.8476" stroke="#F7CA87" strokeWidth="2.1101" strokeLinecap="round" />
       <ellipse cx="64.0889" cy="42.4067" rx="4.08889" ry="3.62159" fill="#3B3B3B" />
       <ellipse cx="64.0212" cy="41.5011" rx="1.36296" ry="0.905398" fill="#EDEDED" />
       <ellipse
@@ -97,22 +97,22 @@ const AngerSticker = () => {
       <path
         d="M54 33.6562C58 36.0182 66.8 40.0334 70 37.1991"
         stroke="#3B3B3B"
-        stroke-width="4"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M116 33.6562C112 36.0182 103.2 40.0334 100 37.1991"
         stroke="#3B3B3B"
-        stroke-width="4"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M76 56.6854C79.0303 54.0121 87.8182 50.269 96 56.6854"
         stroke="#3B3B3B"
-        stroke-width="3.2"
-        stroke-linecap="round"
+        strokeWidth="3.2"
+        strokeLinecap="round"
       />
     </svg>
   );

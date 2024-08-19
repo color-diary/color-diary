@@ -3,8 +3,8 @@ import React from 'react';
 const SadnessSticker = () => {
   return (
     <svg
-      width="65"
-      height="65"
+      width="40"
+      height="24"
       viewBox="0 0 227 135"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -12,14 +12,14 @@ const SadnessSticker = () => {
     >
       <mask id="path-1-inside-1_4243_10035" fill="white">
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
+          fillRule="evenodd"
+          clipRule="evenodd"
           d="M153.408 111.513C143.24 119.78 129.86 124.8 115.2 124.8C99.2618 124.8 84.8355 118.866 74.407 109.277C71.3487 110.009 68.1271 110.4 64.8001 110.4C44.9178 110.4 28.8 96.4315 28.8 79.2002C28.8 62.2369 44.4203 48.4356 63.875 48.0103C73.4069 30.9088 92.8118 19.2002 115.2 19.2002C139.633 19.2002 160.514 33.1457 168.885 52.8273C169.387 52.8093 169.893 52.8002 170.4 52.8002C190.282 52.8002 206.4 66.7689 206.4 84.0002C206.4 101.231 190.282 115.2 170.4 115.2C164.255 115.2 158.469 113.866 153.408 111.513Z"
         />
       </mask>
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M153.408 111.513C143.24 119.78 129.86 124.8 115.2 124.8C99.2618 124.8 84.8355 118.866 74.407 109.277C71.3487 110.009 68.1271 110.4 64.8001 110.4C44.9178 110.4 28.8 96.4315 28.8 79.2002C28.8 62.2369 44.4203 48.4356 63.875 48.0103C73.4069 30.9088 92.8118 19.2002 115.2 19.2002C139.633 19.2002 160.514 33.1457 168.885 52.8273C169.387 52.8093 169.893 52.8002 170.4 52.8002C190.282 52.8002 206.4 66.7689 206.4 84.0002C206.4 101.231 190.282 115.2 170.4 115.2C164.255 115.2 158.469 113.866 153.408 111.513Z"
         fill="#EDEDED"
       />
@@ -58,15 +58,15 @@ const SadnessSticker = () => {
       <path
         d="M110.4 91.2008C112.145 88.3032 117.207 84.2462 121.92 91.2008"
         stroke="#080808"
-        stroke-width="3.84"
-        stroke-linecap="round"
+        strokeWidth="3.84"
+        strokeLinecap="round"
       />
-      <path d="M81.6001 81.1855L84.1322 76.7998" stroke="#F5768F" stroke-width="2.53212" stroke-linecap="round" />
-      <path d="M85.3982 81.1855L87.9303 76.7998" stroke="#F5768F" stroke-width="2.53212" stroke-linecap="round" />
-      <path d="M89.1965 81.1855L91.7287 76.7998" stroke="#F5768F" stroke-width="2.53212" stroke-linecap="round" />
-      <path d="M139.2 81.1855L141.732 76.7998" stroke="#F5768F" stroke-width="2.53212" stroke-linecap="round" />
-      <path d="M142.998 81.1855L145.53 76.7998" stroke="#F5768F" stroke-width="2.53212" stroke-linecap="round" />
-      <path d="M146.796 81.1855L149.329 76.7998" stroke="#F5768F" stroke-width="2.53212" stroke-linecap="round" />
+      <path d="M81.6001 81.1855L84.1322 76.7998" stroke="#F5768F" strokeWidth="2.53212" strokeLinecap="round" />
+      <path d="M85.3982 81.1855L87.9303 76.7998" stroke="#F5768F" strokeWidth="2.53212" strokeLinecap="round" />
+      <path d="M89.1965 81.1855L91.7287 76.7998" stroke="#F5768F" strokeWidth="2.53212" strokeLinecap="round" />
+      <path d="M139.2 81.1855L141.732 76.7998" stroke="#F5768F" strokeWidth="2.53212" strokeLinecap="round" />
+      <path d="M142.998 81.1855L145.53 76.7998" stroke="#F5768F" strokeWidth="2.53212" strokeLinecap="round" />
+      <path d="M146.796 81.1855L149.329 76.7998" stroke="#F5768F" strokeWidth="2.53212" strokeLinecap="round" />
       <path
         d="M144.961 85.4406C144.961 87.5613 143.241 89.2806 141.121 89.2806C139 89.2806 137.281 87.5613 137.281 85.4406C137.281 84.1995 138.595 79.1512 139.686 75.1765C140.094 73.6929 142.147 73.6929 142.555 75.1765C143.646 79.1512 144.961 84.1995 144.961 85.4406Z"
         fill="#66B0F5"

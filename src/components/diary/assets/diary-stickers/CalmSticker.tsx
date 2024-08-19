@@ -3,8 +3,8 @@ import React from 'react';
 const CalmSticker = () => {
   return (
     <svg
-      width="50"
-      height="50"
+      width="26"
+      height="24"
       viewBox="0 0 161 146"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -12,14 +12,14 @@ const CalmSticker = () => {
     >
       <mask id="path-1-inside-1_2549_11037" fill="white">
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
+          fillRule="evenodd"
+          clipRule="evenodd"
           d="M58.1426 124.536C35.3437 129.71 10.2517 122.353 1.66903 90.3223C-5.64915 63.0105 13.0573 17.8893 19.9032 2.78291C21.1457 0.0412185 24.4774 -0.851504 26.9243 0.901626C40.4063 10.5612 79.1671 40.2841 86.4853 67.5959C94.9845 99.3152 84.9702 116.137 63.61 123.04C69.3599 131.594 74.7773 134.045 77.5984 135.321L77.6723 135.355C79.2925 136.088 80.9304 136.554 82.3398 136.884C82.9436 137.026 83.4889 137.139 83.9859 137.242L84.238 137.295L84.2394 137.295C84.7341 137.398 85.332 137.523 85.7802 137.675L85.7872 137.678C85.9526 137.734 86.4769 137.911 86.9361 138.324C87.2023 138.564 87.6444 139.059 87.7766 139.84C87.9189 140.681 87.6239 141.364 87.3332 141.777C86.8946 142.399 86.2768 142.691 86.1061 142.771L86.0933 142.777C85.8154 142.909 85.5086 143.021 85.2191 143.116C84.1149 143.48 82.0976 143.984 79.0681 144.741L78.9201 144.778C72.2855 146.435 67.2806 142.225 64.0479 137.584C61.2011 133.496 59.24 128.456 58.1426 124.536ZM76.1196 140.133C73.7696 140.151 71.5817 138.872 69.5431 136.525C72.0044 138.267 74.1147 139.233 75.6107 139.91C75.7807 139.987 75.9505 140.061 76.1196 140.133Z"
         />
       </mask>
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M58.1426 124.536C35.3437 129.71 10.2517 122.353 1.66903 90.3223C-5.64915 63.0105 13.0573 17.8893 19.9032 2.78291C21.1457 0.0412185 24.4774 -0.851504 26.9243 0.901626C40.4063 10.5612 79.1671 40.2841 86.4853 67.5959C94.9845 99.3152 84.9702 116.137 63.61 123.04C69.3599 131.594 74.7773 134.045 77.5984 135.321L77.6723 135.355C79.2925 136.088 80.9304 136.554 82.3398 136.884C82.9436 137.026 83.4889 137.139 83.9859 137.242L84.238 137.295L84.2394 137.295C84.7341 137.398 85.332 137.523 85.7802 137.675L85.7872 137.678C85.9526 137.734 86.4769 137.911 86.9361 138.324C87.2023 138.564 87.6444 139.059 87.7766 139.84C87.9189 140.681 87.6239 141.364 87.3332 141.777C86.8946 142.399 86.2768 142.691 86.1061 142.771L86.0933 142.777C85.8154 142.909 85.5086 143.021 85.2191 143.116C84.1149 143.48 82.0976 143.984 79.0681 144.741L78.9201 144.778C72.2855 146.435 67.2806 142.225 64.0479 137.584C61.2011 133.496 59.24 128.456 58.1426 124.536ZM76.1196 140.133C73.7696 140.151 71.5817 138.872 69.5431 136.525C72.0044 138.267 74.1147 139.233 75.6107 139.91C75.7807 139.987 75.9505 140.061 76.1196 140.133Z"
         fill="#B3EFDF"
       />
@@ -31,54 +31,54 @@ const CalmSticker = () => {
       <path
         d="M30 20C33 45.5093 43.2 100.222 60 115"
         stroke="#5FDDBC"
-        stroke-width="5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M82.5 37.5C100.833 46.6667 136.5 57 132.5 25"
         stroke="#5FDDBC"
-        stroke-width="5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M90 59.6649C110.101 66.7524 147.919 69.573 144.821 50"
         stroke="#5FDDBC"
-        stroke-width="5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M95 73.6412C112.5 85 162.27 87.1216 157.5 65"
         stroke="#5FDDBC"
-        stroke-width="5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M26.8987 60.9257C25.283 64.0571 20.2998 68.6209 14.9247 61.7151"
         stroke="#080808"
-        stroke-width="4"
-        stroke-linecap="round"
+        strokeWidth="4"
+        strokeLinecap="round"
       />
       <path
         d="M66.7946 54.9989C65.5628 58.3003 61.1576 63.4243 54.9994 57.2067"
         stroke="#080808"
-        stroke-width="4"
-        stroke-linecap="round"
+        strokeWidth="4"
+        strokeLinecap="round"
       />
-      <path d="M10.4497 75.4434L12.5638 70.6103" stroke="#F78383" stroke-width="2.63762" stroke-linecap="round" />
-      <path d="M14.3818 75.0044L16.496 70.1713" stroke="#F78383" stroke-width="2.63762" stroke-linecap="round" />
-      <path d="M18.3137 74.5649L20.4279 69.7319" stroke="#F78383" stroke-width="2.63762" stroke-linecap="round" />
-      <path d="M63.3147 70.2432L64.745 65.1655" stroke="#F78383" stroke-width="2.63762" stroke-linecap="round" />
-      <path d="M67.1492 69.2681L68.5795 64.1904" stroke="#F78383" stroke-width="2.63762" stroke-linecap="round" />
-      <path d="M70.9834 68.293L72.4137 63.2153" stroke="#F78383" stroke-width="2.63762" stroke-linecap="round" />
+      <path d="M10.4497 75.4434L12.5638 70.6103" stroke="#F78383" strokeWidth="2.63762" strokeLinecap="round" />
+      <path d="M14.3818 75.0044L16.496 70.1713" stroke="#F78383" strokeWidth="2.63762" strokeLinecap="round" />
+      <path d="M18.3137 74.5649L20.4279 69.7319" stroke="#F78383" strokeWidth="2.63762" strokeLinecap="round" />
+      <path d="M63.3147 70.2432L64.745 65.1655" stroke="#F78383" strokeWidth="2.63762" strokeLinecap="round" />
+      <path d="M67.1492 69.2681L68.5795 64.1904" stroke="#F78383" strokeWidth="2.63762" strokeLinecap="round" />
+      <path d="M70.9834 68.293L72.4137 63.2153" stroke="#F78383" strokeWidth="2.63762" strokeLinecap="round" />
       <path
         d="M35.4233 90.9255C40.741 96.7322 50.7412 99.2322 54.6673 84.9999"
         stroke="#080808"
-        stroke-width="4"
-        stroke-linecap="round"
+        strokeWidth="4"
+        strokeLinecap="round"
       />
     </svg>
   );

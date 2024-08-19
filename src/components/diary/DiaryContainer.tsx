@@ -22,16 +22,34 @@ import StickerPicker from './StickerPicker';
 import Sticker from './Sticker';
 import CircleUI from './CircleUI';
 import { v4 as uuidv4 } from 'uuid';
-import CalmSticker from './assets/emotion-stickers/CalmSticker';
-import JoySticker from './assets/emotion-stickers/JoySticker';
-import LethargySticker from './assets/emotion-stickers/LethargySticker';
-import AnxietySticker from './assets/emotion-stickers/AnxietySticker';
-import HopeSticker from './assets/emotion-stickers/HopeSticker';
-import AngerSticker from './assets/emotion-stickers/AngerSticker';
-import SadnessSticker from './assets/emotion-stickers/SadnessSticker';
+import CalmSticker from './assets/diary-stickers/CalmSticker';
+import JoySticker from './assets/diary-stickers/JoySticker';
+import LethargySticker from './assets/diary-stickers/LethargySticker';
+import AnxietySticker from './assets/diary-stickers/AnxietySticker';
+import HopeSticker from './assets/diary-stickers/HopeSticker';
+import AngerSticker from './assets/diary-stickers/AngerSticker';
+import SadnessSticker from './assets/diary-stickers/SadnessSticker';
 import SmilePlusIcon from './assets/SmilePlusIcon';
 import SaveIcon from './assets/SaveIcon';
 import XIconBlack from './assets/XIconBlack';
+import { createClient } from '@/utils/supabase/client';
+import TipBubble from './assets/TipBubble';
+import SpringFlowerSticker from './assets/diary-stickers/SpringFlowerSticker';
+import WinterFlowerSticker from './assets/diary-stickers/WinterFlowerSticker';
+import SummerFlowerSticker from './assets/diary-stickers/SummerFlowerSticker';
+import FallFlowerSticker from './assets/diary-stickers/FallFlowerSticker';
+import SeedSticker from './assets/diary-stickers/SeedSticker';
+import LogoSticker from './assets/diary-stickers/LogoSticker';
+import ColorInsideTextSticker from './assets/diary-stickers/ColorInsideTextSticker';
+import HappyDayTextSticker from './assets/diary-stickers/HappyDayTextSticker';
+import DoAnythingSticker from './assets/diary-stickers/DoAnythingSticker';
+import TextSeedSticker from './assets/diary-stickers/TextSeedSticker';
+import TextGoodJobSticker from './assets/diary-stickers/TextGoodJobSticker';
+import NoThoughtSticker from './assets/diary-stickers/NoThoughtSticker';
+import SpecialDaySticker from './assets/diary-stickers/SpecialDaySticker';
+import SpecialMeSticker from './assets/diary-stickers/SpecialMeSticker';
+import PreciousMeSticker from './assets/diary-stickers/PreciousMeSticker';
+import NaSticker from './assets/diary-stickers/NaSticker';
 
 type StickerType = {
   id: string;
@@ -39,21 +57,36 @@ type StickerType = {
   position: { x: number; y: number };
 };
 
-type DiaryStickers = {
+type StickerDataType = {
   id: string;
-  diaryId: string;
-  stickerData: StickerType[];
+  component: string;
+  position: { x: number; y: number };
 };
 
-// 스티커 컴포넌트 매핑 객체
 const componentMapper: Record<string, JSX.Element> = {
-  CalmSticker: <CalmSticker />,
-  JoySticker: <JoySticker />,
-  LethargySticker: <LethargySticker />,
+  SpringFlowerSticker: <SpringFlowerSticker />,
+  WinterFlowerSticker: <WinterFlowerSticker />,
+  SummerFlowerSticker: <SummerFlowerSticker />,
+  FallFlowerSticker: <FallFlowerSticker />,
   AnxietySticker: <AnxietySticker />,
+  SadnessSticker: <SadnessSticker />,
+  SeedSticker: <SeedSticker />,
+  JoySticker: <JoySticker />,
+  LogoSticker: <LogoSticker />,
   HopeSticker: <HopeSticker />,
+  LethargySticker: <LethargySticker />,
   AngerSticker: <AngerSticker />,
-  SadnessSticker: <SadnessSticker />
+  CalmSticker: <CalmSticker />,
+  ColorInsideTextSticker: <ColorInsideTextSticker />,
+  HappyDayTextSticker: <HappyDayTextSticker />,
+  DoAnythingSticker: <DoAnythingSticker />,
+  TextSeedSticker: <TextSeedSticker />,
+  TextGoodJobSticker: <TextGoodJobSticker />,
+  NoThoughtSticker: <NoThoughtSticker />,
+  SpecialDaySticker: <SpecialDaySticker />,
+  SpecialMeSticker: <SpecialMeSticker />,
+  PreciousMeSticker: <PreciousMeSticker />,
+  NaSticker: <NaSticker />
 };
 
 const DiaryContainer = () => {
@@ -77,19 +110,26 @@ const DiaryContainer = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [stickers, setStickers] = useState<StickerType[]>([]);
   const [isPickerVisible, setIsPickerVisible] = useState<boolean>(false);
+  const [isTipVisible, setIsTipVisible] = useState(true);
+  const [isDeleteVisible, setIsDeleteVisible] = useState(false);
 
   const handleStickerSelect = (sticker: Omit<StickerType, 'position'>) => {
     setStickers([...stickers, { ...sticker, id: uuidv4(), position: { x: 200, y: 200 } }]);
 
-    console.log(stickers);
     setIsPickerVisible(false);
   };
 
-  const saveStickers = async () => {
+  const handlePositionChange = (id: string, position: { x: number; y: number }) => {
+    setStickers((prevStickers) =>
+      prevStickers.map((sticker) => (sticker.id === id ? { ...sticker, position } : sticker))
+    );
+  };
+
+  const handleSaveStickers = async () => {
     try {
       const stickersToSave = stickers.map((sticker) => ({
         ...sticker,
-        component: sticker.component.type.name // 컴포넌트 이름 저장
+        component: sticker.component.type.name
       }));
 
       const { data: existingStickerData, error: fetchError } = await supabase
@@ -102,38 +142,39 @@ const DiaryContainer = () => {
         throw fetchError;
       }
 
-      if (existingStickerData) {
-        const { error: updateError } = await supabase
-          .from('diaryStickers')
-          .update({ stickersData: stickersToSave })
-          .eq('id', existingStickerData.id);
+      if (stickersToSave.length === 0) {
+        if (existingStickerData) {
+          await supabase.from('diaryStickers').delete().eq('id', existingStickerData.id);
 
-        if (updateError) {
-          throw updateError;
+          toast.on({ label: '스티커가 삭제되었습니다' });
         }
-
-        alert('스티커가 업데이트 되었습니다');
       } else {
-        const { error: insertError } = await supabase.from('diaryStickers').insert({
-          diaryId,
-          stickersData: stickersToSave
-        });
+        if (existingStickerData) {
+          const { error: updateError } = await supabase
+            .from('diaryStickers')
+            .update({ stickersData: stickersToSave })
+            .eq('id', existingStickerData.id);
 
-        if (insertError) {
-          throw insertError;
+          if (updateError) {
+            throw updateError;
+          }
+
+          toast.on({ label: '스티커가 업데이트 되었습니다' });
+        } else {
+          const { error: insertError } = await supabase.from('diaryStickers').insert({
+            diaryId,
+            stickersData: stickersToSave
+          });
+
+          if (insertError) {
+            throw insertError;
+          }
+          toast.on({ label: '스티커가 저장되었습니다' });
         }
-
-        alert('스티커가 저장되었습니다');
       }
     } catch (error) {
       console.error('Error saving stickers:', error);
     }
-  };
-
-  const handlePositionChange = (id: string, position: { x: number; y: number }) => {
-    setStickers((prevStickers) =>
-      prevStickers.map((sticker) => (sticker.id === id ? { ...sticker, position } : sticker))
-    );
   };
 
   useEffect(() => {
@@ -166,10 +207,10 @@ const DiaryContainer = () => {
           throw error;
         }
 
-        if (data) {
-          const stickersFromDB = data.stickersData?.map((sticker: StickerType) => ({
+        if (data && Array.isArray(data.stickersData)) {
+          const stickersFromDB = (data.stickersData as StickerDataType[]).map((sticker) => ({
             ...sticker,
-            component: componentMapper[sticker.component] || null
+            component: componentMapper[sticker.component as keyof typeof componentMapper] || null
           }));
 
           setStickers(stickersFromDB);
@@ -230,7 +271,7 @@ const DiaryContainer = () => {
   const diaryData = userId ? diary : localDiary;
 
   if (error) {
-    return <p className="text-red-500">본인이 쓴 글이 아님</p>;
+    return <p>본인이 쓴 글이 아님</p>;
   }
 
   if (!diaryData) {
@@ -297,6 +338,7 @@ const DiaryContainer = () => {
               sticker={sticker}
               onDelete={(id: string) => setStickers(stickers.filter((s) => s.id !== id))}
               onPositionChange={handlePositionChange}
+              isDeleteVisible={isDeleteVisible}
             />
           ))}
           <CircleUI />
@@ -306,13 +348,35 @@ const DiaryContainer = () => {
                 <div className="invisible md:visible">
                   <TextButton onClick={handleBackward}>뒤로가기</TextButton>
                 </div>
-                <div className="flex gap-12px-row-m md:gap-8px-row">
-                  <button onClick={() => setIsPickerVisible(true)}>
-                    <SmilePlusIcon />
-                  </button>
-                  <button onClick={saveStickers}>
-                    <SaveIcon />
-                  </button>
+                <div className="relative flex gap-12px-row-m md:gap-8px-row">
+                  {userId && (
+                    <>
+                      <button
+                        onClick={() => {
+                          setIsPickerVisible(true);
+                          setIsDeleteVisible(true);
+                        }}
+                      >
+                        <SmilePlusIcon />
+                      </button>
+                      {isTipVisible && (
+                        <div
+                          onClick={() => setIsTipVisible(false)}
+                          className="absolute -top-12 -right-5 cursor-pointer z-50"
+                        >
+                          <TipBubble />
+                        </div>
+                      )}
+                      <button
+                        onClick={() => {
+                          handleSaveStickers();
+                          setIsDeleteVisible(false);
+                        }}
+                      >
+                        <SaveIcon />
+                      </button>
+                    </>
+                  )}
                 </div>
               </div>
               <div className="items-start justify-start ">
@@ -335,8 +399,14 @@ const DiaryContainer = () => {
             className="absolute inset-0 flex items-center justify-center z-50 "
             style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
           >
-            <div className="relative rounded-3xl bg-white border-2 border-[#E6D3BC] w-284-row-m h-310-col-m md:w-320px-row md:h-378px-col">
-              <StickerPicker onSelect={handleStickerSelect} />
+            <div className="relative rounded-[32px] bg-white border-2 border-[#E6D3BC] w-284px-row-m h-310px-col-m md:w-320px-row md:h-auto">
+              <div className="flex justify-center border-b-2 border-[#E6D3BC] px-10px-row-m py-12px-col-m md:px-12px-col md:py-12px-col">
+                <p className="text-14px-m md:text-16px">스티커 모음집</p>
+                <SmilePlusIcon />
+              </div>
+              <div className="py-24px-col-m px-16px-row-m md:px-24px-row md:pt-40px-col justify-center">
+                <StickerPicker onSelect={handleStickerSelect} />
+              </div>
               <button onClick={() => setIsPickerVisible(false)} className=" absolute right-4 bottom-4 ">
                 <XIconBlack />
               </button>
