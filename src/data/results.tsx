@@ -260,7 +260,7 @@ const results: ResultType[] = [
     result: 'lethargy',
     emotion: '무기력',
     color: '#D4D4D4',
-    comment: '때론 나도 모르게 치칠때가 있죠./조용히 나를 안아줘요.',
+    comment: '때론 나도 모르게 지칠때가 있죠./조용히 나를 안아줘요.',
     title: '#기운없는_무기력',
     image: (
       <svg width="201" height="200" viewBox="0 0 201 200" fill="none" xmlns="http://www.w3.org/2000/svg">
