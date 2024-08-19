@@ -20,11 +20,9 @@ import SeparatorIcon from './assets/SeparatorIcon';
 import Cards from './Cards';
 
 const MainSection = () => {
+  useChannelTalk();
   const router = useRouter();
   const searchParams = useSearchParams();
-
-  useChannelTalk();
-
   const makeQueryString = (form: String, date: Date) => {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
@@ -174,12 +172,12 @@ const MainSection = () => {
         {form === 'calendar' ? (
           <div>
             <Calendar
-              isCalendar={form === 'calendar'}
-              handleInputDate={handleInputDate}
               diaryList={diaries.data || []}
+              handleInputDate={handleInputDate}
+              isCalendar={form === 'calendar'}
+              isLoading={diaries.isLoading}
               month={date}
               onMonthChange={setDate}
-              isLoading={diaries.isLoading}
             />
           </div>
         ) : (

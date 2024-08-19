@@ -29,9 +29,11 @@ function Calendar({
   className,
   classNames,
   showOutsideDays = false,
+  month,
+  onMonthChange,
   diaryList,
-  isCalendar,
   handleInputDate,
+  isCalendar,
   isLoading,
   ...props
 }: CalendarProps) {
@@ -39,9 +41,27 @@ function Calendar({
   const today = new Date();
   const toast = useToast();
   const searchParams = useSearchParams();
+  const ref = React.useRef<HTMLDivElement>(null);
+  const [coverHeight, setCoverHeight] = React.useState(0);
+
+  const updateTbodyHight = () => {
+    if (ref.current) {
+      const tbody = ref.current.getElementsByTagName('tbody')[0];
+      if (tbody) {
+        setCoverHeight(tbody.offsetHeight);
+      }
+    }
+  };
+
+  React.useEffect(() => {
+    updateTbodyHight();
+    //window.addEventListener();
+  }, []);
+  // 마운트 시 등록 언마운트 시 해제
+  console.log(coverHeight);
 
   return (
-    <div className="relative">
+    <div className="relative" ref={ref}>
       <DayPicker
         showOutsideDays={showOutsideDays}
         locale={ko}
@@ -57,16 +77,7 @@ function Calendar({
           caption_label: 'text-sm font-medium',
           nav: 'flex items-center',
           nav_button: cn('h-7 w-7 bg-transparent opacity-50 hover:opacity-100'),
-          nav_button_previous: `${
-            isCalendar
-              ? 'absolute left-70px-row-m top-1.5 md:left-216px-row md:top-4'
-              : 'absolute right-90px-row-m md:right-230px-row'
-          }`,
-          nav_button_next: `${
-            isCalendar
-              ? 'absolute right-78px-row-m top-1.5 md:right-230px-row md:top-4'
-              : 'absolute left-110px-row-m md:left-250px-row'
-          }`,
+
           table: `${
             isCalendar
               ? 'w-full border-collapse flex flex-col items-center md:px-72px-row md:py-24px-col px-16px-row-m py-16px-col-m '
@@ -107,6 +118,40 @@ function Calendar({
                 <p onClick={() => handleRef()} className="text-16px-m md:text-24px">
                   {props.displayMonth.getFullYear()}년 {props.displayMonth.getMonth() + 1}월
                 </p>
+              </div>
+            );
+          },
+          Caption: ({ ...props }) => {
+            const goPrevMonth = () => {
+              if (!month || !onMonthChange) return;
+              onMonthChange(new Date(month.setMonth(month.getMonth() - 1)));
+            };
+            const goNextMonth = () => {
+              if (!month || !onMonthChange) return;
+              onMonthChange(new Date(month.setMonth(month.getMonth() + 1)));
+            };
+            const dateInputRef = React.useRef<HTMLInputElement>(null);
+            const handleRef = () => {
+              if (dateInputRef.current) {
+                dateInputRef.current.showPicker();
+              }
+            };
+            return (
+              <div className="anchor cursor-pointer py-12px-col-m md:py-24px-col">
+                <input type="date" ref={dateInputRef} style={{ visibility: 'hidden' }} onChange={handleInputDate} />
+                <div className="flex items-center justify-center">
+                  <div onClick={() => goPrevMonth()}>
+                    <CalenderPrevIcon />
+                  </div>
+                  {month && (
+                    <p onClick={() => handleRef()} className="text-16px-m md:text-24px">
+                      {month.getFullYear()}년 {month.getMonth() + 1}월
+                    </p>
+                  )}
+                  <div onClick={() => goNextMonth()}>
+                    <CalenderNextIcon />
+                  </div>
+                </div>
               </div>
             );
           },
@@ -197,7 +242,10 @@ function Calendar({
         }}
         {...props}
       />
-      <div className="absolute bg-[#fff] w-4/5 h-[74%] top-102px-col-m left-32px-row-m md:w-4/5 md:h-2/3 md:top-170px-col md:left-70px-row flex flex-col justify-center items-center">
+      <div
+        className={`absolute bottom-24px-col border left-1 right-1 bg-[#fff] rounded-[24px] md:rounded-[32px] flex flex-col justify-center items-center`}
+        style={{ height: `${coverHeight}px` }}
+      >
         <div className="loading flex space-x-16px-row-m md:space-x-16px-row">
           <div className="w-32px-row-m md:w-40px-row delay-200 animate-[jump_1s_ease-in-out_infinite]">
             <LoadingSpring />
