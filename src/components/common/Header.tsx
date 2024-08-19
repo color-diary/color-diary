@@ -2,7 +2,7 @@
 
 import useAuth from '@/hooks/useAuth';
 import useZustandStore from '@/zustand/zustandStore';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -19,8 +19,7 @@ const Header = () => {
   const pathname = usePathname();
   const router = useRouter();
 
-  const { user } = useAuth();
-  const queryClient = useQueryClient();
+  const { user, isLoading } = useAuth();
 
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
@@ -32,7 +31,8 @@ const Header = () => {
     queryFn: async () => {
       const { data } = await axios.get('/api/auth/me/information');
       return data;
-    }
+    },
+    enabled: !isLoading
   });
 
   useEffect(() => {
