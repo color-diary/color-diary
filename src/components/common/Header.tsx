@@ -30,7 +30,7 @@ const Header = () => {
     queryKey: ['information'],
     queryFn: async () => {
       const { data } = await axios.get('/api/auth/me/information');
-      return data;
+      return data[0];
     },
     enabled: !isLoading
   });
@@ -92,11 +92,11 @@ const Header = () => {
         <button onClick={toggleMusic} className="w-6 h-6">
           {isPlaying ? <MusicOnIcon /> : <MusicOffIcon />}
         </button>
-        {user && userData ? (
+        {!isLoading && user ? (
           <Link href={'/my-page'} onClick={handleClick}>
             <div className="relative md:w-10 md:h-10 w-6 h-6 aspect-square">
               <Image
-                src={userData[0].profileImg || '/default-profile.jpg'}
+                src={userData?.profileImg || '/default-profile.jpg'}
                 alt="Profile Image"
                 fill
                 className="rounded-full cursor-pointer object-cover"

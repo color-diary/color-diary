@@ -1,5 +1,3 @@
-import React from 'react';
-
 const ColorInsideTextSticker = () => {
   return (
     <div className="w-68px-row-m h-18px-col-m md:w-90px-row md:h-24px-col">

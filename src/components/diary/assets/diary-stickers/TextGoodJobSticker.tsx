@@ -1,5 +1,3 @@
-import React from 'react';
-
 const TextGoodJobSticker = () => {
   return (
     <div className="w-78px-row-m h-18px-col-m md:w-90px-row md:h-20px-col">

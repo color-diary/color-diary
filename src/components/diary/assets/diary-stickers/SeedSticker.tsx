@@ -1,5 +1,3 @@
-import React from 'react';
-
 const SeedSticker = () => {
   return (
     <svg width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">

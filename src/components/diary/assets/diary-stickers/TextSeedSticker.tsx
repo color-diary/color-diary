@@ -1,5 +1,3 @@
-import React from 'react';
-
 const TextSeedSticker = () => {
   return (
     <div className="w-68px-row-m h-18px-col-m md:w-80px-row md:h-20px-col">
