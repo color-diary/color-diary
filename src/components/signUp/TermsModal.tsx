@@ -15,7 +15,7 @@ const TermsModal = ({ isTermsChecked, onConfirm, onCancel }: TermsModalProps) =>
       <h1 className="text-font-color text-18px-m md:text-24px font-bold tracking-0.48px">
         Color Inside 서비스 이용약관
       </h1>
-      <div className="w-300px-row-m h-360px-col-m md:w-540px-row md:h-560px-col overflow-y-scroll custom-terms-scrollbar-mobile md:custom-terms-scrollbar">
+      <div className="w-300px-row-m h-360px-col-m md:w-540px-row md:h-560px-col overflow-y-scroll custom-terms-scrollbar-mobile md:custom-terms-scrollbar pr-3">
         {terms}
       </div>
       <div className="w-full flex items-end justify-end self-stretch mt-16px-col-m md:mt-0 gap-16px-row-m md:gap-16px-row">

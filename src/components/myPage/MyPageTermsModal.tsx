@@ -15,7 +15,7 @@ const MyPageTermsModal = ({ onClose }: TermsModalProps) => {
           Color Inside 서비스 이용약관
         </h1>
       </div>
-      <div className="w-full md:w-540px-row h-560px-col overflow-y-scroll small-custom-terms-scrollbar">{terms}</div>
+      <div className="w-full md:w-540px-row h-560px-col overflow-y-scroll small-custom-terms-scrollbar pr-3">{terms}</div>
       <div className="w-full flex items-end justify-end self-stretch">
         <Button size={'lg'} onClick={onClose} icon={<Exit />}>
           이용약관 닫기
