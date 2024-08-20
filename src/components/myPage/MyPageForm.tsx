@@ -61,7 +61,7 @@ const MyPageForm = () => {
       queryClient.removeQueries({ queryKey: ['diaries'] });
       queryClient.removeQueries({ queryKey: ['main'] });
 
-      queryClient.setQueryData(['user'], null);
+      queryClient.invalidateQueries({ queryKey: ['user'] });
     },
     onError: (error) => {
       console.error('로그아웃 오류 발생: ', error);
