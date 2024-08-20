@@ -11,4 +11,6 @@ const NaSticker = () => {
   );
 };
 
+NaSticker.displayName = 'NaSticker';
+
 export default NaSticker;

@@ -77,4 +77,6 @@ const JoySticker = () => {
   );
 };
 
+JoySticker.displayName = 'JoySticker';
+
 export default JoySticker;

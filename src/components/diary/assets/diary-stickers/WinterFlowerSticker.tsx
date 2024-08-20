@@ -16,4 +16,6 @@ const WinterFlowerSticker = () => {
   );
 };
 
+WinterFlowerSticker.displayName = 'WinterFlowerSticker';
+
 export default WinterFlowerSticker;

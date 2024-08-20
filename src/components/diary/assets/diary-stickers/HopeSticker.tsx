@@ -150,4 +150,6 @@ const HopeSticker = () => {
   );
 };
 
+HopeSticker.displayName = 'HopeSticker';
+
 export default HopeSticker;

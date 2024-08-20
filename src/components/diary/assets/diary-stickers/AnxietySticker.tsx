@@ -127,4 +127,6 @@ const AnxietySticker = () => {
   );
 };
 
+AnxietySticker.displayName = 'AnxietySticker';
+
 export default AnxietySticker;

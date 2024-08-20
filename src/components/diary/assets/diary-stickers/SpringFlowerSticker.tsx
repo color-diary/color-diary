@@ -24,4 +24,6 @@ const SpringFlowerSticker = () => {
   );
 };
 
+SpringFlowerSticker.displayName = 'SpringFlowerSticker';
+
 export default SpringFlowerSticker;

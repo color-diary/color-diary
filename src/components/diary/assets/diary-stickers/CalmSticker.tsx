@@ -82,4 +82,6 @@ const CalmSticker = () => {
   );
 };
 
+CalmSticker.displayName = 'CalmSticker';
+
 export default CalmSticker;

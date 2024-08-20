@@ -39,4 +39,6 @@ const LogoSticker = () => {
   );
 };
 
+LogoSticker.displayName = 'LogoSticker';
+
 export default LogoSticker;

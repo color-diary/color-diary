@@ -11,4 +11,6 @@ const SpecialDaySticker = () => {
   );
 };
 
+SpecialDaySticker.displayName = 'SpecialDaySticker';
+
 export default SpecialDaySticker;

@@ -78,4 +78,6 @@ const SeedSticker = () => {
   );
 };
 
+SeedSticker.displayName = 'SeedSticker';
+
 export default SeedSticker;

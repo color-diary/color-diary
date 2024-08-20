@@ -11,4 +11,6 @@ const DoAnythingSticker = () => {
   );
 };
 
+DoAnythingSticker.displayName = 'DoAnythingSticker';
+
 export default DoAnythingSticker;

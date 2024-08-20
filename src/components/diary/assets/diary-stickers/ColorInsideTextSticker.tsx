@@ -11,4 +11,6 @@ const ColorInsideTextSticker = () => {
   );
 };
 
+ColorInsideTextSticker.displayName = 'ColorInsideTextSticker';
+
 export default ColorInsideTextSticker;
