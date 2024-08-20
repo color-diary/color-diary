@@ -24,4 +24,6 @@ const FallFlowerSticker = () => {
   );
 };
 
+FallFlowerSticker.displayName = 'FallFlowerSticker';
+
 export default FallFlowerSticker;

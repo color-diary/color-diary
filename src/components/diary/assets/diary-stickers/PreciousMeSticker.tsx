@@ -11,4 +11,6 @@ const PreciousMeSticker = () => {
   );
 };
 
+PreciousMeSticker.displayName = 'PreciousMeSticker';
+
 export default PreciousMeSticker;

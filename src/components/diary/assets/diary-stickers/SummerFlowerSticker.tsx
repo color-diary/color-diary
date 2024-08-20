@@ -12,4 +12,6 @@ const SummerFlowerSticker = () => {
   );
 };
 
+SummerFlowerSticker.displayName = 'SummerFlowerSticker';
+
 export default SummerFlowerSticker;

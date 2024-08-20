@@ -59,4 +59,6 @@ const LethargySticker = () => {
   );
 };
 
+LethargySticker.displayName = 'LethargySticker';
+
 export default LethargySticker;

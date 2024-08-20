@@ -116,4 +116,6 @@ const AngerSticker = () => {
   );
 };
 
+AngerSticker.displayName = 'AngerSticker';
+
 export default AngerSticker;

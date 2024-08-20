@@ -73,4 +73,6 @@ const SadnessSticker = () => {
   );
 };
 
+SadnessSticker.displayName = 'SadnessSticker';
+
 export default SadnessSticker;

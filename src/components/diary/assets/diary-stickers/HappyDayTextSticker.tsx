@@ -11,4 +11,6 @@ const HappyDayTextSticker = () => {
   );
 };
 
+HappyDayTextSticker.displayName = 'HappyDayTextSticker';
+
 export default HappyDayTextSticker;

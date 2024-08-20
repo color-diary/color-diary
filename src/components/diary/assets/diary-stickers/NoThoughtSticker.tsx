@@ -11,4 +11,6 @@ const NoThoughtSticker = () => {
   );
 };
 
+NoThoughtSticker.displayName = 'NoThoughtSticker';
+
 export default NoThoughtSticker;

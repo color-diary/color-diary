@@ -11,4 +11,6 @@ const SpecialMeSticker = () => {
   );
 };
 
+SpecialMeSticker.displayName = 'SpecialMeSticker';
+
 export default SpecialMeSticker;

@@ -129,7 +129,7 @@ const DiaryContainer = () => {
     try {
       const stickersToSave = stickers.map((sticker) => ({
         ...sticker,
-        component: sticker.component.type.name
+        component: sticker.component.type.displayName as string
       }));
 
       const { data: existingStickerData, error: fetchError } = await supabase
@@ -214,6 +214,7 @@ const DiaryContainer = () => {
           }));
 
           setStickers(stickersFromDB);
+          console.log('스티커디비', stickersFromDB);
         }
       } catch (error) {
         console.error('Error fetching stickers:', error);

@@ -11,4 +11,6 @@ const TextGoodJobSticker = () => {
   );
 };
 
+TextGoodJobSticker.displayName = 'TextGoodJobSticker';
+
 export default TextGoodJobSticker;

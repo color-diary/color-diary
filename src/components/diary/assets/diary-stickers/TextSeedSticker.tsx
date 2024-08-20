@@ -11,4 +11,6 @@ const TextSeedSticker = () => {
   );
 };
 
+TextSeedSticker.displayName = 'TextSeedSticker';
+
 export default TextSeedSticker;
