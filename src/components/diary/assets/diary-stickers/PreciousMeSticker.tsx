@@ -1,5 +1,3 @@
-import React from 'react';
-
 const PreciousMeSticker = () => {
   return (
     <div className="w-48px-row-m h-18px-col-m  md:w-56px-row md:h-20px-col">

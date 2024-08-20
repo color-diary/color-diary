@@ -1,5 +1,3 @@
-import React from 'react';
-
 const SpecialDaySticker = () => {
   return (
     <div className="w-58px-row-m h-18px-col-m md:w-67px-row md:h-20px-col">

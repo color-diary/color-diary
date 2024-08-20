@@ -1,29 +1,28 @@
 'use client';
 
-import React from 'react';
 import AngerSticker from './assets/diary-stickers/AngerSticker';
 import AnxietySticker from './assets/diary-stickers/AnxietySticker';
 import CalmSticker from './assets/diary-stickers/CalmSticker';
+import ColorInsideTextSticker from './assets/diary-stickers/ColorInsideTextSticker';
+import DoAnythingSticker from './assets/diary-stickers/DoAnythingSticker';
+import FallFlowerSticker from './assets/diary-stickers/FallFlowerSticker';
+import HappyDayTextSticker from './assets/diary-stickers/HappyDayTextSticker';
 import HopeSticker from './assets/diary-stickers/HopeSticker';
 import JoySticker from './assets/diary-stickers/JoySticker';
 import LethargySticker from './assets/diary-stickers/LethargySticker';
-import SadnessSticker from './assets/diary-stickers/SadnessSticker';
-import SpringFlowerSticker from './assets/diary-stickers/SpringFlowerSticker';
-import WinterFlowerSticker from './assets/diary-stickers/WinterFlowerSticker';
-import SummerFlowerSticker from './assets/diary-stickers/SummerFlowerSticker';
-import FallFlowerSticker from './assets/diary-stickers/FallFlowerSticker';
-import SeedSticker from './assets/diary-stickers/SeedSticker';
 import LogoSticker from './assets/diary-stickers/LogoSticker';
-import ColorInsideTextSticker from './assets/diary-stickers/ColorInsideTextSticker';
-import HappyDayTextSticker from './assets/diary-stickers/HappyDayTextSticker';
-import DoAnythingSticker from './assets/diary-stickers/DoAnythingSticker';
-import TextSeedSticker from './assets/diary-stickers/TextSeedSticker';
-import TextGoodJobSticker from './assets/diary-stickers/TextGoodJobSticker';
+import NaSticker from './assets/diary-stickers/NaSticker';
 import NoThoughtSticker from './assets/diary-stickers/NoThoughtSticker';
+import PreciousMeSticker from './assets/diary-stickers/PreciousMeSticker';
+import SadnessSticker from './assets/diary-stickers/SadnessSticker';
+import SeedSticker from './assets/diary-stickers/SeedSticker';
 import SpecialDaySticker from './assets/diary-stickers/SpecialDaySticker';
 import SpecialMeSticker from './assets/diary-stickers/SpecialMeSticker';
-import PreciousMeSticker from './assets/diary-stickers/PreciousMeSticker';
-import NaSticker from './assets/diary-stickers/NaSticker';
+import SpringFlowerSticker from './assets/diary-stickers/SpringFlowerSticker';
+import SummerFlowerSticker from './assets/diary-stickers/SummerFlowerSticker';
+import TextGoodJobSticker from './assets/diary-stickers/TextGoodJobSticker';
+import TextSeedSticker from './assets/diary-stickers/TextSeedSticker';
+import WinterFlowerSticker from './assets/diary-stickers/WinterFlowerSticker';
 
 type StickerType = {
   id: string;

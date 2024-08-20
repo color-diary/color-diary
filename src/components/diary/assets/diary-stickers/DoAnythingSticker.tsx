@@ -1,5 +1,3 @@
-import React from 'react';
-
 const DoAnythingSticker = () => {
   return (
     <div className="w-173px-row-m h-18px-col-m  md:w-195px-row md:h-24px-col">

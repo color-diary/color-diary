@@ -1,5 +1,3 @@
-import React from 'react';
-
 const SmilePlusIcon = () => {
   return (
     <div className="w-20px-row-m h-20px-col-m md:w-24px-row md:h-24px-col">

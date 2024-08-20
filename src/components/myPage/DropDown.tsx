@@ -1,19 +1,21 @@
+'use client';
+
 import { useState } from 'react';
 
 function Dropdown() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
-  const toggleDropdown = () => {
+  const toggleDropdown = (): void => {
     setIsOpen(!isOpen);
   };
 
-  const handleOptionClick = (option: string) => {
+  const handleOptionClick = (option: string): void => {
     setSelectedOption(option);
     setIsOpen(false);
   };
 
-  const options = ['기능 문의', '버그 신고', '계정 관련 문의', '피드백 및 제안'];
+  const options: string[] = ['기능 문의', '버그 신고', '계정 관련 문의', '피드백 및 제안'];
 
   return (
     <div className="flex flex-col items-start gap-8px-col self-stretch mb-[24px]">
@@ -21,7 +23,9 @@ function Dropdown() {
         문의 종류를 선택해주세요
       </label>
       <div
-        className={`w-full flex items-center px-16px-row py-8px-col rounded-lg cursor-pointer bg-white border ${isOpen ? 'border-[#25B18C]' : 'border-[var(--input-color)]'}`}
+        className={`w-full flex items-center px-16px-row py-8px-col rounded-lg cursor-pointer bg-white border ${
+          isOpen ? 'border-default' : 'border-input-color'
+        }`}
         onClick={toggleDropdown}
       >
         <input
@@ -29,7 +33,7 @@ function Dropdown() {
           value={selectedOption || '문의 종류 선택하기'}
           readOnly
           className="flex w-full outline-none text-14px-m md:text-18px cursor-pointer border-[#A1A1A1] py-1"
-          style={{ textAlign: 'left' }} 
+          style={{ textAlign: 'left' }}
         />
         <div>
           {isOpen ? (

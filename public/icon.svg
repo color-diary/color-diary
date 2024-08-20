@@ -5,7 +5,7 @@
   <path d="M8.99999 9.99989C6.99999 11.5999 6.50001 13.9999 7.49999 15.9999C8.42259 17.8452 11 16.9999 10 13.9999C9.45061 12.3517 13 11 15 10.5C16.5 10.125 16.8641 8.34105 15.5 7.99998C14.1359 7.65891 11.5 7.99989 8.99999 9.99989Z" fill="#DDF8F1"/>
   <defs>
     <filter id="filter0_i_2232_9110" x="4" y="5" width="31.7646" height="30" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-      <feFlood floodOpacity="0" result="BackgroundImageFix"/>
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
       <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
       <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
       <feOffset dx="-1" dy="-2"/>
