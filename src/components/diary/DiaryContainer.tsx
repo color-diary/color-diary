@@ -214,7 +214,6 @@ const DiaryContainer = () => {
           }));
 
           setStickers(stickersFromDB);
-          console.log('스티커디비', stickersFromDB);
         }
       } catch (error) {
         console.error('Error fetching stickers:', error);
