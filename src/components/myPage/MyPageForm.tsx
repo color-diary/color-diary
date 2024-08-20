@@ -219,7 +219,7 @@ const MyPageForm = () => {
                       className="px-2 py-1 w-[200px] font-medium border border-gray-400 rounded-lg"
                     />
                   ) : (
-                    <span className="px-2 py-1 w-[120px] md:w-[200px] font-medium">{userData?.nickname}</span>
+                    <span className="px-2 py-1 w-[120px] md:w-[200px] font-medium">{newNickname}</span>
                   )}
                 </div>
                 <div className="flex items-center gap-2 md:gap-2 text-[14px] md:text-18px">
