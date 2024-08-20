@@ -8,7 +8,6 @@ import axios from 'axios';
 import Image from 'next/image';
 import { useState } from 'react';
 import { Pie, PieChart } from 'recharts';
-import LoadingSpinner from '../common/LoadingSpinner';
 
 const ColorChart = () => {
   const today = new Date();
@@ -27,7 +26,7 @@ const ColorChart = () => {
     setMonth(changeMonth);
   };
 
-  const { data: diaries = [], isPending } = useQuery({
+  const { data: diaries = [] } = useQuery({
     queryKey: ['statisticsDiary', year, month],
     queryFn: async () => {
       const response = await axios.get<Diary[]>(`/api/diaries?year=${year}&month=${month}`);
@@ -35,10 +34,6 @@ const ColorChart = () => {
       return diaries;
     }
   });
-
-  if (isPending) {
-    return <LoadingSpinner />;
-  }
 
   const length = diaries.length;
   const allColors = diaries.flatMap((entry) => entry.color);
