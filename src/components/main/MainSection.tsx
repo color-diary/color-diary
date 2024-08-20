@@ -124,8 +124,9 @@ const MainSection = () => {
     setForm(name);
   };
 
-  const handleInputDate = (e: any, calendarYear: number): void => {
-    const date = new Date(calendarYear, Number(e.target.id) - 1, 1);
+  const handleInputDate = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, calendarYear: number): void => {
+    const { id } = e.target as HTMLButtonElement;
+    const date = new Date(calendarYear, Number(id) - 1, 1);
     if (date) {
       setDate(date);
     }

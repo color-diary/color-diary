@@ -4,14 +4,14 @@ import { DiaryList } from '@/types/diary.type';
 import { formatFullDate } from '@/utils/dateUtils';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { Calendar } from '../ui/calendar';
 import PlusDiaryIcon from './assets/PlusDiaryIcon';
 
 interface CardsProps {
   isCalendar: boolean;
   setDate: Dispatch<SetStateAction<Date>>;
-  handleInputDate: (e: any, calendarYear: number) => void;
+  handleInputDate: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, calendarYear: number) => void;
   date: Date;
   diaryList: DiaryList;
   isNeedNew: boolean;

@@ -7,7 +7,7 @@ import { Diary, DiaryList } from '@/types/diary.type';
 import { formatFullDate } from '@/utils/dateUtils';
 import { ko } from 'date-fns/locale';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { ChangeEvent, ComponentProps, useEffect, useRef, useState } from 'react';
+import { ComponentProps, useEffect, useRef, useState } from 'react';
 import { DayPicker } from 'react-day-picker';
 import CalenderNextIcon from '../main/assets/CalenderNextIcon';
 import CalenderPrevIcon from '../main/assets/CalenderPrevIcon';
@@ -25,7 +25,7 @@ export type CalendarProps = ComponentProps<typeof DayPicker> & {
   diaryList: DiaryList;
   isCalendar: boolean;
   isLoading?: boolean;
-  handleInputDate: (e: any, calendarYear: number) => void;
+  handleInputDate: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, calendarYear: number) => void;
   month: Date;
 };
 
