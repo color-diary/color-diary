@@ -7,7 +7,7 @@ import { Diary, DiaryList } from '@/types/diary.type';
 import { formatFullDate } from '@/utils/dateUtils';
 import { ko } from 'date-fns/locale';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { ChangeEvent, ComponentProps, useEffect, useRef, useState } from 'react';
+import { ComponentProps, useEffect, useRef, useState } from 'react';
 import { DayPicker } from 'react-day-picker';
 import CalenderNextIcon from '../main/assets/CalenderNextIcon';
 import CalenderPrevIcon from '../main/assets/CalenderPrevIcon';
@@ -17,12 +17,15 @@ import LoadingSummer from '../main/assets/LoadingSummer';
 import LoadingWinter from '../main/assets/LoadingWinter';
 import '../main/dateInput.css';
 import Stamp from '../main/Stamp';
+import PrevYearIcon from '../main/assets/PrevYearIcon';
+import NextYearIcon from '../main/assets/NextYearIcon';
+import CloseIcon from '../main/assets/closeIcon';
 
 export type CalendarProps = ComponentProps<typeof DayPicker> & {
   diaryList: DiaryList;
   isCalendar: boolean;
   isLoading?: boolean;
-  handleInputDate: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleInputDate: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, calendarYear: number) => void;
   month: Date;
 };
 
@@ -102,6 +105,9 @@ function Calendar({
         }}
         components={{
           Caption: ({ ...props }) => {
+            const [calendarYear, setCalendarYear] = useState<number>(month.getFullYear());
+            const [isOpenChangeDate, setIsOpenChangeDate] = useState<boolean>(false);
+            const MONTHS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
             const goPrevMonth = () => {
               if (!month || !onMonthChange) return;
               onMonthChange(new Date(month.setMonth(month.getMonth() - 1)));
@@ -110,23 +116,62 @@ function Calendar({
               if (!month || !onMonthChange) return;
               onMonthChange(new Date(month.setMonth(month.getMonth() + 1)));
             };
-            const dateInputRef = useRef<HTMLInputElement>(null);
-            const handleRef = () => {
-              if (dateInputRef.current) {
-                dateInputRef.current.showPicker();
-              }
-            };
             return (
-              <div className="anchor cursor-pointer py-12px-col-m md:py-24px-col cursor-pointer">
-                <input type="date" ref={dateInputRef} style={{ visibility: 'hidden' }} onChange={handleInputDate} />
+              <div className="anchor py-12px-col-m md:py-24px-col cursor-pointer">
                 <div className="flex items-center justify-center">
                   <div onClick={() => goPrevMonth()}>
                     <CalenderPrevIcon />
                   </div>
                   {month && (
-                    <p onClick={() => handleRef()} className="text-16px-m md:text-24px">
-                      {month.getFullYear()}년 {month.getMonth() + 1}월
-                    </p>
+                    <>
+                      <p
+                        onClick={() => setIsOpenChangeDate((prev) => !prev)}
+                        className="relative text-16px-m md:text-24px"
+                      >
+                        {month.getFullYear()}년 {month.getMonth() + 1}월
+                      </p>
+                      {isOpenChangeDate && (
+                        <div className="absolute top-[4rem] bg-[#fff] border-4 border-[#E6D3BC] px-32px-row-m md:px-32px-row rounded-[32px] text-14px-m md:text-18px">
+                          <button
+                            onClick={() => setIsOpenChangeDate(false)}
+                            className="absolute top-4 right-4 md:right-6 opacity-70"
+                          >
+                            <CloseIcon />
+                          </button>
+                          <div className="flex justify-center items-center py-16px-col">
+                            <div
+                              onClick={() => {
+                                setCalendarYear((prev) => prev - 1);
+                              }}
+                            >
+                              <PrevYearIcon />
+                            </div>
+                            {calendarYear}년
+                            <div
+                              onClick={() => {
+                                setCalendarYear((prev) => prev + 1);
+                              }}
+                            >
+                              <NextYearIcon />
+                            </div>
+                          </div>
+                          <div className="grid grid-cols-6 py-24px-col gap-x-48px-row gap-y-32px-col">
+                            {MONTHS.map((month) => {
+                              return (
+                                <button
+                                  key={`${month}`}
+                                  id={`${month}`}
+                                  onClick={(e) => handleInputDate(e, calendarYear)}
+                                  className="font-medium opacity-[.7] hover:opacity-100"
+                                >
+                                  {month}월
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      )}
+                    </>
                   )}
                   <div onClick={() => goNextMonth()}>
                     <CalenderNextIcon />
