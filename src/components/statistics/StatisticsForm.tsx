@@ -1,10 +1,11 @@
 'use client';
 
 import { kadvice, KadviceJsonModel } from 'kadvice';
+import localFont from 'next/font/local';
 import { useEffect, useState } from 'react';
+import LoadingSpinner from '../common/LoadingSpinner';
 import ColorChart from './ColorChart';
 import EmotionChart from './EmotionChart';
-import localFont from 'next/font/local';
 
 const myFont = localFont({
   src: '../../fonts/BMJUA_otf.otf',
@@ -20,7 +21,7 @@ const StatisticsForm = () => {
   }, []);
 
   if (!advice) {
-    return null;
+    return <LoadingSpinner />;
   }
 
   return (
