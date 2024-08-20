@@ -28,7 +28,7 @@ const MyPageForm = () => {
   const modal = useModal();
   const router = useRouter();
 
-  const { user } = useAuth();
+  const { user, isLoading } = useAuth();
   const queryClient = useQueryClient();
 
   const [newNickname, setNewNickname] = useState<string>('');
@@ -46,7 +46,7 @@ const MyPageForm = () => {
     queryFn: async () => {
       const { data } = await axios.get('/api/auth/me/information');
       setNewNickname(data[0].nickname);
-      return data;
+      return data[0];
     }
   });
 
@@ -58,9 +58,10 @@ const MyPageForm = () => {
       toast.on({ label: '로그아웃 되었습니다.' });
 
       queryClient.removeQueries({ queryKey: ['information'] });
-      queryClient.removeQueries({ queryKey: ['user'] });
       queryClient.removeQueries({ queryKey: ['diaries'] });
       queryClient.removeQueries({ queryKey: ['main'] });
+
+      queryClient.invalidateQueries({ queryKey: ['user'] });
     },
     onError: (error) => {
       console.error('로그아웃 오류 발생: ', error);
@@ -133,7 +134,7 @@ const MyPageForm = () => {
       toast.on({ label: '닉네임은 3글자 이상 8글자 이하이어야 합니다.' });
     } else {
       changeNickname(newNickname);
-      setIsAuthSuccess(false)
+      setIsAuthSuccess(false);
     }
   };
 
@@ -164,7 +165,7 @@ const MyPageForm = () => {
     <div className="flex items-center justify-center mt-95px-col-m px-5 md:px-394px-row md:mt-307px-col">
       <div className="flex flex-col w-full md:w-[1128px] items-start justify-center self-stretch gap-32px-row-m md:gap-43px-row ">
         <div className="flex flex-col items-start md:flex-row md:items-center w-full md:gap-14">
-          {user && userData ? (
+          {!isLoading && user ? (
             <div className="flex w-[160px] h-[160px] md:w-240px-row md:h-240px-row relative">
               {isLoadingImage ? (
                 <div className="absolute inset-0 flex items-center justify-center rounded-full">
@@ -172,13 +173,13 @@ const MyPageForm = () => {
                 </div>
               ) : null}
               <Image
-                src={userData[0].profileImg || '/default-profile2.jpg'}
+                src={userData?.profileImg || '/default-profile2.jpg'}
                 alt="Profile Image"
                 fill
                 sizes="(max-width: 768px)"
                 className={`cursor-pointer w-[80px] object-cover px-[15px] py-[15px] md:px-24px-col md:py-24px-col relative ${
                   isLoadingImage ? 'opacity-30' : ''
-                } ${userData[0].profileImg ? 'rounded-full' : ''}`}
+                } ${userData?.profileImg ? 'rounded-full' : ''}`}
                 onClick={() => fileInputRef.current?.click()}
                 onLoad={() => setIsLoadingImage(false)}
               />
@@ -205,7 +206,7 @@ const MyPageForm = () => {
               />
             </div>
           )}
-          {user && userData ? (
+          {!isLoading && user ? (
             <div className="flex flex-col justify-center items-start gap-[24px] mt-4">
               <div className="flex flex-col items-start gap-4 md:gap-4">
                 <div className="flex items-center gap-2 md:gap-2 text-[14px] md:text-18px">
@@ -218,7 +219,7 @@ const MyPageForm = () => {
                       className="px-2 py-1 w-[200px] font-medium border border-gray-400 rounded-lg"
                     />
                   ) : (
-                    <span className="px-2 py-1 w-[120px] md:w-[200px] font-medium">{userData[0].nickname}</span>
+                    <span className="px-2 py-1 w-[120px] md:w-[200px] font-medium">{newNickname}</span>
                   )}
                 </div>
                 <div className="flex items-center gap-2 md:gap-2 text-[14px] md:text-18px">
@@ -269,7 +270,7 @@ const MyPageForm = () => {
             </div>
           )}
         </div>
-        {user ? (
+        {!isLoading && user ? (
           <div className="flex justify-between items-center self-stretch border-t border-[#080808] ">
             <div className="flex items-center mt-4 md:mt-[24px]">
               <Button priority="secondary" icon={<Logout />} size="lg" onClick={handleClickLogOut}>

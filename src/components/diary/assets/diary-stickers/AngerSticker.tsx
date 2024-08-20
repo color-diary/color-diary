@@ -1,5 +1,3 @@
-import React from 'react';
-
 const AngerSticker = () => {
   return (
     <svg
@@ -117,5 +115,7 @@ const AngerSticker = () => {
     </svg>
   );
 };
+
+AngerSticker.displayName = 'AngerSticker';
 
 export default AngerSticker;

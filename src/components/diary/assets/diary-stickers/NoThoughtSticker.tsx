@@ -1,5 +1,3 @@
-import React from 'react';
-
 const NoThoughtSticker = () => {
   return (
     <div className=" w-40px-row-m h-18px-col-m md:w-46px-row md:h-20px-col">
@@ -12,5 +10,7 @@ const NoThoughtSticker = () => {
     </div>
   );
 };
+
+NoThoughtSticker.displayName = 'NoThoughtSticker';
 
 export default NoThoughtSticker;

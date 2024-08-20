@@ -1,5 +1,3 @@
-import React from 'react';
-
 const JoySticker = () => {
   return (
     <svg
@@ -78,5 +76,7 @@ const JoySticker = () => {
     </svg>
   );
 };
+
+JoySticker.displayName = 'JoySticker';
 
 export default JoySticker;

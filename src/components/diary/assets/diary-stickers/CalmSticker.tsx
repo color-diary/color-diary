@@ -1,5 +1,3 @@
-import React from 'react';
-
 const CalmSticker = () => {
   return (
     <svg
@@ -83,5 +81,7 @@ const CalmSticker = () => {
     </svg>
   );
 };
+
+CalmSticker.displayName = 'CalmSticker';
 
 export default CalmSticker;

@@ -98,10 +98,10 @@ const SignUpModal = ({ isVisible, onClose }: ModalProps) => {
       reset();
       onClose();
 
-      queryClient.refetchQueries({ queryKey: ['user'] });
-      queryClient.refetchQueries({ queryKey: ['information'] });
-      queryClient.refetchQueries({ queryKey: ['diaries'] });
-      queryClient.refetchQueries({ queryKey: ['main'] });
+      queryClient.invalidateQueries({ queryKey: ['user'] });
+      queryClient.invalidateQueries({ queryKey: ['information'] });
+      queryClient.invalidateQueries({ queryKey: ['diaries'] });
+      queryClient.invalidateQueries({ queryKey: ['main'] });
 
       router.replace('/');
     },

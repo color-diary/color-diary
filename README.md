@@ -2,6 +2,8 @@
 
 ### [💚 배포 링크](https://color-diary.vercel.app)
 
+### [💛 브로셔](https://www.notion.so/teamsparta/B10-Color-Inside-13af862d0aca467b9cc2ad7fdad854ec)
+
 <br />
 
 ## 🌷 팀원 소개
@@ -55,6 +57,13 @@
 
 <br />
 
+## 🎨 Architecture
+
+<p align="center">
+<img src="https://github.com/user-attachments/assets/7acf9bab-f932-47fd-b0b3-e7f7f22aeeca" width="90%"/></p>
+
+<br />
+
 ## 📍 Stacks
 
 <img src="https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white" /> <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black"/>
@@ -88,10 +97,11 @@
 - 비회원은 다이어리 2개까지 작성 가능
 - Header에서 배경음악 on/off 기능 제공
 - '나의 감정 확인하기' 버튼을 통해 감정 테스트 페이지로 이동 가능
+- '오늘로 돌아오기' 버튼을 클릭하면 오늘 날짜 달력으로 화면 전환
 
 | 캘린더 형식                                                                                                      | 카드 형식                                                                                                        |
 | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| <img src="https://github.com/user-attachments/assets/a1ae97c7-57b8-40d5-9887-643b11bc80a0" style="width:300px;"> | <img src="https://github.com/user-attachments/assets/ca71c488-6375-4a0d-ab00-8a044c77b7f3" style="width:300px;"> |
+| <img src="https://github.com/user-attachments/assets/9f910608-89e0-420f-a538-e262517c4708" style="width:300px;"> | <img src="https://github.com/user-attachments/assets/ca71c488-6375-4a0d-ab00-8a044c77b7f3" style="width:300px;"> |
 
 <br />
 
@@ -99,13 +109,13 @@
 
 - 감정 다이어리 작성/수정 기능 제공
 - 기본 제공 팔레트의 색상을 선택하여도 되고, 사용자가 커스텀으로 색상을 선택하는 것도 가능
-- 태그 입력창에 #00 형식으로 감정 키워드 입력 후 Enter를 통해 감정 태그 작성
+- 태그 입력창에 감정 키워드 입력 후 Enter를 통해 감정 태그 작성
 - 간단한 일기와 함께 이미지 추가도 가능
 - 사용자가 오늘의 감정을 파악하기 힘든 경우, '나의 감정 확인하기' 버튼을 통해 감정 테스트 페이지로 이동시켜 감정 테스트 진행
 
-| 작성 페이지                                                                                                      |
-| ---------------------------------------------------------------------------------------------------------------- |
-| <img src="https://github.com/user-attachments/assets/a2814dfe-7cd9-4c04-87f8-dbe840c736ce" style="width:300px;"> |
+| 작성 페이지                                                                                                      | 수정 페이지                                                                                                      |
+| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| <img src="https://github.com/user-attachments/assets/a2814dfe-7cd9-4c04-87f8-dbe840c736ce" style="width:300px;"> | <img src="https://github.com/user-attachments/assets/0942895f-3e16-475a-971f-ae7dd963e2bb" style="width:300px;"> |
 
 <br />
 
@@ -115,10 +125,11 @@
 - 다이어리 작성 시 선택했던 오늘의 색상이 일기 조회 페이지의 배경색으로 표시
 - 수정하기/삭제하기 버튼을 통해 수정/삭제 기능 제공
 - 사용자는 본인이 작성한 일기만 조회 가능
+- 회원은 스티커로 다이어리 꾸미기 기능 사용 가능
 
-| 조회 페이지 (이미지O)                                                                                            | 조회 페이지 (이미지 X)                                                                                           |
-| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| <img src="https://github.com/user-attachments/assets/6518ea22-8c29-4402-bdee-1eaff383e57d" style="width:300px;"> | <img src="https://github.com/user-attachments/assets/36445376-3740-4009-a0da-825b938296cd" style="width:300px;"> |
+| 조회 페이지 (이미지O)                                                                                            | 조회 페이지 (이미지 X)                                                                                           | 조회 페이지(회원)                                                                                                |
+| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| <img src="https://github.com/user-attachments/assets/6518ea22-8c29-4402-bdee-1eaff383e57d" style="width:300px;"> | <img src="https://github.com/user-attachments/assets/36445376-3740-4009-a0da-825b938296cd" style="width:300px;"> | <img src="https://github.com/user-attachments/assets/44225a84-d058-4521-9f4b-e33e1f069d19" style="width:300px;"> |
 
 <br />
 

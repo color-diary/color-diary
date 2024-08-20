@@ -1,5 +1,3 @@
-import React from 'react';
-
 const NaSticker = () => {
   return (
     <div className="w-38px-row-m h-18px-col-m  md:w-45px-row md:h-20px-col">
@@ -12,5 +10,7 @@ const NaSticker = () => {
     </div>
   );
 };
+
+NaSticker.displayName = 'NaSticker';
 
 export default NaSticker;

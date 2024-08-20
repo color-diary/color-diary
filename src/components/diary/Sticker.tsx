@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import Draggable from 'react-draggable';
 import XIconBlack from './assets/XIconBlack';
 
@@ -32,7 +31,6 @@ const Sticker: React.FC<StickerProps> = ({ sticker, onDelete, onPositionChange, 
             <XIconBlack />
           </button>
         )}
-
         <div className="aspect-ratio">{sticker.component}</div>
       </div>
     </Draggable>

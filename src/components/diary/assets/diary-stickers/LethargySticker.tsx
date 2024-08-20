@@ -1,5 +1,3 @@
-import React from 'react';
-
 const LethargySticker = () => {
   return (
     <svg
@@ -60,5 +58,7 @@ const LethargySticker = () => {
     </svg>
   );
 };
+
+LethargySticker.displayName = 'LethargySticker';
 
 export default LethargySticker;

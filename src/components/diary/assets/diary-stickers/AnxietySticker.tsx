@@ -1,5 +1,3 @@
-import React from 'react';
-
 const AnxietySticker = () => {
   return (
     <svg
@@ -128,5 +126,7 @@ const AnxietySticker = () => {
     </svg>
   );
 };
+
+AnxietySticker.displayName = 'AnxietySticker';
 
 export default AnxietySticker;

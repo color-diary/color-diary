@@ -1,5 +1,3 @@
-import React from 'react';
-
 const SadnessSticker = () => {
   return (
     <svg
@@ -74,5 +72,7 @@ const SadnessSticker = () => {
     </svg>
   );
 };
+
+SadnessSticker.displayName = 'SadnessSticker';
 
 export default SadnessSticker;

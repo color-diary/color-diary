@@ -1,5 +1,3 @@
-import React from 'react';
-
 const HopeSticker = () => {
   return (
     <svg width="38" height="24" viewBox="0 0 185 180" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -151,5 +149,7 @@ const HopeSticker = () => {
     </svg>
   );
 };
+
+HopeSticker.displayName = 'HopeSticker';
 
 export default HopeSticker;
