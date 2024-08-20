@@ -19,7 +19,7 @@ import '../main/dateInput.css';
 import Stamp from '../main/Stamp';
 import PrevYearIcon from '../main/assets/PrevYearIcon';
 import NextYearIcon from '../main/assets/NextYearIcon';
-import CloseIcon from '../main/assets/closeIcon';
+import CloseIcon from '../main/assets/CloseIcon';
 
 export type CalendarProps = ComponentProps<typeof DayPicker> & {
   diaryList: DiaryList;
