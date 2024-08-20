@@ -114,11 +114,9 @@ const Test = () => {
                 <li
                   key={`${step + 1}-${index}`}
                   className="w-full flex justify-between items-center px-16px-row-m py-4px-col-m md:px-16px-row md:py-4px-col gap-8px-row-m md:gap-8px-row text-font-color hover:text-default transition cursor-pointer"
+                  onClick={() => handleSelectAnswer(option.value, option.sentiment, option.points)}
                 >
-                  <span
-                    onClick={() => handleSelectAnswer(option.value, option.sentiment, option.points)}
-                    className="w-full text-start text-14px-m md:text-18px font-normal tracking-0.28px md:tracking-0.36px"
-                  >
+                  <span className="w-full text-start text-14px-m md:text-18px font-normal tracking-0.28px md:tracking-0.36px">
                     {option.label}
                   </span>
                   <span className="w-5 h-5 md:w-20px-row md:h-20px-col">

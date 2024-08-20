@@ -35,9 +35,9 @@ const ColorPicker = () => {
         setValue('showRainbow', true);
       }
     } else if (hasTestResult && testResult) {
-      setValue('pickedColor', testResult.result.color);
+      setValue('pickedColor', color);
       setValue('showRainbow', false);
-      setValue('customColor', testResult.result.color);
+      setValue('customColor', color);
     }
   }, [isDiaryEditMode, color, testResult, setValue]);
 
