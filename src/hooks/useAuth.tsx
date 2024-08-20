@@ -6,7 +6,8 @@ import { useQuery } from '@tanstack/react-query';
 const useAuth = () => {
   const { data: user, isLoading } = useQuery({
     queryKey: ['user'],
-    queryFn: fetchUser
+    queryFn: fetchUser,
+    refetchOnWindowFocus: true
   });
 
   return { user, isLoading };
