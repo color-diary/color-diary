@@ -114,7 +114,7 @@ const DiaryContainer = () => {
   const [isDeleteVisible, setIsDeleteVisible] = useState(false);
 
   const handleStickerSelect = (sticker: Omit<StickerType, 'position'>) => {
-    setStickers([...stickers, { ...sticker, id: uuidv4(), position: { x: 200, y: 200 } }]);
+    setStickers([...stickers, { ...sticker, id: uuidv4(), position: { x: 130, y: 160 } }]);
 
     setIsPickerVisible(false);
   };
