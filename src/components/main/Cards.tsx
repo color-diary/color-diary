@@ -11,7 +11,7 @@ import PlusDiaryIcon from './assets/PlusDiaryIcon';
 interface CardsProps {
   isCalendar: boolean;
   setDate: Dispatch<SetStateAction<Date>>;
-  handleInputDate: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleInputDate: (e: any, calendarYear: number) => void;
   date: Date;
   diaryList: DiaryList;
   isNeedNew: boolean;
@@ -60,7 +60,7 @@ const Cards = ({ diaryList, isCalendar, date, setDate, handleInputDate, isNeedNe
                     route.push(`/diaries/${diary.diaryId}?form=cards&YYMM=${searchParams.get('YYMM')}`);
                   }}
                   style={{ backgroundColor: `${diary.color}` }}
-                  className="min-w-160px-row-m min-h-88px-col-m md:min-w-0 md:min-h-0 w-160px-row-m md:w-168px-row h-88px-col md:h-102px-col rounded-lg md:rounded-3xl overflow-hidden border md:border-2 border-[#E6D3BC]"
+                  className="min-w-160px-row-m min-h-88px-col-m md:min-w-0 md:min-h-0 w-160px-row-m md:w-168px-row h-88px-col md:h-102px-col rounded-lg md:rounded-3xl overflow-hidden border md:border-2 border-[#E6D3BC] cursor-pointer"
                 >
                   <div className="flex justify-between px-16px-row-m md:px-24px-row py-4px-col-m md:py-8px-col bg-white">
                     <div className="text-12px-m md:text-16px">{new Date(diary.date).getDate()}일</div>
@@ -76,7 +76,7 @@ const Cards = ({ diaryList, isCalendar, date, setDate, handleInputDate, isNeedNe
                     `/diaries/write/${formatFullDate(String(today))}?form=cards&YYMM=${searchParams.get('YYMM')}`
                   );
                 }}
-                className="flex flex-col min-w-160px-row-m min-h-88px-col-m md:min-w-0 md:min-h-0 w-160px-row-m md:w-168px-row h-88px-col md:h-102px-col rounded-lg md:rounded-3xl overflow-hidden border md:border-2 border-[#E6D3BC] bg-white shadow-[0_0_10px_0_#F1A027]"
+                className="flex flex-col min-w-160px-row-m min-h-88px-col-m md:min-w-0 md:min-h-0 w-160px-row-m md:w-168px-row h-88px-col md:h-102px-col rounded-lg md:rounded-3xl overflow-hidden border md:border-2 border-[#E6D3BC] bg-white shadow-[0_0_10px_0_#F1A027] cursor-pointer"
               >
                 <div className="inline-flex px-16px-row-m md:px-24px-row py-4px-col-m md:py-8px-col text-12px-m md:text-16px">
                   {today.getDate()}일

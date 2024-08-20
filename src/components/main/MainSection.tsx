@@ -2,7 +2,7 @@
 
 import { Diary, DiaryList } from '@/types/diary.type';
 import { formatFullDate } from '@/utils/dateUtils';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ChangeEvent, useEffect, useState } from 'react';
@@ -21,6 +21,7 @@ import Cards from './Cards';
 const MainSection = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+
   const makeQueryString = (form: String, date: Date) => {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
@@ -44,6 +45,7 @@ const MainSection = () => {
     Number(searchParams.get('YYMM')?.slice(4, 6)) - 1,
     1
   );
+
   const today = new Date();
   const todayYYMM = makeQueryString('YYMM', today) as number;
 
@@ -122,8 +124,8 @@ const MainSection = () => {
     setForm(name);
   };
 
-  const handleInputDate = (e: ChangeEvent<HTMLInputElement>): void => {
-    const date = new Date(e.target.value);
+  const handleInputDate = (e: any, calendarYear: number): void => {
+    const date = new Date(calendarYear, Number(e.target.id) - 1, 1);
     if (date) {
       setDate(date);
     }
