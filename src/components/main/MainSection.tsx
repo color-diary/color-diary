@@ -1,14 +1,15 @@
 'use client';
 
+import axios from 'axios';
+import useAuth from '../../hooks/useAuth';
+import Cards from './Cards';
 import { Diary, DiaryList } from '@/types/diary.type';
 import { formatFullDate } from '@/utils/dateUtils';
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { ChangeEvent, useEffect, useState } from 'react';
-import useAuth from '../../hooks/useAuth';
-import Button from '../common/Button';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { Calendar } from '../ui/calendar';
+import Button from '../common/Button';
 import BackTodayIcon from './assets/BackTodayIcon';
 import BluredCalendarIcon from './assets/BluredCalendarIcon';
 import BluredCardsIcon from './assets/BluredCardsIcon';
@@ -16,57 +17,21 @@ import FocusedCalendarIcon from './assets/FocusedCalendarIcon';
 import FocusedCardsIcon from './assets/FocusedCardsIcon';
 import GoEmotionTestIcon from './assets/GoEmotionTestIcon';
 import SeparatorIcon from './assets/SeparatorIcon';
-import Cards from './Cards';
+import useMakeQueryString from '@/hooks/useMakeQueryString';
+import useGetInitialValue from '@/hooks/useGetInitialValue';
 
 const MainSection = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const makeQueryString = (form: String, date: Date) => {
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    if (form === 'YYMM') {
-      if (String(date.getMonth() + 1).length === 1) {
-        return Number(String(year) + String(0) + String(month));
-      } else {
-        return Number(String(year) + String(month));
-      }
-    } else {
-      if (String(date.getMonth() + 1).length === 1) {
-        setQueryString(`?form=${form}&YYMM=${String(year) + String(0) + String(month)}`);
-      } else {
-        setQueryString(`?form=${form}&YYMM=${String(year) + String(month)}`);
-      }
-    }
-  };
-
-  const newDate = new Date(
-    Number(searchParams.get('YYMM')?.slice(0, 4)),
-    Number(searchParams.get('YYMM')?.slice(4, 6)) - 1,
-    1
-  );
-
   const today = new Date();
-  const todayYYMM = makeQueryString('YYMM', today) as number;
-
-  const getInitialValue = (type: string) => {
-    if (type === 'date') {
-      return searchParams.get('YYMM') ? newDate : today;
-    }
-    if (type === 'form') {
-      return searchParams.get('form') ? searchParams.get('form') : 'calendar';
-    }
-  };
-
-  const [queryString, setQueryString] = useState<string>();
+  const router = useRouter();
+  const { user, isLoading } = useAuth();
+  const getInitialValue = useGetInitialValue();
+  const { queryString, makeQueryString } = useMakeQueryString();
   const [date, setDate] = useState<Date>(getInitialValue('date') as Date);
   const [form, setForm] = useState<String>(getInitialValue('form') as string);
   const [isNeedNew, setIsNeedNew] = useState<boolean>(false);
-
+  const todayYYMM = makeQueryString('YYMM', today) as number;
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
-
-  const { user, isLoading } = useAuth();
 
   const diaries = useQuery<DiaryList>({
     queryKey: ['diaries', 'main', year, month],

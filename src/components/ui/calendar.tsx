@@ -105,17 +105,20 @@ function Calendar({
         }}
         components={{
           Caption: ({ ...props }) => {
+            const MONTHS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
             const [calendarYear, setCalendarYear] = useState<number>(month.getFullYear());
             const [isOpenChangeDate, setIsOpenChangeDate] = useState<boolean>(false);
-            const MONTHS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+
             const goPrevMonth = () => {
               if (!month || !onMonthChange) return;
               onMonthChange(new Date(month.setMonth(month.getMonth() - 1)));
             };
+
             const goNextMonth = () => {
               if (!month || !onMonthChange) return;
               onMonthChange(new Date(month.setMonth(month.getMonth() + 1)));
             };
+
             return (
               <div className="anchor py-12px-col-m md:py-24px-col cursor-pointer">
                 <div className="flex items-center justify-center">
@@ -131,10 +134,10 @@ function Calendar({
                         {month.getFullYear()}년 {month.getMonth() + 1}월
                       </p>
                       {isOpenChangeDate && (
-                        <div className="absolute top-[4rem] bg-[#fff] border-4 border-[#E6D3BC] px-32px-row-m md:px-32px-row rounded-[32px] text-14px-m md:text-18px">
+                        <div className="absolute top-[4rem] bg-[#fff] border-4 border-[#E6D3BC] px-32px-row-m md:px-32px-row rounded-[32px] text-14px-m md:text-18px w-300px-row-m md:min-w-[380px] md:w-540px-row">
                           <button
                             onClick={() => setIsOpenChangeDate(false)}
-                            className="absolute top-4 right-4 md:right-6 opacity-70"
+                            className="absolute top-4 right-4 md:right-24px-row opacity-70"
                           >
                             <CloseIcon />
                           </button>
