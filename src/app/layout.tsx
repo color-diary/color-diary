@@ -1,22 +1,49 @@
+import ChannelTalk from '@/components/common/ChannelTalk';
+import Header from '@/components/common/Header';
+import Landing from '@/components/common/Landing';
+import NavigationBar from '@/components/common/NavigationBar';
+import { ModalProvider } from '@/providers/modal.context';
+import QueryProvider from '@/providers/ReactQueryClientProvider';
+import { ToastProvider } from '@/providers/toast.context';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import localFont from 'next/font/local';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
-
 export const metadata: Metadata = {
-  title: 'color-inside',
-  description: 'coloring your feeling'
+  title: 'Color Inside',
+  description: 'coloring your feeling',
+  icons: {
+    icon: '/icon.svg'
+  }
 };
 
-export default function RootLayout({
-  children
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+const pretendard = localFont({
+  src: '../fonts/PretendardVariable.woff2',
+  display: 'swap',
+  weight: '45 920',
+  variable: '--font-pretendard'
+});
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <head>
+        <script src="https://developers.kakao.com/sdk/js/kakao.js" async></script>
+      </head>
+      <body className={`${pretendard.variable} font-pretendard`}>
+        <QueryProvider>
+          <ToastProvider>
+            <ModalProvider>
+              <Header />
+              <NavigationBar />
+              <ChannelTalk />
+              <Landing>
+                <div className="pt-12 pb-16 h-auto md:pt-0 md:pb-0">{children}</div>
+              </Landing>
+            </ModalProvider>
+          </ToastProvider>
+        </QueryProvider>
+      </body>
     </html>
   );
 }

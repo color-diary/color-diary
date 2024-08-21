@@ -1,3 +1,9 @@
+import MainSection from '@/components/main/MainSection';
+import { Suspense } from 'react';
 export default function MainPage() {
-  return <main>컬러인사이드 화이팅</main>;
+  return (
+    <Suspense>
+      <MainSection />
+    </Suspense>
+  );
 }
