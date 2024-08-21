@@ -293,17 +293,30 @@ const DiaryContainer = () => {
     router.push(`/diaries/edit/${diaryId}`);
   };
 
-  const confirmDelete = (): void => {
-    if (userId) {
-      deleteMutation.mutate();
-    } else {
-      deleteFromLocal(diaryId);
-      toast.on({ label: '다이어리가 삭제되었습니다' });
+  const confirmDelete = async (): Promise<void> => {
+    try {
+      if (userId) {
+        if (stickers.length > 0) {
+          const { error: deleteStickersError } = await supabase.from('diaryStickers').delete().eq('diaryId', diaryId);
 
-      router.replace(`/?form=${form}&YYMM=${YYMM}`);
+          if (deleteStickersError) {
+            throw deleteStickersError;
+          }
+        }
+
+        await deleteMutation.mutateAsync();
+      } else {
+        deleteFromLocal(diaryId);
+        toast.on({ label: '다이어리가 삭제되었습니다' });
+
+        router.replace(`/?form=${form}&YYMM=${YYMM}`);
+      }
+    } catch (error) {
+      console.error('Error deleting diary or stickers:', error);
+      toast.on({ label: '삭제 중 오류가 발생했습니다.' });
+    } finally {
+      modal.close();
     }
-
-    modal.close();
   };
 
   const handleDelete = (): void => {
